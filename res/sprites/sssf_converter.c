@@ -2,13 +2,11 @@
 #include <fileio.h>
 
 typedef struct{
-    uint32_t colors;
-    uint32_t * palette;
-    uint16_t width, height;
-    uint8_t * byte_map;
-}sssf;
+    uint32_t frames;
+    uint32_t * frame_offset;
+}sssf_header;
 
-sssf image;
+sssf_header header;
 FILE *fp;
 
 int main(int argc, char **argv){
@@ -21,7 +19,7 @@ int main(int argc, char **argv){
 
     FILE * cursor = fp;
 
-    fread(&image.colors, sizeof(uint32_), 1, cursor);
+    fread(&header.frames, sizeof(uint32_), 1, cursor);
     fseek(cursor, 12, SEEK_SET);
 
 }
