@@ -79,16 +79,11 @@ int main(int argc, char **argv){
         printf("in goes %d,%d,%d,%d\r\n", old_color[RED], old_color[GREEN], old_color[BLUE], old_color[INDEX]);
 
         for(int j = 0; j < 3; j++){
-            new_color[j] = old_color[j] >> 8;
+            old_color[j] + swap_endian_16(old_color[j]);
+            new_color[j] = old_color[j] / 256;
         }
 
         printf("out goes %d,%d,%d,%d\r\n", new_color[RED], new_color[GREEN], new_color[BLUE], new_color[INDEX]);
-
-        /*
-        for(int j = 0; j < 3; j++){
-            new_color[j] = swap_endian_16(new_color[j]);
-        }
-*/
 
         for(int j = 0; j < 3; j++){
 
