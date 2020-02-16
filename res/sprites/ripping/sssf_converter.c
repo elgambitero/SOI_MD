@@ -76,7 +76,6 @@ int main(int argc, char **argv){
         fread(&(current_frame.h_length), sizeof(uint32_t), 1, fin);
         current_frame.h_length = swap_endian_32(current_frame.h_length);
 
-        current_frame.pixel_skip = (uint8_t*) malloc(sizeof(uint8_t) * current_frame.h_length);
 
         printf("Extracting frame number: %d\r\n", i);
 
@@ -86,6 +85,31 @@ int main(int argc, char **argv){
         printf("frame header size is %d\r\n", current_frame.h_length);
 
 
+        current_frame.pixel_skip = 
+            (uint8_t*) malloc(sizeof(uint8_t) * (current_frame.h_length - 12));
+
+        for(uint32_t j = 0; j < (current_frame.h_length - 12); j++){
+            fread(current_frame.pixel_skip + j, sizeof(uint8_t), 1, fin);
+        }
+
+        uint32_t skipsum, count;
+        skipsum = 0;
+        count = 0;
+
+        for(uint32_t j = 0; j < (current_frame.h_length - 12); j++){
+            skipsum += *(current_frame.pixel_skip + j);
+            count++;
+            if(skipsum == current_frame.width * current_frame.width){
+                break;
+            }
+            if(skipsum > current_frame.width * current_frame.width){
+                skipsum = 0;
+                break;
+            }
+        }
+
+        if(skipsum) printf("and it's frame skips get even at %d\r\n", count);
+        else printf("and it's frame EXCEEDS at %d\r\n", count);
 
         free(current_frame.pixel_skip);
 
