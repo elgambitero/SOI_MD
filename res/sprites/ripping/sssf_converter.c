@@ -18,6 +18,7 @@ typedef struct{
 }SOI_Frame;
 
 Sssf_Header header;
+SOI_Frame current_frame;
 FILE *fin;
 FILE *fpalette;
 FILE *fout;
@@ -54,10 +55,41 @@ int main(int argc, char **argv){
 
     for(uint32_t i = 0; i < header.frames; i++){
         printf("%04X, ",*(header.frame_offset + i));
-        if(i%8 == 0) printf("\r\n");
+        if( (i + 1) % 8 == 0 ) printf("\r\n");
     }
 
     printf("\r\n");
+
+    for(uint32_t i = 0; i < header.frames; i++){
+
+        printf("============\r\n");
+
+        fseek(fin, *(header.frame_offset + i), SEEK_SET);
+
+        fread(&(current_frame.width), sizeof(uint16_t), 1, fin);
+        current_frame.width = swap_endian_16(current_frame.width);
+        fread(&(current_frame.height), sizeof(uint16_t), 1, fin);
+        current_frame.height = swap_endian_16(current_frame.height);
+
+        fseek(fin, sizeof(uint32_t), SEEK_CUR);
+
+        fread(&(current_frame.h_length), sizeof(uint32_t), 1, fin);
+        current_frame.h_length = swap_endian_32(current_frame.h_length);
+
+        current_frame.pixel_skip = (uint8_t*) malloc(sizeof(uint8_t) * current_frame.h_length);
+
+        printf("Extracting frame number: %d\r\n", i);
+
+        printf("with width: %d, and height: %d\r\n", 
+            current_frame.width, current_frame.height);
+
+        printf("frame header size is %d\r\n", current_frame.h_length);
+
+
+
+        free(current_frame.pixel_skip);
+
+    }
 
     fclose(fin);
     free(header.frame_offset);
