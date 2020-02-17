@@ -171,7 +171,7 @@ int main(int argc, char **argv){
             (uint8_t*) malloc( (current_frame.width * current_frame.height) * sizeof(uint8_t) );
         
         for(int k = 0; k < byte_size; k++){
-            *(invert + k) = *(current_frame.pixel + byte_size - k);
+            *(invert + k) = *(current_frame.pixel + byte_size - 1 - k);
         }
 
         for(int k = 0; k < byte_size; k++){
@@ -179,9 +179,9 @@ int main(int argc, char **argv){
         }
 
         free(invert);
-
+        
         sprintf(filename, "%s", argv[3]);
-        sprintf(filename + strlen(filename), "%04X.bmp", i);
+        sprintf(filename + strlen(filename), "%d.bmp", i);
 
         printf("Opening %s\r\n", filename);
 
