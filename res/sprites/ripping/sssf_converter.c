@@ -150,6 +150,7 @@ int main(int argc, char **argv){
         int painting = 0;
         int px_count = 0;
         int k = 0;
+        uint32_t byte_size = current_frame.width * current_frame.height;
 
         for(uint32_t j = 0; j < count; j++){
             px_count = *(current_frame.pixel_skip + j);
@@ -164,6 +165,20 @@ int main(int argc, char **argv){
             }
             painting = !painting;
         }
+
+        uint8_t * invert;
+        invert =
+            (uint8_t*) malloc( (current_frame.width * current_frame.height) * sizeof(uint8_t) );
+        
+        for(int k = 0; k < byte_size; k++){
+            *(invert + k) = *(current_frame.pixel + byte_size - k);
+        }
+
+        for(int k = 0; k < byte_size; k++){
+            *(current_frame.pixel + k) = *(invert + k);
+        }
+
+        free(invert);
 
         sprintf(filename, "%s", argv[3]);
         sprintf(filename + strlen(filename), "%04X.bmp", i);
