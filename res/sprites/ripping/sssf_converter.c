@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <string.h>
 
-#define FILENAME_BUF 256
+#define FILENAME_BUF 1024
+
+#define PX_BLANK 0
 
 typedef struct{
     uint32_t frames;
@@ -99,19 +102,49 @@ int main(int argc, char **argv){
         for(uint32_t j = 0; j < (current_frame.h_length - 12); j++){
             skipsum += *(current_frame.pixel_skip + j);
             count++;
-            if(skipsum == current_frame.width * current_frame.width){
+            if(skipsum == current_frame.width * current_frame.height){
                 break;
             }
-            if(skipsum > current_frame.width * current_frame.width){
+            if(skipsum > current_frame.width * current_frame.height){
                 skipsum = 0;
                 break;
             }
         }
 
         if(skipsum) printf("and it's frame skips get even at %d\r\n", count);
-        else printf("and it's frame EXCEEDS at %d\r\n", count);
+        else{ printf("and it's frame EXCEEDS at %d", count); return 1;}
+        printf(", with %d remaining.\r\n", current_frame.h_length - 12 - count );
+
+        current_frame.pixel = 
+            (uint8_t*) malloc( (current_frame.width * current_frame.height) * sizeof(uint8_t) );
+
+        int painting = 0;
+        int px_count = 0;
+        int k = 0;
+
+        for(uint32_t j = 0; j < count; j++){
+            px_count = *(current_frame.pixel_skip + j);
+            while(px_count){
+                if(painting){
+                    fread(current_frame.pixel + k, sizeof(uint8_t), 1, fin);
+                }else{
+                    *(current_frame.pixel + k) = PX_BLANK;
+                }
+                px_count--;
+                k++;
+            }
+            painting = !painting;
+        }
+
+        fpalette = fopen(argv[2], "r");
+
+        sprintf(filename, "%s", argv[3]);
+        sprintf(filename + strlen(filename), "%04X.bmp", i);
+
+        printf("Opening %s\r\n", filename);
 
         free(current_frame.pixel_skip);
+        free(current_frame.pixel);
 
     }
 
