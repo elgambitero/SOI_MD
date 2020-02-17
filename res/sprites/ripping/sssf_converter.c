@@ -5,7 +5,9 @@
 
 #define FILENAME_BUF 1024
 
-#define PX_BLANK 0
+#define PAL_SIZE 256
+
+#define PX_BLANK 255
 
 typedef struct{
     uint32_t frames;
@@ -20,8 +22,29 @@ typedef struct{
     uint8_t * pixel;
 }SOI_Frame;
 
+typedef struct{
+    char head[2];
+    uint32_t filesize;
+    uint32_t px_offset;
+}BMP_header;
+
+typedef struct{
+    uint32_t size;
+    int32_t width;
+    int32_t height;
+    uint16_t planes;
+    uint16_t bit_count;
+    uint32_t compression;
+    uint32_t byte_size;
+    uint32_t x_px_meter;
+    uint32_t y_px_meter;
+    uint32_t colors_used;
+    uint32_t colors_important;
+}DIB_header;
+
 Sssf_Header header;
 SOI_Frame current_frame;
+uint32_t palette[PAL_SIZE];
 FILE *fin;
 FILE *fpalette;
 FILE *fout;
@@ -62,6 +85,12 @@ int main(int argc, char **argv){
     }
 
     printf("\r\n");
+
+
+    fpalette = fopen(argv[2], "r");
+    if(!fpalette) {printf("FAILED TO OPEN PALETTE\r\n"); return 1;}
+
+    fread(palette, sizeof(uint32_t), PAL_SIZE, fpalette);
 
     for(uint32_t i = 0; i < header.frames; i++){
 
@@ -136,19 +165,67 @@ int main(int argc, char **argv){
             painting = !painting;
         }
 
-        fpalette = fopen(argv[2], "r");
-
         sprintf(filename, "%s", argv[3]);
         sprintf(filename + strlen(filename), "%04X.bmp", i);
 
         printf("Opening %s\r\n", filename);
 
+        fout = fopen(filename, "w");
+        if(!fout) {printf("FAILED TO CREATE BMP\r\n"); return 1;}
+
+        BMP_header bmp_header;
+
+        bmp_header.head[0] = 'B';
+        bmp_header.head[1] = 'M';
+        bmp_header.filesize = current_frame.width * current_frame.height +
+        0x400 + 0x076;
+        bmp_header.px_offset 
+            = bmp_header.filesize - current_frame.width * current_frame.height;
+
+        DIB_header dib_header;
+
+        dib_header.size = 108;
+        dib_header.width = current_frame.width;
+        dib_header.height = current_frame.height;
+        dib_header.planes = 1;
+        dib_header.bit_count = 8;
+        dib_header.compression = 0;
+        dib_header.byte_size = current_frame.width * current_frame.height;
+        dib_header.x_px_meter = 0xb13;
+        dib_header.y_px_meter = 0xb13;
+        dib_header.colors_used = PAL_SIZE - 1;
+        dib_header.colors_important = PAL_SIZE - 1;
+
+        printf("Headers ready\r\n");
+
+        fwrite(&(bmp_header.head), sizeof(char), 2, fout);
+        fwrite(&(bmp_header.filesize), sizeof(uint32_t), 1, fout);
+        for (int k = 0; k < 4; k++) fwrite("\0", sizeof(uint8_t), 1, fout);
+        fwrite(&(bmp_header.px_offset), sizeof(uint32_t), 1, fout);
+
+        printf("BMP header done\r\n");
+
+        fwrite(&(dib_header), sizeof(DIB_header), 1, fout);
+
+        printf("DIB header done\r\n");
+
+        for (int k = 0; k < 0x44; k++) fwrite("\0", sizeof(uint8_t), 1, fout);
+
+        printf("padding done \r\n");
+        
+        fwrite(palette, sizeof(uint32_t), PAL_SIZE - 1, fout);
+
+        fwrite(current_frame.pixel, sizeof(uint8_t), 
+            current_frame.width * current_frame.height, fout);
+
+        fclose(fout);
         free(current_frame.pixel_skip);
         free(current_frame.pixel);
 
     }
 
     fclose(fin);
+    fclose(fpalette);
     free(header.frame_offset);
 
 }
