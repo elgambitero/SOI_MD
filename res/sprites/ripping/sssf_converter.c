@@ -197,7 +197,7 @@ int main(int argc, char **argv){
         bmp_header.head[0] = 'B';
         bmp_header.head[1] = 'M';
         bmp_header.filesize = current_frame.width * current_frame.height +
-        0x400 + 0x076;
+        0x400 + 0x07A;
         bmp_header.px_offset 
             = bmp_header.filesize - current_frame.width * current_frame.height;
 
@@ -212,8 +212,8 @@ int main(int argc, char **argv){
         dib_header.byte_size = current_frame.width * current_frame.height;
         dib_header.x_px_meter = 0xb13;
         dib_header.y_px_meter = 0xb13;
-        dib_header.colors_used = PAL_SIZE - 1;
-        dib_header.colors_important = PAL_SIZE - 1;
+        dib_header.colors_used = PAL_SIZE;
+        dib_header.colors_important = PAL_SIZE;
 
         printf("Headers ready\r\n");
 
@@ -233,6 +233,7 @@ int main(int argc, char **argv){
         printf("padding done \r\n");
         
         fwrite(palette, sizeof(uint32_t), PAL_SIZE - 1, fout);
+        for (int k = 0; k < 4; k++) fwrite("\0", sizeof(uint8_t), 1, fout);
 
         fwrite(current_frame.pixel, sizeof(uint8_t), 
             current_frame.width * current_frame.height, fout);
