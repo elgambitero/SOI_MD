@@ -7,6 +7,8 @@
 
 #define PAL_SIZE 256
 
+#define RSRC_OFFSET 0x156
+
 #define PX_BLANK 255
 
 typedef struct{
@@ -62,6 +64,8 @@ int main(int argc, char **argv){
 
     fin = fopen(argv[1],"r");
 
+    fseek(fin, RSRC_OFFSET, SEEK_SET);
+
     fread(&header.frames, sizeof(uint32_t), 1, fin);
     fseek(fin, 8, SEEK_CUR);
 
@@ -96,7 +100,7 @@ int main(int argc, char **argv){
 
         printf("============\r\n");
 
-        fseek(fin, *(header.frame_offset + i), SEEK_SET);
+        fseek(fin, *(header.frame_offset + i) + RSRC_OFFSET, SEEK_SET);
 
         fread(&(current_frame.width), sizeof(uint16_t), 1, fin);
         current_frame.width = swap_endian_16(current_frame.width);
