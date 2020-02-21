@@ -9,10 +9,12 @@
 #define BOARD_Y 13
 #define BOARD_BUFFER BOARD_X*BOARD_Y
 
-typedef struct{
-    u8 front_blocks[BOARD_BUFFER],
-    u8 back_blocks[BOARD_BUFFER],
-    Actor * actors
+typedef struct Board{
+    u8 front_blocks[BOARD_BUFFER];
+    u8 back_blocks[BOARD_BUFFER];
+    Actor * actors;
 } Board;
+
+u8 loadBoard(Board * board, const Board * level);
 
 #endif

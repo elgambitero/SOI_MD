@@ -11,15 +11,15 @@ enum Status{
     JUMPING,
     FALLING,
     DYING
-}
+};
 
-typedef struct{
-    const Entity * character,
-    Status status,
+typedef struct Actor{
+    const Entity * character;
+    enum Status status;
     u16 pos[2];
-    u8 speed[2],
-    Sprite * sprite
-    Actor * next
+    u8 speed[2];
+    Sprite * sprite;
+    struct Actor * next;
 }Actor;
 
 u8 initActors();

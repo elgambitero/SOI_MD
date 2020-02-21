@@ -8,11 +8,12 @@
 #define SIZE_X(size) (size && B00001111)
 #define SIZE_Y(size) (size >> 4)
 
-typedef struct{
-    u8 attributes,
-    u8 size,
-    Palette * palette,
-    SpriteDefinition * sprite_def
+
+typedef struct Entity{
+    u8 attr;
+    u8 size;
+    Palette * palette;
+    SpriteDefinition * sprite_def;
 }Entity;
 
 #define PLAYER       0
@@ -30,13 +31,10 @@ typedef struct{
 #define INMOVILE     B00101000
 #define IS_BLOCK     B00111000
 
-#define NASTIE(attr) (attr >> 4)
+#define WHICH_NASTIE(attr) (attr >> 4)
 
 #define PROJECTILE     2
 #define CREATES_NASTIE B00001000
-
-#define LURKS          B00010000
-#define FLIES          B00100000
 
 
 #endif

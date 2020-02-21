@@ -2,6 +2,7 @@
 
 #include "gameplay.h"
 #include "sprites.h"
+#include "board.h"
 
 Sprite* spinner;
 Sprite* smiley;
