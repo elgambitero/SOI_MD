@@ -4,7 +4,6 @@
 
 #include "board.h"
 
-const * const Board levels[] = {&test_level};
 
 const Board test_level = {
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -39,5 +38,8 @@ const Board test_level = {
     
     0
 };
+
+
+const Board *levels[] = {&test_level};
 
 #endif

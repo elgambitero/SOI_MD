@@ -2,7 +2,7 @@
 
 #include "gameplay.h"
 #include "sprites.h"
-#include "board.h"
+#include "levels.h"
 
 Sprite* spinner;
 Sprite* smiley;
