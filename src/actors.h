@@ -33,8 +33,12 @@ u8 updateActors();
 #define WALK_LEFT 3
 #define RIGHT_TURN_LEFT 4
 #define LEFT_TURN_RIGHT 5
-#define ATTACK_LEFT 6
-#define ATTACK_RIGHT 7
+#define ATTACK_RIGHT 6
+#define ATTACK_LEFT 7
+
+#define JUMP_RIGHT 8
+#define JUMP_LEFT 9
+
 #define WALK_UP 8
 #define WALK_DOWN 9
 #define UP_TURN_DOWN 10
