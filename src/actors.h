@@ -35,12 +35,16 @@ u8 updateActors();
 
 #define STILL_RIGHT 6
 #define STILL_LEFT 7
-#define STL_RIGHT_TO_LEFT 8
-#define STL_LEFT_TO_RIGHT 9
-#define JUMP_RIGHT 10
-#define JUMP_LEFT 11
-#define JUMP_ATTK_RIGHT 12
-#define JUMP_ATTK_LEFT 13
+#define STL_TO_RIGHT 8
+#define STL_TO_LEFT 9
+#define STL_RIGHT_TO_LEFT 10
+#define STL_LEFT_TO_RIGHT 11
+#define RIGHT_TO_STL 12
+#define LEFT_TO_STL 13
+#define JUMP_RIGHT 14
+#define JUMP_LEFT 15
+#define JUMP_ATTK_RIGHT 16
+#define JUMP_ATTK_LEFT 17
 
 #define SLOW 4
 #define NORMAL 2
