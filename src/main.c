@@ -45,7 +45,6 @@ void game_init(){
     mainState = GAMEPLAY;
     gameState = GAMEINIT;
     
-    VDP_setPaletteColors(0, (u16*) palette_black, 64);
 
     SYS_enableInts();
 }

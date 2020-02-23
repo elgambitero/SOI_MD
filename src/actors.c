@@ -40,13 +40,20 @@ Actor * ACT_add(Actor * actor)
     result->next = NULL;
 
     memcpy(result, actor, sizeof(Actor));
+
+    result->sprite = MEM_alloc(sizeof(Sprite));
+    result->sprite =
+        SPR_addSprite(result->character->sprite_def,
+        result->pos[0], result->pos[1],
+        TILE_ATTR_FULL(PAL2,TRUE, FALSE, FALSE,TILE_USERINDEX));
+
     return result;
 }
 
 u8 ACT_remove(Actor * actor)
 {
     Actor * prev;
-    
+
     *actorFree++ = actor;
 
     prev = firstActor;
@@ -54,6 +61,8 @@ u8 ACT_remove(Actor * actor)
 
     if(prev){
         prev->next = actor->next;
+        releaseSprite(actor->sprite);
+        MEM_free(actor->sprite);
         return 1;
     }else{
         return 0;
@@ -71,7 +80,10 @@ void ACT_end(){
     
 }
 
+Actor * ACT_getFirst(){
+    return firstActor;
+}
 
 void ACT_update(){
-
+    SPR_update();
 }

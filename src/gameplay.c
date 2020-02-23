@@ -5,26 +5,27 @@
 
 Board board;
 
-void game_init();
+void gameInit();
 
 void gameplayLoop(){
     switch(gameState){
         case GAMEINIT:
             SYS_disableInts();
-
             gameInit();
+
 
             gameState = GAME;
             SYS_enableInts();
+
         break;
         case GAME:
             ACT_update();
-            SPR_update();
         break;
         case GAMEENDING:
 
         break;
         case GAMEEXIT:
+            /*
             VDP_clearPlan(PLAN_A, TRUE);
             VDP_clearPlan(PLAN_B, TRUE);
             VDP_clearPlan(PLAN_WINDOW, TRUE);
@@ -37,15 +38,18 @@ void gameplayLoop(){
 
             gameState = GAMEINIT;
             mainState = MAIN_MENU;
+            */
         break;
     }
 }
 
 void gameInit(){
     
+    SPR_init();
     if(!ACT_init()) gameState = GAMEEXIT;
     if(!load_board(&board, current_level)) gameState = GAMEEXIT;
-    SPR_init();
+
+    VDP_drawText("SOI test", 7, 5);
 
 
 }
