@@ -49,7 +49,14 @@ void gameInit(){
     if(!ACT_init()) gameState = GAMEEXIT;
     if(!load_board(&board, current_level)) gameState = GAMEEXIT;
 
-    VDP_drawText("SOI test", 7, 5);
+    VDP_drawText("Score", 0, 0);
+    VDP_drawText("00000000", 6, 0);
+    VDP_drawText("Bonus", 15, 0);
+    VDP_drawText("00000", 21, 0);
+    VDP_drawText("L:", 27, 0);
+    VDP_drawText("3", 29, 0);
+    VDP_drawText("Lvl", 33, 0);
+    VDP_drawText("001", 37, 0);
 
 
 }
