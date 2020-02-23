@@ -11,6 +11,7 @@
 typedef struct Entity{
     u16 attr;
     u8 size;
+    u8 palette;
     const SpriteDefinition * sprite_def;
 }Entity;
 

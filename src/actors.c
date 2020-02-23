@@ -45,8 +45,9 @@ Actor * ACT_add(Actor * actor)
     result->sprite =
         SPR_addSprite(result->character->sprite_def,
         result->pos[0], result->pos[1],
-        TILE_ATTR_FULL(PAL2,TRUE, FALSE, FALSE,TILE_USERINDEX));
+        TILE_ATTR_FULL(result->character->palette,TRUE, FALSE, FALSE,TILE_USERINDEX));
 
+    VDP_setPalette(result->character->palette, result->character->sprite_def->palette->data); //SHOULD BE DONE ELSEWHERE
     return result;
 }
 

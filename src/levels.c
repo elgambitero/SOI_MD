@@ -9,14 +9,34 @@ const Actor blp = {&blue_player_ent,
     0
     };
 
+const Actor spinner3 = {&spinner_ent,
+    0,
+    0,
+    {100, 50},
+    {0, 0},
+    0,
+    0
+    };
+
+const Actor spinner2 = {&spinner_ent,
+    0,
+    0,
+    {0, 104},
+    {0, 0},
+    0,
+    &spinner3
+    };
+
 const Actor spinner = {&spinner_ent,
     0,
     0,
     {152, 208},
     {0, 0},
     0,
-    0
+    &spinner2
     };
+
+
 
 const Board test_level = {
     {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
