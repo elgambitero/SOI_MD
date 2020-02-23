@@ -1,0 +1,1 @@
+IMAGE main_frame "stage/frame_test.bmp"
