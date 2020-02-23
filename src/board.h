@@ -3,7 +3,6 @@
 #define BOARD_H
 
 #include "actors.h"
-#include "blocks.h"
 
 #define BOARD_X 19
 #define BOARD_Y 13
@@ -15,6 +14,6 @@ typedef struct Board{
     Actor * actors;
 } Board;
 
-u8 loadBoard(Board * board, const Board * level);
+u8 load_board(Board * board, const Board * level);
 
 #endif

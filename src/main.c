@@ -2,6 +2,7 @@
 
 #include "states.h"
 #include "gameplay.h"
+#include "levels.h"
 
 #define PAL
 
@@ -38,6 +39,8 @@ void game_init(){
     JOY_init();
     JOY_setEventHandler( &myJoyHandler );
     VDP_setScreenWidth320();
+
+    current_level = &test_level;
 
     mainState = GAMEPLAY;
     gameState = GAMEINIT;

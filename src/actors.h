@@ -7,16 +7,18 @@
 typedef struct Actor{
     const Entity * character;
     u8 status;
+    u8 frames;
     u16 pos[2];
-    u8 speed[2];
+    s8 speed[2];
     Sprite * sprite;
     struct Actor * next;
 }Actor;
 
-u8 initActors();
-u8 addActor(Actor * actor);
-u8 removeActor(Actor * actor);
-u8 updateActors();
+u8 ACT_init();
+Actor * ACT_add(Actor * actor);
+u8 ACT_remove(Actor * actor);
+void ACT_update();
+void ACT_end();
 
 
 #define WALK_RIGHT 0
@@ -25,6 +27,8 @@ u8 updateActors();
 #define LEFT_TURN_RIGHT 3
 #define ATTACK_RIGHT 4
 #define ATTACK_LEFT 5
+#define FALL_RIGHT 6
+#define FALL_LEFT 7
 
 #define WALK_UP 6
 #define WALK_DOWN 7
