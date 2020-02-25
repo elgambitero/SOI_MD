@@ -39,8 +39,11 @@ Actor * ACT_add(Actor * actor)
     }
     
     Actor * result = *--actorFree;
-    if(lastActor) lastActor->next = result;
+    if(lastActor) {
+        lastActor->next = result;
+    }
     if(!firstActor) firstActor = result;
+    lastActor = result;
     result->next = NULL;
 
     memcpy(result, actor, sizeof(Actor));
