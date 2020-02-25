@@ -40,6 +40,7 @@ Actor * ACT_add(Actor * actor)
     
     Actor * result = *--actorFree;
     if(lastActor) lastActor->next = result;
+    if(!firstActor) firstActor = result;
     result->next = NULL;
 
     memcpy(result, actor, sizeof(Actor));
@@ -63,7 +64,10 @@ u8 ACT_remove(Actor * actor)
     *actorFree++ = actor;
 
     prev = firstActor;
-    while(prev && prev->next != actor) prev = prev->next;
+    if(prev == actor)
+        firstActor = NULL;
+    else
+        while(prev && prev->next != actor) prev = prev->next;
 
     if(prev){
         prev->next = actor->next;
@@ -73,7 +77,6 @@ u8 ACT_remove(Actor * actor)
     }else{
         return 0;
     }
-
 }
 
 void ACT_end(){
