@@ -98,12 +98,14 @@ void ACT_update(){
     while(current){
         PHY_computeStatus(current);
 
-        current->pos[X] += (current->speed[X]);
-        current->pos[Y] += (current->speed[Y]);
+        current->pos[X] += current->speed[X];
+        current->pos[Y] += current->speed[Y];
 
         SPR_setPosition(current->sprite,
             current->pos[X] - SIZE_X(current->character->spr_pos) + BOARD_OFFSET_X,
             current->pos[Y] - SIZE_Y(current->character->spr_pos) + BOARD_OFFSET_Y);
+
+        current = current->next;
     }
 
     SPR_update();
