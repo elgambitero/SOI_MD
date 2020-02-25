@@ -62,7 +62,7 @@ u8 ACT_remove(Actor * actor)
 
     if(prev){
         prev->next = actor->next;
-        releaseSprite(actor->sprite);
+        SPR_releaseSprite(actor->sprite);
         MEM_free(actor->sprite);
         return 1;
     }else{
