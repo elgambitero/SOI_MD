@@ -21,6 +21,8 @@ Actor * ACT_getFirst();
 void ACT_update();
 void ACT_end();
 
+#define ANIM_MSK 0xFE
+#define DIR_MSK ¬ANIM_MSK
 
 #define WALK_RIGHT 0
 #define WALK_LEFT 1
@@ -31,12 +33,12 @@ void ACT_end();
 #define FALL_RIGHT 6
 #define FALL_LEFT 7
 
-#define WALK_UP 6
-#define WALK_DOWN 7
-#define UP_TURN_DOWN 8
-#define DOWN_TURN_UP 9
-#define ATTACK_UP 10
-#define ATTACK_DOWN 11
+#define WALK_DOWN 6
+#define WALK_UP 7
+#define DOWN_TURN_UP 8
+#define UP_TURN_DOWN 9
+#define ATTACK_DOWN 10
+#define ATTACK_UP 11
 
 #define STILL_RIGHT 6
 #define STILL_LEFT 7
