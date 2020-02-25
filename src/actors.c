@@ -65,7 +65,7 @@ u8 ACT_remove(Actor * actor)
 
     prev = firstActor;
     if(prev == actor)
-        firstActor = NULL;
+        firstActor = actor->next;
     else
         while(prev && prev->next != actor) prev = prev->next;
 
