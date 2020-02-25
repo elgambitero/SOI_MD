@@ -51,6 +51,8 @@ typedef struct Entity{
 #define CREATES_NASTIE 0x0100 //B0000000100000000
 #define WHICH_NASTIE(attr) (attr >> 9)
 
+#define SFX            3
+
 extern const Entity blue_player_ent;
 extern const Entity spinner_ent;
 
