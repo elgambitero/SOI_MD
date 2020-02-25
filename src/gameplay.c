@@ -3,6 +3,7 @@
 #include "gameplay.h"
 #include "board.h"
 #include "stage.h"
+#include "physics.h"
 
 Board board;
 
@@ -78,6 +79,7 @@ void gameInit(){
     }
 
     SPR_init();
+    PHY_init(&board);
     if(!ACT_init()) gameState = GAMEEXIT;
     if(!load_board(&board, current_level)) gameState = GAMEEXIT;
 
