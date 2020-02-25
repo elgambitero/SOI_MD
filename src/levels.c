@@ -21,7 +21,7 @@ const Actor spinner3 = {&spinner_ent,
 const Actor spinner2 = {&spinner_ent,
     0,
     0,
-    {112, 208},
+    {112, 20},
     {0, 0},
     0,
     &spinner3
