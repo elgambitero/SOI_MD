@@ -4,7 +4,7 @@
 
 #include "actors.h"
 
-#define FALLSPEED 8
+#define FALLSPEED 2
 
 void PHY_computeStatus(Actor * actor);
 
