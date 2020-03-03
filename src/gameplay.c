@@ -4,8 +4,11 @@
 #include "board.h"
 #include "stage.h"
 #include "physics.h"
+#include "palettes.h"
 
 Board board;
+
+u8 colors[4];
 
 void gameInit();
 
@@ -21,7 +24,7 @@ void gameplayLoop(){
 
         break;
         case GAME:
-            ACT_update();
+            //ACT_update();
         break;
         case GAMEENDING:
 
@@ -48,7 +51,9 @@ void gameplayLoop(){
 void gameInit(){
     
     VDP_loadTileSet(main_frame.tileset, TILE_USERINDEX, DMA);
-    VDP_setPalette(PAL1, main_frame.palette->data);
+    VDP_loadTileSet(clr_blk.tileset, TILE_USERINDEX+16, DMA);
+    VDP_setPalette(PAL1, red_pal.data);
+    VDP_setPalette(PAL2, blue_pal.data);
 
     VDP_setMapEx(PLAN_B, main_frame.map, TILE_ATTR_FULL(PAL1, FALSE, FALSE, FALSE, TILE_USERINDEX),
                 0, 0, 0, 0, 1, 1);
@@ -78,10 +83,17 @@ void gameInit(){
                 39, 1 + i*2, 3, 1, 1, 2);
     }
 
-    SPR_init();
-    PHY_init(&board);
-    if(!ACT_init()) gameState = GAMEEXIT;
-    if(!load_board(&board, current_level)) gameState = GAMEEXIT;
+
+
+    VDP_setMapEx(PLAN_A, clr_blk.map, TILE_ATTR_FULL(PAL1, FALSE, FALSE, FALSE, TILE_USERINDEX+16),
+                10, 10, 0, 0, 6, 2);
+    VDP_setMapEx(PLAN_A, clr_blk.map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX+16),
+                10, 12, 0, 0, 6, 2);
+
+    //SPR_init();
+    //PHY_init(&board);
+    //if(!ACT_init()) gameState = GAMEEXIT;
+    //if(!load_board(&board, current_level)) gameState = GAMEEXIT;
 
     VDP_drawText("Score", 0, 0);
     VDP_drawText("00000000", 6, 0);

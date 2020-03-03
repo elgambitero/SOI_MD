@@ -3,6 +3,7 @@
 #define ENTITIES_H
 
 #include <genesis.h>
+#include "globals.h"
 
 #define SIZE_X(size) (size & 0x0F)
 #define SIZE_Y(size) (size >> 4)

@@ -2,6 +2,8 @@
 
 #define BLOCKS_H
 
+#include "globals.h"
+
 #define NORMAL_BLOCK    0x0001
 
 #define SOLID           0x0004
@@ -22,14 +24,13 @@
 
 #define GET_BLK_PAL(byte) (byte >> 8)
 
-#define COL_WHITE      (0 << 8)
-#define COL_RED        (1 << 8)
-#define COL_GREEN      (2 << 8)
-#define COL_BLUE       (3 << 8)
-#define COL_PINK       (4 << 8)
-#define COL_BLKORYELL  (5 << 8)
-#define COL_SYS1       (6 << 8)
-#define COL_SYS2       (7 << 8)
+#define COL_WHITE      (PAL_W << 8)
+#define COL_RED        (PAL_R << 8)
+#define COL_GREEN      (PAL_GR << 8)
+#define COL_BLUE       (PAL_BL << 8)
+#define COL_PINK       (PAL_PI << 8)
+#define COL_YELL       (PAL_YL << 8)
+#define COL_BLK        (PAL_BK << 8)
 
 
 #define SPECIAL_BLOCK   0x0002
