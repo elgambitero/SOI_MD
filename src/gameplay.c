@@ -26,7 +26,7 @@ void gameplayLoop(){
 
         break;
         case GAME:
-            //ACT_update();
+            ACT_update();
         break;
         case GAMEENDING:
 
@@ -58,10 +58,10 @@ void gameInit(){
 
     drawFrame();
 
-    //SPR_init();
-    //PHY_init(&board);
-    //if(!ACT_init()) gameState = GAMEEXIT;
-    //if(!load_board(&board, current_level)) gameState = GAMEEXIT;
+    SPR_init();
+    PHY_init(&board);
+    if(!ACT_init()) gameState = GAMEEXIT;
+    if(!load_board(&board, current_level)) gameState = GAMEEXIT;
 
     VDP_drawText("Score", 0, 0);
     VDP_drawText("00000000", 6, 0);

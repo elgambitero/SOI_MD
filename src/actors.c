@@ -55,8 +55,6 @@ Actor * ACT_add(Actor * actor)
         result->pos[0] - SIZE_X(result->character->spr_pos) + BOARD_OFFSET_X, 
         result->pos[1] - SIZE_Y(result->character->spr_pos) + BOARD_OFFSET_Y,
         TILE_ATTR_FULL(result->character->palette,TRUE, FALSE, FALSE,TILE_USERINDEX));
-
-    VDP_setPalette(result->character->palette, result->character->sprite_def->palette->data); //SHOULD BE DONE ELSEWHERE
     return result;
 }
 
