@@ -1,5 +1,8 @@
 #include "board.h"
 
+#define XOFF 1
+#define YOFF 1
+
 u8 load_board(Board * board, const Board * level){
     /*
     for(u8 i = 0; i < BOARD_BUFFER; i++){
