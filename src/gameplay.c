@@ -70,9 +70,12 @@ void gameInit(){
 
     VDP_setPalette(PAL2, pal_src_wg.data);
     VDP_setMapEx(PLAN_A, clr_blk_bg.map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, clr_blk_bg_ind),
-            11, 11, 8, 0, 2, 2);
+            1, 1, 0, 0, 12, 2);
     VDP_setMapEx(PLAN_B, clr_blk_sl1.map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, clr_blk_sl1_ind),
-            11, 11, 8, 0, 2, 2);
+            1, 1, 0, 0, 12, 2);
+
+    VDP_setMapEx(PLAN_B, sp_blk.map, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, sp_blk_ind),
+            13, 1, 0, 0, 12, 2);
 
     SPR_init();
     PHY_init(&board);
