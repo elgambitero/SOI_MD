@@ -9,8 +9,10 @@
 Board board;
 
 u8 colors[4];
+u16 ind;
 
 void gameInit();
+void drawFrame();
 
 void gameplayLoop(){
     switch(gameState){
@@ -49,46 +51,12 @@ void gameplayLoop(){
 }
 
 void gameInit(){
+    ind = TILE_USERINDEX;
     
-    VDP_loadTileSet(main_frame.tileset, TILE_USERINDEX, DMA);
-    VDP_loadTileSet(clr_blk.tileset, TILE_USERINDEX+16, DMA);
-    VDP_setPalette(PAL1, red_pal.data);
-    VDP_setPalette(PAL2, blue_pal.data);
+    VDP_setPalette(PAL0, pal_sys0.data);
+    VDP_setPalette(PAL1, pal_sys1.data);
 
-    VDP_setMapEx(PLAN_B, main_frame.map, TILE_ATTR_FULL(PAL1, FALSE, FALSE, FALSE, TILE_USERINDEX),
-                0, 0, 0, 0, 1, 1);
-
-    VDP_setMapEx(PLAN_B, main_frame.map, TILE_ATTR_FULL(PAL1, FALSE, FALSE, FALSE, TILE_USERINDEX),
-                39, 0, 3, 0, 1, 1);
-
-    VDP_setMapEx(PLAN_B, main_frame.map, TILE_ATTR_FULL(PAL1, FALSE, FALSE, FALSE, TILE_USERINDEX),
-                0, 27, 0, 3, 1, 1);
-
-    VDP_setMapEx(PLAN_B, main_frame.map, TILE_ATTR_FULL(PAL1, FALSE, FALSE, FALSE, TILE_USERINDEX),
-                39, 27, 3, 3, 1, 1);
-    
-    for(u8 i = 0; i < 19; i++){
-        VDP_setMapEx(PLAN_B, main_frame.map, TILE_ATTR_FULL(PAL1, FALSE, FALSE, FALSE, TILE_USERINDEX),
-                1+i*2, 0, 1, 0, 2, 1);
-
-        VDP_setMapEx(PLAN_B, main_frame.map, TILE_ATTR_FULL(PAL1, FALSE, FALSE, FALSE, TILE_USERINDEX),
-                1+i*2, 27, 1, 3, 2, 1);
-    }
-
-    for(u8 i = 0; i < 13; i++){
-        VDP_setMapEx(PLAN_A, main_frame.map, TILE_ATTR_FULL(PAL1, FALSE, FALSE, FALSE, TILE_USERINDEX),
-                0, 1 + i*2, 0, 1, 1, 2);
-
-        VDP_setMapEx(PLAN_A, main_frame.map, TILE_ATTR_FULL(PAL1, FALSE, FALSE, FALSE, TILE_USERINDEX),
-                39, 1 + i*2, 3, 1, 1, 2);
-    }
-
-
-
-    VDP_setMapEx(PLAN_A, clr_blk.map, TILE_ATTR_FULL(PAL1, FALSE, FALSE, FALSE, TILE_USERINDEX+16),
-                10, 10, 0, 0, 6, 2);
-    VDP_setMapEx(PLAN_A, clr_blk.map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX+16),
-                10, 12, 0, 0, 6, 2);
+    drawFrame();
 
     //SPR_init();
     //PHY_init(&board);
@@ -105,5 +73,40 @@ void gameInit(){
     VDP_drawText("001", 37, 0);
 
 
+
+}
+
+void drawFrame(){
+    VDP_loadTileSet(main_frame.tileset, ind, DMA);
+
+    ind += main_frame.tileset->numTile;
+
+    VDP_setMapEx(PLAN_B, main_frame.map, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, TILE_USERINDEX),
+                0, 0, 0, 0, 1, 1);
+
+    VDP_setMapEx(PLAN_B, main_frame.map, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, TILE_USERINDEX),
+                39, 0, 3, 0, 1, 1);
+
+    VDP_setMapEx(PLAN_B, main_frame.map, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, TILE_USERINDEX),
+                0, 27, 0, 3, 1, 1);
+
+    VDP_setMapEx(PLAN_B, main_frame.map, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, TILE_USERINDEX),
+                39, 27, 3, 3, 1, 1);
+    
+    for(u8 i = 0; i < 19; i++){
+        VDP_setMapEx(PLAN_B, main_frame.map, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, TILE_USERINDEX),
+                1+i*2, 0, 1, 0, 2, 1);
+
+        VDP_setMapEx(PLAN_B, main_frame.map, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, TILE_USERINDEX),
+                1+i*2, 27, 1, 3, 2, 1);
+    }
+
+    for(u8 i = 0; i < 13; i++){
+        VDP_setMapEx(PLAN_A, main_frame.map, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, TILE_USERINDEX),
+                0, 1 + i*2, 0, 1, 1, 2);
+
+        VDP_setMapEx(PLAN_A, main_frame.map, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, TILE_USERINDEX),
+                39, 1 + i*2, 3, 1, 1, 2);
+    }
 
 }
