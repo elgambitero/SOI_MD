@@ -69,12 +69,25 @@ void gameInit(){
     load_blk_tiles();
 
     VDP_setPalette(PAL2, pal_src_wg.data);
+    VDP_setPalette(PAL3, pal_src_rb.data);
+
     VDP_setMapEx(PLAN_A, clr_blk_bg.map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, clr_blk_bg_ind),
-            1, 1, 0, 0, 12, 2);
-    VDP_setMapEx(PLAN_B, clr_blk_sl1.map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, clr_blk_sl1_ind),
-            1, 1, 0, 0, 12, 2);
-    VDP_setMapEx(PLAN_A, wt_blk.map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, wt_blk_ind),
             1, 3, 0, 0, 12, 2);
+    VDP_setMapEx(PLAN_B, clr_blk_sl1.map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, clr_blk_sl1_ind),
+            1, 3, 0, 0, 12, 2);
+
+    VDP_setMapEx(PLAN_A, clr_blk_bg.map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, clr_blk_bg_ind),
+            1, 5, 0, 0, 12, 2);
+    VDP_setMapEx(PLAN_B, clr_blk_sl0.map, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, clr_blk_sl0_ind),
+            1, 5, 0, 0, 12, 2);
+
+    VDP_setMapEx(PLAN_A, clr_blk_bg.map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, clr_blk_bg_ind),
+            1, 7, 0, 0, 12, 2);
+    VDP_setMapEx(PLAN_B, clr_blk_sl1.map, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, clr_blk_sl1_ind),
+            1, 7, 0, 0, 12, 2);
+
+    VDP_setMapEx(PLAN_A, wt_blk.map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, wt_blk_ind),
+            1, 1, 0, 0, 12, 2);
 
     VDP_setMapEx(PLAN_B, sp_blk.map, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, sp_blk_ind),
             13, 1, 0, 0, 12, 2);

@@ -12,8 +12,8 @@
 #define PAL_SYS1 PAL1
 
 #define PAL_W  0
-#define PAL_R  1
-#define PAL_GR 2
+#define PAL_GR 1
+#define PAL_R  2
 #define PAL_BL 3
 #define PAL_PI 4
 #define PAL_YL 5
