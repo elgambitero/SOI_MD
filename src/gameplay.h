@@ -10,7 +10,7 @@
 #define SCREEN_WIDTH 40
 #define SCREEN_HEIGHT 30
 
-Board * current_level;
+const Board * current_level;
 Actor * blue_player;
 Actor * green_player;
 
