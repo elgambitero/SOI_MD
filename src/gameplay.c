@@ -68,9 +68,6 @@ void gameInit(){
 
     load_blk_tiles();
 
-    VDP_setPalette(PAL2, pal_src_wg.data);
-    VDP_setPalette(PAL3, pal_src_rb.data);
-
     VDP_setMapEx(PLAN_A, clr_blk_bg.map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, clr_blk_bg_ind),
             1, 3, 0, 0, 12, 2);
     VDP_setMapEx(PLAN_B, clr_blk_sl1.map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, clr_blk_sl1_ind),
@@ -96,6 +93,7 @@ void gameInit(){
     PHY_init(&board);
     if(!ACT_init()) gameState = GAMEEXIT;
     if(!load_board(&board, current_level)) gameState = GAMEEXIT;
+    load_board_palettes(&board);
 
     VDP_drawText("Score", 0, 0);
     VDP_drawText("00000000", 6, 0);

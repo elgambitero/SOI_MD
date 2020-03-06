@@ -16,21 +16,25 @@
 #define BLK_FLAT       (1 << 5)
 #define BLK_DOT        (2 << 5)
 #define BLK_DONUT      (3 << 5)
-#define BLK_CHIS       (4 << 5)
+#define BLK_CHISEL     (4 << 5)
 #define BLK_NET        (5 << 5)
-#define BLK_QUEST      (6 << 5)
+#define BLK_QUESTION   (6 << 5)
 
-#define NBLK_COL_MSK    0x0700
+#define NBLK_COL_MSK    0x0300
 
 #define GET_BLK_PAL(byte) (byte >> 8)
 
-#define COL_WHITE      (PAL_W << 8)
-#define COL_RED        (PAL_R << 8)
-#define COL_GREEN      (PAL_GR << 8)
-#define COL_BLUE       (PAL_BL << 8)
-#define COL_PINK       (PAL_PI << 8)
-#define COL_YELL       (PAL_YL << 8)
-#define COL_BLK        (PAL_BK << 8)
+#define COL_WHITE     (0 << 8)
+#define COL_SLOT1     (1 << 8)
+#define COL_SLOT2     (2 << 8)
+#define COL_SLOT3     (3 << 8)
+
+#define PAL_GR 0
+#define PAL_R  1
+#define PAL_BL 2
+#define PAL_PI 3
+#define PAL_YL 4
+#define PAL_BK 5
 
 
 #define SPECIAL_BLOCK   0x0002

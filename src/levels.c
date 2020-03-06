@@ -1,7 +1,7 @@
 #include "levels.h"
 #include "blocks.h"
 
-#define BDG (SOLID | BLK_DONUT | COL_GREEN)
+#define BDG (SOLID | BLK_DONUT | COL_SLOT1)
 
 const Actor blp = {&blue_player_ent,
     0,
@@ -71,5 +71,6 @@ const Board test_level = {
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     },
+    {PAL_GR, PAL_R, PAL_BL},
     &spinner
 };
