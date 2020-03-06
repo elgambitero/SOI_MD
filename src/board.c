@@ -5,7 +5,7 @@
 #define XOFF 1
 #define YOFF 1
 #define IND_TO_X(ind)   (ind % BOARD_X)
-#define IND_TO_Y(ind)   (ind / BOARD_Y)
+#define IND_TO_Y(ind)   (ind / BOARD_X)
 #define XY_TO_IND(x ,y) (y * BOARD_X + x)
 
 u8 load_board(Board * board, const Board * level){
