@@ -6,6 +6,8 @@
 #include "stage.h"
 
 #define POS_TO_TILE(x) (1 + x*2)
+#define FG 0
+#define BG 1
 
 u16 clr_blk_bg_ind = TILE_USERINDEX;
 u16 clr_blk_sl0_ind = TILE_USERINDEX;
@@ -16,7 +18,7 @@ u16 wt_blk_ind = TILE_USERINDEX;
 void drawBlock(u8 x, u8 y, u16 block){
     u8 map_ind = 0;
     u16 tile_index[2] = {0, 0};
-    u8 palette = 0;
+    u8 palette[2] = {PAL2, PAL2};
     Map * fg_blk_map;
     Map * bg_blk_map;
     if(x >= BOARD_X || y >= BOARD_Y || !block)
@@ -27,29 +29,29 @@ void drawBlock(u8 x, u8 y, u16 block){
                 case COL_WHITE:
                     fg_blk_map = 0;
                     bg_blk_map = wt_blk.map;
-                    tile_index[0] = wt_blk_ind;
-                    tile_index[1] = wt_blk_ind;
+                    tile_index[FG] = wt_blk_ind;
+                    tile_index[BG] = wt_blk_ind;
                     break;
                 case COL_SLOT1:
                     fg_blk_map = clr_blk_sl1.map;
                     bg_blk_map = clr_blk_bg.map;
-                    palette = PAL2;
-                    tile_index[0] = clr_blk_sl1_ind;
-                    tile_index[1] = clr_blk_bg_ind;
+                    palette[FG] = PAL2;
+                    tile_index[FG] = clr_blk_sl1_ind;
+                    tile_index[BG] = clr_blk_bg_ind;
                     break;
                 case COL_SLOT2:
                     fg_blk_map = clr_blk_sl0.map;
                     bg_blk_map = clr_blk_bg.map;
-                    palette = PAL3;
-                    tile_index[0] = clr_blk_sl0_ind;
-                    tile_index[1] = clr_blk_bg_ind;
+                    palette[FG] = PAL3;
+                    tile_index[FG] = clr_blk_sl0_ind;
+                    tile_index[BG] = clr_blk_bg_ind;
                     break;
                 case COL_SLOT3:
                     fg_blk_map = clr_blk_sl1.map;
                     bg_blk_map = clr_blk_bg.map;
-                    palette = PAL3;
-                    tile_index[0] = clr_blk_sl1_ind;
-                    tile_index[1] = clr_blk_bg_ind;
+                    palette[FG] = PAL3;
+                    tile_index[FG] = clr_blk_sl1_ind;
+                    tile_index[BG] = clr_blk_bg_ind;
                     break;
             }
             switch(block & NBLK_TYP_MSK){
@@ -66,10 +68,22 @@ void drawBlock(u8 x, u8 y, u16 block){
                     map_ind = 8;
                     break;
                 case BLK_CHISEL:
+                    map_ind = 0;
+                    palette[BG] = PAL_SYS0;
+                    bg_blk_map = sp_blk.map;
+                    fg_blk_map = 0;
                     break;
                 case BLK_NET:
+                    map_ind = 4;
+                    palette[BG] = PAL_SYS0;
+                    bg_blk_map = sp_blk.map;
+                    fg_blk_map = 0;
                     break;
                 case BLK_QUESTION:
+                    map_ind = 8;
+                    palette[BG] = PAL_SYS0;
+                    bg_blk_map = sp_blk.map;
+                    fg_blk_map = 0;
                     break;
             }
 
@@ -84,11 +98,11 @@ void drawBlock(u8 x, u8 y, u16 block){
             1, 1, 0, 0, 2, 2);
             */
     
-    VDP_setMapEx(PLAN_A, bg_blk_map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, tile_index[1]),
+    VDP_setMapEx(PLAN_A, bg_blk_map, TILE_ATTR_FULL(palette[BG], FALSE, FALSE, FALSE, tile_index[BG]),
             POS_TO_TILE(x), POS_TO_TILE(y), map_ind, 0, 2, 2);
             //1, 1, 2, 0, 2, 2);
     if(fg_blk_map)
-        VDP_setMapEx(PLAN_B, fg_blk_map, TILE_ATTR_FULL(palette, FALSE, FALSE, FALSE, tile_index[0]),
+        VDP_setMapEx(PLAN_B, fg_blk_map, TILE_ATTR_FULL(palette[FG], FALSE, FALSE, FALSE, tile_index[FG]),
                 POS_TO_TILE(x), POS_TO_TILE(y), map_ind, 0, 2, 2);
                 
 }
