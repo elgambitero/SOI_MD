@@ -12,7 +12,6 @@
     #define FRAMES 50
 #endif
 
-u16 palette[64];
 u16 ind;
 
 void myJoyHandler(u16 joy, u16 changed, u16 state)
@@ -40,7 +39,7 @@ void game_init(){
     JOY_setEventHandler( &myJoyHandler );
     VDP_setScreenWidth320();
 
-    current_level = &level1;
+    current_level = levels[0];
 
     mainState = GAMEPLAY;
     gameState = GAMEINIT;
