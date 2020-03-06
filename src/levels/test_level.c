@@ -55,7 +55,7 @@ const Actor spinner = {&spinner_ent,
 
 
 
-const Board test_level = {
+const Board level1 = {
     {
      BFW, BOW, BDW, CHI, QUE, NET,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
      BFG, BOG, BDG,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
