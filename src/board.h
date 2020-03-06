@@ -21,5 +21,6 @@ typedef struct Board{
 
 u8 load_board(Board * board, const Board * level);
 void load_board_palettes(Board * board);
+void draw_board(Board * board);
 
 #endif

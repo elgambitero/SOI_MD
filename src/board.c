@@ -4,15 +4,11 @@
 
 #define XOFF 1
 #define YOFF 1
+#define IND_TO_X(ind)   (ind % BOARD_X)
+#define IND_TO_Y(ind)   (ind / BOARD_Y)
+#define XY_TO_IND(x ,y) (y * BOARD_X + x)
 
 u8 load_board(Board * board, const Board * level){
-    /*
-    for(u8 i = 0; i < BOARD_BUFFER; i++){
-        board->front_blocks[i] = level->front_blocks[i];
-        board->back_blocks[i] = level->back_blocks[i];
-    }
-    board->actors = level->actors;
-    */
     memcpy(board, level, sizeof(Board));
     Actor * actor = board->actors;
     while(actor){
@@ -99,5 +95,10 @@ void load_board_palettes(Board * board){
     VDP_setPaletteColors(40, slot0, 8);
     VDP_setPaletteColors(48, slot1, 8);
     VDP_setPaletteColors(56, slot2, 8);
+}
 
+void draw_board(Board * board){
+    for(u8 i = 0; i < BOARD_BUFFER; i++){
+        drawBlock(IND_TO_X(i), IND_TO_Y(i), *(board->front_blocks + i));
+    }
 }
