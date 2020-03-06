@@ -5,6 +5,6 @@
 #include "board.h"
 
 extern const Board test_level;
-//extern const Board level1;
+extern const Board level1;
 
 #endif

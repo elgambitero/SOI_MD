@@ -8,7 +8,7 @@
 #define BFW (NORMAL_BLOCK | SOLID | BLK_FLAT  | COL_WHITE)
 #define BFR (NORMAL_BLOCK | SOLID | BLK_FLAT  | COL_SLOT1)
 
-const Actor blp = {&blue_player_ent,
+static const Actor blp = {&blue_player_ent,
        0,
        0,
     {176, 208},
@@ -17,28 +17,28 @@ const Actor blp = {&blue_player_ent,
        0
     };
 
-const Actor spinner3 = {&spinner_ent,
+static Actor spinner3 = {&spinner_ent,
        0,
        0,
-    {144, 208},
+    {150, 208},
     {   0,    0},
        0,
        0
     };
 
-const Actor spinner2 = {&spinner_ent,
+static Actor spinner2 = {&spinner_ent,
        0,
        0,
-    {112, 20},
+    {118, 20},
     {   0,    0},
        0,
     &spinner3
     };
 
-const Actor spinner = {&spinner_ent,
+static Actor spinner = {&spinner_ent,
        0,
        0,
-    {176, 208},
+    {182, 208},
     {   0,    0},
        0,
     &spinner2
@@ -79,5 +79,5 @@ const Board level1 = {
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
     },
     {PAL_R, PAL_GR, PAL_BL},
-    0
+    &spinner
 };

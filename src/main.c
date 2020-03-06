@@ -40,7 +40,7 @@ void game_init(){
     JOY_setEventHandler( &myJoyHandler );
     VDP_setScreenWidth320();
 
-    current_level = &test_level;
+    current_level = &level1;
 
     mainState = GAMEPLAY;
     gameState = GAMEINIT;
