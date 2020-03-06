@@ -5,17 +5,13 @@
 #include "stage.h"
 #include "physics.h"
 #include "palettes.h"
+#include "blocks.h"
 
 Board board;
 
 u8 colors[4];
 u16 ind;
 u16 frmInd;
-u16 clr_blk_bg_ind;
-u16 clr_blk_sl0_ind;
-u16 clr_blk_sl1_ind;
-u16 sp_blk_ind;
-u16 wt_blk_ind;
 
 void gameInit();
 void drawFrame();
@@ -66,8 +62,10 @@ void gameInit(){
 
     drawFrame();
 
-    load_blk_tiles();
+    load_blk_tiles(ind);
 
+    drawBlock(0, 0, (NORMAL_BLOCK | SOLID | BLK_DONUT | COL_SLOT1));
+/*
     VDP_setMapEx(PLAN_A, clr_blk_bg.map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, clr_blk_bg_ind),
             1, 3, 0, 0, 12, 2);
     VDP_setMapEx(PLAN_B, clr_blk_sl1.map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, clr_blk_sl1_ind),
@@ -88,6 +86,7 @@ void gameInit(){
 
     VDP_setMapEx(PLAN_B, sp_blk.map, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, sp_blk_ind),
             13, 1, 0, 0, 12, 2);
+            */
 
     SPR_init();
     PHY_init(&board);
@@ -142,21 +141,3 @@ void drawFrame(){
     }
 }
 
-void load_blk_tiles(){
-    VDP_loadTileSet(clr_blk_bg.tileset, ind, DMA);
-    clr_blk_bg_ind = ind;
-    ind += clr_blk_bg.tileset->numTile;
-    VDP_loadTileSet(clr_blk_sl0.tileset, ind, DMA);
-    clr_blk_sl0_ind = ind;
-    ind += clr_blk_sl0.tileset->numTile;
-    VDP_loadTileSet(clr_blk_sl1.tileset, ind, DMA);
-    clr_blk_sl1_ind = ind;
-    ind += clr_blk_sl1.tileset->numTile;
-    VDP_loadTileSet(sp_blk.tileset, ind, DMA);
-    sp_blk_ind = ind;
-    ind += sp_blk.tileset->numTile;
-    VDP_loadTileSet(wt_blk.tileset, ind, DMA);
-    wt_blk_ind = ind;
-    ind += wt_blk.tileset->numTile;
-
-}
