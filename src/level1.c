@@ -17,7 +17,7 @@ static const Actor blp = {&blue_player_ent,
        0
     };
 
-static Actor spinner3 = {&spinner_ent,
+static const Actor spinner3 = {&spinner_ent,
        0,
        0,
     {150, 208},
@@ -26,7 +26,7 @@ static Actor spinner3 = {&spinner_ent,
        0
     };
 
-static Actor spinner2 = {&spinner_ent,
+static const Actor spinner2 = {&spinner_ent,
        0,
        0,
     {118, 20},
@@ -35,7 +35,7 @@ static Actor spinner2 = {&spinner_ent,
     &spinner3
     };
 
-static Actor spinner = {&spinner_ent,
+static const Actor spinner = {&spinner_ent,
        0,
        0,
     {182, 208},
