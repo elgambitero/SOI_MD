@@ -16,7 +16,8 @@ Actor * curr;
 static inline void nastie_tree(){
             switch(status & ANIM_MSK){
                 case WALK_RIGHT:
-                    block_ind = XY_TO_IND( PX_TO_BLOCK(curr->pos[X] ), (PX_TO_BLOCK(curr->pos[Y]) ) );
+                    block_ind = dir ? XY_TO_IND( PX_TO_BLOCK(curr->pos[X] + SIZE_X(curr->character->size) ), (PX_TO_BLOCK(curr->pos[Y]) ) ) :
+                                        XY_TO_IND( PX_TO_BLOCK(curr->pos[X] - SIZE_X(curr->character->size) ), (PX_TO_BLOCK(curr->pos[Y]) ) );
                     if( !( SOLID & env->front_blocks[block_ind] ) &&  curr->pos[Y] < BOARD_Y_PX ){
                         newstatus = dir | FALL_RIGHT;
                         curr->status = newstatus;
@@ -31,7 +32,8 @@ static inline void nastie_tree(){
 
                 break;
                 case FALL_RIGHT:
-                    block_ind = XY_TO_IND( PX_TO_BLOCK(curr->pos[X] ), (PX_TO_BLOCK(curr->pos[Y]) ) );
+                    block_ind = dir ? XY_TO_IND( PX_TO_BLOCK(curr->pos[X] + SIZE_X(curr->character->size) ), (PX_TO_BLOCK(curr->pos[Y]) ) ) :
+                                        XY_TO_IND( PX_TO_BLOCK(curr->pos[X] - SIZE_X(curr->character->size) ), (PX_TO_BLOCK(curr->pos[Y]) ) );
                     if( (SOLID & env->front_blocks[ block_ind ] ) ) {
                         curr->status = dir + WALK_RIGHT;
                         curr->speed[Y] = 0;
