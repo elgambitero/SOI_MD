@@ -35,13 +35,13 @@ static inline void nastie_tree(){
                     if( (SOLID & env->front_blocks[ block_ind ] ) ) {
                         curr->status = dir + WALK_RIGHT;
                         curr->speed[Y] = 0;
-                        curr->pos[Y] = ( IND_TO_Y(block_ind) << 4);
+                        //curr->pos[Y] = ( IND_TO_Y(block_ind) << 4);
                         break;
                     }
                     if(curr->pos[Y] >= BOARD_Y_PX){
                         curr->status = dir + WALK_RIGHT;
                         curr->speed[Y] = 0;
-                        curr->pos[Y] = BOARD_Y_PX;
+                        //curr->pos[Y] = BOARD_Y_PX;
                     }
                 break;
                 case UP_TURN_DOWN:

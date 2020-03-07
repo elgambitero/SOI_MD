@@ -26,13 +26,22 @@ static const Actor blp = {&blue_player_ent,
        0
     };
 
+static const Actor spinner4 = {&spinner_ent,
+       0,
+       0,
+    {166, 40},
+    {   0,    0},
+       0,
+       0
+    };
+
 static const Actor spinner3 = {&spinner_ent,
        0,
        0,
     {134, 40},
     {   0,    0},
        0,
-       0
+      0
     };
 
 static const Actor spinner2 = {&spinner_ent,
