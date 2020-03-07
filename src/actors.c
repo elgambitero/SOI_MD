@@ -5,7 +5,7 @@
 
 #include "globals.h"
 
-#define MAX_ACTORS 80
+#define MAX_ACTORS 40
 
 Actor * actorBank;
 Actor * lastActor;
@@ -44,9 +44,10 @@ Actor * ACT_add(Actor * actor)
     }
     if(!firstActor) firstActor = result;
     lastActor = result;
-    result->next = NULL;
 
     memcpy(result, actor, sizeof(Actor));
+
+    result->next = NULL;
 
     result->sprite = MEM_alloc(sizeof(Sprite));
     result->sprite =

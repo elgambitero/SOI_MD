@@ -9,7 +9,8 @@ u8 load_board(Board * board, const Board * level){
     memcpy(board, level, sizeof(Board));
     Actor * actor = board->actors;
     while(actor){
-        ACT_add(actor);
+        if(!ACT_add(actor))
+            return 1; //0
         actor = actor->next;
     }
     return 1;

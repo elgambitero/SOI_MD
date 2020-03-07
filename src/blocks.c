@@ -75,14 +75,14 @@ void drawBlock(u8 x, u8 y, u16 block){
                     tile_index[BG] = sp_blk_ind;
                     break;
                 case BLK_NET:
-                    map_ind = 4;
+                    map_ind = 8;
                     palette[BG] = PAL_SYS0;
                     bg_blk_map = sp_blk.map;
                     fg_blk_map = 0;
                     tile_index[BG] = sp_blk_ind;
                     break;
                 case BLK_QUESTION:
-                    map_ind = 8;
+                    map_ind = 4;
                     palette[BG] = PAL_SYS0;
                     bg_blk_map = sp_blk.map;
                     fg_blk_map = 0;
