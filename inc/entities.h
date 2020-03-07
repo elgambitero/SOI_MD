@@ -7,7 +7,7 @@
 
 #define SIZE_X(size) (size & 0x0F)
 #define SIZE_Y(size) (size >> 4)
-#define CODE_SIZE(x, y) x + (y << 4)
+#define CODE_SIZE(x, y) (x + (y << 4))
 
 typedef struct Entity{
     u16 attr;

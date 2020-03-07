@@ -4,9 +4,6 @@
 
 #define XOFF 1
 #define YOFF 1
-#define IND_TO_X(ind)   (ind % BOARD_X)
-#define IND_TO_Y(ind)   (ind / BOARD_X)
-#define XY_TO_IND(x ,y) (y * BOARD_X + x)
 
 u8 load_board(Board * board, const Board * level){
     memcpy(board, level, sizeof(Board));
@@ -101,4 +98,8 @@ void draw_board(Board * board){
     for(u8 i = 0; i < BOARD_BUFFER; i++){
         drawBlock(IND_TO_X(i), IND_TO_Y(i), *(board->front_blocks + i));
     }
+}
+
+u16 getBlock(Board * board, u8 x, u8 y){
+    return board->front_blocks[XY_TO_IND(x, y)];
 }

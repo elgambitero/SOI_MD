@@ -1,22 +1,27 @@
 #include "physics.h"
 
 #include "board.h"
+#include "blocks.h"
 
 #include "globals.h"
 
 Board * env;
 u8 status;
 u8 newstatus;
+u8 block_ind;
+u8 dir;
 u16 attr;
 Actor * curr;
 
 static inline void nastie_tree(){
             switch(status & ANIM_MSK){
                 case WALK_RIGHT:
-                    if(curr->pos[Y] < BOARD_Y_PX){
-                        newstatus = (curr->status & 1) | FALL_RIGHT;
+                    block_ind = XY_TO_IND( PX_TO_BLOCK(curr->pos[X] ), (PX_TO_BLOCK(curr->pos[Y]) ) );
+                    if( !( SOLID & env->front_blocks[block_ind] ) &&  curr->pos[Y] < BOARD_Y_PX ){
+                        newstatus = dir | FALL_RIGHT;
                         curr->status = newstatus;
                         curr->speed[Y] = FALLSPEED;
+                        break;
                     }
                 break;
                 case RIGHT_TURN_LEFT:
@@ -26,9 +31,17 @@ static inline void nastie_tree(){
 
                 break;
                 case FALL_RIGHT:
-                    if(curr->pos[Y] >= BOARD_Y_PX){
-                        curr->status = (curr->status & 1) + WALK_RIGHT;
+                    block_ind = XY_TO_IND( PX_TO_BLOCK(curr->pos[X] ), (PX_TO_BLOCK(curr->pos[Y]) ) );
+                    if( (SOLID & env->front_blocks[ block_ind ] ) ) {
+                        curr->status = dir + WALK_RIGHT;
                         curr->speed[Y] = 0;
+                        curr->pos[Y] = ( IND_TO_Y(block_ind) << 4);
+                        break;
+                    }
+                    if(curr->pos[Y] >= BOARD_Y_PX){
+                        curr->status = dir + WALK_RIGHT;
+                        curr->speed[Y] = 0;
+                        curr->pos[Y] = BOARD_Y_PX;
                     }
                 break;
                 case UP_TURN_DOWN:
@@ -67,5 +80,6 @@ void PHY_computeStatus(Actor * actor){
     curr = actor;
     status = curr->status;
     attr = curr->character->attr;
+    dir = (status & 1);
     class_tree(attr);
 }
