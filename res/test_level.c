@@ -41,7 +41,7 @@ static const Actor spinner3 = {&spinner_ent,
     {134, 40},
     {   0,    0},
        0,
-      0
+      &spinner4
     };
 
 static const Actor spinner2 = {&spinner_ent,

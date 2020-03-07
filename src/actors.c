@@ -5,7 +5,7 @@
 
 #include "globals.h"
 
-#define MAX_ACTORS 25
+#define MAX_ACTORS 80
 
 Actor * actorBank;
 Actor * lastActor;
