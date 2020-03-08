@@ -106,8 +106,12 @@ void ACT_update(){
         SPR_setPosition(current->sprite,
             current->pos[X] - SIZE_X(current->character->spr_pos) + BOARD_OFFSET_X,
             current->pos[Y] - SIZE_Y(current->character->spr_pos) + BOARD_OFFSET_Y);
-
+        SPR_setAnim(current->sprite, current->status);
         current = current->next;
+        /*
+        if(current->frames)
+            current->frames--;
+            */
     }
 
     SPR_update();

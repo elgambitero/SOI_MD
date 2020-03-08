@@ -9,6 +9,7 @@
 #define PX_TO_BLOCK(px) (px >> 4)
 
 #define FALLSPEED 2
+#define WALKSPEED 1
 
 #define TURN_FRAMES 16
 

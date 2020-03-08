@@ -17,3 +17,11 @@ const Entity spinner_ent = {
     PAL_SYS0,
     &spinner_spr
 };
+
+const Entity robo_ent = {
+    NASTIE | WALKS | DIES_ON_LEAP | BREAKS_THRU,
+    (u8) CODE_SIZE(3, 15),
+    (u8) CODE_SIZE(7, 15),
+    PAL_SYS0,
+    &robo_spr
+};

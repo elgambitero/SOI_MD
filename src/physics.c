@@ -29,7 +29,7 @@ static inline u8 turn_around(){
         newstatus = dir | RIGHT_TURN_LEFT;
         curr->status = newstatus;
         curr->frames = TURN_FRAMES;
-        curr->speed[Y] = 0;
+        curr->speed[X] = 0;
         return 1;
     }
     return 0;
@@ -53,10 +53,12 @@ static inline void nastie_tree(){
                 if(turn_around())
                     return;
             }
-
+            curr->speed[X] = dir ? -WALKSPEED : WALKSPEED;
         break;
         case RIGHT_TURN_LEFT:
             newstatus = WALK_RIGHT | dir;
+            if(status & WALKS)
+                curr->speed[X] = WALKSPEED;
         break;
         case ATTACK_RIGHT:
 
