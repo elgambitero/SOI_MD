@@ -10,6 +10,7 @@ u8 status;
 u8 newstatus;
 u8 back_floor_ind;
 u8 front_floor_ind;
+u16 front;
 u8 dir;
 u16 attr;
 Actor * curr;
@@ -25,7 +26,7 @@ static inline u8 fall(){
 }
 
 static inline u8 turn_around(){
-    if( !( SOLID & env->front_blocks[front_floor_ind] ) &&  curr->pos[Y] < BOARD_Y_PX ){
+    if( !( SOLID & env->front_blocks[front_floor_ind] ) &&  front < BOARD_X_PX ){
         newstatus = dir | RIGHT_TURN_LEFT;
         curr->status = newstatus;
         curr->frames = TURN_FRAMES;
@@ -49,6 +50,7 @@ static inline void nastie_tree(){
             }
             front_floor_ind = !dir ? XY_TO_IND( PX_TO_BLOCK(curr->pos[X] + SIZE_X(curr->character->size) ), (PX_TO_BLOCK(curr->pos[Y]) ) ) :
                         XY_TO_IND( PX_TO_BLOCK(curr->pos[X] - SIZE_X(curr->character->size) ), (PX_TO_BLOCK(curr->pos[Y]) ) );
+            front = dir ? curr->pos[X] - SIZE_X(curr->character->size) : curr->pos[X] + SIZE_X(curr->character->size);
             if(!(status & LEAPS)){
                 if(turn_around())
                     return;
@@ -112,6 +114,7 @@ void PHY_init(Board * board){
 
 void PHY_computeStatus(Actor * actor){
     if(actor->frames)
+        actor->frames--;
         return;
     curr = actor;
     status = curr->status;
