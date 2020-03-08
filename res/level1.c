@@ -18,7 +18,7 @@ static const Actor blp = {&blue_player_ent,
     };
 
 static const Actor robo = {&robo_ent,
-   0,
+   WALK_RIGHT,
    0,
    {40, 32},
    {0, 0},

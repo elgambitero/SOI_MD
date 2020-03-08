@@ -39,7 +39,7 @@ static inline u8 turn_around(){
 static inline void nastie_tree(){
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
-            switch(status & MOVT_BITMSK){
+            switch(attr & MOVT_BITMSK){
                 case STILL:
                 case WALKS:
                     back_floor_ind = dir ? XY_TO_IND( PX_TO_BLOCK(curr->pos[X] + SIZE_X(curr->character->size) ), (PX_TO_BLOCK(curr->pos[Y]) ) ) :
@@ -58,9 +58,10 @@ static inline void nastie_tree(){
             curr->speed[X] = dir ? -WALKSPEED : WALKSPEED;
         break;
         case RIGHT_TURN_LEFT:
-            newstatus = WALK_RIGHT | dir;
-            if(status & WALKS)
-                curr->speed[X] = WALKSPEED;
+            newstatus = WALK_RIGHT | !dir;
+            curr->status = newstatus;
+            //if(attr & WALKS)
+            curr->speed[X] = dir ? WALKSPEED : -WALKSPEED;
         break;
         case ATTACK_RIGHT:
 
@@ -113,12 +114,13 @@ void PHY_init(Board * board){
 }
 
 void PHY_computeStatus(Actor * actor){
-    if(actor->frames)
+    if(actor->frames){
         actor->frames--;
         return;
+    }
     curr = actor;
     status = curr->status;
     attr = curr->character->attr;
-    dir = (status & 1);
-    class_tree(attr);
+    dir = (status & 0x0001);
+    class_tree();
 }
