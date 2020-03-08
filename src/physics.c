@@ -10,24 +10,35 @@ u8 status;
 u8 newstatus;
 u8 back_floor_ind;
 u8 front_floor_ind;
+u8 floor_ind;
 u16 front;
+u16 back;
 u8 dir;
 u16 attr;
 Actor * curr;
 
 
 static inline calc_front_floor(){
-    front_floor_ind = !dir ? XY_TO_IND( PX_TO_BLOCK( POS_TO_PX(curr->pos[X]) + SIZE_X(curr->character->size) ), (PX_TO_BLOCK(POS_TO_PX(curr->pos[Y])) ) ) :
-                             XY_TO_IND( PX_TO_BLOCK( POS_TO_PX(curr->pos[X]) - SIZE_X(curr->character->size) ), (PX_TO_BLOCK(POS_TO_PX(curr->pos[Y])) ) );
+    front_floor_ind = XY_TO_IND( PX_TO_BLOCK( front ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) );
 }
 
 static inline calc_back_floor(){
-    front_floor_ind = dir ? XY_TO_IND( PX_TO_BLOCK( POS_TO_PX(curr->pos[X]) + SIZE_X(curr->character->size) ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) ) :
-                            XY_TO_IND( PX_TO_BLOCK( POS_TO_PX(curr->pos[X]) - SIZE_X(curr->character->size) ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) );
+    back_floor_ind = XY_TO_IND( PX_TO_BLOCK( back ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) ) ;
+}
+
+static inline calc_floor(){
+    floor_ind = XY_TO_IND( PX_TO_BLOCK( curr->pos[X] ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) ) ;
+}
+
+static inline calc_front(){
+    front = dir ? POS_TO_PX(curr->pos[X]) - SIZE_X(curr->character->size) : POS_TO_PX(curr->pos[X]) + SIZE_X(curr->character->size);
+}
+static inline calc_back(){
+    back = dir ? POS_TO_PX(curr->pos[X]) + SIZE_X(curr->character->size) : POS_TO_PX(curr->pos[X]) - SIZE_X(curr->character->size);
 }
 
 static inline u8 fall(){
-    if( !( SOLID & env->front_blocks[back_floor_ind] ) &&  POS_TO_PX(curr->pos[Y]) < BOARD_Y_PX ){
+    if( !( SOLID & env->front_blocks[back_floor_ind] ) &&  ( POS_TO_PX(curr->pos[Y]) < BOARD_Y_PX ) ){
         newstatus = dir | FALL_RIGHT;
         curr->status = newstatus;
         curr->speed[Y] = FALLSPEED;
@@ -37,7 +48,7 @@ static inline u8 fall(){
 }
 
 static inline u8 turn_around(){
-    if( !( SOLID & env->front_blocks[front_floor_ind] ) &&  front < BOARD_X_PX ){
+    if( !( SOLID & env->front_blocks[front_floor_ind] ) &&  ( front < BOARD_X_PX ) ){
         newstatus = dir | RIGHT_TURN_LEFT;
         curr->status = newstatus;
         curr->frames = TURN_FRAMES;
@@ -53,14 +64,15 @@ static inline void nastie_tree(){
             switch(attr & MOVT_BITMSK){
                 case STILL:
                 case WALKS:
+                    calc_back();
                     calc_back_floor();
                     if(fall())
                         return;
                 break;
             }
+            calc_front();
             calc_front_floor();
-            front = dir ? POS_TO_PX(curr->pos[X]) - SIZE_X(curr->character->size) : POS_TO_PX(curr->pos[X]) + SIZE_X(curr->character->size);
-            if(!(status & LEAPS)){
+            if(!(attr & LEAPS)){
                 if(turn_around())
                     return;
             }
@@ -76,8 +88,8 @@ static inline void nastie_tree(){
 
         break;
         case FALL_RIGHT:
-            back_floor_ind = dir ? XY_TO_IND( PX_TO_BLOCK(POS_TO_PX(curr->pos[X]) + SIZE_X(curr->character->size) ), (PX_TO_BLOCK(POS_TO_PX(curr->pos[Y])) ) ) :
-                                XY_TO_IND( PX_TO_BLOCK(POS_TO_PX(curr->pos[X]) - SIZE_X(curr->character->size) ), (PX_TO_BLOCK(POS_TO_PX(curr->pos[Y])) ) );
+            calc_back();
+            calc_back_floor();
             if( (SOLID & env->front_blocks[ back_floor_ind ] ) ) {
                 curr->status = dir + WALK_RIGHT;
                 curr->speed[Y] = 0;

@@ -59,5 +59,6 @@ typedef struct Entity{
 extern const Entity blue_player_ent;
 extern const Entity spinner_ent;
 extern const Entity robo_ent;
+extern const Entity ant_ent;
 
 #endif
