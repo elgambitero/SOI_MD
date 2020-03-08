@@ -4,8 +4,10 @@
 
 #include "entities.h"
 
-#define PX_TO_POS(x) (x << 2)
-#define POS_TO_PX(x) (x >> 2)
+#define DECIMALS 2
+
+#define PX_TO_POS(x) (x << DECIMALS)
+#define POS_TO_PX(x) (x >> DECIMALS)
 
 typedef struct Actor{
     const Entity * character;

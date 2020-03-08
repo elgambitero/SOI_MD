@@ -11,7 +11,7 @@
 #define FALLSPEED 2
 #define WALKSPEED 2
 
-#define TURN_FRAMES 20
+#define TURN_FRAMES 32
 
 void PHY_init(Board * board);
 void PHY_computeStatus(Actor * actor);
