@@ -94,6 +94,7 @@ void gameInit(){
     if(!load_board(&board, current_level)) gameState = GAMEEXIT;
     load_board_palettes(&board);
     draw_board(&board);
+    play_board_music(&board);
 
     VDP_drawText("Score", 0, 0);
     VDP_drawText("00000000", 6, 0);

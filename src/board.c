@@ -1,6 +1,7 @@
 #include "board.h"
 #include "palettes.h"
 #include "blocks.h"
+#include "music.h"
 
 #define XOFF 1
 #define YOFF 1
@@ -103,4 +104,15 @@ void draw_board(Board * board){
 
 u16 getBlock(Board * board, u8 x, u8 y){
     return board->front_blocks[XY_TO_IND(x, y)];
+}
+
+void play_board_music(Board * board){
+    switch(board->music){
+        case 0:
+            XGM_startPlay(heavy1);
+            break;
+        default:
+            XGM_startPlay(heavy1);
+            break;
+    }
 }

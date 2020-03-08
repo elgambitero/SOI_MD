@@ -19,11 +19,13 @@ typedef struct Board{
     u16 front_blocks[BOARD_BUFFER];
     u16 back_blocks[BOARD_BUFFER];
     u8 colors[3];
+    u8 music;
     Actor * actors;
 } Board;
 
 u8 load_board(Board * board, const Board * level);
 void load_board_palettes(Board * board);
 void draw_board(Board * board);
+void play_board_music(Board * board);
 
 #endif

@@ -79,5 +79,6 @@ const Board level1 = {
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
     },
     {PAL_R, PAL_GR, PAL_BL},
+    0,
     &spinner
 };
