@@ -27,7 +27,7 @@ static inline calc_back_floor(){
 }
 
 static inline calc_floor(){
-    floor_ind = XY_TO_IND( PX_TO_BLOCK( curr->pos[X] ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) ) ;
+    floor_ind = XY_TO_IND( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y] + 1) ) ) ) ;
 }
 
 static inline calc_front(){
@@ -40,7 +40,6 @@ static inline calc_back(){
 static inline u8 fall(){
     if( !( SOLID & env->front_blocks[back_floor_ind] ) &&  ( POS_TO_PX(curr->pos[Y]) < BOARD_Y_PX ) ){
         newstatus = dir | FALL_RIGHT;
-        curr->status = newstatus;
         curr->speed[Y] = FALLSPEED;
         curr->speed[X] = 0;
         return 1;
@@ -51,7 +50,6 @@ static inline u8 fall(){
 static inline u8 turn_around(){
     if( !( SOLID & env->front_blocks[front_floor_ind] ) &&  ( front < BOARD_X_PX ) ){
         newstatus = dir | RIGHT_TURN_LEFT;
-        curr->status = newstatus;
         curr->frames = TURN_FRAMES;
         curr->speed[X] = 0;
         return 1;
@@ -81,7 +79,6 @@ static inline void nastie_tree(){
         break;
         case RIGHT_TURN_LEFT:
             newstatus = WALK_RIGHT | !dir;
-            curr->status = newstatus;
             //if(attr & WALKS)
             curr->speed[X] = dir ? WALKSPEED : -WALKSPEED;
         break;
@@ -91,15 +88,15 @@ static inline void nastie_tree(){
         case FALL_RIGHT:
             calc_floor();
             if( (SOLID & env->front_blocks[ floor_ind ] ) ) {
-                curr->status = dir + WALK_RIGHT;
+                newstatus = dir + WALK_RIGHT;
                 curr->speed[Y] = 0;
-                //curr->pos[Y] = ( IND_TO_Y(back_floor_ind) << 4);
+                curr->speed[X] = dir ? -WALKSPEED : WALKSPEED;
                 break;
             }
-            if(curr->pos[Y] >= BOARD_Y_PX){
-                curr->status = dir + WALK_RIGHT;
+            if(POS_TO_PX(curr->pos[Y]) >= BOARD_Y_PX){
+                newstatus = dir + WALK_RIGHT;
                 curr->speed[Y] = 0;
-                //curr->pos[Y] = BOARD_Y_PX;
+                curr->speed[X] = dir ? -WALKSPEED : WALKSPEED;
             }
         break;
         case UP_TURN_DOWN:
@@ -134,14 +131,19 @@ void PHY_init(Board * board){
     env = board;
 }
 
-void PHY_computeStatus(Actor * actor){
+u8 PHY_computeStatus(Actor * actor){
     if(actor->frames){
         actor->frames--;
         return;
     }
     curr = actor;
     status = curr->status;
+    newstatus = status;
     attr = curr->character->attr;
     dir = (status & 0x0001);
     class_tree();
+    u8 result;
+    result = newstatus != status;
+    curr->status = newstatus;
+    return result;
 }
