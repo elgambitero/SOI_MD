@@ -4,6 +4,9 @@
 
 #include "entities.h"
 
+#define PX_TO_POS(x) (x << 2)
+#define POS_TO_PX(x) (x >> 2)
+
 typedef struct Actor{
     const Entity * character;
     u8 status;

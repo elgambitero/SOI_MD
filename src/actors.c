@@ -47,14 +47,17 @@ Actor * ACT_add(Actor * actor)
 
     memcpy(result, actor, sizeof(Actor));
 
+    result->pos[X] = PX_TO_POS(result->pos[X]);
+    result->pos[Y] = PX_TO_POS(result->pos[Y]);
+
     result->next = NULL;
 
     result->sprite = MEM_alloc(sizeof(Sprite));
     result->sprite =
         SPR_addSprite(result->character->sprite_def,
         //result->pos[0], result->pos[1],
-        result->pos[0] - SIZE_X(result->character->spr_pos) + BOARD_OFFSET_X, 
-        result->pos[1] - SIZE_Y(result->character->spr_pos) + BOARD_OFFSET_Y,
+        POS_TO_PX(result->pos[0]) - SIZE_X(result->character->spr_pos) + BOARD_OFFSET_X, 
+        POS_TO_PX(result->pos[1]) - SIZE_Y(result->character->spr_pos) + BOARD_OFFSET_Y,
         TILE_ATTR_FULL(result->character->palette,TRUE, FALSE, FALSE,TILE_USERINDEX));
     return result;
 }
@@ -104,8 +107,8 @@ void ACT_update(){
         current->pos[Y] += current->speed[Y];
 
         SPR_setPosition(current->sprite,
-            current->pos[X] - SIZE_X(current->character->spr_pos) + BOARD_OFFSET_X,
-            current->pos[Y] - SIZE_Y(current->character->spr_pos) + BOARD_OFFSET_Y);
+            POS_TO_PX(current->pos[X]) - SIZE_X(current->character->spr_pos) + BOARD_OFFSET_X,
+            POS_TO_PX(current->pos[Y]) - SIZE_Y(current->character->spr_pos) + BOARD_OFFSET_Y);
         SPR_setAnim(current->sprite, current->status);
         current = current->next;
     }

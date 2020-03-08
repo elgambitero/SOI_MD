@@ -9,9 +9,9 @@
 #define PX_TO_BLOCK(px) (px >> 4)
 
 #define FALLSPEED 2
-#define WALKSPEED 1
+#define WALKSPEED 2
 
-#define TURN_FRAMES 16
+#define TURN_FRAMES 20
 
 void PHY_init(Board * board);
 void PHY_computeStatus(Actor * actor);

@@ -15,8 +15,19 @@ u8 dir;
 u16 attr;
 Actor * curr;
 
+
+static inline calc_front_floor(){
+    front_floor_ind = !dir ? XY_TO_IND( PX_TO_BLOCK( POS_TO_PX(curr->pos[X]) + SIZE_X(curr->character->size) ), (PX_TO_BLOCK(POS_TO_PX(curr->pos[Y])) ) ) :
+                             XY_TO_IND( PX_TO_BLOCK( POS_TO_PX(curr->pos[X]) - SIZE_X(curr->character->size) ), (PX_TO_BLOCK(POS_TO_PX(curr->pos[Y])) ) );
+}
+
+static inline calc_back_floor(){
+    front_floor_ind = dir ? XY_TO_IND( PX_TO_BLOCK( POS_TO_PX(curr->pos[X]) + SIZE_X(curr->character->size) ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) ) :
+                            XY_TO_IND( PX_TO_BLOCK( POS_TO_PX(curr->pos[X]) - SIZE_X(curr->character->size) ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) );
+}
+
 static inline u8 fall(){
-    if( !( SOLID & env->front_blocks[back_floor_ind] ) &&  curr->pos[Y] < BOARD_Y_PX ){
+    if( !( SOLID & env->front_blocks[back_floor_ind] ) &&  POS_TO_PX(curr->pos[Y]) < BOARD_Y_PX ){
         newstatus = dir | FALL_RIGHT;
         curr->status = newstatus;
         curr->speed[Y] = FALLSPEED;
@@ -42,15 +53,13 @@ static inline void nastie_tree(){
             switch(attr & MOVT_BITMSK){
                 case STILL:
                 case WALKS:
-                    back_floor_ind = dir ? XY_TO_IND( PX_TO_BLOCK(curr->pos[X] + SIZE_X(curr->character->size) ), (PX_TO_BLOCK(curr->pos[Y]) ) ) :
-                            XY_TO_IND( PX_TO_BLOCK(curr->pos[X] - SIZE_X(curr->character->size) ), (PX_TO_BLOCK(curr->pos[Y]) ) );
+                    calc_back_floor();
                     if(fall())
                         return;
                 break;
             }
-            front_floor_ind = !dir ? XY_TO_IND( PX_TO_BLOCK(curr->pos[X] + SIZE_X(curr->character->size) ), (PX_TO_BLOCK(curr->pos[Y]) ) ) :
-                        XY_TO_IND( PX_TO_BLOCK(curr->pos[X] - SIZE_X(curr->character->size) ), (PX_TO_BLOCK(curr->pos[Y]) ) );
-            front = dir ? curr->pos[X] - SIZE_X(curr->character->size) : curr->pos[X] + SIZE_X(curr->character->size);
+            calc_front_floor();
+            front = dir ? POS_TO_PX(curr->pos[X]) - SIZE_X(curr->character->size) : POS_TO_PX(curr->pos[X]) + SIZE_X(curr->character->size);
             if(!(status & LEAPS)){
                 if(turn_around())
                     return;
@@ -67,8 +76,8 @@ static inline void nastie_tree(){
 
         break;
         case FALL_RIGHT:
-            back_floor_ind = dir ? XY_TO_IND( PX_TO_BLOCK(curr->pos[X] + SIZE_X(curr->character->size) ), (PX_TO_BLOCK(curr->pos[Y]) ) ) :
-                                XY_TO_IND( PX_TO_BLOCK(curr->pos[X] - SIZE_X(curr->character->size) ), (PX_TO_BLOCK(curr->pos[Y]) ) );
+            back_floor_ind = dir ? XY_TO_IND( PX_TO_BLOCK(POS_TO_PX(curr->pos[X]) + SIZE_X(curr->character->size) ), (PX_TO_BLOCK(POS_TO_PX(curr->pos[Y])) ) ) :
+                                XY_TO_IND( PX_TO_BLOCK(POS_TO_PX(curr->pos[X]) - SIZE_X(curr->character->size) ), (PX_TO_BLOCK(POS_TO_PX(curr->pos[Y])) ) );
             if( (SOLID & env->front_blocks[ back_floor_ind ] ) ) {
                 curr->status = dir + WALK_RIGHT;
                 curr->speed[Y] = 0;
