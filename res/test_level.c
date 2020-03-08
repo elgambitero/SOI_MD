@@ -108,5 +108,5 @@ const Board test_level = {
     },
     {PAL_GR, PAL_R, PAL_BL},
     0,
-    &spinner
+    &ant
 };

@@ -42,6 +42,7 @@ static inline u8 fall(){
         newstatus = dir | FALL_RIGHT;
         curr->status = newstatus;
         curr->speed[Y] = FALLSPEED;
+        curr->speed[X] = 0;
         return 1;
     }
     return 0;
@@ -88,9 +89,8 @@ static inline void nastie_tree(){
 
         break;
         case FALL_RIGHT:
-            calc_back();
-            calc_back_floor();
-            if( (SOLID & env->front_blocks[ back_floor_ind ] ) ) {
+            calc_floor();
+            if( (SOLID & env->front_blocks[ floor_ind ] ) ) {
                 curr->status = dir + WALK_RIGHT;
                 curr->speed[Y] = 0;
                 //curr->pos[Y] = ( IND_TO_Y(back_floor_ind) << 4);
