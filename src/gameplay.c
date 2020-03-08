@@ -64,30 +64,6 @@ void gameInit(){
 
     load_blk_tiles(ind);
 
-    //drawBlock(0, 0, (NORMAL_BLOCK | SOLID | BLK_DONUT | COL_SLOT1));
-/*
-    VDP_setMapEx(PLAN_A, clr_blk_bg.map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, clr_blk_bg_ind),
-            1, 3, 0, 0, 12, 2);
-    VDP_setMapEx(PLAN_B, clr_blk_sl1.map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, clr_blk_sl1_ind),
-            1, 3, 0, 0, 12, 2);
-
-    VDP_setMapEx(PLAN_A, clr_blk_bg.map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, clr_blk_bg_ind),
-            1, 5, 0, 0, 12, 2);
-    VDP_setMapEx(PLAN_B, clr_blk_sl0.map, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, clr_blk_sl0_ind),
-            1, 5, 0, 0, 12, 2);
-
-    VDP_setMapEx(PLAN_A, clr_blk_bg.map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, clr_blk_bg_ind),
-            1, 7, 0, 0, 12, 2);
-    VDP_setMapEx(PLAN_B, clr_blk_sl1.map, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, clr_blk_sl1_ind),
-            1, 7, 0, 0, 12, 2);
-
-    VDP_setMapEx(PLAN_A, wt_blk.map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, wt_blk_ind),
-            1, 1, 0, 0, 12, 2);
-
-    VDP_setMapEx(PLAN_B, sp_blk.map, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, sp_blk_ind),
-            13, 1, 0, 0, 12, 2);
-            */
-
     SPR_init();
     PHY_init(&board);
     if(!ACT_init()) gameState = GAMEEXIT;

@@ -10,6 +10,8 @@
 
 #define FALLSPEED 2
 
+#define TURN_FRAMES 16
+
 void PHY_init(Board * board);
 void PHY_computeStatus(Actor * actor);
 
