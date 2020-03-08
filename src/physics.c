@@ -8,6 +8,7 @@
 Board * env;
 u8 status;
 u8 newstatus;
+u8 front_ind;
 u8 back_floor_ind;
 u8 front_floor_ind;
 u8 floor_ind;
@@ -17,6 +18,9 @@ u8 dir;
 u16 attr;
 Actor * curr;
 
+static inline calc_front_block(){
+    front_ind = XY_TO_IND( PX_TO_BLOCK( front ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) - 1) );
+}
 
 static inline calc_front_floor(){
     front_floor_ind = XY_TO_IND( PX_TO_BLOCK( front ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) );
@@ -48,13 +52,17 @@ static inline u8 fall(){
 }
 
 static inline u8 turn_around(){
-    if( !( SOLID & env->front_blocks[front_floor_ind] ) &&  ( front < BOARD_X_PX ) ){
+    if( !( SOLID & env->front_blocks[front_floor_ind] ) ||  ( front >= BOARD_X_PX ) ){
         newstatus = dir | RIGHT_TURN_LEFT;
         curr->frames = TURN_FRAMES;
         curr->speed[X] = 0;
         return 1;
     }
     return 0;
+}
+
+static inline u8 crash_into(){
+    return ( SOLID & env->front_blocks[front_ind] ) ||  ( front >= BOARD_X_PX );
 }
 
 static inline void nastie_tree(){
@@ -67,14 +75,29 @@ static inline void nastie_tree(){
                     calc_back_floor();
                     if(fall())
                         return;
+                    calc_front();
+                    calc_front_block();
+                    if(crash_into()){
+                        switch(attr & BRK_BITMSK){
+                            case BREAKS_THRU:
+                            case BREAKS:
+                                break;
+                            default:
+                                newstatus = dir | RIGHT_TURN_LEFT;
+                                curr->frames = TURN_FRAMES;
+                                curr->speed[X] = 0;
+                                return;
+                                break;
+                        }
+                    }
+                    calc_front_floor();
+                    if(!(attr & LEAPS)){
+                        if(turn_around())
+                            return;
+                        }
                 break;
             }
-            calc_front();
-            calc_front_floor();
-            if(!(attr & LEAPS)){
-                if(turn_around())
-                    return;
-            }
+            
             curr->speed[X] = dir ? -WALKSPEED : WALKSPEED;
         break;
         case RIGHT_TURN_LEFT:
@@ -141,9 +164,9 @@ u8 PHY_computeStatus(Actor * actor){
     newstatus = status;
     attr = curr->character->attr;
     dir = (status & 0x0001);
+
     class_tree();
-    u8 result;
-    result = newstatus != status;
+    
     curr->status = newstatus;
-    return result;
+    return newstatus != status;
 }
