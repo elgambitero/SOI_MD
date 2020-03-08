@@ -1,0 +1,14 @@
+mkdir frames
+for x in {0..79}; do convert -extent 32x32 -gravity south $x.bmp frames/$x.bmp; done
+for x in {0..79}; do convert -flop frames/$x.bmp frames/$x.bmp; done
+cd frames
+
+convert +append {0..15}.bmp attack_left.bmp
+convert +append {0..15}.bmp attack_right.bmp
+convert +append {16..31}.bmp attack_right.bmp
+convert +append {32..47}.bmp walk_right.bmp
+convert +append {48..63}.bmp right_turn_left.bmp
+convert +append {63..48}.bmp left_turn_right.bmp
+convert +append {64..79}.bmp walk_left.bmp
+
+convert -append walk_right.bmp walk_left.bmp right_turn_left.bmp left_turn_right.bmp attack_right.bmp attack_left.bmp fall_right.bmp fall_left.bmp robo_full.bmp
