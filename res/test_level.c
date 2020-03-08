@@ -26,50 +26,14 @@ static const Actor blp = {&blue_player_ent,
        0
     };
 
-static const Actor spinner8 = {&spinner_ent,
-       0,
-       0,
-    {96, 40},
-    {   0,    0},
-       0,
-       0
-    };
-
-static const Actor spinner7 = {&spinner_ent,
-       0,
-       0,
-    {214, 40},
-    {   0,    0},
-       0,
-       &spinner8
-    };
-
-static const Actor spinner6 = {&spinner_ent,
-       0,
-       0,
-    {198, 40},
-    {   0,    0},
-       0,
-       &spinner7
-    };
-
-static const Actor spinner5 = {&spinner_ent,
-       0,
-       0,
-    {182, 40},
-    {   0,    0},
-       0,
-       &spinner6
-    };
-
-static const Actor spinner4 = {&spinner_ent,
-       0,
-       0,
-    {166, 40},
-    {   0,    0},
-       0,
-       &spinner5
-    };
+static const Actor robo = {&robo_ent,
+   WALK_RIGHT,
+   0,
+   {216, 32},
+   {0, 0},
+   0,
+   0
+   };
 
 static const Actor spinner3 = {&spinner_ent,
        0,
@@ -77,7 +41,7 @@ static const Actor spinner3 = {&spinner_ent,
     {134, 40},
     {   0,    0},
        0,
-      &spinner4
+      &robo
     };
 
 static const Actor spinner2 = {&spinner_ent,
@@ -95,7 +59,7 @@ static const Actor spinner = {&spinner_ent,
     {150, 60},
     {   0,    0},
        0,
-    &spinner2
+    &robo
     };
 
 
@@ -104,7 +68,7 @@ const Board test_level = {
     {
      BFW, BOW, BDW, CHI, QUE, NET,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
      BFG, BOG, BDG,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-     BFR, BOR, BDR,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+     BFR, BOR, BDR,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, BOR, BOR, BOR, BOR, BOR,   0,
      BFB, BOB, BDB,   0,   0,   0,   0, NET, NET, NET, NET,   0,   0,   0,   0,   0,   0,   0,   0,
        0,   0,   0,   0,   0,   0,   0, NET, NET, NET, NET,   0,   0,   0,   0,   0,   0,   0,   0,
        0,   0,   0,   0,   0,   0,   0, NET,   0, NET, NET,   0,   0,   0,   0,   0,   0,   0,   0,
@@ -134,5 +98,5 @@ const Board test_level = {
     },
     {PAL_GR, PAL_R, PAL_BL},
     0,
-    &spinner
+    &robo
 };
