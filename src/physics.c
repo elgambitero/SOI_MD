@@ -18,26 +18,26 @@ u8 dir;
 u16 attr;
 Actor * curr;
 
-static inline calc_front_block(){
+static inline void calc_front_block(){
     front_ind = XY_TO_IND( PX_TO_BLOCK( front ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) - 1) );
 }
 
-static inline calc_front_floor(){
+static inline void calc_front_floor(){
     front_floor_ind = XY_TO_IND( PX_TO_BLOCK( front ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) );
 }
 
-static inline calc_back_floor(){
+static inline void calc_back_floor(){
     back_floor_ind = XY_TO_IND( PX_TO_BLOCK( back ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y])  ) ) ) ;
 }
 
-static inline calc_floor(){
+static inline void calc_floor(){
     floor_ind = XY_TO_IND( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y])  ) ) ) ;
 }
 
-static inline calc_front(){
+static inline void calc_front(){
     front = dir ? POS_TO_PX(curr->pos[X]) - SIZE_X(curr->character->size) : POS_TO_PX(curr->pos[X]) + SIZE_X(curr->character->size);
 }
-static inline calc_back(){
+static inline void calc_back(){
     back = dir ? POS_TO_PX(curr->pos[X]) + SIZE_X(curr->character->size) : POS_TO_PX(curr->pos[X]) - SIZE_X(curr->character->size);
 }
 
