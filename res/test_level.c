@@ -26,13 +26,33 @@ static const Actor blp = {&blue_player_ent,
        0
     };
 
+
+static const Actor spinner3 = {&spinner_ent,
+       0,
+       0,
+    {134, 40},
+    {   0,    0},
+       0,
+      0
+    };
+
+static const Actor spinner2 = {&spinner_ent,
+       0,
+       0,
+    {118, 20},
+    {   0,    0},
+       0,
+    &spinner3
+    };
+
+
 static const Actor spinner = {&spinner_ent,
        0,
        0,
     {150, 60},
     {   0,    0},
        0,
-    0
+    &spinner2
     };
 
 static const Actor robo = {&robo_ent,
@@ -44,33 +64,13 @@ static const Actor robo = {&robo_ent,
    &spinner
    };
 
-/*
-static const Actor spinner3 = {&spinner_ent,
-       0,
-       0,
-    {134, 40},
-    {   0,    0},
-       0,
-      &robo
-    };
-
-static const Actor spinner2 = {&spinner_ent,
-       0,
-       0,
-    {118, 20},
-    {   0,    0},
-       0,
-    &spinner3
-    };
-*/
-
 static const Actor ant = {&ant_ent,
       0,
       0,
    {216, 32},
    {   0,    0},
       0,
-   &spinner
+   &robo
    };
 
 
@@ -109,5 +109,5 @@ const Board test_level = {
     },
     {PAL_GR, PAL_R, PAL_BL},
     0,
-    &spinner
+    &ant
 };
