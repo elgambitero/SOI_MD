@@ -13,6 +13,9 @@
 
 #define TURN_FRAMES 32
 
+#define BLOCK 1
+#define FRAME 2
+
 void PHY_init(Board * board);
 u8 PHY_computeStatus(Actor * actor);
 
