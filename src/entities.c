@@ -28,7 +28,7 @@ const Entity robo_ent = {
 
 const Entity ant_ent = {
     NASTIE | WALKS | LEAPS,
-    (u8) CODE_SIZE(5, 8),
+    (u8) CODE_SIZE(7, 8),
     (u8) CODE_SIZE(7, 8),
     PAL_SYS0,
     &ant_spr

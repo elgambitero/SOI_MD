@@ -42,13 +42,7 @@ static inline calc_back(){
 }
 
 static inline u8 fall(){
-    if( !( SOLID & env->front_blocks[back_floor_ind] ) &&  ( POS_TO_PX(curr->pos[Y]) < BOARD_Y_PX ) ){
-        newstatus = dir | FALL_RIGHT;
-        curr->speed[Y] = FALLSPEED;
-        curr->speed[X] = 0;
-        return 1;
-    }
-    return 0;
+    return !( SOLID & env->front_blocks[floor_ind] ) &&  ( POS_TO_PX(curr->pos[Y]) < BOARD_Y_PX );
 }
 
 static inline u8 turn_around(){
@@ -70,11 +64,25 @@ static inline void nastie_tree(){
         case WALK_RIGHT:
             switch(attr & MOVT_BITMSK){
                 case STILL:
+                    calc_floor();
+                    if(fall()){
+                        newstatus = FALL_RIGHT;
+                        status = FALL_RIGHT; //Ugly hack
+                        curr->speed[Y] = FALLSPEED;
+                        curr->speed[0] = 0;
+                        return;
+                    }
+                    curr->speed[X] = 0;
+                    return;
                 case WALKS:
                     calc_back();
                     calc_back_floor();
-                    if(fall())
+                    if(fall()){
+                        newstatus = dir | FALL_RIGHT;
+                        curr->speed[Y] = FALLSPEED;
+                        curr->speed[X] = 0;
                         return;
+                    }
                     calc_front();
                     calc_front_block();
                     if(crash_into()){
