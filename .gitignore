@@ -1,3 +1,4 @@
 /out/*
 /src/boot/*
 /res/*.h
+*.DS_Store
