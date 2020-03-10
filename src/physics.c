@@ -128,7 +128,10 @@ static inline void nastie_tree(){
             //if(attr & WALKS)
             curr->speed[X] = dir ? WALKSPEED : -WALKSPEED;
         break;
-        case ATTACK_RIGHT:
+        case ATTACK_RIGHT_IN:
+
+        break;
+        case ATTACK_RIGHT_OUT:
 
         break;
         case FALL_RIGHT:
@@ -161,7 +164,7 @@ static inline void class_tree(){
         case PROJECTILE:
 
         break;
-        case SFX:
+        case FX:
 
         break;
 
