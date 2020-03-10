@@ -96,7 +96,7 @@ static inline void nastie_tree(){
                             return;
                         case BLOCK:
                             switch(attr & BRK_BITMSK){
-                                case BREAKS_THRU:
+                                case GOES_THRU:
                                 case BREAKS:
                                     break;
                                 default:
