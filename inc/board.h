@@ -27,5 +27,7 @@ u8 load_board(Board * board, const Board * level);
 void load_board_palettes(Board * board);
 void draw_board(Board * board);
 void play_board_music(Board * board);
+u16 getBlock(Board * board, u8 x, u8 y);
+void break_block(Board * board, u8 x, u8 y);
 
 #endif

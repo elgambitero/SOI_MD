@@ -85,5 +85,6 @@
 #define GD_ADD_INFO(good) (good > 8)
 
 void drawBlock(u8 x, u8 y, u16 block);
+void eraseBlock(u8 x, u8 y);
 
 #endif

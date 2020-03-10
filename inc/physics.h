@@ -12,6 +12,7 @@
 #define WALKSPEED 2
 
 #define TURN_FRAMES 32
+#define ATTK_FRAMES 16
 
 #define BLOCK 1
 #define FRAME 2

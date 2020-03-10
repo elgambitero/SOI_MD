@@ -106,6 +106,16 @@ u16 getBlock(Board * board, u8 x, u8 y){
     return board->front_blocks[XY_TO_IND(x, y)];
 }
 
+void break_block(Board * board, u8 x, u8 y){
+    u8 ind = XY_TO_IND(x, y);
+    board->front_blocks[ind] = 0;
+    if(board->back_blocks[ind]){
+        board->front_blocks[ind] = board->back_blocks[ind];
+        board->back_blocks[ind] = 0;
+        drawBlock(x, y, (*(board->front_blocks + ind)));
+    }
+}
+
 void play_board_music(Board * board){
     switch(board->music){
         case 0:

@@ -5,7 +5,7 @@
 #include "board.h"
 #include "stage.h"
 
-#define POS_TO_TILE(x) (1 + x*2)
+#define BLK_TO_TILE(x) (1 + x*2)
 #define FG 0
 #define BG 1
 
@@ -102,12 +102,18 @@ void drawBlock(u8 x, u8 y, u16 block){
             */
     
     VDP_setMapEx(PLAN_A, bg_blk_map, TILE_ATTR_FULL(palette[BG], FALSE, FALSE, FALSE, tile_index[BG]),
-            POS_TO_TILE(x), POS_TO_TILE(y), map_ind, 0, 2, 2);
+            BLK_TO_TILE(x), BLK_TO_TILE(y), map_ind, 0, 2, 2);
             //1, 1, 2, 0, 2, 2);
     if(fg_blk_map)
         VDP_setMapEx(PLAN_B, fg_blk_map, TILE_ATTR_FULL(palette[FG], FALSE, FALSE, FALSE, tile_index[FG]),
-                POS_TO_TILE(x), POS_TO_TILE(y), map_ind, 0, 2, 2);
+                BLK_TO_TILE(x), BLK_TO_TILE(y), map_ind, 0, 2, 2);
                 
+}
+
+void eraseBlock(u8 x, u8 y){
+    VDP_clearTileMapRect(PLAN_A, BLK_TO_TILE(x), BLK_TO_TILE(y), 2, 2);
+    VDP_clearTileMapRect(PLAN_B, BLK_TO_TILE(x), BLK_TO_TILE(y), 2, 2);
+
 }
 
 void load_blk_tiles(u16 ind){

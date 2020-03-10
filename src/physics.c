@@ -58,6 +58,10 @@ static inline u8 crash_into(){
         return 0;
 }
 
+static inline u8 breakable(){
+    return (BREAKABLE & env->front_blocks[front_ind]);
+}
+
 static inline land(){
     return ( SOLID & env->front_blocks[ floor_ind ] ) || (POS_TO_PX(curr->pos[Y]) >= BOARD_Y_PX);
 }
@@ -97,7 +101,13 @@ static inline void nastie_tree(){
                         case BLOCK:
                             switch(attr & BRK_BITMSK){
                                 case GOES_THRU:
+                                case DELETES:
                                 case BREAKS:
+                                    if(breakable()){
+                                        newstatus = dir | ATTACK_RIGHT_IN;
+                                        curr->frames = ATTK_FRAMES;
+                                        curr->speed[X] = 0;
+                                    }
                                     break;
                                 default:
                                     newstatus = dir | RIGHT_TURN_LEFT;
@@ -125,14 +135,21 @@ static inline void nastie_tree(){
         break;
         case RIGHT_TURN_LEFT:
             newstatus = WALK_RIGHT | !dir;
-            //if(attr & WALKS)
             curr->speed[X] = dir ? WALKSPEED : -WALKSPEED;
         break;
         case ATTACK_RIGHT_IN:
-
+            newstatus = dir | ATTACK_RIGHT_OUT;
+            curr->frames = ATTK_FRAMES;
+            curr->speed[X] = 0;
         break;
         case ATTACK_RIGHT_OUT:
-
+            if(attr & GOES_THRU){
+                newstatus = WALK_RIGHT | dir;
+                curr->speed[X] = dir ? -WALKSPEED : WALKSPEED;
+            }else{
+                newstatus = RIGHT_TURN_LEFT | !dir;
+                curr->frames = TURN_FRAMES;
+            }
         break;
         case FALL_RIGHT:
             calc_floor();
