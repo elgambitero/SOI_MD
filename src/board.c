@@ -113,7 +113,22 @@ void break_block(Board * board, u8 x, u8 y){
         board->front_blocks[ind] = board->back_blocks[ind];
         board->back_blocks[ind] = 0;
         drawBlock(x, y, (*(board->front_blocks + ind)));
+        return;
     }
+    eraseBlock(x, y);
+    return;
+}
+
+void break_block_ind(Board * board, u8 ind){
+    board->front_blocks[ind] = 0;
+    if(board->back_blocks[ind]){
+        board->front_blocks[ind] = board->back_blocks[ind];
+        board->back_blocks[ind] = 0;
+        drawBlock(IND_TO_X(ind), IND_TO_Y(ind), (*(board->front_blocks + ind)));
+        return;
+    }
+    eraseBlock(IND_TO_X(ind), IND_TO_Y(ind));
+    return;
 }
 
 void play_board_music(Board * board){

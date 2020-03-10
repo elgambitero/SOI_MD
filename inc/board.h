@@ -29,5 +29,6 @@ void draw_board(Board * board);
 void play_board_music(Board * board);
 u16 getBlock(Board * board, u8 x, u8 y);
 void break_block(Board * board, u8 x, u8 y);
+void break_block_ind(Board * board, u8 ind);
 
 #endif

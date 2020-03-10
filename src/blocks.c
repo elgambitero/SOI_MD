@@ -113,7 +113,6 @@ void drawBlock(u8 x, u8 y, u16 block){
 void eraseBlock(u8 x, u8 y){
     VDP_clearTileMapRect(PLAN_A, BLK_TO_TILE(x), BLK_TO_TILE(y), 2, 2);
     VDP_clearTileMapRect(PLAN_B, BLK_TO_TILE(x), BLK_TO_TILE(y), 2, 2);
-
 }
 
 void load_blk_tiles(u16 ind){

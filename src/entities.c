@@ -20,7 +20,7 @@ const Entity spinner_ent = {
 
 const Entity robo_ent = {
     NASTIE | WALKS | DIES_ON_LEAP | BREAKS | GOES_THRU,
-    (u8) CODE_SIZE(3, 15),
+    (u8) CODE_SIZE(4, 15),
     (u8) CODE_SIZE(7, 15),
     PAL_SYS0,
     &robo_spr

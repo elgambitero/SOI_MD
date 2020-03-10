@@ -10,6 +10,7 @@
 #define BDW (NORMAL_BLOCK | SOLID | BLK_DONUT | COL_WHITE)
 #define BOW (NORMAL_BLOCK | SOLID | BLK_DOT   | COL_WHITE)
 #define BFW (NORMAL_BLOCK | SOLID | BLK_FLAT  | COL_WHITE)
+#define  FW (NORMAL_BLOCK | SOLID | BREAKABLE | BLK_FLAT  | COL_WHITE)
 #define BFG (NORMAL_BLOCK | SOLID | BLK_FLAT  | COL_SLOT1)
 #define BFR (NORMAL_BLOCK | SOLID | BLK_FLAT  | COL_SLOT2)
 #define BFB (NORMAL_BLOCK | SOLID | BLK_FLAT  | COL_SLOT3)
@@ -58,7 +59,7 @@ static const Actor spinner = {&spinner_ent,
 static const Actor robo = {&robo_ent,
    WALK_RIGHT,
    0,
-   {216, 31},
+   {200, 31},
    {0, 0},
    0,
    &spinner
@@ -67,7 +68,7 @@ static const Actor robo = {&robo_ent,
 static const Actor ant = {&ant_ent,
       0,
       0,
-   {216, 31},
+   {200, 31},
    {   0,    0},
       0,
    &robo
@@ -78,8 +79,8 @@ static const Actor ant = {&ant_ent,
 const Board test_level = {
     {
      BFW, BOW, BDW, CHI, QUE, NET,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-     BFG, BOG, BDG,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-     BFR, BOR, BDR,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, BOR, BOR, BOR,   0,   0,   0,
+     BFG, BOG, BDG,   0,   0,   0,   0,   0,   0,   0, BOR,   0,   0,   0,   0,  FW,   0,   0,   0,
+     BFR, BOR, BDR,   0,   0,   0,   0,   0,   0,   0,   0, BOR, BOW, BOR, BOR, BOR,   0,   0,   0,
      BFB, BOB, BDB,   0,   0,   0,   0, NET, NET, NET, NET,   0,   0,   0,   0,   0,   0,   0,   0,
        0,   0,   0,   0,   0,   0,   0, NET, NET, NET, NET,   0,   0,   0,   0,   0,   0,   0, BDB,
        0,   0,   0,   0,   0,   0,   0, NET,   0, NET, NET,   0,   0,   0,   0,   0, BOG, BDR,   0,

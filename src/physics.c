@@ -100,13 +100,18 @@ static inline void nastie_tree(){
                             return;
                         case BLOCK:
                             switch(attr & BRK_BITMSK){
-                                case GOES_THRU:
                                 case DELETES:
                                 case BREAKS:
                                     if(breakable()){
                                         newstatus = dir | ATTACK_RIGHT_IN;
                                         curr->frames = ATTK_FRAMES;
                                         curr->speed[X] = 0;
+                                        return;
+                                    }else{
+                                        newstatus = dir | RIGHT_TURN_LEFT;
+                                        curr->frames = TURN_FRAMES;
+                                        curr->speed[X] = 0;
+                                        return;
                                     }
                                     break;
                                 default:
@@ -138,6 +143,8 @@ static inline void nastie_tree(){
             curr->speed[X] = dir ? WALKSPEED : -WALKSPEED;
         break;
         case ATTACK_RIGHT_IN:
+            calc_front();
+            break_block_ind(env, front_ind);
             newstatus = dir | ATTACK_RIGHT_OUT;
             curr->frames = ATTK_FRAMES;
             curr->speed[X] = 0;
