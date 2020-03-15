@@ -2,6 +2,7 @@
 
 #include "board.h"
 #include "blocks.h"
+#include "sound.h"
 
 #include "globals.h"
 
@@ -20,6 +21,8 @@ u16 back;
 u8 dir;
 u16 attr;
 Actor * curr;
+
+#define SFX_IND 5
 
 u8 result;
 
@@ -183,6 +186,8 @@ static inline void nastie_tree(){
             switch(attr & BRK_BITMSK){
                 case BREAKS:
                     brk_debris(front_ind, BRK_SPEED, 0);
+                    XGM_setPCM(SFX_IND, blk_phy_break, sizeof(blk_phy_break));
+                    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                 break;
                 case DELETES:
 
