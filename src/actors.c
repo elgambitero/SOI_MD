@@ -57,6 +57,7 @@ Actor * ACT_add(Actor * actor)
         POS_TO_PX(result->pos[0]) - SIZE_X(result->character->spr_pos) + BOARD_OFFSET_X, 
         POS_TO_PX(result->pos[1]) - SIZE_Y(result->character->spr_pos) + BOARD_OFFSET_Y,
         TILE_ATTR_FULL(result->character->palette,TRUE, FALSE, FALSE,TILE_USERINDEX));
+    if(result) SPR_setAnim(result->sprite, result->status);
     return result;
 }
 

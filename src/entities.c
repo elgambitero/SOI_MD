@@ -35,7 +35,7 @@ const Entity ant_ent = {
 };
 
 const Entity piggy_ent = {
-    NASTIE | WALKS | LEAPS | DELETES,
+    NASTIE | WALKS | LEAPS | DELETES,
     (u8) CODE_SIZE(7,15),
     (u8) CODE_SIZE(7,15),
     PAL_SYS1,
@@ -47,7 +47,7 @@ const Entity deletor_ent = {
     (u8) CODE_SIZE(7,15),
     (u8) CODE_SIZE(7,15),
     PAL_SYS0,
-    &deletor_ent
+    &deletor_spr
 };
 
 const Entity blk_debris0_ent = {

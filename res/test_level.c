@@ -65,13 +65,22 @@ static const Actor robo = {&robo_ent,
    &spinner
    };
 
+static const Actor piggy = {&piggy_ent,
+   WALK_RIGHT,
+   0,
+   {200, 31},
+   {0, 0},
+   0,
+   &spinner
+   };
+
 static const Actor ant = {&ant_ent,
       0,
       0,
    {200, 31},
    {   0,    0},
       0,
-   &robo
+   &piggy
    };
 
 

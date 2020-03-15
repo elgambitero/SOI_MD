@@ -17,6 +17,7 @@
 
 #define TURN_FRAMES 32
 #define ATTK_FRAMES 16
+#define DELETOR_FRAMES 7
 
 #define BLOCK 1
 #define FRAME 2

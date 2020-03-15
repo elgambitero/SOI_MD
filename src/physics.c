@@ -84,6 +84,7 @@ static inline u8 land(){
 }
 
 static inline void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
+    fx.status = 0;
     fx.pos[X] = BLOCK_TO_PX(IND_TO_X(front_ind));
     fx.pos[Y] = BLOCK_TO_PX(IND_TO_Y(front_ind));
     fx.character = &blk_debris0_ent;
@@ -104,8 +105,15 @@ static inline void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
     ACT_add(&fx);
 }
 
-static inline void summon_deletor(u8 deletes){
-
+static inline void summon_deletor(u8 front_ind, u8 deletes){
+    fx.status = deletes ? 1 : 0;
+    fx.character = &deletor_ent;
+    fx.frames = DELETOR_FRAMES;
+    fx.pos[X] = BLOCK_TO_PX(IND_TO_X(front_ind)) + 7;
+    fx.pos[Y] = BLOCK_TO_PX( (IND_TO_Y(front_ind) + 1) );
+    fx.speed[X] = 0;
+    fx.speed[Y] = 0;
+    ACT_add(&fx);
 }
 
 static inline void nastie_tree(){
@@ -194,7 +202,7 @@ static inline void nastie_tree(){
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                 break;
                 case DELETES:
-                    summon_deletor(true);
+                    summon_deletor(front_ind, TRUE);
                 break;
             }
             newstatus = dir | ATTACK_RIGHT_OUT;
@@ -206,8 +214,7 @@ static inline void nastie_tree(){
                 newstatus = WALK_RIGHT | dir;
                 curr->speed[X] = dir ? -WALKSPEED : WALKSPEED;
             }else{
-                newstatus = RIGHT_TURN_LEFT | !dir;
-                curr->frames = TURN_FRAMES;
+                newstatus = WALK_RIGHT | !dir;
             }
         break;
         case FALL_RIGHT:
