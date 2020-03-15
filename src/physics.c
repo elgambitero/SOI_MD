@@ -104,6 +104,10 @@ static inline void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
     ACT_add(&fx);
 }
 
+static inline void summon_deletor(u8 deletes){
+
+}
+
 static inline void nastie_tree(){
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
@@ -190,7 +194,7 @@ static inline void nastie_tree(){
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                 break;
                 case DELETES:
-
+                    summon_deletor(true);
                 break;
             }
             newstatus = dir | ATTACK_RIGHT_OUT;
@@ -233,10 +237,7 @@ static inline void fx_tree(){
             curr->speed[Y] += GRAVITY;
         break;
         case DELETER:
-        
-        break;
-        case CREATOR:
-
+            result = ACT_DELETION;
         break;
     }
 }
