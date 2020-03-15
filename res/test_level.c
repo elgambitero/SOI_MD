@@ -7,6 +7,7 @@
 #define BOR (NORMAL_BLOCK | SOLID | BLK_DOT   | COL_SLOT2)
 #define BDB (NORMAL_BLOCK | SOLID | BLK_DONUT | COL_SLOT3)
 #define BOB (NORMAL_BLOCK | SOLID | BLK_DOT   | COL_SLOT3)
+#define  OB (NORMAL_BLOCK | SOLID | BREAKABLE | BLK_DOT   | COL_SLOT3)
 #define BDW (NORMAL_BLOCK | SOLID | BLK_DONUT | COL_WHITE)
 #define BOW (NORMAL_BLOCK | SOLID | BLK_DOT   | COL_WHITE)
 #define BFW (NORMAL_BLOCK | SOLID | BLK_FLAT  | COL_WHITE)
@@ -21,7 +22,7 @@
 static const Actor blp = {&blue_player_ent,
        0,
        0,
-    {176, 208},
+    {8, 208},
     {   0,    0},
        0,
        0
@@ -31,7 +32,7 @@ static const Actor blp = {&blue_player_ent,
 static const Actor spinner3 = {&spinner_ent,
        0,
        0,
-    {134, 40},
+    {24, 40},
     {   0,    0},
        0,
       0
@@ -40,7 +41,7 @@ static const Actor spinner3 = {&spinner_ent,
 static const Actor spinner2 = {&spinner_ent,
        0,
        0,
-    {118, 20},
+    {40, 20},
     {   0,    0},
        0,
     &spinner3
@@ -59,25 +60,25 @@ static const Actor spinner = {&spinner_ent,
 static const Actor robo = {&robo_ent,
    WALK_RIGHT,
    0,
-   {200, 31},
+   {120, 31},
    {0, 0},
    0,
-   &spinner
+   0
    };
 
 static const Actor piggy = {&piggy_ent,
    WALK_RIGHT,
    0,
-   {200, 31},
+   {280, 31},
    {0, 0},
    0,
-   &spinner
+   &robo
    };
 
 static const Actor ant = {&ant_ent,
       0,
       0,
-   {200, 31},
+   {280, 31},
    {   0,    0},
       0,
    &piggy
@@ -88,10 +89,10 @@ static const Actor ant = {&ant_ent,
 const Board test_level = {
     {
      BFW, BOW, BDW, CHI, QUE, NET,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-     BFG, BOG, BDG,   0,   0,   0,   0,   0,   0,   0, BOR,   0,   0,   0,   0,  FW,   0,   0,   0,
-     BFR, BOR, BDR,   0,   0,   0,   0,   0,   0,   0,   0, BOR, BOW, BOR, BOR, BOR,   0,   0,   0,
+     BFG, BOG, BDG,   0,   0,   0,   0,   0,  OB,  OB,  OB,  OB,  OB,  OB,  OB,  FW,   0,   0,   0,
+     BFR, BOR, BDR,   0,   0,   0, BOR, BOR, BOR, BOR, BOR, BOR, BOW, BOR, BOR, BOR,   0,   0,   0,
      BFB, BOB, BDB,   0,   0,   0,   0, NET, NET, NET, NET,   0,   0,   0,   0,   0,   0,   0,   0,
-       0,   0,   0,   0,   0,   0,   0, NET, NET, NET, NET,   0,   0,   0,   0,   0,   0,   0, BDB,
+       0,   0,   0,   0,   0,   0,   0, NET, NET, NET, NET,   0,   0,   0,   0,   0,   0,  FW, BDB,
        0,   0,   0,   0,   0,   0,   0, NET,   0, NET, NET,   0,   0,   0,   0,   0, BOG, BDR,   0,
        0,   0,   0,   0,   0,   0,   0, NET,   0, NET, NET,   0,   0, BFG,   0,   0,   0,   0,   0,
        0,   0,   0,   0,   0,   0,   0, NET,   0, BFW,   0,   0,   0,   0, BFW, BFW,   0,   0,   0,
