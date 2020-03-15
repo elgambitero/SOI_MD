@@ -69,4 +69,9 @@ extern const Entity spinner_ent;
 extern const Entity robo_ent;
 extern const Entity ant_ent;
 
+extern const Entity blk_debris0_ent;
+extern const Entity blk_debris1_ent;
+extern const Entity blk_debris2_ent;
+extern const Entity blk_debris3_ent;
+
 #endif

@@ -98,8 +98,9 @@ Actor * ACT_getFirst(){
 
 void ACT_update(){
     Actor * current = firstActor;
+    Actor * next = 0;
     while(current){
-        u8 changed = PHY_computeStatus(current);
+        u8 phy_result = PHY_computeStatus(current);
 
         current->pos[X] += current->speed[X];
         current->pos[Y] += current->speed[Y];
@@ -107,8 +108,16 @@ void ACT_update(){
         SPR_setPosition(current->sprite,
             POS_TO_PX(current->pos[X]) - SIZE_X(current->character->spr_pos) + BOARD_OFFSET_X,
             POS_TO_PX(current->pos[Y]) - SIZE_Y(current->character->spr_pos) + BOARD_OFFSET_Y);
-        if (changed) SPR_setAnim(current->sprite, current->status);
-        current = current->next;
+        next = current->next;
+        switch(phy_result){
+            case ACT_CHANGED:
+                SPR_setAnim(current->sprite, current->status);
+            break;
+            case ACT_DELETION:
+                ACT_remove(current);
+            break;
+        }
+        current = next;
     }
 
     SPR_update();

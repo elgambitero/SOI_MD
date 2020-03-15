@@ -34,7 +34,7 @@ const Entity ant_ent = {
     &ant_spr
 };
 
-const Entity blk_debris0 = {
+const Entity blk_debris0_ent = {
     FX | SHRAPNEL,
     (u8) CODE_SIZE(4, 8),
     (u8) CODE_SIZE(4, 4),
@@ -42,7 +42,7 @@ const Entity blk_debris0 = {
     &blk_debris0_spr
 };
 
-const Entity blk_debris1 = {
+const Entity blk_debris1_ent = {
     FX | SHRAPNEL,
     (u8) CODE_SIZE(4, 8),
     (u8) CODE_SIZE(4, 4),
@@ -50,7 +50,7 @@ const Entity blk_debris1 = {
     &blk_debris1_spr
 };
 
-const Entity blk_debris2 = {
+const Entity blk_debris2_ent = {
     FX | SHRAPNEL,
     (u8) CODE_SIZE(4, 8),
     (u8) CODE_SIZE(4, 4),
@@ -58,7 +58,7 @@ const Entity blk_debris2 = {
     &blk_debris2_spr
 };
 
-const Entity blk_debris3 = {
+const Entity blk_debris3_ent = {
     FX | SHRAPNEL,
     (u8) CODE_SIZE(4, 8),
     (u8) CODE_SIZE(4, 4),

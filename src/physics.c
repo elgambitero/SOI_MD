@@ -6,17 +6,31 @@
 #include "globals.h"
 
 Board * env;
+
 u8 status;
 u8 newstatus;
+
 u16 front_ind;
 u16 back_floor_ind;
 u16 front_floor_ind;
 u16 floor_ind;
 u16 front;
 u16 back;
+
 u8 dir;
 u16 attr;
 Actor * curr;
+
+u8 result;
+
+struct Actor fx = {0,
+    0,
+    0,
+    {0, 0},
+    {0, 0},
+    0,
+    0
+};
 
 static inline void calc_front_block(){
     front_ind = XY_TO_IND( PX_TO_BLOCK( front ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) - 1) );
@@ -62,8 +76,29 @@ static inline u8 breakable(){
     return (BREAKABLE & env->front_blocks[front_ind]);
 }
 
-static inline land(){
+static inline u8 land(){
     return ( SOLID & env->front_blocks[ floor_ind ] ) || (POS_TO_PX(curr->pos[Y]) >= BOARD_Y_PX);
+}
+
+static inline void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
+    fx.pos[X] = BLOCK_TO_PX(IND_TO_X(front_ind));
+    fx.pos[Y] = BLOCK_TO_PX(IND_TO_Y(front_ind));
+    fx.character = &blk_debris0_ent;
+    fx.speed[X] = sp_x;
+    fx.speed[Y] = sp_y - BRK_SPEED_2X;
+    ACT_add(&fx);
+    fx.character = &blk_debris1_ent;
+    fx.speed[X] = sp_x;
+    fx.speed[Y] = sp_y - BRK_SPEED;
+    ACT_add(&fx);
+    fx.character = &blk_debris2_ent;
+    fx.speed[X] = sp_x;
+    fx.speed[Y] = sp_y + BRK_SPEED;
+    ACT_add(&fx);
+    fx.character = &blk_debris3_ent;
+    fx.speed[X] = sp_x;
+    fx.speed[Y] = sp_y + BRK_SPEED_2X;
+    ACT_add(&fx);
 }
 
 static inline void nastie_tree(){
@@ -145,6 +180,14 @@ static inline void nastie_tree(){
         case ATTACK_RIGHT_IN:
             calc_front();
             break_block_ind(env, front_ind);
+            switch(attr & BRK_BITMSK){
+                case BREAKS:
+                    brk_debris(front_ind, BRK_SPEED, 0);
+                break;
+                case DELETES:
+
+                break;
+            }
             newstatus = dir | ATTACK_RIGHT_OUT;
             curr->frames = ATTK_FRAMES;
             curr->speed[X] = 0;
@@ -176,6 +219,22 @@ static inline void nastie_tree(){
     }
 }
 
+static inline void fx_tree(){
+    switch(attr & FX_TYP_MSK){
+        case SHRAPNEL:
+            if(curr->pos[X] >= PX_TO_POS(BOARD_X_PX) || curr->pos[Y] >= PX_TO_POS(BOARD_Y_PX) ){
+                result = ACT_DELETION;
+            }
+            curr->speed[Y] += GRAVITY;
+        break;
+        case DELETER:
+        
+        break;
+        case CREATOR:
+
+        break;
+    }
+}
 
 static inline void class_tree(){
     switch(attr & ENT_CHECK_BITMSK){
@@ -189,7 +248,7 @@ static inline void class_tree(){
 
         break;
         case FX:
-
+            fx_tree();
         break;
 
     }
@@ -200,9 +259,10 @@ void PHY_init(Board * board){
 }
 
 u8 PHY_computeStatus(Actor * actor){
+    result = 0;
     if(actor->frames){
         actor->frames--;
-        return;
+        return result;
     }
     curr = actor;
     status = curr->status;
@@ -213,5 +273,6 @@ u8 PHY_computeStatus(Actor * actor){
     class_tree();
     
     curr->status = newstatus;
-    return newstatus != status;
+    if(status != newstatus) result = ACT_CHANGED;
+    return result;
 }
