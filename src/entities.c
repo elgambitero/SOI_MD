@@ -33,3 +33,35 @@ const Entity ant_ent = {
     PAL_SYS0,
     &ant_spr
 };
+
+const Entity blk_debris0 = {
+    FX | SHRAPNEL,
+    (u8) CODE_SIZE(4, 8),
+    (u8) CODE_SIZE(4, 4),
+    PAL_SYS0,
+    &blk_debris0_spr
+};
+
+const Entity blk_debris1 = {
+    FX | SHRAPNEL,
+    (u8) CODE_SIZE(4, 8),
+    (u8) CODE_SIZE(4, 4),
+    PAL_SYS0,
+    &blk_debris1_spr
+};
+
+const Entity blk_debris2 = {
+    FX | SHRAPNEL,
+    (u8) CODE_SIZE(4, 8),
+    (u8) CODE_SIZE(4, 4),
+    PAL_SYS0,
+    &blk_debris2_spr
+};
+
+const Entity blk_debris3 = {
+    FX | SHRAPNEL,
+    (u8) CODE_SIZE(4, 8),
+    (u8) CODE_SIZE(4, 4),
+    PAL_SYS0,
+    &blk_debris3_spr
+};
