@@ -22,7 +22,7 @@ u8 dir;
 u16 attr;
 Actor * curr;
 
-#define SFX_IND 5
+#define SFX_IND 5 //magic number
 
 u8 result;
 
