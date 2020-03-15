@@ -194,6 +194,7 @@ static inline void nastie_tree(){
         break;
         case ATTACK_RIGHT_IN:
             calc_front();
+            calc_front_block();
             break_block_ind(env, front_ind);
             switch(attr & BRK_BITMSK){
                 case BREAKS:
@@ -252,7 +253,7 @@ static inline void fx_tree(){
 static inline void class_tree(){
     switch(attr & ENT_CHECK_BITMSK){
         case NASTIE:
-            nastie_tree(status);
+            nastie_tree();
         break;
         case BIG_ENTITY:
 
