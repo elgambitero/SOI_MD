@@ -62,13 +62,14 @@ typedef struct Entity{
 
 #define SHRAPNEL    0x0004   //B0000000000000100
 #define DELETER     0x0008   //B0000000000001000
-#define CREATOR     0x000C   //B0000000000001100
 
 extern const Entity blue_player_ent;
 extern const Entity spinner_ent;
 extern const Entity robo_ent;
 extern const Entity ant_ent;
+extern const Entity piggy_ent;
 
+extern const Entity deletor_ent;
 extern const Entity blk_debris0_ent;
 extern const Entity blk_debris1_ent;
 extern const Entity blk_debris2_ent;

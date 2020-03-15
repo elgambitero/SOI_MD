@@ -34,6 +34,22 @@ const Entity ant_ent = {
     &ant_spr
 };
 
+const Entity piggy_ent = {
+    NASTIE | WALKS | LEAPS | DELETES,
+    (u8) CODE_SIZE(7,15),
+    (u8) CODE_SIZE(7,15),
+    PAL_SYS1,
+    &piggy_spr
+};
+
+const Entity deletor_ent = {
+    FX | DELETER,
+    (u8) CODE_SIZE(7,15),
+    (u8) CODE_SIZE(7,15),
+    PAL_SYS0,
+    &deletor_ent
+};
+
 const Entity blk_debris0_ent = {
     FX | SHRAPNEL,
     (u8) CODE_SIZE(4, 8),
