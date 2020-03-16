@@ -87,6 +87,7 @@ static inline void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
     fx.status = 0;
     fx.pos[X] = BLOCK_TO_PX(IND_TO_X(front_ind));
     fx.pos[Y] = BLOCK_TO_PX(IND_TO_Y(front_ind));
+    fx.frames = 0;
     fx.character = &blk_debris0_ent;
     fx.speed[X] = sp_x;
     fx.speed[Y] = sp_y - BRK_SPEED_2X;
@@ -274,7 +275,7 @@ void PHY_init(Board * board){
 
 u8 PHY_computeStatus(Actor * actor){
     result = 0;
-    if(actor->frames){
+    if(actor->frames > 0){
         actor->frames--;
         return result;
     }
