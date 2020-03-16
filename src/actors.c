@@ -65,8 +65,6 @@ u8 ACT_remove(Actor * actor)
 {
     Actor * prev;
 
-    *actorFree++ = actor;
-
     prev = firstActor;
     if(prev == actor)
         firstActor = actor->next;
@@ -74,8 +72,10 @@ u8 ACT_remove(Actor * actor)
         while(prev && prev->next != actor) prev = prev->next;
 
     if(prev){
+        if(actor == lastActor) lastActor = prev;
         prev->next = actor->next;
         SPR_releaseSprite(actor->sprite);
+        *actorFree++ = actor;
         return 1;
     }else{
         return 0;
