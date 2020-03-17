@@ -40,25 +40,35 @@ void ACT_end();
 #define FALL_RIGHT 8
 #define FALL_LEFT 9
 
-#define WALK_DOWN 8
-#define WALK_UP 9
-#define DOWN_TURN_UP 10
-#define UP_TURN_DOWN 11
-#define ATTACK_DOWN 12
-#define ATTACK_UP 13
+#define WALK_DOWN             8
+#define WALK_UP               9
+#define DOWN_TURN_UP         10
+#define UP_TURN_DOWN         11
+#define ATTACK_DOWN_IN       12
+#define ATTACK_UP_IN         13
+#define ATTACK_DOWN_OUT      14
+#define ATTACK_UP_OUT        15
 
-#define STILL_RIGHT 8
-#define STILL_LEFT 9
-#define STL_TO_RIGHT 10
-#define STL_TO_LEFT 11
-#define STL_RIGHT_TO_LEFT 11
-#define STL_LEFT_TO_RIGHT 12
-#define RIGHT_TO_STL 13
-#define LEFT_TO_STL 14
-#define JUMP_RIGHT 15
-#define JUMP_LEFT 16
-#define JUMP_ATTK_RIGHT 17
-#define JUMP_ATTK_LEFT 18
+#define STILL_RIGHT          10
+#define STILL_LEFT           11
+#define LOW_ATTK_RIGHT_IN    12
+#define LOW_ATTK_LEFT_IN     13
+#define LOW_ATTK_RIGHT_OUT   14
+#define LOW_ATTK_LEFT_OUT    15
+#define STL_TO_RIGHT         16
+#define STL_TO_LEFT          17
+#define STL_RIGHT_TO_LEFT    18
+#define STL_LEFT_TO_RIGHT    19
+#define RIGHT_TO_STL         20
+#define LEFT_TO_STL          21
+#define JUMP_RIGHT           22
+#define JUMP_LEFT            23
+#define JUMP_ATTK_RIGHT_IN   24
+#define JUMP_ATTK_LEFT_IN    25
+#define JUMP_ATTK_RIGHT_OUT  26
+#define JUMP_ATTK_LEFT_OUT   27
+
+#define DEAD             255
 
 #define SLOW 4
 #define NORMAL 2
