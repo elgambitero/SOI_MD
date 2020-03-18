@@ -228,12 +228,6 @@ static inline void nastie_tree(){
                 break;
             }
         break;
-        case UP_TURN_DOWN:
-        
-        break;
-        case ATTACK_UP:
-        
-        break;
     }
 }
 
