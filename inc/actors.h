@@ -68,7 +68,7 @@ void ACT_end();
 #define JUMP_ATTK_RIGHT_OUT  26
 #define JUMP_ATTK_LEFT_OUT   27
 
-#define DEAD             255
+#define DEAD                 28
 
 #define SLOW 4
 #define NORMAL 2
