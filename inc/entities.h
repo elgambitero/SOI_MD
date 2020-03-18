@@ -64,6 +64,7 @@ typedef struct Entity{
 #define DELETER     0x0008   //B0000000000001000
 
 extern const Entity blue_player_ent;
+extern const Entity green_player_ent;
 extern const Entity spinner_ent;
 extern const Entity robo_ent;
 extern const Entity ant_ent;

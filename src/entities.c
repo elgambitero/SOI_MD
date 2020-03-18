@@ -10,6 +10,13 @@ const Entity blue_player_ent = {
     &bp_spr
 };
 
+const Entity green_player_ent = {
+    BLUE_PLAYER,
+    (u8) CODE_SIZE(2, 15),
+    (u8) CODE_SIZE(7, 15),
+    PAL_SYS1,
+    &bp_spr
+};
 const Entity spinner_ent = {
     NASTIE | STILL,
     (u8) CODE_SIZE(6,15),

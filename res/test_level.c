@@ -19,7 +19,7 @@
 #define QUE (NORMAL_BLOCK | SOLID | BLK_QUESTION)
 #define NET (NORMAL_BLOCK | BLK_NET)
 
-static const Actor blp = {&blue_player_ent,
+static const Actor blp = {&green_player_ent,
        0,
        0,
     {8, 208},
