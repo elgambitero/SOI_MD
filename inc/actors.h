@@ -23,7 +23,7 @@ u8 ACT_init();
 Actor * ACT_add(Actor * actor);
 u8 ACT_remove(Actor * actor);
 Actor * ACT_getFirst();
-Actor * ACT_seek(Entity * ent);
+Actor * ACT_seek(const Entity * ent);
 void ACT_update();
 void ACT_end();
 

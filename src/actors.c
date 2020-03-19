@@ -92,7 +92,7 @@ void ACT_end(){
     
 }
 
-Actor * ACT_seek(Entity * ent){
+Actor * ACT_seek(const Entity * ent){
     Actor * result = firstActor;
     while(result){
         if(result->character == ent) break;
