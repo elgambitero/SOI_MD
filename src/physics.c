@@ -18,6 +18,9 @@ u16 floor_ind;
 u16 front;
 u16 back;
 
+
+u8 bl_ctrl;
+u8 gr_ctrl;
 u8 dir;
 u16 attr;
 Actor * curr;
@@ -245,11 +248,15 @@ static inline void fx_tree(){
     }
 }
 
+static inline void player_tree(){
+    
+}
+
 static inline void big_entity_tree(){
     switch(attr & BIG_ENT_MSK){
         case BLUE_PLAYER:
         case GREEN_PLAYER:
-
+            player_tree();
         break;
         case KNIGHT:
 
@@ -280,6 +287,11 @@ static inline void class_tree(){
 
 void PHY_init(Board * board){
     env = board;
+}
+
+void PHY_send_inputs(u8 ctrl1, u8 ctrl2){
+    bl_ctrl = ctrl1;
+    gr_ctrl = ctrl2;
 }
 
 u8 PHY_computeStatus(Actor * actor){

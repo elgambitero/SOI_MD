@@ -34,5 +34,6 @@
 
 void PHY_init(Board * board);
 u8 PHY_computeStatus(Actor * actor);
+void PHY_send_inputs(u8 ctrl1, u8 ctrl2);
 
 #endif

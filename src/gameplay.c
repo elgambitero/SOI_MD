@@ -30,6 +30,7 @@ void gameplayLoop(){
 
         break;
         case GAME:
+            PHY_send_inputs(bl_ctrl, gr_ctrl);
             ACT_update();
         break;
         case GAMEENDING:
