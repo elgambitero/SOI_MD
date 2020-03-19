@@ -28,7 +28,7 @@ void ACT_update();
 void ACT_end();
 
 #define ANIM_MSK 0xFE
-#define DIR_MSK ¬ANIM_MSK
+#define DIR_MSK ~ANIM_MSK
 
 #define WALK_RIGHT 0
 #define WALK_LEFT 1

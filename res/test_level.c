@@ -20,7 +20,7 @@
 #define NET (NORMAL_BLOCK | BLK_NET)
 
 static const Actor blp = {&blue_player_ent,
-       0,
+       STILL_RIGHT,
        0,
     {8, 208},
     {   0,    0},
@@ -29,7 +29,7 @@ static const Actor blp = {&blue_player_ent,
     };
 
 static const Actor glp = {&green_player_ent,
-       0,
+       STILL_RIGHT,
        0,
     {24, 208},
     {   0,    0},

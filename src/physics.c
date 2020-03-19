@@ -249,7 +249,53 @@ static inline void fx_tree(){
 }
 
 static inline void player_tree(){
-    
+    switch(status & ANIM_MSK){
+        case WALK_RIGHT:
+
+        break;
+        case RIGHT_TURN_LEFT:
+
+        break;
+        case ATTACK_RIGHT_IN:
+
+        break;
+        case ATTACK_RIGHT_OUT:
+
+        break;
+        case FALL_RIGHT:
+
+        break;
+        case STILL_RIGHT:
+
+        break;
+        case LOW_ATTK_RIGHT_IN:
+
+        break;
+        case LOW_ATTK_RIGHT_OUT:
+
+        break;
+        case STL_TO_RIGHT:
+
+        break;
+        case STL_RIGHT_TO_LEFT:
+
+        break;
+        case RIGHT_TO_STL:
+
+        break;
+        case JUMP_RIGHT:
+
+        break;
+        case JUMP_ATTK_RIGHT_IN:
+
+        break;
+        case JUMP_ATTK_RIGHT_OUT:
+
+        break;
+        case DEAD:
+
+        break;
+    }
 }
 
 static inline void big_entity_tree(){
