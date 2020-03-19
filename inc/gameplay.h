@@ -30,9 +30,6 @@ static inline void gameControls(u16 joy, u16 changed, u16 state){
                 if(state & BUTTON_LEFT){
 
                 }
-                if(state & BUTTON_UP){
-
-                }
                 if(state & BUTTON_RIGHT){
 
                 }
@@ -47,9 +44,6 @@ static inline void gameControls(u16 joy, u16 changed, u16 state){
         case JOY_2:
             if(green_player){
                 if(state & BUTTON_LEFT){
-
-                }
-                if(state & BUTTON_UP){
 
                 }
                 if(state & BUTTON_RIGHT){

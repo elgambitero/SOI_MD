@@ -56,6 +56,8 @@ void gameplayLoop(){
 
 void gameInit(){
     ind = TILE_USERINDEX;
+    blue_player = NULL;
+    green_player = NULL;
     
     VDP_setPalette(PAL0, pal_sys0.data);
     VDP_setPalette(PAL1, pal_sys1.data);
@@ -68,6 +70,14 @@ void gameInit(){
     PHY_init(&board);
     if(!ACT_init()) gameState = GAMEEXIT;
     if(!load_board(&board, current_level)) gameState = GAMEEXIT;
+
+    blue_player = ACT_seek(&blue_player_ent);
+    green_player = ACT_seek(&green_player_ent);
+
+    if(JOY_getPortType(PORT_2) == PORT_TYPE_UNKNOWN){
+        ACT_remove(green_player);
+    }
+
     load_board_palettes(&board);
     draw_board(&board);
     play_board_music(&board);

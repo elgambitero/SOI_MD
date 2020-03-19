@@ -19,7 +19,7 @@
 #define QUE (NORMAL_BLOCK | SOLID | BLK_QUESTION)
 #define NET (NORMAL_BLOCK | BLK_NET)
 
-static const Actor blp = {&green_player_ent,
+static const Actor blp = {&blue_player_ent,
        0,
        0,
     {8, 208},
@@ -28,6 +28,14 @@ static const Actor blp = {&green_player_ent,
        0
     };
 
+static const Actor glp = {&green_player_ent,
+       0,
+       0,
+    {24, 208},
+    {   0,    0},
+       0,
+       &blp
+    };
 
 static const Actor spinner3 = {&spinner_ent,
        0,
@@ -63,7 +71,7 @@ static const Actor robo = {&robo_ent,
    {120, 31},
    {0, 0},
    0,
-   &blp
+   &glp
    };
 
 static const Actor piggy = {&piggy_ent,
