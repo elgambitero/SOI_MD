@@ -92,6 +92,15 @@ void ACT_end(){
     
 }
 
+Actor * ACT_seek(Entity * ent){
+    Actor * result = firstActor;
+    while(result){
+        if(result->character == ent) break;
+        result = result->next;
+    }
+    return result;
+}
+
 Actor * ACT_getFirst(){
     return firstActor;
 }
