@@ -22,8 +22,8 @@ void gameplayLoop(){
     switch(gameState){
         case GAMEINIT:
             SYS_disableInts();
-            gameInit();
 
+            gameInit();
 
             gameState = GAME;
             SYS_enableInts();
@@ -58,6 +58,8 @@ void gameInit(){
     ind = TILE_USERINDEX;
     blue_player = NULL;
     green_player = NULL;
+    bl_ctrl = 0;
+    gr_ctrl = 0;
     
     VDP_setPalette(PAL0, pal_sys0.data);
     VDP_setPalette(PAL1, pal_sys1.data);
@@ -91,7 +93,8 @@ void gameInit(){
     VDP_drawText("Lvl", 33, 0);
     VDP_drawText("001", 37, 0);
 
-
+    JOY_init();
+    JOY_setEventHandler( &game_controls );
 
 }
 
