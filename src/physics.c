@@ -245,13 +245,28 @@ static inline void fx_tree(){
     }
 }
 
+static inline void big_entity_tree(){
+    switch(attr & BIG_ENT_MSK){
+        case BLUE_PLAYER:
+        case GREEN_PLAYER:
+
+        break;
+        case KNIGHT:
+
+        break;
+        case GARGOYLE:
+
+        break;
+    }
+}
+
 static inline void class_tree(){
     switch(attr & ENT_CHECK_BITMSK){
         case NASTIE:
             nastie_tree();
         break;
         case BIG_ENTITY:
-
+            big_entity_tree();
         break;
         case PROJECTILE:
 

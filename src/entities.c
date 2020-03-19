@@ -11,7 +11,7 @@ const Entity blue_player_ent = {
 };
 
 const Entity green_player_ent = {
-    BLUE_PLAYER,
+    GREEN_PLAYER,
     (u8) CODE_SIZE(2, 15),
     (u8) CODE_SIZE(7, 15),
     PAL_SYS1,

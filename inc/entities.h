@@ -21,6 +21,8 @@ typedef struct Entity{
 
 #define BIG_ENTITY   0
 
+#define BIG_ENT_MSK   0x000C
+
 #define BLUE_PLAYER   0x0000 //0b0000000000000000
 #define GREEN_PLAYER  0x0004 //0b0000000000000100
 #define KNIGHT        0x000C //0b0000000000001100
