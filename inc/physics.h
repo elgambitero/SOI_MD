@@ -19,6 +19,13 @@
 #define ATTK_FRAMES 16
 #define DELETOR_FRAMES 7
 
+
+//Ugly hack. sizeof(animation)?
+#define BP_ATTK_FRAMES 5
+#define BP_STL_TURN_FRAMES 8
+#define BP_TURN_FRAMES 4
+#define BP_STL_FRAMES 4
+
 #define BLOCK 1
 #define FRAME 2
 
