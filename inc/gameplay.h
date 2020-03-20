@@ -19,10 +19,11 @@ Actor * green_player;
 u8 bl_ctrl, gr_ctrl;
 u8 * ctrl;
 
-#define CTRL_DIR     0x03
+#define CTRL_DIR_MSK 0x03
 
-#define CTRL_RIGHT   0x02
-#define CTRL_LEFT    0x03
+
+#define CTRL_LEFT    0x01
+#define CTRL_MOV     0x02
 
 #define CTRL_ALT     0x04
 
@@ -43,12 +44,15 @@ enum GameStates gameState;
 
 static inline void controls_3(u8 * ctrl, u16 changed, u16 state){
     if(changed & BUTTON_LEFT){
-        if(state & BUTTON_LEFT) *ctrl |= CTRL_LEFT;
-        else *ctrl &= ~CTRL_LEFT;
+        if(state & BUTTON_LEFT) *ctrl |= ( CTRL_MOV | CTRL_LEFT );
+        else *ctrl &= ~CTRL_DIR_MSK;
     }
     if(changed & BUTTON_RIGHT){
-        if(state & BUTTON_RIGHT) *ctrl |= CTRL_RIGHT;
-        else *ctrl &= ~CTRL_RIGHT;
+        if(state & BUTTON_RIGHT) {
+            *ctrl |= CTRL_MOV;
+            *ctrl &= ~CTRL_LEFT;
+        }
+        else *ctrl &= ~CTRL_DIR_MSK;
     }
     if(changed & BUTTON_DOWN){
         if(state & BUTTON_DOWN) *ctrl |= CTRL_ALT;

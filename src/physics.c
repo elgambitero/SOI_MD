@@ -3,6 +3,7 @@
 #include "board.h"
 #include "blocks.h"
 #include "sound.h"
+#include "gameplay.h"
 
 #include "globals.h"
 
@@ -21,6 +22,7 @@ u16 back;
 
 u8 bl_ctrl;
 u8 gr_ctrl;
+u8 * ctrl;
 u8 dir;
 u16 attr;
 Actor * curr;
@@ -266,7 +268,14 @@ static inline void player_tree(){
 
         break;
         case STILL_RIGHT:
-
+            calc_floor();
+            if(fall(floor_ind)){
+                newstatus = FALL_RIGHT;
+                curr->speed[Y] = FALLSPEED;
+                curr->speed[X] = 0;
+                return;
+            }
+            return;
         break;
         case LOW_ATTK_RIGHT_IN:
 
@@ -301,7 +310,11 @@ static inline void player_tree(){
 static inline void big_entity_tree(){
     switch(attr & BIG_ENT_MSK){
         case BLUE_PLAYER:
+            *ctrl = bl_ctrl;
+            player_tree();
+        break;
         case GREEN_PLAYER:
+            *ctrl = gr_ctrl;
             player_tree();
         break;
         case KNIGHT:
