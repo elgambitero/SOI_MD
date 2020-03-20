@@ -22,7 +22,6 @@ void gameplayLoop(){
     switch(gameState){
         case GAMEINIT:
             SYS_disableInts();
-
             gameInit();
 
             gameState = GAME;
@@ -93,9 +92,6 @@ void gameInit(){
     VDP_drawText("3", 29, 0);
     VDP_drawText("Lvl", 33, 0);
     VDP_drawText("001", 37, 0);
-
-    JOY_init();
-    JOY_setEventHandler( &game_controls );
 
 }
 

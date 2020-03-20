@@ -253,7 +253,27 @@ static inline void fx_tree(){
 static inline void player_tree(){
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
-
+            calc_floor();
+            if(fall(floor_ind)){
+                newstatus = FALL_RIGHT | dir;
+                curr->speed[Y] = FALLSPEED;
+                curr->speed[X] = 0;
+                return;
+            }
+            if( *ctrl & CTRL_MOV ){
+                if( ( *ctrl & CTRL_LEFT ) != dir ){
+                    newstatus = RIGHT_TURN_LEFT | dir;
+                    curr->frames = BP_TURN_FRAMES;
+                    curr->speed[X] = 0;
+                }
+                return;
+            }
+            else
+            {
+                newstatus = RIGHT_TO_STL | dir;
+                curr->frames = BP_STL_FRAMES;
+            }
+            return;
         break;
         case RIGHT_TURN_LEFT:
 
@@ -270,9 +290,19 @@ static inline void player_tree(){
         case STILL_RIGHT:
             calc_floor();
             if(fall(floor_ind)){
-                newstatus = FALL_RIGHT;
+                newstatus = FALL_RIGHT | dir;
                 curr->speed[Y] = FALLSPEED;
                 curr->speed[X] = 0;
+                return;
+            }
+            if( *ctrl & CTRL_MOV ){
+                if( ( *ctrl & CTRL_LEFT ) != dir ){
+                    newstatus = STL_RIGHT_TO_LEFT | dir;
+                    curr->frames = BP_STL_TURN_FRAMES;
+                }else{
+                    newstatus = STL_TO_RIGHT | dir;
+                    curr->frames = BP_STL_FRAMES;
+                }
                 return;
             }
             return;
@@ -284,10 +314,12 @@ static inline void player_tree(){
 
         break;
         case STL_TO_RIGHT:
-
+            newstatus = WALK_RIGHT | dir;
+            curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
         break;
         case STL_RIGHT_TO_LEFT:
-
+            newstatus = WALK_RIGHT | ( dir ^ 1) ;
+            curr->speed[X] = dir ? PL_WALKSPEED : -PL_WALKSPEED;
         break;
         case RIGHT_TO_STL:
 
@@ -305,6 +337,7 @@ static inline void player_tree(){
 
         break;
     }
+    return;
 }
 
 static inline void big_entity_tree(){
