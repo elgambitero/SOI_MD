@@ -16,18 +16,16 @@ u16 ind;
 
 void myJoyHandler(u16 joy, u16 changed, u16 state)
 {
-    if(joy == JOY_1){
-        switch(mainState){
-            case INTRO:
+    switch(mainState){
+        case INTRO:
 
-            break;
-            case MAIN_MENU:
+        break;
+        case MAIN_MENU:
 
-            break;
-            case GAMEPLAY:
-                game_controls(joy, changed, state);
-            break;
-        }
+        break;
+        case GAMEPLAY:
+            game_controls(joy, changed, state);
+        break;
     }
 }
 

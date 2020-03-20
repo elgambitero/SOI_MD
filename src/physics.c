@@ -276,7 +276,8 @@ static inline void player_tree(){
             return;
         break;
         case RIGHT_TURN_LEFT:
-
+            newstatus = WALK_RIGHT | !dir;
+            curr->speed[X] = dir ? PL_WALKSPEED : -PL_WALKSPEED;
         break;
         case ATTACK_RIGHT_IN:
 
@@ -285,7 +286,8 @@ static inline void player_tree(){
 
         break;
         case FALL_RIGHT:
-
+            curr->speed[X] = 0;
+            curr->speed[Y] = FALLSPEED;
         break;
         case STILL_RIGHT:
             calc_floor();
@@ -318,11 +320,12 @@ static inline void player_tree(){
             curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
         break;
         case STL_RIGHT_TO_LEFT:
-            newstatus = WALK_RIGHT | ( dir ^ 1) ;
+            newstatus = WALK_RIGHT | !dir ;
             curr->speed[X] = dir ? PL_WALKSPEED : -PL_WALKSPEED;
         break;
         case RIGHT_TO_STL:
-
+            newstatus = STILL_RIGHT | dir;
+            curr->speed[X] = 0;
         break;
         case JUMP_RIGHT:
 
@@ -343,11 +346,11 @@ static inline void player_tree(){
 static inline void big_entity_tree(){
     switch(attr & BIG_ENT_MSK){
         case BLUE_PLAYER:
-            *ctrl = bl_ctrl;
+            ctrl = &bl_ctrl;
             player_tree();
         break;
         case GREEN_PLAYER:
-            *ctrl = gr_ctrl;
+            ctrl = &gr_ctrl;
             player_tree();
         break;
         case KNIGHT:

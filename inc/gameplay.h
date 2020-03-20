@@ -17,7 +17,6 @@ Actor * blue_player;
 Actor * green_player;
 
 u8 bl_ctrl, gr_ctrl;
-u8 * ctrl;
 
 #define CTRL_DIR_MSK 0x03
 
