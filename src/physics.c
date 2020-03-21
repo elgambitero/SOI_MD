@@ -41,7 +41,7 @@ struct Actor fx = {0,
 };
 
 static inline void calc_front_block(){
-    front_ind = XY_TO_IND( PX_TO_BLOCK( front ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) - 1) );
+    front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 1 ) ) ) );
 }
 
 static inline void calc_front_floor(){
@@ -285,6 +285,7 @@ static inline void player_tree(){
             {
                 newstatus = RIGHT_TO_STL | dir;
                 curr->frames = BP_STL_FRAMES;
+                curr->speed[X] = 0;
             }
             return;
         break;
@@ -339,7 +340,10 @@ static inline void player_tree(){
         break;
         case STL_TO_RIGHT:
             newstatus = WALK_RIGHT | dir;
-            curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
+            calc_front();
+            calc_front_block();
+            if(!crash_into())
+                curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
         break;
         case STL_RIGHT_TO_LEFT:
             newstatus = WALK_RIGHT | !dir ;
