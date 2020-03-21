@@ -45,22 +45,22 @@ static inline void calc_front_block(){
 }
 
 static inline void calc_front_floor(){
-    front_floor_ind = XY_TO_IND( PX_TO_BLOCK( front ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) );
+    front_floor_ind = XY_TO_IND( PX_TO_BLOCK( (front - 1) ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) );
 }
 
 static inline void calc_back_floor(){
-    back_floor_ind = XY_TO_IND( PX_TO_BLOCK( back ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y])  ) ) ) ;
+    back_floor_ind = XY_TO_IND( PX_TO_BLOCK( (back - 1) ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y])  ) ) ) ;
 }
 
 static inline void calc_floor(){
     floor_ind = XY_TO_IND( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y])  ) ) ) ;
 }
 
-static inline void calc_front(){
-    front = dir ? POS_TO_PX(curr->pos[X]) - SIZE_X(curr->character->size) : POS_TO_PX(curr->pos[X]) + SIZE_X(curr->character->size);
+static inline void calc_front(u8 direction){
+    front = direction ? POS_TO_PX(curr->pos[X]) - SIZE_X(curr->character->size) : POS_TO_PX(curr->pos[X]) + SIZE_X(curr->character->size);
 }
-static inline void calc_back(){
-    back = dir ? POS_TO_PX(curr->pos[X]) + SIZE_X(curr->character->size) : POS_TO_PX(curr->pos[X]) - SIZE_X(curr->character->size);
+static inline void calc_back(u8 direction){
+    back = direction ? POS_TO_PX(curr->pos[X]) + SIZE_X(curr->character->size) : POS_TO_PX(curr->pos[X]) - SIZE_X(curr->character->size);
 }
 
 static inline u8 fall(u8 ind){
@@ -84,8 +84,8 @@ static inline u8 breakable(){
     return (BREAKABLE & env->front_blocks[front_ind]);
 }
 
-static inline u8 land(){
-    return ( SOLID & env->front_blocks[ floor_ind ] ) || (POS_TO_PX(curr->pos[Y]) >= BOARD_Y_PX);
+static inline u8 land(u8 ind){
+    return ( SOLID & env->front_blocks[ ind ] ) || (POS_TO_PX(curr->pos[Y]) >= BOARD_Y_PX);
 }
 
 static inline void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
@@ -138,7 +138,7 @@ static inline void nastie_tree(){
                     curr->speed[X] = 0;
                     return;
                 case WALKS:
-                    calc_back();
+                    calc_back(dir);
                     calc_back_floor();
                     if(fall(back_floor_ind)){
                         newstatus = dir | FALL_RIGHT;
@@ -146,7 +146,7 @@ static inline void nastie_tree(){
                         curr->speed[X] = 0;
                         return;
                     }
-                    calc_front();
+                    calc_front(dir);
                     calc_front_block();
                     switch(crash_into()){
                         case FRAME:
@@ -199,7 +199,7 @@ static inline void nastie_tree(){
             curr->speed[X] = dir ? WALKSPEED : -WALKSPEED;
         break;
         case ATTACK_RIGHT_IN:
-            calc_front();
+            calc_front(dir);
             calc_front_block();
             break_block_ind(env, front_ind);
             switch(attr & BRK_BITMSK){
@@ -226,7 +226,7 @@ static inline void nastie_tree(){
         break;
         case FALL_RIGHT:
             calc_floor();
-            if(land()) {
+            if(land(floor_ind)) {
                 newstatus = dir + WALK_RIGHT;
                 curr->speed[Y] = 0;
                 curr->speed[X] = dir ? -WALKSPEED : WALKSPEED;
@@ -260,7 +260,7 @@ static inline void player_tree(){
                 curr->speed[X] = 0;
                 return;
             }
-            calc_front();
+            calc_front(dir);
             calc_front_block();
             if(crash_into()){
                 curr->speed[X] = 0;
@@ -301,7 +301,7 @@ static inline void player_tree(){
         break;
         case FALL_RIGHT:
             calc_floor();
-            if(land()) {
+            if(land(floor_ind)) {
                 newstatus = dir | STILL_RIGHT;
                 curr->speed[Y] = 0;
                 curr->speed[X] = 0;
@@ -340,7 +340,7 @@ static inline void player_tree(){
         break;
         case STL_TO_RIGHT:
             newstatus = WALK_RIGHT | dir;
-            calc_front();
+            calc_front(dir);
             calc_front_block();
             if(!crash_into())
                 curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
@@ -356,26 +356,25 @@ static inline void player_tree(){
         case JUMP_RIGHT:
             if(curr->speed[Y] <= FALLSPEED)
                 curr->speed[Y] += GRAVITY;
-            calc_floor();
-            if(land()) {
+            calc_front(*ctrl & CTRL_LEFT);
+            calc_front_floor();
+            if(land(front_floor_ind)) {
                 newstatus = dir | STILL_RIGHT;
                 curr->speed[Y] = 0;
                 curr->speed[X] = 0;
                 break;
             }
-            if( *ctrl & CTRL_MOV ){
-                calc_front();
-                calc_front_block();
-                if(crash_into()){
-                    curr->speed[X] = 0;
-                    return;
-                }
-                if( *ctrl & CTRL_LEFT ){
-                    curr->speed[X] = -PL_WALKSPEED;
-                }else{
-                    curr->speed[X] = PL_WALKSPEED;
-                }
+            calc_back(*ctrl & CTRL_LEFT);
+            calc_back_floor();
+            if(land(back_floor_ind)) {
+                newstatus = dir | STILL_RIGHT;
+                curr->speed[Y] = 0;
+                curr->speed[X] = 0;
                 return;
+            }
+            calc_front_block();
+            if( *ctrl & CTRL_MOV && !crash_into()){
+                curr->speed[X] = *ctrl & CTRL_LEFT ? -PL_WALKSPEED : PL_WALKSPEED;
             }else{
                 curr->speed[X] = 0;
             }
