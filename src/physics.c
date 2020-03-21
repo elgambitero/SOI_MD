@@ -286,8 +286,13 @@ static inline void player_tree(){
 
         break;
         case FALL_RIGHT:
-            curr->speed[X] = 0;
-            curr->speed[Y] = FALLSPEED;
+            calc_floor();
+            if(land()) {
+                newstatus = dir + STILL_RIGHT;
+                curr->speed[Y] = 0;
+                curr->speed[X] = 0;
+                break;
+            }
         break;
         case STILL_RIGHT:
             calc_floor();

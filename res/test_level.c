@@ -22,7 +22,7 @@
 static const Actor blp = {&blue_player_ent,
        STILL_RIGHT,
        0,
-    {8, 208},
+    {136, 31},
     {   0,    0},
        0,
        0
@@ -31,7 +31,7 @@ static const Actor blp = {&blue_player_ent,
 static const Actor glp = {&green_player_ent,
        STILL_RIGHT,
        0,
-    {24, 208},
+    {152, 31},
     {   0,    0},
        0,
        &blp
