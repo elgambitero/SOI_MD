@@ -260,6 +260,14 @@ static inline void player_tree(){
                 curr->speed[X] = 0;
                 return;
             }
+            calc_front();
+            calc_front_block();
+            if(crash_into()){
+                curr->speed[X] = 0;
+            }
+            else{
+                curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
+            }
             if( *ctrl & CTRL_MOV ){
                 if( ( *ctrl & CTRL_LEFT ) != dir ){
                     newstatus = RIGHT_TURN_LEFT | dir;
