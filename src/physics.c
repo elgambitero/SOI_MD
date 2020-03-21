@@ -268,6 +268,11 @@ static inline void player_tree(){
             else{
                 curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
             }
+            if( *ctrl & CTRL_JUMP){
+                newstatus = JUMP_RIGHT | dir;
+                curr->speed[Y] = PL_JMP_BOOST;
+                return;
+            }
             if( *ctrl & CTRL_MOV ){
                 if( ( *ctrl & CTRL_LEFT ) != dir ){
                     newstatus = RIGHT_TURN_LEFT | dir;
@@ -296,7 +301,7 @@ static inline void player_tree(){
         case FALL_RIGHT:
             calc_floor();
             if(land()) {
-                newstatus = dir + STILL_RIGHT;
+                newstatus = dir | STILL_RIGHT;
                 curr->speed[Y] = 0;
                 curr->speed[X] = 0;
                 break;
@@ -320,6 +325,10 @@ static inline void player_tree(){
                 }
                 return;
             }
+            if( *ctrl & CTRL_JUMP){
+                newstatus = JUMP_RIGHT | dir;
+                curr->speed[Y] = PL_JMP_BOOST;
+            }
             return;
         break;
         case LOW_ATTK_RIGHT_IN:
@@ -341,7 +350,31 @@ static inline void player_tree(){
             curr->speed[X] = 0;
         break;
         case JUMP_RIGHT:
-
+            if(curr->speed[Y] <= FALLSPEED)
+                curr->speed[Y] += GRAVITY;
+            calc_floor();
+            if(land()) {
+                newstatus = dir | STILL_RIGHT;
+                curr->speed[Y] = 0;
+                curr->speed[X] = 0;
+                break;
+            }
+            if( *ctrl & CTRL_MOV ){
+                calc_front();
+                calc_front_block();
+                if(crash_into()){
+                    curr->speed[X] = 0;
+                    return;
+                }
+                if( *ctrl & CTRL_LEFT ){
+                    curr->speed[X] = -PL_WALKSPEED;
+                }else{
+                    curr->speed[X] = PL_WALKSPEED;
+                }
+                return;
+            }else{
+                curr->speed[X] = 0;
+            }
         break;
         case JUMP_ATTK_RIGHT_IN:
 
