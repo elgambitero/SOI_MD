@@ -41,7 +41,7 @@ struct Actor fx = {0,
 };
 
 static inline void calc_front_block(){
-    front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 1 ) ) ) );
+    front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 8 ) ) ) );
 }
 
 static inline void calc_front_floor(){
