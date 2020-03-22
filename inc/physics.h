@@ -9,6 +9,7 @@
 #define PX_TO_BLOCK(px) (px >> 4)
 #define BLOCK_TO_PX(px) (px << 4)
 
+#define COLL_CORR (2 * DECIMALS)
 #define FALLSPEED 4
 #define WALKSPEED 2
 #define PL_WALKSPEED 3

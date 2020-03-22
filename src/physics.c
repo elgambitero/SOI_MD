@@ -261,20 +261,21 @@ static inline void fx_tree(){
 static inline void player_tree(){
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
+            calc_front(dir);
+            calc_front_block();
+            if(crash_into()){
+                curr->speed[X] = 0;
+                curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
+            }
+            else{
+                curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
+            }
             calc_floor();
             if(fall(floor_ind)){
                 newstatus = FALL_RIGHT | dir;
                 curr->speed[Y] = FALLSPEED;
                 curr->speed[X] = 0;
                 return;
-            }
-            calc_front(dir);
-            calc_front_block();
-            if(crash_into()){
-                curr->speed[X] = 0;
-            }
-            else{
-                curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
             }
             if( *ctrl & CTRL_JUMP){
                 newstatus = JUMP_RIGHT | dir;
@@ -355,7 +356,12 @@ static inline void player_tree(){
         break;
         case STL_RIGHT_TO_LEFT:
             newstatus = WALK_RIGHT | !dir ;
-            curr->speed[X] = dir ? PL_WALKSPEED : -PL_WALKSPEED;
+            calc_front(!dir);
+            calc_front_block();
+            if(!crash_into())
+                curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
+            else
+                curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
         break;
         case RIGHT_TO_STL:
             newstatus = STILL_RIGHT | dir;
