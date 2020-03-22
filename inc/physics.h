@@ -10,6 +10,7 @@
 #define BLOCK_TO_PX(px) (px << 4)
 
 #define COLL_CORR (2 * DECIMALS)
+#define FLOOR_CORR ( 0xFFFF << (DECIMALS + 4) )
 #define FALLSPEED 4
 #define WALKSPEED 2
 #define PL_WALKSPEED 3

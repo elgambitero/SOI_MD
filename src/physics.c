@@ -388,9 +388,25 @@ static inline void player_tree(){
             if(curr->speed[Y] > 0){
                 calc_floor();
                 if(land(floor_ind)) {
-                    newstatus = dir | STILL_RIGHT;
+                    curr->pos[Y] &= FLOOR_CORR;
                     curr->speed[Y] = 0;
                     curr->speed[X] = 0;
+                    if(*ctrl & CTRL_JUMP){
+                        newstatus = JUMP_RIGHT | dir;
+                        curr->speed[Y] = PL_JMP_BOOST;
+                        return;
+                    }
+                    if(*ctrl & CTRL_MOV){
+                        if( ( *ctrl & CTRL_LEFT ) != dir ){
+                            newstatus = STL_RIGHT_TO_LEFT | dir;
+                            curr->frames = BP_STL_TURN_FRAMES;
+                        }else{
+                            newstatus = WALK_RIGHT | dir;
+                            curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
+                        }
+                        return;
+                    }
+                    newstatus = dir | STILL_RIGHT;
                     return;
                 }
             }
