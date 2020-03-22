@@ -41,7 +41,7 @@ struct Actor fx = {0,
 };
 
 static inline void calc_front_block(){
-    front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 8 ) ) ) );
+    front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 4 ) ) ) );
 }
 
 static inline void calc_front_floor(){
@@ -356,22 +356,14 @@ static inline void player_tree(){
         case JUMP_RIGHT:
             if(curr->speed[Y] <= FALLSPEED)
                 curr->speed[Y] += GRAVITY;
-            calc_front(*ctrl & CTRL_LEFT);
-            calc_front_floor();
-            if(land(front_floor_ind)) {
-                newstatus = dir | STILL_RIGHT;
-                curr->speed[Y] = 0;
-                curr->speed[X] = 0;
-                break;
-            }
-            calc_back(*ctrl & CTRL_LEFT);
-            calc_back_floor();
-            if(land(back_floor_ind)) {
+            calc_floor();
+            if(land(floor_ind)) {
                 newstatus = dir | STILL_RIGHT;
                 curr->speed[Y] = 0;
                 curr->speed[X] = 0;
                 return;
             }
+            calc_front( *ctrl & CTRL_LEFT );
             calc_front_block();
             if( *ctrl & CTRL_MOV && !crash_into()){
                 curr->speed[X] = *ctrl & CTRL_LEFT ? -PL_WALKSPEED : PL_WALKSPEED;
