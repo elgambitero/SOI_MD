@@ -235,6 +235,7 @@ static inline void nastie_tree(){
         case FALL_RIGHT:
             calc_floor();
             if(land(floor_ind)) {
+                curr->pos[Y] &= FLOOR_CORR;
                 newstatus = dir + WALK_RIGHT;
                 curr->speed[Y] = 0;
                 curr->speed[X] = dir ? -WALKSPEED : WALKSPEED;
@@ -311,6 +312,7 @@ static inline void player_tree(){
         case FALL_RIGHT:
             calc_floor();
             if(land(floor_ind)) {
+                curr->pos[Y] &= FLOOR_CORR;
                 newstatus = dir | STILL_RIGHT;
                 curr->speed[Y] = 0;
                 curr->speed[X] = 0;
