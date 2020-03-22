@@ -325,6 +325,8 @@ static inline void player_tree(){
                     calc_next(dir);
                     calc_front_block();
                     break_block_ind(env, front_ind);
+                    XGM_setPCM(SFX_IND, fim, sizeof(fim));
+                    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                     summon_deletor(front_ind, TRUE);
                 break;
                 case SHOOT:
