@@ -20,6 +20,16 @@ u16 front;
 u16 back;
 
 
+enum player_action{
+    NOTHING,
+    DEL_BLOCK,
+    MK_BLOCK,
+    SHOOT
+};
+
+enum player_action * pl_act;
+enum player_action bl_act, gr_act;
+
 u8 bl_ctrl;
 u8 gr_ctrl;
 u8 * ctrl;
@@ -66,6 +76,9 @@ static inline void calc_floor(){
 
 static inline void calc_front(u8 direction){
     front = direction ? POS_TO_PX(curr->pos[X]) - SIZE_X(curr->character->size) : POS_TO_PX(curr->pos[X]) + SIZE_X(curr->character->size);
+}
+static inline void calc_next(u8 direction){
+    front = direction ? POS_TO_PX(curr->pos[X]) - 16 : POS_TO_PX(curr->pos[X]) + 16;
 }
 static inline void calc_back(u8 direction){
     back = direction ? POS_TO_PX(curr->pos[X]) + SIZE_X(curr->character->size) : POS_TO_PX(curr->pos[X]) - SIZE_X(curr->character->size);
@@ -304,10 +317,27 @@ static inline void player_tree(){
             curr->speed[X] = dir ? PL_WALKSPEED : -PL_WALKSPEED;
         break;
         case ATTACK_RIGHT_IN:
+            switch(*pl_act){
+                case MK_BLOCK:
 
+                break;
+                case DEL_BLOCK:
+                    calc_next(dir);
+                    calc_front_block();
+                    break_block_ind(env, front_ind);
+                    summon_deletor(front_ind, TRUE);
+                break;
+                case SHOOT:
+
+                break;
+                default:
+                break;
+            }
+            newstatus = ATTACK_RIGHT_OUT | dir;
+            curr->frames = BP_ATTK_FRAMES;
         break;
         case ATTACK_RIGHT_OUT:
-
+            newstatus = STILL_RIGHT | dir;
         break;
         case FALL_RIGHT:
             calc_floor();
@@ -337,9 +367,26 @@ static inline void player_tree(){
                 }
                 return;
             }
-            if( *ctrl & CTRL_JUMP){
+            if( *ctrl & CTRL_JUMP ){
                 newstatus = JUMP_RIGHT | dir;
                 curr->speed[Y] = PL_JMP_BOOST;
+            }
+            if( *ctrl & CTRL_BLOCK ){
+                if(*ctrl & CTRL_ALT){
+                    return;
+                }else{
+                    calc_next(dir);
+                    calc_front_block();
+                    if(breakable()){
+                        *pl_act = DEL_BLOCK;
+                    }
+                    else{
+                        *pl_act = NOTHING;
+                    }
+                    curr->frames = BP_ATTK_FRAMES;
+                    newstatus = ATTACK_RIGHT_IN | dir;
+                }
+                return;
             }
             return;
         break;
@@ -430,10 +477,12 @@ static inline void big_entity_tree(){
     switch(attr & BIG_ENT_MSK){
         case BLUE_PLAYER:
             ctrl = &bl_ctrl;
+            pl_act = &bl_act;
             player_tree();
         break;
         case GREEN_PLAYER:
             ctrl = &gr_ctrl;
+            pl_act = &gr_act;
             player_tree();
         break;
         case KNIGHT:

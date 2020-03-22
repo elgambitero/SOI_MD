@@ -80,7 +80,7 @@ static const Actor piggy = {&piggy_ent,
    {264, 31},
    {0, 0},
    0,
-   &robo
+   &glp
    };
 
 static const Actor ant = {&ant_ent,

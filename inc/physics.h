@@ -36,6 +36,7 @@
 #define ACT_CHANGED 1
 #define ACT_DELETION 2
 
+
 void PHY_init(Board * board);
 u8 PHY_computeStatus(Actor * actor);
 void PHY_send_inputs(u8 ctrl1, u8 ctrl2);
