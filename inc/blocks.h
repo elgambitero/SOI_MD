@@ -88,8 +88,8 @@
 
 #define GD_ADD_INFO(good) (good > 8)
 
-#define  BP (NORMAL_BLOCK | SOLID | BLK_PLAYER | PL_BLUE)
-#define  GP (NORMAL_BLOCK | SOLID | BLK_PLAYER | PL_GREEN)
+#define  BP ( NORMAL_BLOCK | SOLID | BREAKABLE | BLK_PLAYER | PL_BLUE )
+#define  GP ( NORMAL_BLOCK | SOLID | BREAKABLE | BLK_PLAYER | PL_GREEN )
 
 void drawBlock(u8 x, u8 y, u16 block);
 void eraseBlock(u8 x, u8 y);
