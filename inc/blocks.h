@@ -19,6 +19,7 @@
 #define BLK_CHISEL     (4 << 5)
 #define BLK_NET        (5 << 5)
 #define BLK_QUESTION   (6 << 5)
+#define BLK_PLAYER     (7 << 5)
 
 #define NBLK_COL_MSK    0x0300
 
@@ -28,6 +29,9 @@
 #define COL_SLOT1     (1 << 8)
 #define COL_SLOT2     (2 << 8)
 #define COL_SLOT3     (3 << 8)
+
+#define PL_BLUE       (0 << 8)
+#define PL_GREEN      (1 << 8)
 
 #define PAL_GR 0
 #define PAL_R  1
@@ -83,6 +87,9 @@
 #define GD_GRDOOR_open (29 << 2)
 
 #define GD_ADD_INFO(good) (good > 8)
+
+#define  BP (NORMAL_BLOCK | SOLID | BLK_PLAYER | PL_BLUE)
+#define  GP (NORMAL_BLOCK | SOLID | BLK_PLAYER | PL_GREEN)
 
 void drawBlock(u8 x, u8 y, u16 block);
 void eraseBlock(u8 x, u8 y);

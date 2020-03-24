@@ -102,7 +102,7 @@ const Board test_level = {
      BFB, BOB, BDB,   0,   0,   0, BOB, NET, NET, NET, NET,   0,   0,   0,   0,   0,   0,   0,   0,
        0,   0,   0,   0,   0,   0, BOB, NET, NET, NET, NET,   0,   0,   0,   0,   0,   0,  FW, BDB,
        0,   0,   0,   0,   0,   0, BOB, NET,   0, NET, NET,   0,   0,   0,   0,   0, BOG, BDR,   0,
-       0,   0,   0,   0,   0,   0, BOB, NET,   0, NET, NET,   0,   0, BFG,   0,   0,   0,   0,   0,
+      GP,  BP,   0,   0,   0,   0, BOB, NET,   0, NET, NET,   0,   0, BFG,   0,   0,   0,   0,   0,
        0,   0,   0,   0,   0,   0,   0, NET,   0, BFW,   0,   0,   0,   0, BFW, BFW,   0,   0,   0,
        0,   0,   0,  OB,   0,   0,   0, NET,   0,   0,   0,   0,   0,   0,   0,   0, NET, NET, BFW,
        0,   0,   0,   0,   0, BFW,   0, BFW,   0,   0, BFW, BFW,   0,   0,   0,   0, QUE, BFW,   0,
