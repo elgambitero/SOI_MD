@@ -66,6 +66,10 @@ static inline void calc_front_floor(){
     front_floor_ind = XY_TO_IND( PX_TO_BLOCK( (front - 1) ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) );
 }
 
+static inline void calc_next_floor(){
+    front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) + 8 ) ) ) );
+}
+
 static inline void calc_back_floor(){
     back_floor_ind = XY_TO_IND( PX_TO_BLOCK( (back - 1) ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y])  ) ) ) ;
 }
@@ -101,8 +105,8 @@ static inline u8 crash_into(){
         return 0;
 }
 
-static inline u8 breakable(){
-    return (BREAKABLE & env->front_blocks[front_ind]);
+static inline u8 breakable(u8 ind){
+    return (BREAKABLE & env->front_blocks[ind]);
 }
 
 static inline u8 land(u8 ind){
@@ -179,7 +183,7 @@ static inline void nastie_tree(){
                             switch(attr & BRK_BITMSK){
                                 case DELETES:
                                 case BREAKS:
-                                    if(breakable()){
+                                    if(breakable(front_ind)){
                                         newstatus = dir | ATTACK_RIGHT_IN;
                                         curr->frames = ATTK_FRAMES;
                                         curr->speed[X] = 0;
@@ -383,31 +387,61 @@ static inline void player_tree(){
             }
             if( *ctrl & CTRL_BLOCK ){
                 if(*ctrl & CTRL_ALT){
-                    return;
+                    calc_next(dir);
+                    calc_next_floor();
+                    curr->frames = BP_ATTK_FRAMES;
+                    newstatus = LOW_ATTK_RIGHT_IN | dir;
                 }else{
                     calc_next(dir);
                     calc_front_block();
-                    if(env->front_blocks[front_ind]){
-                        if(breakable()){
-                            *pl_act = DEL_BLOCK;
-                        }else{
-                            *pl_act = NOTHING;
-                        }
-                    }else{
-                        *pl_act = MK_BLOCK;
-                    }
                     curr->frames = BP_ATTK_FRAMES;
                     newstatus = ATTACK_RIGHT_IN | dir;
+                }
+                if(env->front_blocks[front_ind]){
+                    if(breakable(front_ind)){
+                        *pl_act = DEL_BLOCK;
+                    }else{
+                        *pl_act = NOTHING;
+                    }
+                }else{
+                    *pl_act = MK_BLOCK;
                 }
                 return;
             }
             return;
         break;
         case LOW_ATTK_RIGHT_IN:
+            switch(*pl_act){
+                case MK_BLOCK:
+                    calc_next(dir);
+                    calc_next_floor();
+                    if(pl_act == &bl_act)
+                        create_block_ind(env, BP, front_ind);
+                    else
+                        create_block_ind(env, GP, front_ind);
+                    XGM_setPCM(SFX_IND, whoah, sizeof(whoah));
+                    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+                    summon_deletor(front_ind, FALSE);
+                break;
+                case DEL_BLOCK:
+                    calc_next(dir);
+                    calc_next_floor();
+                    break_block_ind(env, front_ind);
+                    XGM_setPCM(SFX_IND, fim, sizeof(fim));
+                    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+                    summon_deletor(front_ind, TRUE);
+                break;
+                case SHOOT:
 
+                break;
+                default:
+                break;
+            }
+            newstatus = LOW_ATTK_RIGHT_OUT | dir;
+            curr->frames = BP_ATTK_FRAMES;
         break;
         case LOW_ATTK_RIGHT_OUT:
-
+            newstatus = STILL_RIGHT | dir;
         break;
         case STL_TO_RIGHT:
             newstatus = WALK_RIGHT | dir;
