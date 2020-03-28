@@ -66,16 +66,12 @@ static inline void calc_front_block_lo(){
     front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 4 ) ) ) );
 }
 
-static inline void calc_front_floor(){
-    front_floor_ind = XY_TO_IND( PX_TO_BLOCK( front ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) );
-}
-
 static inline void calc_next_floor(){
     front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) + 8 ) ) ) );
 }
 
-static inline void calc_top_block(){
-    top_ind =  XY_TO_IND( ( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
+static inline void calc_front_floor(){
+    front_floor_ind = XY_TO_IND( PX_TO_BLOCK( front ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) );
 }
 
 static inline void calc_back_floor(){
@@ -86,11 +82,15 @@ static inline void calc_floor(){
     floor_ind = XY_TO_IND( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y])  ) ) ) ;
 }
 
+static inline void calc_top_block(){
+    top_ind =  XY_TO_IND( ( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
+}
+
 static inline void calc_front(u8 direction){
     front = direction ? POS_TO_PX(curr->pos[X]) - curr->character->size[X] : POS_TO_PX(curr->pos[X]) + curr->character->size[X];
 }
 static inline void calc_next(u8 direction){
-    front = direction ? POS_TO_PX(curr->pos[X]) - 18 : POS_TO_PX(curr->pos[X]) + 18;
+    front = direction ? POS_TO_PX(curr->pos[X]) - BLOCK_SIZE_PX : POS_TO_PX(curr->pos[X]) + BLOCK_SIZE_PX;
 }
 static inline void calc_back(u8 direction){
     back = direction ? POS_TO_PX(curr->pos[X]) + curr->character->size[X] : POS_TO_PX(curr->pos[X]) - curr->character->size[X];
@@ -375,7 +375,9 @@ static inline void player_tree(){
                 curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
             }
             calc_floor();
-            if(fall(floor_ind)){
+            calc_back(dir);
+            calc_back_floor();
+            if(fall(floor_ind) && fall(back_floor_ind)){
                 newstatus = FALL_RIGHT | dir;
                 curr->speed[Y] = FALLSPEED;
                 curr->speed[X] = 0;
@@ -451,8 +453,13 @@ static inline void player_tree(){
         break;
         case STILL_RIGHT:
             curr->speed[X] = 0;
-            calc_floor();
-            if(fall(floor_ind)){
+            calc_front(dir);
+            calc_back(dir);
+            calc_front_floor();
+            calc_back_floor();
+            //calc_floor();
+            //if(fall(floor_ind)){
+            if(fall(front_floor_ind) && fall(back_floor_ind)){
                 newstatus = FALL_RIGHT | dir;
                 curr->speed[Y] = FALLSPEED;
                 return;
