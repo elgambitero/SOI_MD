@@ -63,7 +63,7 @@ static inline void calc_front_block_lo(){
 }
 
 static inline void calc_front_floor(){
-    front_floor_ind = XY_TO_IND( PX_TO_BLOCK( (front - 1) ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) );
+    front_floor_ind = XY_TO_IND( PX_TO_BLOCK( front ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) );
 }
 
 static inline void calc_next_floor(){
@@ -71,7 +71,7 @@ static inline void calc_next_floor(){
 }
 
 static inline void calc_back_floor(){
-    back_floor_ind = XY_TO_IND( PX_TO_BLOCK( (back - 1) ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y])  ) ) ) ;
+    back_floor_ind = XY_TO_IND( PX_TO_BLOCK( back ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y])  ) ) ) ;
 }
 
 static inline void calc_floor(){
