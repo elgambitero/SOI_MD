@@ -13,7 +13,7 @@ typedef struct Actor{
     const Entity * character;
     u8 status;
     u8 frames;
-    u16 pos[2];
+    u16 pos[2]; //px when declared, px/DECIMALS when in use.
     s8 speed[2];
     Sprite * sprite;
     struct Actor * next;
