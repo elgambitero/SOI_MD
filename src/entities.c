@@ -4,7 +4,7 @@
 
 const Entity blue_player_ent = {
     BLUE_PLAYER,
-    {4, 15},
+    {2, 15},
     {7, 15},
     PAL_SYS0,
     &bp_spr
@@ -12,7 +12,7 @@ const Entity blue_player_ent = {
 
 const Entity green_player_ent = {
     GREEN_PLAYER,
-    {4, 15},
+    {2, 15},
     {7, 15},
     PAL_SYS1,
     &bp_spr

@@ -374,10 +374,11 @@ static inline void player_tree(){
             else{
                 curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
             }
-            calc_floor();
+            calc_front(dir);
             calc_back(dir);
+            calc_front_floor();
             calc_back_floor();
-            if(fall(floor_ind) && fall(back_floor_ind)){
+            if(fall(front_floor_ind) && fall(back_floor_ind)){
                 newstatus = FALL_RIGHT | dir;
                 curr->speed[Y] = FALLSPEED;
                 curr->speed[X] = 0;
