@@ -9,8 +9,11 @@
 
 Board * env;
 
+Actor * curr;
 u8 status;
 u8 newstatus;
+u8 dir;
+u16 attr;
 
 u16 front_ind;
 u16 back_floor_ind;
@@ -26,16 +29,11 @@ enum player_action{
     MK_BLOCK,
     SHOOT
 };
-
 enum player_action * pl_act;
 enum player_action bl_act, gr_act;
-
 u8 bl_ctrl;
 u8 gr_ctrl;
 u8 * ctrl;
-u8 dir;
-u16 attr;
-Actor * curr;
 
 #define SFX_IND 5 //magic number
 
