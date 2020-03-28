@@ -5,14 +5,11 @@
 #include <genesis.h>
 #include "globals.h"
 
-#define SIZE_X(size) (size & 0x0F)
-#define SIZE_Y(size) (size >> 4)
-#define CODE_SIZE(x, y) (x + (y << 4))
 
 typedef struct Entity{
     u16 attr;
-    u8 size;
-    u8 spr_pos;
+    u8 size[2];
+    u8 spr_pos[2];
     u8 palette;
     const SpriteDefinition * sprite_def;
 }Entity;

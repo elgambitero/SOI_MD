@@ -75,13 +75,13 @@ static inline void calc_floor(){
 }
 
 static inline void calc_front(u8 direction){
-    front = direction ? POS_TO_PX(curr->pos[X]) - SIZE_X(curr->character->size) : POS_TO_PX(curr->pos[X]) + SIZE_X(curr->character->size);
+    front = direction ? POS_TO_PX(curr->pos[X]) - curr->character->size[X] : POS_TO_PX(curr->pos[X]) + curr->character->size[X];
 }
 static inline void calc_next(u8 direction){
     front = direction ? POS_TO_PX(curr->pos[X]) - 16 : POS_TO_PX(curr->pos[X]) + 16;
 }
 static inline void calc_back(u8 direction){
-    back = direction ? POS_TO_PX(curr->pos[X]) + SIZE_X(curr->character->size) : POS_TO_PX(curr->pos[X]) - SIZE_X(curr->character->size);
+    back = direction ? POS_TO_PX(curr->pos[X]) + curr->character->size[X] : POS_TO_PX(curr->pos[X]) - curr->character->size[X];
 }
 
 static inline u8 fall(u8 ind){

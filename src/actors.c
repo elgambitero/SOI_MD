@@ -54,8 +54,8 @@ Actor * ACT_add(Actor * actor)
 
     result->sprite =
         SPR_addSprite(result->character->sprite_def,
-        POS_TO_PX(result->pos[0]) - SIZE_X(result->character->spr_pos) + BOARD_OFFSET_X, 
-        POS_TO_PX(result->pos[1]) - SIZE_Y(result->character->spr_pos) + BOARD_OFFSET_Y,
+        POS_TO_PX(result->pos[0]) - result->character->spr_pos[X] + BOARD_OFFSET_X, 
+        POS_TO_PX(result->pos[1]) - result->character->spr_pos[Y] + BOARD_OFFSET_Y,
         TILE_ATTR_FULL(result->character->palette,TRUE, FALSE, FALSE,TILE_USERINDEX));
     if(result) SPR_setAnim(result->sprite, result->status);
     return result;
@@ -115,8 +115,8 @@ void ACT_update(){
         current->pos[Y] += current->speed[Y];
 
         SPR_setPosition(current->sprite,
-            POS_TO_PX(current->pos[X]) - SIZE_X(current->character->spr_pos) + BOARD_OFFSET_X,
-            POS_TO_PX(current->pos[Y]) - SIZE_Y(current->character->spr_pos) + BOARD_OFFSET_Y);
+            POS_TO_PX(current->pos[X]) - current->character->spr_pos[X] + BOARD_OFFSET_X,
+            POS_TO_PX(current->pos[Y]) - current->character->spr_pos[Y] + BOARD_OFFSET_Y);
         next = current->next;
         switch(phy_result){
             case ACT_CHANGED:
