@@ -199,6 +199,29 @@ static inline void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
     ACT_add(&fx);
 }
 
+static inline void jmp_brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
+    fx.status = 0;
+    fx.pos[X] = BLOCK_TO_PX(IND_TO_X(front_ind));
+    fx.pos[Y] = BLOCK_TO_PX(IND_TO_Y(front_ind));
+    fx.frames = 0;
+    fx.character = &blk_debris0_ent;
+    fx.speed[X] = sp_x - BRK_SPEED_2X;
+    fx.speed[Y] = sp_y;
+    ACT_add(&fx);
+    fx.character = &blk_debris1_ent;
+    fx.speed[X] = sp_x - BRK_SPEED;
+    fx.speed[Y] = sp_y;
+    ACT_add(&fx);
+    fx.character = &blk_debris2_ent;
+    fx.speed[X] = sp_x + BRK_SPEED;
+    fx.speed[Y] = sp_y;
+    ACT_add(&fx);
+    fx.character = &blk_debris3_ent;
+    fx.speed[X] = sp_x + BRK_SPEED_2X;
+    fx.speed[Y] = sp_y;
+    ACT_add(&fx);
+}
+
 static inline void summon_deletor(u8 front_ind, u8 deletes){
     fx.status = deletes ? 1 : 0;
     fx.character = &deletor_ent;
@@ -550,11 +573,14 @@ static inline void player_tree(){
             calc_top_block();
             if(top < BOARD_X_PX && ( env->front_blocks[top_ind] & BREAKABLE )){
                 if(env->front_blocks[top_ind] & BROKEN){
+                    XGM_setPCM(SFX_IND, smack, sizeof(smack));
+                    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                     //play snap sound
                     break_block_ind(env, top_ind);
-                    brk_debris(top_ind, 0, BRK_SPEED);
+                    jmp_brk_debris(top_ind, 0, -BRK_SPEED);
                 }else{
-                    //play break sound
+                    XGM_setPCM(SFX_IND, metal2, sizeof(metal2));
+                    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                     create_block_ind(env, env->front_blocks[top_ind] | BROKEN, top_ind);
                 }
             }
