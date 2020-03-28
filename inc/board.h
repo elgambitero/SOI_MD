@@ -28,6 +28,8 @@ void load_board_palettes(Board * board);
 void draw_board(Board * board);
 void play_board_music(Board * board);
 u16 getBlock(Board * board, u8 x, u8 y);
+void create_block(Board * board, u16 block, u8 x, u8 y);
+void create_block_ind(Board * board, u16 block, u8 ind);
 void break_block(Board * board, u8 x, u8 y);
 void break_block_ind(Board * board, u8 ind);
 

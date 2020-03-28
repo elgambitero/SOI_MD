@@ -106,6 +106,17 @@ u16 getBlock(Board * board, u8 x, u8 y){
     return board->front_blocks[XY_TO_IND(x, y)];
 }
 
+void create_block(Board * board, u16 block, u8 x, u8 y){
+    u8 ind = XY_TO_IND(x, y);
+    board->front_blocks[ind] = block;
+    drawBlock(x, y, block);
+}
+
+void create_block_ind(Board * board, u16 block, u8 ind){
+    board->front_blocks[ind] = block;
+    drawBlock(IND_TO_X(ind), IND_TO_Y(ind), block);
+}
+
 void break_block(Board * board, u8 x, u8 y){
     u8 ind = XY_TO_IND(x, y);
     eraseBlock(x, y);
