@@ -78,7 +78,7 @@ static inline void calc_front(u8 direction){
     front = direction ? POS_TO_PX(curr->pos[X]) - curr->character->size[X] : POS_TO_PX(curr->pos[X]) + curr->character->size[X];
 }
 static inline void calc_next(u8 direction){
-    front = direction ? POS_TO_PX(curr->pos[X]) - 16 : POS_TO_PX(curr->pos[X]) + 16;
+    front = direction ? POS_TO_PX(curr->pos[X]) - 18 : POS_TO_PX(curr->pos[X]) + 18;
 }
 static inline void calc_back(u8 direction){
     back = direction ? POS_TO_PX(curr->pos[X]) + curr->character->size[X] : POS_TO_PX(curr->pos[X]) - curr->character->size[X];
@@ -319,7 +319,15 @@ static inline void player_tree(){
         case ATTACK_RIGHT_IN:
             switch(*pl_act){
                 case MK_BLOCK:
-
+                    calc_next(dir);
+                    calc_front_block();
+                    if(pl_act == &bl_act)
+                        create_block_ind(env, BP, front_ind);
+                    else
+                        create_block_ind(env, GP, front_ind);
+                    XGM_setPCM(SFX_IND, whoah, sizeof(whoah));
+                    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+                    summon_deletor(front_ind, FALSE);
                 break;
                 case DEL_BLOCK:
                     calc_next(dir);
@@ -379,11 +387,14 @@ static inline void player_tree(){
                 }else{
                     calc_next(dir);
                     calc_front_block();
-                    if(breakable()){
-                        *pl_act = DEL_BLOCK;
-                    }
-                    else{
-                        *pl_act = NOTHING;
+                    if(env->front_blocks[front_ind]){
+                        if(breakable()){
+                            *pl_act = DEL_BLOCK;
+                        }else{
+                            *pl_act = NOTHING;
+                        }
+                    }else{
+                        *pl_act = MK_BLOCK;
                     }
                     curr->frames = BP_ATTK_FRAMES;
                     newstatus = ATTACK_RIGHT_IN | dir;
