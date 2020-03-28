@@ -34,6 +34,10 @@ enum player_action bl_act, gr_act;
 u8 bl_ctrl;
 u8 gr_ctrl;
 u8 * ctrl;
+u8 bl_after_status, gr_after_status;
+u8 * after_status;
+u8 bl_after_speed[2], gr_after_speed[2];
+u8 * after_speed;
 
 #define SFX_IND 5 //magic number
 
@@ -109,6 +113,39 @@ static inline u8 breakable(u8 ind){
 
 static inline u8 land(u8 ind){
     return ( SOLID & env->front_blocks[ ind ] ) || (POS_TO_PX(curr->pos[Y]) >= BOARD_Y_PX);
+}
+
+static inline void block_ctrl(u8 after){
+    if( *ctrl & CTRL_BLOCK ){
+        *after_status = after;
+        memcpy(after_speed, curr->speed, sizeof(curr->speed));
+        curr->speed[X] = 0;
+        curr->speed[Y] = 0;
+        calc_next(dir);
+        if(*ctrl & CTRL_ALT){
+            calc_next_floor();
+            curr->frames = BP_ATTK_FRAMES;
+            newstatus = LOW_ATTK_RIGHT_IN | dir;
+        }else{
+            calc_front_block();
+            curr->frames = BP_ATTK_FRAMES;
+            newstatus = ATTACK_RIGHT_IN | dir;
+        }
+        if(front >= BOARD_X_PX){
+            *pl_act = NOTHING;
+            return;
+        }
+        if(env->front_blocks[front_ind]){
+            if(breakable(front_ind)){
+                *pl_act = DEL_BLOCK;
+            }else{
+                *pl_act = NOTHING;
+            }
+        }else{
+            *pl_act = MK_BLOCK;
+        }
+        return;
+    }
 }
 
 static inline void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
@@ -303,15 +340,17 @@ static inline void player_tree(){
                     newstatus = RIGHT_TURN_LEFT | dir;
                     curr->frames = BP_TURN_FRAMES;
                     curr->speed[X] = 0;
+                    return;
                 }
-                return;
             }
             else
             {
                 newstatus = RIGHT_TO_STL | dir;
                 curr->frames = BP_STL_FRAMES;
                 curr->speed[X] = 0;
+                return;
             }
+            block_ctrl(STILL_RIGHT | dir);
             return;
         break;
         case RIGHT_TURN_LEFT:
@@ -349,7 +388,8 @@ static inline void player_tree(){
             curr->frames = BP_ATTK_FRAMES;
         break;
         case ATTACK_RIGHT_OUT:
-            newstatus = STILL_RIGHT | dir;
+            newstatus = *after_status;
+            memcpy(curr->speed, after_speed, sizeof(curr->speed));
         break;
         case FALL_RIGHT:
             calc_floor();
@@ -360,6 +400,7 @@ static inline void player_tree(){
                 curr->speed[X] = 0;
                 break;
             }
+            block_ctrl(FALL_RIGHT | dir);
         break;
         case STILL_RIGHT:
             calc_floor();
@@ -383,32 +424,7 @@ static inline void player_tree(){
                 newstatus = JUMP_RIGHT | dir;
                 curr->speed[Y] = PL_JMP_BOOST;
             }
-            if( *ctrl & CTRL_BLOCK ){
-                calc_next(dir);
-                if(*ctrl & CTRL_ALT){
-                    calc_next_floor();
-                    curr->frames = BP_ATTK_FRAMES;
-                    newstatus = LOW_ATTK_RIGHT_IN | dir;
-                }else{
-                    calc_front_block();
-                    curr->frames = BP_ATTK_FRAMES;
-                    newstatus = ATTACK_RIGHT_IN | dir;
-                }
-                if(front >= BOARD_X_PX){
-                    *pl_act = NOTHING;
-                    return;
-                }
-                if(env->front_blocks[front_ind]){
-                    if(breakable(front_ind)){
-                        *pl_act = DEL_BLOCK;
-                    }else{
-                        *pl_act = NOTHING;
-                    }
-                }else{
-                    *pl_act = MK_BLOCK;
-                }
-                return;
-            }
+            block_ctrl(status);
             return;
         break;
         case LOW_ATTK_RIGHT_IN:
@@ -442,7 +458,8 @@ static inline void player_tree(){
             curr->frames = BP_ATTK_FRAMES;
         break;
         case LOW_ATTK_RIGHT_OUT:
-            newstatus = STILL_RIGHT | dir;
+            newstatus = *after_status;
+            memcpy(curr->speed, after_speed, sizeof(curr->speed));
         break;
         case STL_TO_RIGHT:
             newstatus = WALK_RIGHT | dir;
@@ -467,7 +484,6 @@ static inline void player_tree(){
         case JUMP_RIGHT:
             if(curr->speed[Y] <= FALLSPEED)
                 curr->speed[Y] += GRAVITY;
-
             if( *ctrl & CTRL_MOV){
                 curr->speed[X] = *ctrl & CTRL_LEFT ? -PL_WALKSPEED : PL_WALKSPEED;
                 calc_front( *ctrl & CTRL_LEFT );
@@ -482,6 +498,7 @@ static inline void player_tree(){
             }else{
                 curr->speed[X] = 0;
             }
+            block_ctrl(JUMP_RIGHT | dir);
             if(curr->speed[Y] > 0){
                 calc_floor();
                 if(land(floor_ind)) {
@@ -497,11 +514,12 @@ static inline void player_tree(){
                         if( ( *ctrl & CTRL_LEFT ) != dir ){
                             newstatus = STL_RIGHT_TO_LEFT | dir;
                             curr->frames = BP_STL_TURN_FRAMES;
+                            return;
                         }else{
                             newstatus = WALK_RIGHT | dir;
                             curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
+                            return;
                         }
-                        return;
                     }
                     newstatus = dir | STILL_RIGHT;
                     return;
@@ -526,11 +544,15 @@ static inline void big_entity_tree(){
         case BLUE_PLAYER:
             ctrl = &bl_ctrl;
             pl_act = &bl_act;
+            after_status = &bl_after_status;
+            after_speed = bl_after_speed;
             player_tree();
         break;
         case GREEN_PLAYER:
             ctrl = &gr_ctrl;
             pl_act = &gr_act;
+            after_status = &gr_after_status;
+            after_speed = gr_after_speed;
             player_tree();
         break;
         case KNIGHT:
