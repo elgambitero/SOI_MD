@@ -386,16 +386,19 @@ static inline void player_tree(){
                 curr->speed[Y] = PL_JMP_BOOST;
             }
             if( *ctrl & CTRL_BLOCK ){
+                calc_next(dir);
                 if(*ctrl & CTRL_ALT){
-                    calc_next(dir);
                     calc_next_floor();
                     curr->frames = BP_ATTK_FRAMES;
                     newstatus = LOW_ATTK_RIGHT_IN | dir;
                 }else{
-                    calc_next(dir);
                     calc_front_block();
                     curr->frames = BP_ATTK_FRAMES;
                     newstatus = ATTACK_RIGHT_IN | dir;
+                }
+                if(front >= BOARD_X_PX){
+                    *pl_act = NOTHING;
+                    return;
                 }
                 if(env->front_blocks[front_ind]){
                     if(breakable(front_ind)){
