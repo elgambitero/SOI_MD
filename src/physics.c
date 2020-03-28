@@ -427,11 +427,11 @@ static inline void player_tree(){
             block_ctrl(FALL_RIGHT | dir);
         break;
         case STILL_RIGHT:
+            curr->speed[X] = 0;
             calc_floor();
             if(fall(floor_ind)){
                 newstatus = FALL_RIGHT | dir;
                 curr->speed[Y] = FALLSPEED;
-                curr->speed[X] = 0;
                 return;
             }
             if( *ctrl & CTRL_MOV ){
