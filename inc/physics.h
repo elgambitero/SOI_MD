@@ -8,6 +8,8 @@
 #define PX_TO_TILE(px) (px >> 3)
 #define PX_TO_BLOCK(px) (px >> 4)
 #define BLOCK_TO_PX(px) (px << 4)
+#define BLOCK_SIZE_PX 16
+#define BLOCK_SIZE_POS PX_TO_POS(BLOCK_SIZE_PX)
 
 #define COLL_CORR (2 * DECIMALS)
 #define FLOOR_CORR ( 0xFFFF << (DECIMALS + 4) )

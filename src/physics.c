@@ -19,8 +19,10 @@ u16 front_ind;
 u16 back_floor_ind;
 u16 front_floor_ind;
 u16 floor_ind;
+u16 top_ind;
 u16 front;
 u16 back;
+u16 top;
 
 
 enum player_action{
@@ -72,6 +74,10 @@ static inline void calc_next_floor(){
     front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) + 8 ) ) ) );
 }
 
+static inline void calc_top_block(){
+    top_ind =  XY_TO_IND( ( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
+}
+
 static inline void calc_back_floor(){
     back_floor_ind = XY_TO_IND( PX_TO_BLOCK( back ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y])  ) ) ) ;
 }
@@ -88,6 +94,9 @@ static inline void calc_next(u8 direction){
 }
 static inline void calc_back(u8 direction){
     back = direction ? POS_TO_PX(curr->pos[X]) + curr->character->size[X] : POS_TO_PX(curr->pos[X]) - curr->character->size[X];
+}
+static inline void calc_top(){
+    top = POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1;
 }
 
 static inline u8 fall(u8 ind){
@@ -115,7 +124,7 @@ static inline u8 land(u8 ind){
     return ( SOLID & env->front_blocks[ ind ] ) || (POS_TO_PX(curr->pos[Y]) >= BOARD_Y_PX);
 }
 
-static inline void block_ctrl(u8 after){
+static inline u8 block_ctrl(u8 after){
     if( *ctrl & CTRL_BLOCK ){
         *after_status = after;
         memcpy(after_speed, curr->speed, sizeof(curr->speed));
@@ -133,7 +142,7 @@ static inline void block_ctrl(u8 after){
         }
         if(front >= BOARD_X_PX){
             *pl_act = NOTHING;
-            return;
+            return TRUE;
         }
         if(env->front_blocks[front_ind]){
             if(breakable(front_ind)){
@@ -144,8 +153,27 @@ static inline void block_ctrl(u8 after){
         }else{
             *pl_act = MK_BLOCK;
         }
-        return;
+        return TRUE;
     }
+    return FALSE;
+}
+
+static inline u8 jump_ctrl(u8 after){
+    if( *ctrl & CTRL_JUMP ){
+        calc_top();
+        calc_top_block();
+        if(top >= BOARD_Y_MAX || ( env->front_blocks[top_ind] & SOLID )){
+            *after_status = after;
+            curr->speed[X] = 0;
+            curr->frames = BP_ATTK_FRAMES;
+            newstatus = JUMP_ATTK_RIGHT_IN | dir;
+            return TRUE;
+        }
+        newstatus = JUMP_RIGHT | dir;
+        curr->speed[Y] = PL_JMP_BOOST;
+        return TRUE;
+    }
+    return FALSE;
 }
 
 static inline void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
@@ -330,11 +358,7 @@ static inline void player_tree(){
                 curr->speed[X] = 0;
                 return;
             }
-            if( *ctrl & CTRL_JUMP){
-                newstatus = JUMP_RIGHT | dir;
-                curr->speed[Y] = PL_JMP_BOOST;
-                return;
-            }
+            if(jump_ctrl(status)) return;
             if( *ctrl & CTRL_MOV ){
                 if( ( *ctrl & CTRL_LEFT ) != dir ){
                     newstatus = RIGHT_TURN_LEFT | dir;
@@ -420,10 +444,7 @@ static inline void player_tree(){
                 }
                 return;
             }
-            if( *ctrl & CTRL_JUMP ){
-                newstatus = JUMP_RIGHT | dir;
-                curr->speed[Y] = PL_JMP_BOOST;
-            }
+            if(jump_ctrl(status)) return;
             block_ctrl(status);
             return;
         break;
@@ -505,11 +526,7 @@ static inline void player_tree(){
                     curr->pos[Y] &= FLOOR_CORR;
                     curr->speed[Y] = 0;
                     curr->speed[X] = 0;
-                    if(*ctrl & CTRL_JUMP){
-                        newstatus = JUMP_RIGHT | dir;
-                        curr->speed[Y] = PL_JMP_BOOST;
-                        return;
-                    }
+                    if(jump_ctrl(status)) return;
                     if(*ctrl & CTRL_MOV){
                         if( ( *ctrl & CTRL_LEFT ) != dir ){
                             newstatus = STL_RIGHT_TO_LEFT | dir;
@@ -527,10 +544,23 @@ static inline void player_tree(){
             }
         break;
         case JUMP_ATTK_RIGHT_IN:
-
+            curr->frames = BP_ATTK_FRAMES;
+            newstatus = JUMP_ATTK_RIGHT_OUT | dir;
+            calc_top();
+            calc_top_block();
+            if(top < BOARD_X_PX && ( env->front_blocks[top_ind] & BREAKABLE )){
+                if(env->front_blocks[top_ind] & BROKEN){
+                    //play snap sound
+                    break_block_ind(env, top_ind);
+                    brk_debris(top_ind, 0, BRK_SPEED);
+                }else{
+                    //play break sound
+                    create_block_ind(env, env->front_blocks[top_ind] | BROKEN, top_ind);
+                }
+            }
         break;
         case JUMP_ATTK_RIGHT_OUT:
-
+            newstatus = *after_status;
         break;
         case DEAD:
 

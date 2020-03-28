@@ -11,6 +11,9 @@
 #define BOARD_X_PX BOARD_X * 16
 #define BOARD_Y_PX BOARD_Y * 16
 
+#define BOARD_X_MAX PX_TO_POS(BOARD_X_PX)
+#define BOARD_Y_MAX PX_TO_POS(BOARD_Y_PX)
+
 #define IND_TO_X(ind)   (ind % BOARD_X)
 #define IND_TO_Y(ind)   (ind / BOARD_X)
 #define XY_TO_IND(x ,y) ((y * BOARD_X) + x)
