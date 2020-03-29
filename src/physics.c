@@ -624,7 +624,11 @@ static inline void player_tree(){
             newstatus = *after_status;
         break;
         case DEAD:
-
+            SPR_setAnim(curr->sprite, curr->status);
+            if(curr->pos[X] >= PX_TO_POS(BOARD_X_PX) || curr->pos[Y] >= PX_TO_POS(BOARD_Y_PX) ){
+                result = ACT_DELETION;
+            }
+            curr->speed[Y] += GRAVITY;
         break;
     }
     return;
@@ -659,6 +663,14 @@ static inline void class_tree(){
     switch(attr & ENT_CHECK_BITMSK){
         case NASTIE:
             nastie_tree();
+            if(blue_player && ACT_collision(blue_player, curr)){
+                kill(blue_player, 0, -2*FALLSPEED);
+                blue_player = NULL;
+            }
+            if(green_player && ACT_collision(green_player, curr)){
+                kill(green_player, 0, -2*FALLSPEED);
+                green_player = NULL;
+            }
         break;
         case BIG_ENTITY:
             big_entity_tree();
