@@ -102,6 +102,9 @@ static inline void calc_top(){
 static inline u8 fall(u8 ind){
     return !( SOLID & env->front_blocks[ind] ) &&  ( POS_TO_PX(curr->pos[Y])  < BOARD_Y_PX );
 }
+static inline u8 land(u8 ind){
+    return ( SOLID & env->front_blocks[ ind ] ) || (POS_TO_PX(curr->pos[Y]) >= BOARD_Y_PX);
+}
 
 static inline u8 turn_around(){
     return (front_floor_ind < BOARD_BUFFER) && !( SOLID & env->front_blocks[front_floor_ind] );
@@ -120,9 +123,7 @@ static inline u8 breakable(u8 ind){
     return (BREAKABLE & env->front_blocks[ind]);
 }
 
-static inline u8 land(u8 ind){
-    return ( SOLID & env->front_blocks[ ind ] ) || (POS_TO_PX(curr->pos[Y]) >= BOARD_Y_PX);
-}
+
 
 static inline u8 block_ctrl(u8 after){
     if( *ctrl & CTRL_BLOCK ){
@@ -338,12 +339,25 @@ static inline void nastie_tree(){
         case FALL_RIGHT:
             calc_floor();
             if(land(floor_ind)) {
+                if(attr & DIES_ON_LEAP){
+                    status = DEAD;
+                    newstatus = DEAD;
+                    curr->speed[Y] = -2*FALLSPEED;
+                    curr->speed[X] = WALKSPEED;
+                    return;
+                }
                 curr->pos[Y] &= FLOOR_CORR;
                 newstatus = dir + WALK_RIGHT;
                 curr->speed[Y] = 0;
                 curr->speed[X] = dir ? -WALKSPEED : WALKSPEED;
                 break;
             }
+        break;
+        case DEAD:
+            if(curr->pos[X] >= PX_TO_POS(BOARD_X_PX) || curr->pos[Y] >= PX_TO_POS(BOARD_Y_PX) ){
+                result = ACT_DELETION;
+            }
+            curr->speed[Y] += GRAVITY;
         break;
     }
 }

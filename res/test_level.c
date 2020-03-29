@@ -68,7 +68,7 @@ static const Actor spinner = {&spinner_ent,
 static const Actor robo = {&robo_ent,
    WALK_RIGHT,
    0,
-   {120, 31},
+   {120, 32},
    {0, 0},
    0,
    &glp
@@ -80,7 +80,7 @@ static const Actor piggy = {&piggy_ent,
    {264, 31},
    {0, 0},
    0,
-   &glp
+   &robo
    };
 
 static const Actor ant = {&ant_ent,
