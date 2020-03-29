@@ -12,6 +12,7 @@ typedef struct Entity{
     u8 spr_pos[2];
     u8 palette;
     const SpriteDefinition * sprite_def;
+    const u8 * death_sound;
 }Entity;
 
 #define ENT_CHECK_BITMSK 0x0003

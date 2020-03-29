@@ -1,13 +1,15 @@
 #include "entities.h"
 
 #include "sprites.h"
+#include "sound.h"
 
 const Entity blue_player_ent = {
     BLUE_PLAYER,
     {2, 15},
     {7, 15},
     PAL_SYS0,
-    &bp_spr
+    &bp_spr,
+    0
 };
 
 const Entity green_player_ent = {
@@ -15,14 +17,16 @@ const Entity green_player_ent = {
     {2, 15},
     {7, 15},
     PAL_SYS1,
-    &bp_spr
+    &bp_spr,
+    0
 };
 const Entity spinner_ent = {
     NASTIE | STILL,
     {6, 15},
     {7, 15},
     PAL_SYS0,
-    &spinner_spr
+    &spinner_spr,
+    0
 };
 
 const Entity robo_ent = {
@@ -30,7 +34,8 @@ const Entity robo_ent = {
     {4, 15},
     {7, 15},
     PAL_SYS0,
-    &robo_spr
+    &robo_spr,
+    bell
 };
 
 const Entity ant_ent = {
@@ -38,7 +43,8 @@ const Entity ant_ent = {
     {7, 8},
     {7, 8},
     PAL_SYS0,
-    &ant_spr
+    &ant_spr,
+    0
 };
 
 const Entity piggy_ent = {
@@ -46,7 +52,8 @@ const Entity piggy_ent = {
     {7, 15},
     {7, 15},
     PAL_SYS1,
-    &piggy_spr
+    &piggy_spr,
+    0
 };
 
 const Entity deletor_ent = {
@@ -54,7 +61,8 @@ const Entity deletor_ent = {
     {7, 15},
     {7, 15},
     PAL_SYS0,
-    &deletor_spr
+    &deletor_spr,
+    0
 };
 
 const Entity blk_debris0_ent = {
@@ -62,7 +70,8 @@ const Entity blk_debris0_ent = {
     {4, 8},
     {4, 4},
     PAL_SYS0,
-    &blk_debris0_spr
+    &blk_debris0_spr,
+    0
 };
 
 const Entity blk_debris1_ent = {
@@ -70,7 +79,8 @@ const Entity blk_debris1_ent = {
     {4, 8},
     {4, 4},
     PAL_SYS0,
-    &blk_debris1_spr
+    &blk_debris1_spr,
+    0
 };
 
 const Entity blk_debris2_ent = {
@@ -78,7 +88,8 @@ const Entity blk_debris2_ent = {
     {4, 8},
     {4, 4},
     PAL_SYS0,
-    &blk_debris2_spr
+    &blk_debris2_spr,
+    0
 };
 
 const Entity blk_debris3_ent = {
@@ -86,5 +97,6 @@ const Entity blk_debris3_ent = {
     {4, 8},
     {4, 4},
     PAL_SYS0,
-    &blk_debris3_spr
+    &blk_debris3_spr,
+    0
 };
