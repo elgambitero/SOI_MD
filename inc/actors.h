@@ -24,6 +24,7 @@ Actor * ACT_add(Actor * actor);
 u8 ACT_remove(Actor * actor);
 Actor * ACT_getFirst();
 Actor * ACT_seek(const Entity * ent);
+u8 ACT_collision(Actor * act1, Actor * act2);
 void ACT_update();
 void ACT_end();
 
