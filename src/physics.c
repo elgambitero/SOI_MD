@@ -340,6 +340,8 @@ static inline void nastie_tree(){
             calc_floor();
             if(land(floor_ind)) {
                 if(attr & DIES_ON_LEAP){
+                    XGM_setPCM(SFX_IND, bell, sizeof(bell));
+                    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                     status = DEAD;
                     newstatus = DEAD;
                     curr->speed[Y] = -2*FALLSPEED;
