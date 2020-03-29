@@ -13,9 +13,9 @@
 
 #define COLL_CORR (2 * DECIMALS)
 #define FLOOR_CORR ( 0xFFFF << (DECIMALS + 4) )
-#define FALLSPEED 3
-#define WALKSPEED 2
-#define PL_WALKSPEED 2
+#define FALLSPEED 4
+#define WALKSPEED 3
+#define PL_WALKSPEED WALKSPEED
 #define PL_JMP_BOOST -12
 #define GRAVITY 1
 #define BRK_SPEED 8

@@ -539,10 +539,12 @@ static inline void player_tree(){
                 calc_front( *ctrl & CTRL_LEFT );
                 calc_front_block_hi();
                 if(crash_into()){
+                    curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
                     curr->speed[X] = 0;
                 }
                 calc_front_block_lo();
                 if(crash_into()){
+                    curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
                     curr->speed[X] = 0;
                 }
             }else{
