@@ -9,6 +9,7 @@ const Entity blue_player_ent = {
     {7, 15},
     PAL_SYS0,
     &bp_spr,
+    0,
     0
 };
 
@@ -18,6 +19,7 @@ const Entity green_player_ent = {
     {7, 15},
     PAL_SYS1,
     &bp_spr,
+    0,
     0
 };
 const Entity spinner_ent = {
@@ -26,6 +28,7 @@ const Entity spinner_ent = {
     {7, 15},
     PAL_SYS0,
     &spinner_spr,
+    0,
     0
 };
 
@@ -35,7 +38,8 @@ const Entity robo_ent = {
     {7, 15},
     PAL_SYS0,
     &robo_spr,
-    bell
+    bell,
+    sizeof(bell)
 };
 
 const Entity ant_ent = {
@@ -44,6 +48,7 @@ const Entity ant_ent = {
     {7, 8},
     PAL_SYS0,
     &ant_spr,
+    0,
     0
 };
 
@@ -53,6 +58,7 @@ const Entity piggy_ent = {
     {7, 15},
     PAL_SYS1,
     &piggy_spr,
+    0,
     0
 };
 
@@ -62,6 +68,7 @@ const Entity deletor_ent = {
     {7, 15},
     PAL_SYS0,
     &deletor_spr,
+    0,
     0
 };
 
@@ -71,6 +78,7 @@ const Entity blk_debris0_ent = {
     {4, 4},
     PAL_SYS0,
     &blk_debris0_spr,
+    0,
     0
 };
 
@@ -80,6 +88,7 @@ const Entity blk_debris1_ent = {
     {4, 4},
     PAL_SYS0,
     &blk_debris1_spr,
+    0,
     0
 };
 
@@ -89,6 +98,7 @@ const Entity blk_debris2_ent = {
     {4, 4},
     PAL_SYS0,
     &blk_debris2_spr,
+    0,
     0
 };
 
@@ -98,5 +108,6 @@ const Entity blk_debris3_ent = {
     {4, 4},
     PAL_SYS0,
     &blk_debris3_spr,
+    0,
     0
 };
