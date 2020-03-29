@@ -11,11 +11,20 @@
 static const Actor blp = {&blue_player_ent,
        0,
        0,
-    {176, 208},
+    {120, 112},
     {   0,    0},
-       0,
-       0
+      0,
+      0
     };
+
+   static const Actor glp = {&green_player_ent,
+      0,
+      0,
+   {184, 112},
+   {   0,    0},
+      0,
+      &blp
+   };
 
 static const Actor robo = {&robo_ent,
    WALK_RIGHT,
@@ -23,7 +32,7 @@ static const Actor robo = {&robo_ent,
    {40, 32},
    {0, 0},
    0,
-   0
+   &glp
    };
 
 
