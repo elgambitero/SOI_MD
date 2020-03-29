@@ -102,11 +102,11 @@ Actor * ACT_seek(const Entity * ent){
 }
 
 u8 ACT_collision(Actor * act1, Actor * act2){
-    if(act1->pos[Y] > act2->pos[Y] - act2->size[Y] ||
-        act1->pos[Y] > act1->pos[Y] - act1->size[Y])
+    if(act1->pos[Y] < act2->pos[Y] - act2->character->size[Y] ||
+        act2->pos[Y] < act1->pos[Y] - act1->character->size[Y])
         return FALSE;
-    if(act1->pos[X] + act1->size[X] < act2->pos[X] - act2->size[X] ||
-        act2->pos[X] + act2->size[X] < act1->pos[X] - act1->size[X])
+    if(act1->pos[X] + act1->character->size[X] < act2->pos[X] - act2->character->size[X] ||
+        act2->pos[X] + act2->character->size[X] < act1->pos[X] - act1->character->size[X])
         return FALSE;
     return TRUE;
 }
