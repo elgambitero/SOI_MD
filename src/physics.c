@@ -234,6 +234,16 @@ static inline void summon_deletor(u8 front_ind, u8 deletes){
     ACT_add(&fx);
 }
 
+static inline void kill(Actor * act, u8 speed_x, u8 speed_y){
+    if(act->character->death_sound){
+        XGM_setPCM(SFX_IND, act->character->death_sound, act->character->death_sound_size);
+        XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    }
+    act->status = DEAD;
+    act->speed[Y] = speed_y;
+    act->speed[X] = speed_x;
+}
+
 static inline void nastie_tree(){
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
@@ -340,14 +350,9 @@ static inline void nastie_tree(){
             calc_floor();
             if(land(floor_ind)) {
                 if(attr & DIES_ON_LEAP){
-                    if(curr->character->death_sound){
-                        XGM_setPCM(SFX_IND, curr->character->death_sound, sizeof(bell));
-                        XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
-                    }
-                    status = DEAD;
+                    kill(curr, WALKSPEED, -2*FALLSPEED);
                     newstatus = DEAD;
-                    curr->speed[Y] = -2*FALLSPEED;
-                    curr->speed[X] = WALKSPEED;
+                    status = DEAD;
                     return;
                 }
                 curr->pos[Y] &= FLOOR_CORR;
