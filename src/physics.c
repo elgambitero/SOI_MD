@@ -535,16 +535,17 @@ static inline void player_tree(){
             if(curr->speed[Y] <= FALLSPEED)
                 curr->speed[Y] += GRAVITY;
             if( *ctrl & CTRL_MOV){
-                curr->speed[X] = *ctrl & CTRL_LEFT ? -PL_WALKSPEED : PL_WALKSPEED;
-                calc_front( *ctrl & CTRL_LEFT );
+                register u8 push = *ctrl & CTRL_LEFT;
+                curr->speed[X] = push ? -PL_WALKSPEED : PL_WALKSPEED;
+                calc_front( push );
                 calc_front_block_hi();
                 if(crash_into()){
-                    curr->pos[X] += *ctrl & CTRL_LEFT ? COLL_CORR : -COLL_CORR;
+                    curr->pos[X] += push ? COLL_CORR : -COLL_CORR;
                     curr->speed[X] = 0;
                 }
                 calc_front_block_lo();
                 if(crash_into()){
-                    curr->pos[X] += *ctrl & CTRL_LEFT ? COLL_CORR : -COLL_CORR;
+                    curr->pos[X] += push ? COLL_CORR : -COLL_CORR;
                     curr->speed[X] = 0;
                 }
             }else{
