@@ -9,8 +9,8 @@ const Entity blue_player_ent = {
     {7, 15},
     PAL_SYS0,
     &bp_spr,
-    0,
-    0
+    moon_blast,
+    sizeof(moon_blast)
 };
 
 const Entity green_player_ent = {
@@ -19,8 +19,8 @@ const Entity green_player_ent = {
     {7, 15},
     PAL_SYS1,
     &bp_spr,
-    0,
-    0
+    moon_blast,
+    sizeof(moon_blast)
 };
 const Entity spinner_ent = {
     NASTIE | STILL,
