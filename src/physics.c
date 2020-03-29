@@ -458,13 +458,12 @@ static inline void player_tree(){
             calc_back(dir);
             calc_front_floor();
             calc_back_floor();
-            //calc_floor();
-            //if(fall(floor_ind)){
             if(fall(front_floor_ind) && fall(back_floor_ind)){
                 newstatus = FALL_RIGHT | dir;
                 curr->speed[Y] = FALLSPEED;
                 return;
             }
+            if(jump_ctrl(status)) return;
             if( *ctrl & CTRL_MOV ){
                 if( ( *ctrl & CTRL_LEFT ) != dir ){
                     newstatus = STL_RIGHT_TO_LEFT | dir;
@@ -475,7 +474,6 @@ static inline void player_tree(){
                 }
                 return;
             }
-            if(jump_ctrl(status)) return;
             block_ctrl(status);
             return;
         break;
@@ -552,8 +550,11 @@ static inline void player_tree(){
             }
             block_ctrl(JUMP_RIGHT | dir);
             if(curr->speed[Y] > 0){
-                calc_floor();
-                if(land(floor_ind)) {
+                calc_front(dir);
+                calc_back(dir);
+                calc_front_floor();
+                calc_back_floor();
+                if(land(back_floor_ind) || land(front_floor_ind)) {
                     curr->pos[Y] &= FLOOR_CORR;
                     curr->speed[Y] = 0;
                     curr->speed[X] = 0;
