@@ -85,6 +85,12 @@ static inline void calc_floor(){
 static inline void calc_top_block(){
     top_ind =  XY_TO_IND( ( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
 }
+static inline void calc_top_block_left(){
+    top_ind =  XY_TO_IND( ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[X] ) - curr->character->size[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
+}
+static inline void calc_top_block_right(){
+    top_ind =  XY_TO_IND( ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[X] ) + curr->character->size[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
+}
 
 static inline void calc_front(u8 direction){
     front = direction ? POS_TO_PX(curr->pos[X]) - curr->character->size[X] : POS_TO_PX(curr->pos[X]) + curr->character->size[X];
@@ -165,7 +171,15 @@ static inline u8 block_ctrl(u8 after){
 static inline u8 jump_ctrl(u8 after){
     if( *ctrl & CTRL_JUMP ){
         calc_top();
-        calc_top_block();
+        calc_top_block_left();
+        if(top >= BOARD_Y_MAX || ( env->front_blocks[top_ind] & SOLID )){
+            *after_status = after;
+            curr->speed[X] = 0;
+            curr->frames = BP_ATTK_FRAMES;
+            newstatus = JUMP_ATTK_RIGHT_IN | dir;
+            return TRUE;
+        }
+        calc_top_block_right();
         if(top >= BOARD_Y_MAX || ( env->front_blocks[top_ind] & SOLID )){
             *after_status = after;
             curr->speed[X] = 0;
