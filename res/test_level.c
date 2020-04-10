@@ -22,7 +22,7 @@
 static const Actor blp = {&blue_player_ent,
        STILL_RIGHT,
        0,
-    {136, 31},
+    {104, 31},
     {   0,    0},
        0,
        0
@@ -31,7 +31,7 @@ static const Actor blp = {&blue_player_ent,
 static const Actor glp = {&green_player_ent,
        STILL_RIGHT,
        0,
-    {152, 31},
+    {120, 31},
     {   0,    0},
        0,
        &blp
@@ -40,16 +40,16 @@ static const Actor glp = {&green_player_ent,
 static const Actor spinner3 = {&spinner_ent,
        0,
        0,
-    {24, 40},
+    {134, 60},
     {   0,    0},
        0,
-      0
+      &glp
     };
 
 static const Actor spinner2 = {&spinner_ent,
        0,
        0,
-    {40, 20},
+    {166, 60},
     {   0,    0},
        0,
     &spinner3
@@ -68,10 +68,10 @@ static const Actor spinner = {&spinner_ent,
 static const Actor robo = {&robo_ent,
    WALK_RIGHT,
    0,
-   {120, 32},
+   {152, 32},
    {0, 0},
    0,
-   &glp
+   &spinner
    };
 
 static const Actor piggy = {&piggy_ent,
