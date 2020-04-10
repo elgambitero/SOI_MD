@@ -12,6 +12,7 @@
 #define BLOCK_SIZE_POS PX_TO_POS(BLOCK_SIZE_PX)
 
 #define COLL_CORR (2 * DECIMALS)
+#define COLL_MARGIN 1
 #define FLOOR_CORR ( 0xFFFF << (DECIMALS + 4) )
 #define FALLSPEED 4
 #define WALKSPEED 3

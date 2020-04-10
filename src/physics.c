@@ -89,6 +89,9 @@ static inline void calc_top_block(){
 static inline void calc_front(u8 direction){
     front = direction ? POS_TO_PX(curr->pos[X]) - curr->character->size[X] : POS_TO_PX(curr->pos[X]) + curr->character->size[X];
 }
+static inline void calc_front_margin(u8 direction){
+    front = direction ? POS_TO_PX(curr->pos[X]) - curr->character->size[X] - COLL_MARGIN : POS_TO_PX(curr->pos[X]) + curr->character->size[X] + COLL_MARGIN;
+}
 static inline void calc_next(u8 direction){
     front = direction ? POS_TO_PX(curr->pos[X]) - BLOCK_SIZE_PX : POS_TO_PX(curr->pos[X]) + BLOCK_SIZE_PX;
 }
@@ -388,7 +391,7 @@ static inline void fx_tree(){
 static inline void player_tree(){
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
-            calc_front(dir);
+            calc_front_margin(dir);
             calc_front_block();
             if(crash_into()){
                 curr->speed[X] = 0;
@@ -543,7 +546,7 @@ static inline void player_tree(){
         break;
         case STL_RIGHT_TO_LEFT:
             newstatus = WALK_RIGHT | !dir ;
-            calc_front(!dir);
+            calc_front_margin(!dir);
             calc_front_block();
             if(!crash_into())
                 curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
@@ -560,7 +563,7 @@ static inline void player_tree(){
             if( *ctrl & CTRL_MOV){
                 register u8 push = *ctrl & CTRL_LEFT;
                 curr->speed[X] = push ? -PL_WALKSPEED : PL_WALKSPEED;
-                calc_front( push );
+                calc_front_margin( push );
                 calc_front_block_hi();
                 if(crash_into()){
                     curr->pos[X] += push ? COLL_CORR : -COLL_CORR;
@@ -663,6 +666,8 @@ static inline void class_tree(){
     switch(attr & ENT_CHECK_BITMSK){
         case NASTIE:
             nastie_tree();
+            if(curr->status == DEAD)
+                return;
             if(blue_player && ACT_collision(blue_player, curr)){
                 kill(blue_player, 0, -2*FALLSPEED);
                 blue_player = NULL;
