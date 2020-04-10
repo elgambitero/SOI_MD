@@ -322,6 +322,7 @@ static inline void nastie_tree(){
         case RIGHT_TURN_LEFT:
             newstatus = WALK_RIGHT | !dir;
             curr->speed[X] = dir ? WALKSPEED : -WALKSPEED;
+            curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
         break;
         case ATTACK_RIGHT_IN:
             calc_front(dir);
