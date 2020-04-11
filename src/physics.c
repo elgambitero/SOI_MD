@@ -24,6 +24,7 @@ u16 top_ind;
 u16 front;
 u16 back;
 u16 top;
+u16 center_ind;
 
 //TODO: Organize. Make more understandable
 enum player_action{
@@ -58,16 +59,16 @@ struct Actor fx = {0,
 u32 board_presence[8];
 
 static inline void clean_presence(){
-    memset(board_presence, 0x00000000, sizeof(board_occupation));
+    memset(board_presence, 0x00000000, sizeof(board_presence));
 }
 static inline void set_presence(u8 ind){
     register u8 slot = (ind >> 5);
-    register u8 shift = (ind && 0xE0);
+    register u8 shift = (ind & 0x1F);
     board_presence[slot] = (1 << shift);
 }
 static inline u8 is_occupied(u8 ind){
     register u8 slot = (ind >> 5);
-    register u8 shift = (ind && 0xE0);
+    register u8 shift = (ind & 0x1F);
     return board_presence[slot] & (1 << shift);
 }
 
@@ -109,6 +110,10 @@ static inline void calc_top_block_left(){
 static inline void calc_top_block_right(){
     top_ind =  XY_TO_IND( ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[X] ) + curr->character->size[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
 }
+static inline void calc_center_block(){
+    center_ind = XY_TO_IND( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ), (PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - (curr->character->size[Y] >> 1) ) ) ) ) ;
+}
+
 
 static inline void calc_front(u8 direction){
     front = direction ? POS_TO_PX(curr->pos[X]) - curr->character->size[X] : POS_TO_PX(curr->pos[X]) + curr->character->size[X];
@@ -168,7 +173,7 @@ static inline u8 block_ctrl(u8 after){
             curr->frames = BP_ATTK_FRAMES;
             newstatus = ATTACK_RIGHT_IN | dir;
         }
-        if(front >= BOARD_X_PX || front_ind > BOARD_BUFFER){
+        if(front >= BOARD_X_PX || front_ind > BOARD_BUFFER || is_occupied(front_ind)){
             *pl_act = NOTHING;
             return TRUE;
         }
@@ -280,6 +285,8 @@ static inline void kill(Actor * act, u8 speed_x, u8 speed_y){
 }
 
 static inline void nastie_tree(){
+    calc_center_block();
+    set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
             switch(attr & MOVT_BITMSK){
