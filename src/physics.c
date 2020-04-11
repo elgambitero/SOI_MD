@@ -15,6 +15,7 @@ u8 newstatus;
 u8 dir;
 u16 attr;
 
+//TODO: Organize. Make more understandable
 u16 front_ind;
 u16 back_floor_ind;
 u16 front_floor_ind;
@@ -24,7 +25,7 @@ u16 front;
 u16 back;
 u16 top;
 
-
+//TODO: Organize. Make more understandable
 enum player_action{
     NOTHING,
     DEL_BLOCK,
@@ -54,6 +55,23 @@ struct Actor fx = {0,
     0
 };
 
+u32 board_presence[8];
+
+static inline void clean_presence(){
+    memset(board_presence, 0x00000000, sizeof(board_occupation));
+}
+static inline void set_presence(u8 ind){
+    register u8 slot = (ind >> 5);
+    register u8 shift = (ind && 0xE0);
+    board_presence[slot] = (1 << shift);
+}
+static inline u8 is_occupied(u8 ind){
+    register u8 slot = (ind >> 5);
+    register u8 shift = (ind && 0xE0);
+    return board_presence[slot] & (1 << shift);
+}
+
+//TODO: Organize. Make more understandable.
 static inline void calc_front_block_hi(){
     front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 12 ) ) ) );
 }
