@@ -280,6 +280,7 @@ static inline void kill(Actor * act, u8 speed_x, u8 speed_y){
         XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
     }
     act->status = DEAD;
+    act->pos[Y] -= COLL_CORR;
     act->speed[Y] = speed_y;
     act->speed[X] = speed_x;
 }
