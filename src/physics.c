@@ -678,6 +678,37 @@ static inline void player_tree(){
     return;
 }
 
+static inline void proj_tree(){
+    switch(attr & MOVT_BITMSK){
+        case FLIES:
+            calc_front(dir);
+            calc_front_block();
+            switch(crash_into()){
+                case BLOCK:
+                    if(breakable(front_ind)){
+                        if(attr & BREAKS){
+                            brk_debris(front_ind, BRK_SPEED, 0);
+                            if(!(attr & GOES_THRU)){
+                                result = ACT_DELETION;
+                            }
+                        }
+                    }else{
+                        result = ACT_DELETION;
+                        return;
+                    }
+                break;
+                case FRAME:
+                    result = ACT_DELETION;
+                    return;
+                break;
+            }
+        break;
+        case LURKS:
+
+        break;
+    }
+}
+
 static inline void big_entity_tree(){
     switch(attr & BIG_ENT_MSK){
         case BLUE_PLAYER:
