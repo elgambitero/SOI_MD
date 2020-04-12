@@ -12,8 +12,11 @@ u8 ACT_init(ActorStack * actors, u8 max_actors)
     actors->actorBank = NULL;
     actors->actorStack = NULL;
     actors->actorBank = (Actor *) MEM_alloc(max_actors * sizeof(Actor));
-    actors->actorStack = (Actor **) MEM_alloc(max_actors);
+    actors->actorStack = (Actor **) MEM_alloc(max_actors * sizeof(Actor*));
     
+    if(actors->actorBank == NULL || actors->actorStack == NULL)
+        return NULL;
+
     memset(actors->actorBank, 0 , sizeof(Actor) * max_actors);
 
     for(u8 i = 0; i < max_actors; i++)
