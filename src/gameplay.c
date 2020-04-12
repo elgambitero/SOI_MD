@@ -70,15 +70,23 @@ void gameInit(){
     load_blk_tiles(ind);
 
     SPR_init();
-    PHY_init(&board);
-    if(!ACT_init(&actores, MAX_ACTORS)) gameState = GAMEEXIT;
-    if(!load_board(&board, current_level, &actores)) gameState = GAMEEXIT;
+    
+    if(!PHY_init(&board)) {
+        gameState = GAMEEXIT;
+        return;
+    }
+    
+    if(!load_board(&board, current_level)) {
+        gameState = GAMEEXIT;
+        return;
+    }
 
-    blue_player = ACT_seek(&blue_player_ent, &actores);
-    green_player = ACT_seek(&green_player_ent, &actores);
+    blue_player = ACT_seek(&blue_player_ent, &players);
+    green_player = ACT_seek(&green_player_ent, &players);
 
     if(JOY_getPortType(PORT_2) == PORT_TYPE_UNKNOWN){
-        ACT_remove(green_player, &actores);
+        ACT_remove(green_player, &players);
+        green_player = 0;
     }
 
     load_board_palettes(&board);

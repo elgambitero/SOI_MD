@@ -225,19 +225,19 @@ static inline void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
     fx.character = &blk_debris0_ent;
     fx.speed[X] = sp_x;
     fx.speed[Y] = sp_y - BRK_SPEED_2X;
-    ACT_add(&fx, &actores);
+    ACT_add(&fx, &fx_buf);
     fx.character = &blk_debris1_ent;
     fx.speed[X] = sp_x;
     fx.speed[Y] = sp_y - BRK_SPEED;
-    ACT_add(&fx, &actores);
+    ACT_add(&fx, &fx_buf);
     fx.character = &blk_debris2_ent;
     fx.speed[X] = sp_x;
     fx.speed[Y] = sp_y + BRK_SPEED;
-    ACT_add(&fx, &actores);
+    ACT_add(&fx, &fx_buf);
     fx.character = &blk_debris3_ent;
     fx.speed[X] = sp_x;
     fx.speed[Y] = sp_y + BRK_SPEED_2X;
-    ACT_add(&fx, &actores);
+    ACT_add(&fx, &fx_buf);
 }
 
 static inline void jmp_brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
@@ -248,19 +248,19 @@ static inline void jmp_brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
     fx.character = &blk_debris0_ent;
     fx.speed[X] = sp_x - BRK_SPEED_2X;
     fx.speed[Y] = sp_y;
-    ACT_add(&fx, &actores);
+    ACT_add(&fx, &fx_buf);
     fx.character = &blk_debris1_ent;
     fx.speed[X] = sp_x - BRK_SPEED;
     fx.speed[Y] = sp_y;
-    ACT_add(&fx, &actores);
+    ACT_add(&fx, &fx_buf);
     fx.character = &blk_debris2_ent;
     fx.speed[X] = sp_x + BRK_SPEED;
     fx.speed[Y] = sp_y;
-    ACT_add(&fx, &actores);
+    ACT_add(&fx, &fx_buf);
     fx.character = &blk_debris3_ent;
     fx.speed[X] = sp_x + BRK_SPEED_2X;
     fx.speed[Y] = sp_y;
-    ACT_add(&fx, &actores);
+    ACT_add(&fx, &fx_buf);
 }
 
 static inline void summon_deletor(u8 front_ind, u8 deletes){
@@ -271,7 +271,7 @@ static inline void summon_deletor(u8 front_ind, u8 deletes){
     fx.pos[Y] = BLOCK_TO_PX( (IND_TO_Y(front_ind) + 1) );
     fx.speed[X] = 0;
     fx.speed[Y] = 0;
-    ACT_add(&fx, &actores);
+    ACT_add(&fx, &fx_buf);
 }
 
 static inline void kill(Actor * act, u8 speed_x, u8 speed_y){
@@ -731,14 +731,15 @@ static inline void class_tree(){
     }
 }
 
-void PHY_init(Board * board){
+u8 PHY_init(Board * board){
     env = board;
-    ACT_init(&nasties, MAX_NASTIES);
-    ACT_init(&fx, MAX_FX);
-    ACT_init(&players, MAX_PLAYERS);
-    ACT_init(&projectiles, MAX_PROJ);
-    ACT_init(&bp_projectiles, MAX_PROJ);
-    ACT_init(&gp_projectiles, MAX_PROJ);
+    if(!ACT_init(&nasties, MAX_NASTIES)) return FALSE;
+    if(!ACT_init(&fx_buf, MAX_FX)) return FALSE;
+    if(!ACT_init(&players, MAX_PLAYERS)) return FALSE;
+    //if(!ACT_init(&projectiles, MAX_PROJ)) return FALSE;
+    //if(!ACT_init(&bp_projectiles, MAX_PROJ)) return FALSE;
+    //if(!ACT_init(&gp_projectiles, MAX_PROJ)) return FALSE;
+    return TRUE;
 }
 
 void PHY_send_inputs(u8 ctrl1, u8 ctrl2){
@@ -766,5 +767,10 @@ u8 PHY_computeStatus(Actor * actor){
 }
 
 void PHY_update(){
-    ACT_update(&actores);
+    ACT_update(&players);
+    ACT_update(&nasties);
+    //ACT_update(&projectiles);
+    //ACT_update(&bp_projectiles);
+    //ACT_update(&gp_projectiles);
+    ACT_update(&fx_buf);
 }

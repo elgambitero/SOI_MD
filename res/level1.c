@@ -32,7 +32,7 @@ static const Actor robo = {&robo_ent,
    {40, 32},
    {0, 0},
    0,
-   &glp
+   0,
    };
 
 
@@ -72,5 +72,6 @@ const Board level1 = {
     {PAL_R, PAL_GR, PAL_BL},
     0,
     0,
-    &robo
+    &robo,
+    &glp
 };

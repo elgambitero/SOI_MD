@@ -6,7 +6,7 @@
 #include "board.h"
 
 #define MAX_NASTIES 20
-#define MAX_FX 20
+#define MAX_FX 50
 #define MAX_PROJ 5
 
 #define PX_TO_TILE(px) (px >> 3)
@@ -44,14 +44,14 @@
 #define ACT_DELETION 2
 
 ActorStack nasties;
-ActorStack fx;
+ActorStack fx_buf;
 ActorStack players;
-ActorStack projectiles;
-ActorStack bp_projectiles;
-ActorStack gp_projectiles;
+//ActorStack projectiles;
+//ActorStack bp_projectiles;
+//ActorStack gp_projectiles;
 
 
-void PHY_init(Board * board);
+u8 PHY_init(Board * board);
 u8 PHY_computeStatus(Actor * actor);
 void PHY_send_inputs(u8 ctrl1, u8 ctrl2);
 void PHY_update();

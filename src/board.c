@@ -2,16 +2,23 @@
 #include "palettes.h"
 #include "blocks.h"
 #include "music.h"
+#include "physics.h"
 
 #define XOFF 1
 #define YOFF 1
 
-u8 load_board(Board * board, const Board * level, ActorStack * actors){
+u8 load_board(Board * board, const Board * level){
     memcpy(board, level, sizeof(Board));
     Actor * actor = board->actors;
     while(actor){
-        if(!ACT_add(actor, actors))
-            return 1; //0
+        if(!ACT_add(actor, &nasties))
+            return 0; //0
+        actor = actor->next;
+    }
+    actor = board->players;
+    while(actor){
+        if(!ACT_add(actor, &players))
+            return 0; //0
         actor = actor->next;
     }
     return 1;

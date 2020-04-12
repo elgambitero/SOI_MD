@@ -43,7 +43,7 @@ static const Actor spinner3 = {&spinner_ent,
     {134, 60},
     {   0,    0},
        0,
-      &glp
+      0
     };
 
 static const Actor spinner2 = {&spinner_ent,
@@ -129,5 +129,6 @@ const Board test_level = {
     {PAL_GR, PAL_R, PAL_BL},
     0,
     0,
-    &ant
+    &ant,
+    &glp
 };

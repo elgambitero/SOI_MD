@@ -127,7 +127,7 @@ void ACT_update(ActorStack * actors){
                 SPR_setAnim(current->sprite, current->status);
             break;
             case ACT_DELETION:
-                ACT_remove(current, &actores);
+                ACT_remove(current, actors);
             break;
         }
         current = next;

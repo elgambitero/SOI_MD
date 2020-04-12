@@ -27,9 +27,10 @@ typedef struct Board{
     u8 music;
     u8 attributes;
     Actor * actors;
+    Actor * players;
 } Board;
 
-u8 load_board(Board * board, const Board * level, ActorStack * actores);
+u8 load_board(Board * board, const Board * level);
 void load_board_palettes(Board * board);
 void draw_board(Board * board);
 void play_board_music(Board * board);
