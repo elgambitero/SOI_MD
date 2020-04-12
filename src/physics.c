@@ -733,7 +733,12 @@ static inline void class_tree(){
 
 void PHY_init(Board * board){
     env = board;
-    ACT_init(&actores, MAX_ACTORS);
+    ACT_init(&nasties, MAX_NASTIES);
+    ACT_init(&fx, MAX_FX);
+    ACT_init(&players, MAX_PLAYERS);
+    ACT_init(&projectiles, MAX_PROJ);
+    ACT_init(&bp_projectiles, MAX_PROJ);
+    ACT_init(&gp_projectiles, MAX_PROJ);
 }
 
 void PHY_send_inputs(u8 ctrl1, u8 ctrl2){
