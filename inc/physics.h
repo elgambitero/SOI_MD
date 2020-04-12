@@ -5,6 +5,10 @@
 #include "actors.h"
 #include "board.h"
 
+#define MAX_NASTIES 20
+#define MAX_FX 20
+#define MAX_PROJ 5
+
 #define PX_TO_TILE(px) (px >> 3)
 #define PX_TO_BLOCK(px) (px >> 4)
 #define BLOCK_TO_PX(px) (px << 4)
@@ -38,6 +42,13 @@
 
 #define ACT_CHANGED 1
 #define ACT_DELETION 2
+
+ActorStack nasties;
+ActorStack fx;
+ActorStack players;
+ActorStack projectiles;
+ActorStack bp_projectiles;
+ActorStack gp_projectiles;
 
 
 void PHY_init(Board * board);

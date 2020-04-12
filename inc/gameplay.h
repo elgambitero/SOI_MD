@@ -12,6 +12,8 @@
 #define SCREEN_WIDTH 40
 #define SCREEN_HEIGHT 30
 
+#define MAX_PLAYERS 2
+
 const Board * current_level;
 Actor * blue_player;
 Actor * green_player;

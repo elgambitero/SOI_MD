@@ -18,11 +18,14 @@
 #define IND_TO_Y(ind)   (ind / BOARD_X)
 #define XY_TO_IND(x ,y) ((y * BOARD_X) + x)
 
+#define IS_COMPETITIVE   0x01
+
 typedef struct Board{
     u16 front_blocks[BOARD_BUFFER];
     u16 back_blocks[BOARD_BUFFER];
     u8 colors[3];
     u8 music;
+    u8 attributes;
     Actor * actors;
 } Board;
 

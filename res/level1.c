@@ -71,5 +71,6 @@ const Board level1 = {
     },
     {PAL_R, PAL_GR, PAL_BL},
     0,
+    0,
     &robo
 };

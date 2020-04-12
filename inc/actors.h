@@ -6,8 +6,6 @@
 
 #define DECIMALS 2
 
-#define MAX_ACTORS 80
-
 #define PX_TO_POS(x) (x << DECIMALS)
 #define POS_TO_PX(x) (x >> DECIMALS)
 
@@ -28,8 +26,6 @@ typedef struct ActorStack{
     Actor **actorFree;
     Actor **actorStack;
 }ActorStack;
-
-ActorStack actores;
 
 u8 ACT_init(ActorStack * actors, u8 max_actors);
 Actor * ACT_add(Actor * actor, ActorStack * actors);
