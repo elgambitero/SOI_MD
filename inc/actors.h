@@ -6,6 +6,8 @@
 
 #define DECIMALS 2
 
+#define MAX_ACTORS 80
+
 #define PX_TO_POS(x) (x << DECIMALS)
 #define POS_TO_PX(x) (x >> DECIMALS)
 
@@ -19,14 +21,24 @@ typedef struct Actor{
     struct Actor * next;
 }Actor;
 
-u8 ACT_init();
-Actor * ACT_add(Actor * actor);
-u8 ACT_remove(Actor * actor);
-Actor * ACT_getFirst();
-Actor * ACT_seek(const Entity * ent);
+typedef struct ActorStack{
+    Actor * actorBank;
+    Actor * lastActor;
+    Actor * firstActor;
+    Actor **actorFree;
+    Actor **actorStack;
+}ActorStack;
+
+ActorStack actores;
+
+u8 ACT_init(ActorStack * actors, u8 max_actors);
+Actor * ACT_add(Actor * actor, ActorStack * actors);
+u8 ACT_remove(Actor * actor, ActorStack * actors);
+Actor * ACT_getFirst(ActorStack * actors);
+Actor * ACT_seek(const Entity * ent, ActorStack * actors);
 u8 ACT_collision(Actor * act1, Actor * act2);
-void ACT_update();
-void ACT_end();
+void ACT_update(ActorStack * actors);
+void ACT_end(ActorStack * actors);
 
 #define ANIM_MSK 0xFE
 #define DIR_MSK ~ANIM_MSK

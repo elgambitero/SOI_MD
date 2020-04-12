@@ -5,45 +5,39 @@
 
 #include "globals.h"
 
-#define MAX_ACTORS 80
 
-Actor * actorBank;
-Actor * lastActor;
-Actor * firstActor;
-Actor **actorFree;
-Actor **actorStack;
 
-u8 ACT_init()
+u8 ACT_init(ActorStack * actors, u8 max_actors)
 {
-    actorBank = NULL;
-    actorStack = NULL;
-    actorBank = (Actor *) MEM_alloc(MAX_ACTORS * sizeof(Actor));
-    actorStack = (Actor **) MEM_alloc(MAX_ACTORS);
+    actors->actorBank = NULL;
+    actors->actorStack = NULL;
+    actors->actorBank = (Actor *) MEM_alloc(max_actors * sizeof(Actor));
+    actors->actorStack = (Actor **) MEM_alloc(max_actors);
     
-    memset(actorBank, 0 , sizeof(Actor) * MAX_ACTORS);
+    memset(actors->actorBank, 0 , sizeof(Actor) * max_actors);
 
-    for(u8 i = 0; i < MAX_ACTORS; i++)
-        actorStack[i] = &actorBank[i];
+    for(u8 i = 0; i < max_actors; i++)
+        actors->actorStack[i] = &(actors->actorBank[i]);
 
-    actorFree = actorStack + MAX_ACTORS;
+    actors->actorFree = actors->actorStack + max_actors;
 
-    lastActor = NULL;
-    firstActor = NULL;
-    return actorBank != NULL && actorStack != NULL;
+    actors->lastActor = NULL;
+    actors->firstActor = NULL;
+    return actors->actorBank != NULL && actors->actorStack != NULL;
 }
 
-Actor * ACT_add(Actor * actor)
+Actor * ACT_add(Actor * actor, ActorStack * actors)
 {
-    if(actorFree == actorStack){
+    if(actors->actorFree == actors->actorStack){
         return NULL;
     }
     
-    Actor * result = *--actorFree;
-    if(lastActor) {
-        lastActor->next = result;
+    Actor * result = *--(actors->actorFree);
+    if(actors->lastActor) {
+        actors->lastActor->next = result;
     }
-    if(!firstActor) firstActor = result;
-    lastActor = result;
+    if(!(actors->firstActor)) actors->firstActor = result;
+    actors->lastActor = result;
 
     memcpy(result, actor, sizeof(Actor));
 
@@ -61,39 +55,39 @@ Actor * ACT_add(Actor * actor)
     return result;
 }
 
-u8 ACT_remove(Actor * actor)
+u8 ACT_remove(Actor * actor, ActorStack * actors)
 {
     Actor * prev;
 
-    prev = firstActor;
+    prev = actors->firstActor;
     if(prev == actor)
-        firstActor = actor->next;
+        actors->firstActor = actor->next;
     else
         while(prev && prev->next != actor) prev = prev->next;
 
     if(prev){
-        if(actor == lastActor) lastActor = prev;
+        if(actor == actors->lastActor) actors->lastActor = prev;
         prev->next = actor->next;
         SPR_releaseSprite(actor->sprite);
-        *actorFree++ = actor;
+        *(actors->actorFree)++ = actor;
         return 1;
     }else{
         return 0;
     }
 }
 
-void ACT_end(){
-    MEM_free(actorBank);
-    actorBank = NULL;
-    MEM_free(actorStack);
-    actorStack = NULL;
-    MEM_free(actorFree);
-    actorFree = NULL;
+void ACT_end(ActorStack * actors){
+    MEM_free(actors->actorBank);
+    actors->actorBank = NULL;
+    MEM_free(actors->actorStack);
+    actors->actorStack = NULL;
+    MEM_free(actors->actorFree);
+    actors->actorFree = NULL;
     
 }
 
-Actor * ACT_seek(const Entity * ent){
-    Actor * result = firstActor;
+Actor * ACT_seek(const Entity * ent, ActorStack * actors){
+    Actor * result = actors->firstActor;
     while(result){
         if(result->character == ent) break;
         result = result->next;
@@ -111,12 +105,12 @@ u8 ACT_collision(Actor * act1, Actor * act2){
     return TRUE;
 }
 
-Actor * ACT_getFirst(){
-    return firstActor;
+Actor * ACT_getFirst(ActorStack * actors){
+    return actors->firstActor;
 }
 
-void ACT_update(){
-    Actor * current = firstActor;
+void ACT_update(ActorStack * actors){
+    Actor * current = actors->firstActor;
     Actor * next = 0;
     while(current){
         u8 phy_result = PHY_computeStatus(current);
@@ -133,11 +127,10 @@ void ACT_update(){
                 SPR_setAnim(current->sprite, current->status);
             break;
             case ACT_DELETION:
-                ACT_remove(current);
+                ACT_remove(current, &actores);
             break;
         }
         current = next;
     }
 
-    SPR_update();
 }

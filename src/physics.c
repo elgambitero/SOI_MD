@@ -225,19 +225,19 @@ static inline void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
     fx.character = &blk_debris0_ent;
     fx.speed[X] = sp_x;
     fx.speed[Y] = sp_y - BRK_SPEED_2X;
-    ACT_add(&fx);
+    ACT_add(&fx, &actores);
     fx.character = &blk_debris1_ent;
     fx.speed[X] = sp_x;
     fx.speed[Y] = sp_y - BRK_SPEED;
-    ACT_add(&fx);
+    ACT_add(&fx, &actores);
     fx.character = &blk_debris2_ent;
     fx.speed[X] = sp_x;
     fx.speed[Y] = sp_y + BRK_SPEED;
-    ACT_add(&fx);
+    ACT_add(&fx, &actores);
     fx.character = &blk_debris3_ent;
     fx.speed[X] = sp_x;
     fx.speed[Y] = sp_y + BRK_SPEED_2X;
-    ACT_add(&fx);
+    ACT_add(&fx, &actores);
 }
 
 static inline void jmp_brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
@@ -248,19 +248,19 @@ static inline void jmp_brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
     fx.character = &blk_debris0_ent;
     fx.speed[X] = sp_x - BRK_SPEED_2X;
     fx.speed[Y] = sp_y;
-    ACT_add(&fx);
+    ACT_add(&fx, &actores);
     fx.character = &blk_debris1_ent;
     fx.speed[X] = sp_x - BRK_SPEED;
     fx.speed[Y] = sp_y;
-    ACT_add(&fx);
+    ACT_add(&fx, &actores);
     fx.character = &blk_debris2_ent;
     fx.speed[X] = sp_x + BRK_SPEED;
     fx.speed[Y] = sp_y;
-    ACT_add(&fx);
+    ACT_add(&fx, &actores);
     fx.character = &blk_debris3_ent;
     fx.speed[X] = sp_x + BRK_SPEED_2X;
     fx.speed[Y] = sp_y;
-    ACT_add(&fx);
+    ACT_add(&fx, &actores);
 }
 
 static inline void summon_deletor(u8 front_ind, u8 deletes){
@@ -271,7 +271,7 @@ static inline void summon_deletor(u8 front_ind, u8 deletes){
     fx.pos[Y] = BLOCK_TO_PX( (IND_TO_Y(front_ind) + 1) );
     fx.speed[X] = 0;
     fx.speed[Y] = 0;
-    ACT_add(&fx);
+    ACT_add(&fx, &actores);
 }
 
 static inline void kill(Actor * act, u8 speed_x, u8 speed_y){
@@ -733,6 +733,7 @@ static inline void class_tree(){
 
 void PHY_init(Board * board){
     env = board;
+    ACT_init(&actores, MAX_ACTORS);
 }
 
 void PHY_send_inputs(u8 ctrl1, u8 ctrl2){
@@ -757,4 +758,8 @@ u8 PHY_computeStatus(Actor * actor){
     curr->status = newstatus;
     if(status != newstatus) result = ACT_CHANGED;
     return result;
+}
+
+void PHY_update(){
+    ACT_update(&actores);
 }

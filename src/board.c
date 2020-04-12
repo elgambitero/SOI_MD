@@ -6,11 +6,11 @@
 #define XOFF 1
 #define YOFF 1
 
-u8 load_board(Board * board, const Board * level){
+u8 load_board(Board * board, const Board * level, ActorStack * actors){
     memcpy(board, level, sizeof(Board));
     Actor * actor = board->actors;
     while(actor){
-        if(!ACT_add(actor))
+        if(!ACT_add(actor, actors))
             return 1; //0
         actor = actor->next;
     }

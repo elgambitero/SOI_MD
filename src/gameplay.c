@@ -30,7 +30,8 @@ void gameplayLoop(){
         break;
         case GAME:
             PHY_send_inputs(bl_ctrl, gr_ctrl);
-            ACT_update();
+            PHY_update();
+            SPR_update();
         break;
         case GAMEENDING:
 
@@ -70,14 +71,14 @@ void gameInit(){
 
     SPR_init();
     PHY_init(&board);
-    if(!ACT_init()) gameState = GAMEEXIT;
-    if(!load_board(&board, current_level)) gameState = GAMEEXIT;
+    if(!ACT_init(&actores, MAX_ACTORS)) gameState = GAMEEXIT;
+    if(!load_board(&board, current_level, &actores)) gameState = GAMEEXIT;
 
-    blue_player = ACT_seek(&blue_player_ent);
-    green_player = ACT_seek(&green_player_ent);
+    blue_player = ACT_seek(&blue_player_ent, &actores);
+    green_player = ACT_seek(&green_player_ent, &actores);
 
     if(JOY_getPortType(PORT_2) == PORT_TYPE_UNKNOWN){
-        ACT_remove(green_player);
+        ACT_remove(green_player, &actores);
     }
 
     load_board_palettes(&board);
