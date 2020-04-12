@@ -6,8 +6,8 @@
 #include "board.h"
 
 #define MAX_NASTIES 20
-#define MAX_FX 50
-#define MAX_PROJ 5
+#define MAX_FX 10
+#define MAX_PROJ 8
 
 #define PX_TO_TILE(px) (px >> 3)
 #define PX_TO_BLOCK(px) (px >> 4)
