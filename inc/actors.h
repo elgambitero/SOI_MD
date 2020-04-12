@@ -19,22 +19,22 @@ typedef struct Actor{
     struct Actor * next;
 }Actor;
 
-typedef struct ActorStack{
+typedef struct ActorList{
     Actor * actorBank;
     Actor * lastActor;
     Actor * firstActor;
     Actor **actorFree;
     Actor **actorStack;
-}ActorStack;
+}ActorList;
 
-u8 ACT_init(ActorStack * actors, u8 max_actors);
-Actor * ACT_add(Actor * actor, ActorStack * actors);
-u8 ACT_remove(Actor * actor, ActorStack * actors);
-Actor * ACT_getFirst(ActorStack * actors);
-Actor * ACT_seek(const Entity * ent, ActorStack * actors);
+u8 ACT_init(ActorList * actors, u8 max_actors);
+Actor * ACT_add(Actor * actor, ActorList * actors);
+u8 ACT_remove(Actor * actor, ActorList * actors);
+Actor * ACT_getFirst(ActorList * actors);
+Actor * ACT_seek(const Entity * ent, ActorList * actors);
 u8 ACT_collision(Actor * act1, Actor * act2);
-void ACT_update(ActorStack * actors);
-void ACT_end(ActorStack * actors);
+void ACT_update(ActorList * actors);
+void ACT_end(ActorList * actors);
 
 #define ANIM_MSK 0xFE
 #define DIR_MSK ~ANIM_MSK

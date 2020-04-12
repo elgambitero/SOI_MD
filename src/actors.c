@@ -7,7 +7,7 @@
 
 
 
-u8 ACT_init(ActorStack * actors, u8 max_actors)
+u8 ACT_init(ActorList * actors, u8 max_actors)
 {
     actors->actorBank = NULL;
     actors->actorStack = NULL;
@@ -29,7 +29,7 @@ u8 ACT_init(ActorStack * actors, u8 max_actors)
     return actors->actorBank != NULL && actors->actorStack != NULL;
 }
 
-Actor * ACT_add(Actor * actor, ActorStack * actors)
+Actor * ACT_add(Actor * actor, ActorList * actors)
 {
     if(actors->actorFree == actors->actorStack){
         return NULL;
@@ -58,7 +58,7 @@ Actor * ACT_add(Actor * actor, ActorStack * actors)
     return result;
 }
 
-u8 ACT_remove(Actor * actor, ActorStack * actors)
+u8 ACT_remove(Actor * actor, ActorList * actors)
 {
     Actor * prev;
 
@@ -79,7 +79,7 @@ u8 ACT_remove(Actor * actor, ActorStack * actors)
     }
 }
 
-void ACT_end(ActorStack * actors){
+void ACT_end(ActorList * actors){
     MEM_free(actors->actorBank);
     actors->actorBank = NULL;
     MEM_free(actors->actorStack);
@@ -89,7 +89,7 @@ void ACT_end(ActorStack * actors){
     
 }
 
-Actor * ACT_seek(const Entity * ent, ActorStack * actors){
+Actor * ACT_seek(const Entity * ent, ActorList * actors){
     Actor * result = actors->firstActor;
     while(result){
         if(result->character == ent) break;
@@ -108,11 +108,11 @@ u8 ACT_collision(Actor * act1, Actor * act2){
     return TRUE;
 }
 
-Actor * ACT_getFirst(ActorStack * actors){
+Actor * ACT_getFirst(ActorList * actors){
     return actors->firstActor;
 }
 
-void ACT_update(ActorStack * actors){
+void ACT_update(ActorList * actors){
     Actor * current = actors->firstActor;
     Actor * next = 0;
     while(current){

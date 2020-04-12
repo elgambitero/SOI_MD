@@ -43,12 +43,12 @@
 #define ACT_CHANGED 1
 #define ACT_DELETION 2
 
-ActorStack nasties;
-ActorStack fx_buf;
-ActorStack players;
-//ActorStack projectiles;
-//ActorStack bp_projectiles;
-//ActorStack gp_projectiles;
+ActorList nasties;
+ActorList fx_buf;
+ActorList players;
+ActorList projectiles;
+ActorList bp_projectiles;
+ActorList gp_projectiles;
 
 
 u8 PHY_init(Board * board);

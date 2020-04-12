@@ -736,9 +736,9 @@ u8 PHY_init(Board * board){
     if(!ACT_init(&nasties, MAX_NASTIES)) return FALSE;
     if(!ACT_init(&fx_buf, MAX_FX)) return FALSE;
     if(!ACT_init(&players, MAX_PLAYERS)) return FALSE;
-    //if(!ACT_init(&projectiles, MAX_PROJ)) return FALSE;
-    //if(!ACT_init(&bp_projectiles, MAX_PROJ)) return FALSE;
-    //if(!ACT_init(&gp_projectiles, MAX_PROJ)) return FALSE;
+    if(!ACT_init(&projectiles, MAX_PROJ)) return FALSE;
+    if(!ACT_init(&bp_projectiles, MAX_PROJ)) return FALSE;
+    if(!ACT_init(&gp_projectiles, MAX_PROJ)) return FALSE;
     return TRUE;
 }
 
