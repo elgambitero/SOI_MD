@@ -72,6 +72,8 @@ extern const Entity robo_ent;
 extern const Entity ant_ent;
 extern const Entity piggy_ent;
 
+extern const Entity arrow_ent;
+
 extern const Entity deletor_ent;
 extern const Entity blk_debris0_ent;
 extern const Entity blk_debris1_ent;

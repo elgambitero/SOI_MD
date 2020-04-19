@@ -62,6 +62,16 @@ const Entity piggy_ent = {
     0
 };
 
+const Entity arrow_ent = {
+    PROJECTILE | FLIES ,
+    {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    &arrow_spr,
+    0,
+    0
+};
+
 const Entity deletor_ent = {
     FX | DELETER,
     {7, 15},
