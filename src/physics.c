@@ -748,6 +748,16 @@ static inline void class_tree(){
                 kill(green_player, 0, -2*FALLSPEED);
                 green_player = NULL;
             }
+            Actor * proj_act = ACT_getFirst(&bp_projectiles);
+            while(proj_act){
+                if(ACT_collision(proj_act, curr))
+                    kill(curr, 0, -2*FALLSPEED);
+            }
+            proj_act = ACT_getFirst(&gp_projectiles);
+            while(proj_act){
+                if(ACT_collision(proj_act, curr))
+                    kill(curr, 0, -2*FALLSPEED);
+            }
         break;
         case BIG_ENTITY:
             big_entity_tree();
@@ -800,8 +810,8 @@ u8 PHY_computeStatus(Actor * actor){
 void PHY_update(){
     ACT_update(&players);
     ACT_update(&nasties);
-    //ACT_update(&projectiles);
-    //ACT_update(&bp_projectiles);
-    //ACT_update(&gp_projectiles);
+    ACT_update(&projectiles);
+    ACT_update(&bp_projectiles);
+    ACT_update(&gp_projectiles);
     ACT_update(&fx_buf);
 }
