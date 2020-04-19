@@ -99,6 +99,8 @@ Actor * ACT_seek(const Entity * ent, ActorList * actors){
 }
 
 u8 ACT_collision(Actor * act1, Actor * act2){
+    if((act1->status & ANIM_MSK) == DEAD || (act2->status & ANIM_MSK) == DEAD)
+        return FALSE;
     if(act1->pos[Y] < act2->pos[Y] - act2->character->size[Y] ||
         act2->pos[Y] < act1->pos[Y] - act1->character->size[Y])
         return FALSE;
