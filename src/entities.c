@@ -66,7 +66,7 @@ const Entity arrow_ent = {
     PROJECTILE | FLIES ,
     {7, 15},
     {7, 15},
-    PAL_SYS1,
+    PAL_SYS0,
     &arrow_spr,
     0,
     0
