@@ -47,8 +47,7 @@ ActorList nasties;
 ActorList fx_buf;
 ActorList players;
 ActorList projectiles;
-ActorList bp_projectiles;
-ActorList gp_projectiles;
+ActorList pl_projectiles;
 
 
 u8 PHY_init(Board * board);

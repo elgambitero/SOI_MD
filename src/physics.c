@@ -155,7 +155,35 @@ static inline u8 breakable(u8 ind){
     return (BREAKABLE & env->front_blocks[ind]);
 }
 
-
+static inline u8 weap_ctrl(u8 after){
+    if( *ctrl & CTRL_FIRE ){
+        *after_status = after;
+        memcpy(after_speed, curr->speed, sizeof(curr->speed));
+        curr->speed[X] = 0;
+        curr->speed[Y] = 0;
+        if(*ctrl & CTRL_ALT){
+            curr->frames = BP_ATTK_FRAMES;
+            newstatus = LOW_ATTK_RIGHT_IN | dir;
+            if(TRUE){ // ran out of magic balls. Deactivated for now.
+                *pl_act = NOTHING;
+                return TRUE;
+            }
+            *pl_act = SHOOT;
+            return TRUE;
+        }else{
+            curr->frames = BP_ATTK_FRAMES;
+            newstatus = ATTACK_RIGHT_IN | dir;
+            if(FALSE){ // ran out of arrows. Infinite for now for now.
+                *pl_act = NOTHING;
+                return TRUE;
+            }
+            *pl_act = SHOOT;
+            return TRUE;
+        }
+        return TRUE;
+    }
+    return FALSE;
+}
 
 static inline u8 block_ctrl(u8 after){
     if( *ctrl & CTRL_BLOCK ){
@@ -272,6 +300,17 @@ static inline void summon_deletor(u8 front_ind, u8 deletes){
     fx.speed[X] = 0;
     fx.speed[Y] = 0;
     ACT_add(&fx, &fx_buf);
+}
+
+static inline void summon_arrow(u8 dir){
+    fx.status = dir;
+    fx.character = &arrow_ent;
+    fx.frames = 0;
+    fx.pos[X] = POS_TO_PX(curr->pos[X]);
+    fx.pos[Y] = POS_TO_PX(curr->pos[X]);
+    fx.speed[X] = dir ? -2*WALKSPEED : 2*WALKSPEED;
+    fx.speed[Y] = 0;
+    ACT_add(&fx, &pl_projectiles);
 }
 
 static inline void kill(Actor * act, u8 speed_x, u8 speed_y){
@@ -496,7 +535,9 @@ static inline void player_tree(){
                     summon_deletor(front_ind, TRUE);
                 break;
                 case SHOOT:
-
+                    XGM_setPCM(SFX_IND, fim, sizeof(fim));
+                    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+                    summon_arrow(dir);
                 break;
                 default:
                 break;
@@ -565,9 +606,7 @@ static inline void player_tree(){
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                     summon_deletor(front_ind, TRUE);
                 break;
-                case SHOOT:
 
-                break;
                 default:
                 break;
             }
@@ -748,12 +787,7 @@ static inline void class_tree(){
                 kill(green_player, 0, -2*FALLSPEED);
                 green_player = NULL;
             }
-            Actor * proj_act = ACT_getFirst(&bp_projectiles);
-            while(proj_act){
-                if(ACT_collision(proj_act, curr))
-                    kill(curr, 0, -2*FALLSPEED);
-            }
-            proj_act = ACT_getFirst(&gp_projectiles);
+            Actor * proj_act = ACT_getFirst(&pl_projectiles);
             while(proj_act){
                 if(ACT_collision(proj_act, curr))
                     kill(curr, 0, -2*FALLSPEED);
@@ -763,7 +797,7 @@ static inline void class_tree(){
             big_entity_tree();
         break;
         case PROJECTILE:
-
+            proj_tree();
         break;
         case FX:
             fx_tree();
@@ -778,8 +812,7 @@ u8 PHY_init(Board * board){
     if(!ACT_init(&fx_buf, MAX_FX)) return FALSE;
     if(!ACT_init(&players, MAX_PLAYERS)) return FALSE;
     if(!ACT_init(&projectiles, MAX_PROJ)) return FALSE;
-    if(!ACT_init(&bp_projectiles, MAX_PROJ)) return FALSE;
-    if(!ACT_init(&gp_projectiles, MAX_PROJ)) return FALSE;
+    if(!ACT_init(&pl_projectiles, MAX_PROJ)) return FALSE;
     return TRUE;
 }
 
@@ -811,7 +844,6 @@ void PHY_update(){
     ACT_update(&players);
     ACT_update(&nasties);
     ACT_update(&projectiles);
-    ACT_update(&bp_projectiles);
-    ACT_update(&gp_projectiles);
+    ACT_update(&pl_projectiles);
     ACT_update(&fx_buf);
 }
