@@ -163,20 +163,22 @@ static inline u8 weap_ctrl(u8 after){
         curr->speed[Y] = 0;
         if(*ctrl & CTRL_ALT){
             curr->frames = BP_ATTK_FRAMES;
-            newstatus = LOW_ATTK_RIGHT_IN | dir;
+            newstatus = LOW_ATTK_RIGHT_IN | dir;/*
             if(TRUE){ // ran out of magic balls. Deactivated for now.
                 *pl_act = NOTHING;
                 return TRUE;
             }
             *pl_act = SHOOT;
+            return TRUE;*/
+            *pl_act = NOTHING;
             return TRUE;
         }else{
             curr->frames = BP_ATTK_FRAMES;
-            newstatus = ATTACK_RIGHT_IN | dir;
+            newstatus = ATTACK_RIGHT_IN | dir;/*
             if(FALSE){ // ran out of arrows. Infinite for now for now.
                 *pl_act = NOTHING;
                 return TRUE;
-            }
+            }*/
             *pl_act = SHOOT;
             return TRUE;
         }
@@ -307,7 +309,7 @@ static inline void summon_arrow(u8 dir){
     fx.character = &arrow_ent;
     fx.frames = 0;
     fx.pos[X] = POS_TO_PX(curr->pos[X]);
-    fx.pos[Y] = POS_TO_PX(curr->pos[X]);
+    fx.pos[Y] = POS_TO_PX(curr->pos[Y]);
     fx.speed[X] = dir ? -2*WALKSPEED : 2*WALKSPEED;
     fx.speed[Y] = 0;
     ACT_add(&fx, &pl_projectiles);
@@ -507,6 +509,7 @@ static inline void player_tree(){
                 return;
             }
             block_ctrl(STILL_RIGHT | dir);
+            weap_ctrl(STILL_RIGHT | dir);
             return;
         break;
         case RIGHT_TURN_LEFT:
@@ -559,6 +562,7 @@ static inline void player_tree(){
                 break;
             }
             block_ctrl(FALL_RIGHT | dir);
+            weap_ctrl(FALL_RIGHT | dir);
         break;
         case STILL_RIGHT:
             curr->speed[X] = 0;
@@ -583,6 +587,7 @@ static inline void player_tree(){
                 return;
             }
             block_ctrl(status);
+            weap_ctrl(status);
             return;
         break;
         case LOW_ATTK_RIGHT_IN:
@@ -658,6 +663,7 @@ static inline void player_tree(){
                 curr->speed[X] = 0;
             }
             block_ctrl(JUMP_RIGHT | dir);
+            weap_ctrl(JUMP_RIGHT | dir);
             if(curr->speed[Y] > 0){
                 calc_front(dir);
                 calc_back(dir);
@@ -718,6 +724,10 @@ static inline void player_tree(){
 }
 
 static inline void proj_tree(){
+    if( (status & ANIM_MSK) == DEAD){
+        result = ACT_DELETION;
+        return;
+    }
     switch(attr & MOVT_BITMSK){
         case FLIES:
             calc_front(dir);
@@ -789,8 +799,11 @@ static inline void class_tree(){
             }
             Actor * proj_act = ACT_getFirst(&pl_projectiles);
             while(proj_act){
-                if(ACT_collision(proj_act, curr))
+                if(ACT_collision(proj_act, curr)){
                     kill(curr, 0, -2*FALLSPEED);
+                    kill(proj_act, 0, 0);
+                }
+                proj_act = proj_act->next;
             }
         break;
         case BIG_ENTITY:
