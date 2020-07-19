@@ -4,6 +4,7 @@
 
 #include "actors.h"
 #include "board.h"
+#include "player.h"
 
 #define MAX_NASTIES 20
 #define MAX_FX 10
@@ -50,7 +51,7 @@ ActorList projectiles;
 ActorList pl_projectiles;
 
 
-u8 PHY_init(Board * board);
+u8 PHY_init(Board * board, PlayerStat * bl_stats, PlayerStat * gr_stats);
 u8 PHY_computeStatus(Actor * actor);
 void PHY_send_inputs(u8 ctrl1, u8 ctrl2);
 void PHY_update();

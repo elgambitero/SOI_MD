@@ -36,7 +36,11 @@ u8 bl_ctrl, gr_ctrl;
 
 enum GameStates{
     GAMEINIT,
+    INITBOARD,
     GAME,
+    ENDBOARD,
+    AFTERBOARD,
+    NEXTBOARD,
     GAMEENDING,
     GAMEEXIT
 };

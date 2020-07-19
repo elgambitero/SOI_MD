@@ -14,6 +14,9 @@ u8 status;
 u8 newstatus;
 u8 dir;
 u16 attr;
+PlayerStat * pl_stat;
+PlayerStat * bl_stat;
+PlayerStat * gr_stat;
 
 //TODO: Organize. Make more understandable
 u16 front_ind;
@@ -174,11 +177,12 @@ static inline u8 weap_ctrl(u8 after){
             return TRUE;
         }else{
             curr->frames = BP_ATTK_FRAMES;
-            newstatus = ATTACK_RIGHT_IN | dir;/*
-            if(FALSE){ // ran out of arrows. Infinite for now for now.
+            newstatus = ATTACK_RIGHT_IN | dir;
+            if(!pl_stat->arrows){ // ran out of arrows. Infinite for now for now.
                 *pl_act = NOTHING;
                 return TRUE;
-            }*/
+            }
+            pl_stat->arrows--;
             *pl_act = SHOOT;
             return TRUE;
         }
@@ -763,6 +767,7 @@ static inline void big_entity_tree(){
         case BLUE_PLAYER:
             ctrl = &bl_ctrl;
             pl_act = &bl_act;
+            pl_stat = bl_stat;
             after_status = &bl_after_status;
             after_speed = bl_after_speed;
             player_tree();
@@ -770,6 +775,7 @@ static inline void big_entity_tree(){
         case GREEN_PLAYER:
             ctrl = &gr_ctrl;
             pl_act = &gr_act;
+            pl_stat = gr_stat;
             after_status = &gr_after_status;
             after_speed = gr_after_speed;
             player_tree();
@@ -819,8 +825,10 @@ static inline void class_tree(){
     }
 }
 
-u8 PHY_init(Board * board){
+u8 PHY_init(Board * board, PlayerStat * bl_stats, PlayerStat * gr_stats){
     env = board;
+    bl_stat = bl_stats;
+    gr_stat = gr_stats;
     if(!ACT_init(&nasties, MAX_NASTIES)) return FALSE;
     if(!ACT_init(&fx_buf, MAX_FX)) return FALSE;
     if(!ACT_init(&players, MAX_PLAYERS)) return FALSE;

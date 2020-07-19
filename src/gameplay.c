@@ -6,14 +6,18 @@
 #include "physics.h"
 #include "palettes.h"
 #include "blocks.h"
+#include "player.h"
+#include "levels.h"
 
 Board board;
 
 u8 colors[4];
 u16 ind;
 u16 frmInd;
+PlayerStat bl_stats, gr_stats;
 
 void gameInit();
+void levelInit();
 void drawFrame();
 void load_blk_tiles();
 
@@ -24,14 +28,29 @@ void gameplayLoop(){
             SYS_disableInts();
             gameInit();
 
+            gameState = INITBOARD;
+            SYS_enableInts();
+        break;
+        case INITBOARD:
+            SYS_disableInts();
+            levelInit();
+
             gameState = GAME;
             SYS_enableInts();
-
         break;
         case GAME:
             PHY_send_inputs(bl_ctrl, gr_ctrl);
             PHY_update();
             SPR_update();
+        break;
+        case ENDBOARD:
+
+        break;
+        case AFTERBOARD:
+
+        break;
+        case NEXTBOARD:
+
         break;
         case GAMEENDING:
 
@@ -56,11 +75,26 @@ void gameplayLoop(){
 }
 
 void gameInit(){
+    current_level = &test_level;
+}
+
+void levelInit(){
+
     ind = TILE_USERINDEX;
     blue_player = NULL;
     green_player = NULL;
     bl_ctrl = 0;
     gr_ctrl = 0;
+
+    bl_stats.lives = 3;
+    bl_stats.balls = 3;
+    bl_stats.arrows = 3;
+    bl_stats.score = 0;
+    
+    gr_stats.lives = 3;
+    gr_stats.balls = 3;
+    gr_stats.arrows = 3;
+    gr_stats.score = 0;
     
     VDP_setPalette(PAL0, pal_sys0.data);
     VDP_setPalette(PAL1, pal_sys1.data);
@@ -71,7 +105,7 @@ void gameInit(){
 
     SPR_init();
     
-    if(!PHY_init(&board)) {
+    if(!PHY_init(&board, &bl_stats, &gr_stats)) {
         gameState = GAMEEXIT;
         return;
     }
