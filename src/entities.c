@@ -16,6 +16,7 @@ const Entity blue_player_ent = {
     NULL,
     NULL,
     NULL,
+    NULL,
     NULL
 };
 
@@ -27,6 +28,7 @@ const Entity green_player_ent = {
     &bp_spr,
     moon_blast,
     sizeof(moon_blast),
+    NULL,
     NULL,
     NULL,
     NULL,
@@ -46,6 +48,7 @@ const Entity spinner_ent = {
     NULL,
     &NST_still_fall,
     &NST_still_land,
+    NULL,
     NULL
 };
 
@@ -61,7 +64,8 @@ const Entity robo_ent = {
     &NST_turn_around,
     &NST_fall,
     &NST_die,
-    &NST_breaks
+    &NST_breaks,
+    &NST_keep_walking
 };
 
 const Entity ant_ent = {
@@ -76,6 +80,7 @@ const Entity ant_ent = {
     NULL,
     &NST_fall,
     &NST_keep_walking,
+    NULL,
     NULL
 };
 
@@ -90,7 +95,8 @@ const Entity piggy_ent = {
     &NST_attack,
     NULL,
     &NST_fall,
-    NST_keep_walking,
+    &NST_keep_walking,
+    &NST_deletes,
     &NST_turn_around_fast
 };
 
@@ -102,6 +108,7 @@ const Entity arrow_ent = {
     &arrow_spr,
     0,
     0,
+    NULL,
     NULL,
     NULL,
     NULL,
@@ -121,6 +128,7 @@ const Entity deletor_ent = {
     NULL,
     NULL,
     NULL,
+    NULL,
     NULL
 };
 
@@ -132,6 +140,7 @@ const Entity blk_debris0_ent = {
     &blk_debris0_spr,
     0,
     0,
+    NULL,
     NULL,
     NULL,
     NULL,
@@ -151,6 +160,7 @@ const Entity blk_debris1_ent = {
     NULL,
     NULL,
     NULL,
+    NULL,
     NULL
 };
 
@@ -166,6 +176,7 @@ const Entity blk_debris2_ent = {
     NULL,
     NULL,
     NULL,
+    NULL,
     NULL
 };
 
@@ -177,6 +188,7 @@ const Entity blk_debris3_ent = {
     &blk_debris3_spr,
     0,
     0,
+    NULL,
     NULL,
     NULL,
     NULL,

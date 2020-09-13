@@ -19,6 +19,7 @@ typedef struct Entity{
     void (*const onFall)();
     void (*const onLand)();
     void (*const onAttack)();
+    void (*const onFinishAttack)();
 }Entity;
 
 #define ENT_CHECK_BITMSK 0x0003
