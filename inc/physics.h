@@ -56,4 +56,13 @@ u8 PHY_computeStatus(Actor * actor);
 void PHY_send_inputs(u8 ctrl1, u8 ctrl2);
 void PHY_update();
 
+void NST_still_fall();
+void NST_fall();
+void NST_turn_around();
+void NST_attack();
+void NST_breaks();
+void NST_keep_walking();
+void NST_turn_around_fast();
+void NST_die();
+
 #endif

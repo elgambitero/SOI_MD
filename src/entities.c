@@ -2,6 +2,7 @@
 
 #include "sprites.h"
 #include "sound.h"
+#include "physics.h"
 
 const Entity blue_player_ent = {
     BLUE_PLAYER,
