@@ -330,6 +330,52 @@ static inline void kill(Actor * act, u8 speed_x, u8 speed_y){
     act->speed[X] = speed_x;
 }
 
+void NST_still_fall(){
+    newstatus = FALL_RIGHT;
+    status = FALL_RIGHT; //Ugly hack
+    curr->speed[Y] = FALLSPEED;
+    curr->speed[0] = 0;
+}
+
+void NST_fall(){
+    newstatus = dir | FALL_RIGHT;
+    curr->speed[Y] = FALLSPEED;
+    curr->speed[X] = 0;
+}
+
+void NST_turn_around(){
+    newstatus = dir | RIGHT_TURN_LEFT;
+    curr->frames = TURN_FRAMES;
+    curr->speed[X] = 0;
+}
+
+void NST_attack(){
+    newstatus = dir | ATTACK_RIGHT_IN;
+    curr->frames = ATTK_FRAMES;
+    curr->speed[X] = 0;
+}
+
+void NST_breaks(){
+    brk_debris(front_ind, BRK_SPEED, 0);
+    XGM_setPCM(SFX_IND, blk_phy_break, sizeof(blk_phy_break));
+    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+}
+
+void NST_keep_walking(){
+    newstatus = WALK_RIGHT | dir;
+    curr->speed[X] = dir ? -WALKSPEED : WALKSPEED;
+}
+
+void NST_turn_around_fast(){
+    newstatus = WALK_RIGHT | !dir;
+}
+
+void NST_die(){
+    kill(curr, WALKSPEED, -2*FALLSPEED);
+    newstatus = DEAD;
+    status = DEAD;
+}
+
 static inline void nastie_tree(){
     calc_center_block();
     set_presence(center_ind);
@@ -339,10 +385,7 @@ static inline void nastie_tree(){
                 case STILL:
                     calc_floor();
                     if(fall(floor_ind)){
-                        newstatus = FALL_RIGHT;
-                        status = FALL_RIGHT; //Ugly hack
-                        curr->speed[Y] = FALLSPEED;
-                        curr->speed[0] = 0;
+                        NST_still_fall();
                         return;
                     }
                     curr->speed[X] = 0;
@@ -351,39 +394,29 @@ static inline void nastie_tree(){
                     calc_back(dir);
                     calc_back_floor();
                     if(fall(back_floor_ind)){
-                        newstatus = dir | FALL_RIGHT;
-                        curr->speed[Y] = FALLSPEED;
-                        curr->speed[X] = 0;
+                        NST_fall();
                         return;
                     }
                     calc_front(dir);
                     calc_front_block();
                     switch(crash_into()){
                         case FRAME:
-                            newstatus = dir | RIGHT_TURN_LEFT;
-                            curr->frames = TURN_FRAMES;
-                            curr->speed[X] = 0;
+                            NST_turn_around();
                             return;
                         case BLOCK:
                             switch(attr & BRK_BITMSK){
                                 case DELETES:
                                 case BREAKS:
                                     if(breakable(front_ind)){
-                                        newstatus = dir | ATTACK_RIGHT_IN;
-                                        curr->frames = ATTK_FRAMES;
-                                        curr->speed[X] = 0;
+                                        NST_attack();
                                         return;
                                     }else{
-                                        newstatus = dir | RIGHT_TURN_LEFT;
-                                        curr->frames = TURN_FRAMES;
-                                        curr->speed[X] = 0;
+                                        NST_turn_around();
                                         return;
                                     }
                                     break;
                                 default:
-                                    newstatus = dir | RIGHT_TURN_LEFT;
-                                    curr->frames = TURN_FRAMES;
-                                    curr->speed[X] = 0;
+                                    NST_turn_around();
                                     return;
                                     break;
                             }
@@ -394,14 +427,11 @@ static inline void nastie_tree(){
                     }
                     calc_front_floor();
                     if(!(attr & LEAPS) && turn_around()){
-                        newstatus = dir | RIGHT_TURN_LEFT;
-                        curr->frames = TURN_FRAMES;
-                        curr->speed[X] = 0;
+                        NST_turn_around();
                         return;
                     }
                 break;
             }
-            
             curr->speed[X] = dir ? -WALKSPEED : WALKSPEED;
         break;
         case RIGHT_TURN_LEFT:
@@ -415,9 +445,7 @@ static inline void nastie_tree(){
             break_block_ind(env, front_ind);
             switch(attr & BRK_BITMSK){
                 case BREAKS:
-                    brk_debris(front_ind, BRK_SPEED, 0);
-                    XGM_setPCM(SFX_IND, blk_phy_break, sizeof(blk_phy_break));
-                    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+                    NST_breaks();
                 break;
                 case DELETES:
                     summon_deletor(front_ind, TRUE);
@@ -429,25 +457,21 @@ static inline void nastie_tree(){
         break;
         case ATTACK_RIGHT_OUT:
             if(attr & GOES_THRU){
-                newstatus = WALK_RIGHT | dir;
-                curr->speed[X] = dir ? -WALKSPEED : WALKSPEED;
+                NST_keep_walking();
             }else{
-                newstatus = WALK_RIGHT | !dir;
+                NST_turn_around_fast();
             }
         break;
         case FALL_RIGHT:
             calc_floor();
             if(land(floor_ind)) {
                 if(attr & DIES_ON_LEAP){
-                    kill(curr, WALKSPEED, -2*FALLSPEED);
-                    newstatus = DEAD;
-                    status = DEAD;
+                    NST_die();
                     return;
                 }
                 curr->pos[Y] &= FLOOR_CORR;
-                newstatus = dir + WALK_RIGHT;
                 curr->speed[Y] = 0;
-                curr->speed[X] = dir ? -WALKSPEED : WALKSPEED;
+                NST_keep_walking();
                 break;
             }
         break;
