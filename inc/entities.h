@@ -14,6 +14,11 @@ typedef struct Entity{
     const SpriteDefinition * sprite_def;
     const u8 * death_sound;
     const u16 death_sound_size;
+    void (*const onCrash)();
+    void (*const onTrip)();
+    void (*const onFall)();
+    void (*const onLand)();
+    void (*const onAttack)();
 }Entity;
 
 #define ENT_CHECK_BITMSK 0x0003

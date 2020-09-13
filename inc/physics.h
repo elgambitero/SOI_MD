@@ -57,6 +57,7 @@ void PHY_send_inputs(u8 ctrl1, u8 ctrl2);
 void PHY_update();
 
 void NST_still_fall();
+void NST_still_land();
 void NST_fall();
 void NST_turn_around();
 void NST_attack();

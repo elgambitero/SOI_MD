@@ -11,7 +11,12 @@ const Entity blue_player_ent = {
     PAL_SYS0,
     &bp_spr,
     moon_blast,
-    sizeof(moon_blast)
+    sizeof(moon_blast),
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
 };
 
 const Entity green_player_ent = {
@@ -21,8 +26,14 @@ const Entity green_player_ent = {
     PAL_SYS1,
     &bp_spr,
     moon_blast,
-    sizeof(moon_blast)
+    sizeof(moon_blast),
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
 };
+
 const Entity spinner_ent = {
     NASTIE | STILL,
     {6, 15},
@@ -30,7 +41,12 @@ const Entity spinner_ent = {
     PAL_SYS0,
     &spinner_spr,
     0,
-    0
+    0,
+    NULL,
+    NULL,
+    &NST_still_fall,
+    &NST_still_land,
+    NULL
 };
 
 const Entity robo_ent = {
@@ -40,7 +56,12 @@ const Entity robo_ent = {
     PAL_SYS0,
     &robo_spr,
     bell,
-    sizeof(bell)
+    sizeof(bell),
+    &NST_attack,
+    &NST_turn_around,
+    &NST_fall,
+    &NST_die,
+    &NST_breaks
 };
 
 const Entity ant_ent = {
@@ -50,7 +71,12 @@ const Entity ant_ent = {
     PAL_SYS0,
     &ant_spr,
     0,
-    0
+    0,
+    &NST_turn_around,
+    NULL,
+    &NST_fall,
+    &NST_keep_walking,
+    NULL
 };
 
 const Entity piggy_ent = {
@@ -60,7 +86,12 @@ const Entity piggy_ent = {
     PAL_SYS1,
     &piggy_spr,
     0,
-    0
+    0,
+    &NST_attack,
+    NULL,
+    &NST_fall,
+    NST_keep_walking,
+    &NST_turn_around_fast
 };
 
 const Entity arrow_ent = {
@@ -70,7 +101,12 @@ const Entity arrow_ent = {
     PAL_SYS0,
     &arrow_spr,
     0,
-    0
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
 };
 
 const Entity deletor_ent = {
@@ -80,7 +116,12 @@ const Entity deletor_ent = {
     PAL_SYS0,
     &deletor_spr,
     0,
-    0
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
 };
 
 const Entity blk_debris0_ent = {
@@ -90,7 +131,12 @@ const Entity blk_debris0_ent = {
     PAL_SYS0,
     &blk_debris0_spr,
     0,
-    0
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
 };
 
 const Entity blk_debris1_ent = {
@@ -100,7 +146,12 @@ const Entity blk_debris1_ent = {
     PAL_SYS0,
     &blk_debris1_spr,
     0,
-    0
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
 };
 
 const Entity blk_debris2_ent = {
@@ -110,7 +161,12 @@ const Entity blk_debris2_ent = {
     PAL_SYS0,
     &blk_debris2_spr,
     0,
-    0
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
 };
 
 const Entity blk_debris3_ent = {
@@ -120,5 +176,10 @@ const Entity blk_debris3_ent = {
     PAL_SYS0,
     &blk_debris3_spr,
     0,
-    0
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
 };

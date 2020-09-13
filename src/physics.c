@@ -334,7 +334,12 @@ void NST_still_fall(){
     newstatus = FALL_RIGHT;
     status = FALL_RIGHT; //Ugly hack
     curr->speed[Y] = FALLSPEED;
-    curr->speed[0] = 0;
+    curr->speed[X] = 0;
+}
+
+void NST_still_land(){
+    curr->speed[Y] = 0;
+    curr->speed[X] = 0;
 }
 
 void NST_fall(){
