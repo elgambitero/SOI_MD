@@ -2,24 +2,24 @@
 
 #include "board.h"
 #include "blocks.h"
-#include "sound.h"
 #include "gameplay.h"
+#include "behavior.h"
+#include "sound.h"
 
 #include "globals.h"
 
-Board * env;
 
-Actor * curr;
-u8 status;
-u8 newstatus;
-u8 dir;
+
+
+
+
 u16 attr;
 PlayerStat * pl_stat;
 PlayerStat * bl_stat;
 PlayerStat * gr_stat;
 
 //TODO: Organize. Make more understandable
-u16 front_ind;
+
 u16 back_floor_ind;
 u16 front_floor_ind;
 u16 floor_ind;
@@ -45,8 +45,6 @@ u8 bl_after_status, gr_after_status;
 u8 * after_status;
 u8 bl_after_speed[2], gr_after_speed[2];
 u8 * after_speed;
-
-#define SFX_IND 5 //magic number
 
 u8 result;
 
@@ -80,7 +78,7 @@ static inline void calc_front_block_hi(){
     front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 12 ) ) ) );
 }
 
-static inline void calc_front_block(){
+void calc_front_block(){
     front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 8 ) ) ) );
 }
 
@@ -118,7 +116,7 @@ static inline void calc_center_block(){
 }
 
 
-static inline void calc_front(u8 direction){
+void calc_front(u8 direction){
     front = direction ? POS_TO_PX(curr->pos[X]) - curr->character->size[X] : POS_TO_PX(curr->pos[X]) + curr->character->size[X];
 }
 static inline void calc_front_margin(u8 direction){
@@ -251,7 +249,7 @@ static inline u8 jump_ctrl(u8 after){
     return FALSE;
 }
 
-static inline void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
+void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
     fx.status = 0;
     fx.pos[X] = BLOCK_TO_PX(IND_TO_X(front_ind));
     fx.pos[Y] = BLOCK_TO_PX(IND_TO_Y(front_ind));
@@ -297,7 +295,7 @@ static inline void jmp_brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
     ACT_add(&fx, &fx_buf);
 }
 
-static inline void summon_deletor(u8 front_ind, u8 deletes){
+void summon_deletor(u8 front_ind, u8 deletes){
     fx.status = deletes ? 1 : 0;
     fx.character = &deletor_ent;
     fx.frames = DELETOR_FRAMES;
@@ -319,7 +317,7 @@ static inline void summon_arrow(u8 dir){
     ACT_add(&fx, &pl_projectiles);
 }
 
-static inline void kill(Actor * act, u8 speed_x, u8 speed_y){
+void kill(Actor * act, u8 speed_x, u8 speed_y){
     if(act->character->death_sound){
         XGM_setPCM(SFX_IND, act->character->death_sound, act->character->death_sound_size);
         XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
@@ -328,67 +326,6 @@ static inline void kill(Actor * act, u8 speed_x, u8 speed_y){
     act->pos[Y] -= COLL_CORR;
     act->speed[Y] = speed_y;
     act->speed[X] = speed_x;
-}
-
-void NST_still_fall(){
-    newstatus = FALL_RIGHT;
-    status = FALL_RIGHT; //Ugly hack
-    curr->speed[Y] = FALLSPEED;
-    curr->speed[X] = 0;
-}
-
-void NST_still_land(){
-    curr->speed[Y] = 0;
-    curr->speed[X] = 0;
-}
-
-void NST_fall(){
-    newstatus = dir | FALL_RIGHT;
-    curr->speed[Y] = FALLSPEED;
-    curr->speed[X] = 0;
-}
-
-void NST_turn_around(){
-    newstatus = dir | RIGHT_TURN_LEFT;
-    curr->frames = TURN_FRAMES;
-    curr->speed[X] = 0;
-}
-
-void NST_attack(){
-    newstatus = dir | ATTACK_RIGHT_IN;
-    curr->frames = ATTK_FRAMES;
-    curr->speed[X] = 0;
-}
-
-void NST_breaks(){
-    calc_front(dir);
-    calc_front_block();
-    break_block_ind(env, front_ind);
-    brk_debris(front_ind, BRK_SPEED, 0);
-    XGM_setPCM(SFX_IND, blk_phy_break, sizeof(blk_phy_break));
-    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
-}
-
-void NST_deletes(){
-    calc_front(dir);
-    calc_front_block();
-    break_block_ind(env, front_ind);
-    summon_deletor(front_ind, TRUE);
-}
-
-void NST_keep_walking(){
-    newstatus = WALK_RIGHT | dir;
-    curr->speed[X] = dir ? -WALKSPEED : WALKSPEED;
-}
-
-void NST_turn_around_fast(){
-    newstatus = WALK_RIGHT | !dir;
-}
-
-void NST_die(){
-    kill(curr, WALKSPEED, -2*FALLSPEED);
-    newstatus = DEAD;
-    status = DEAD;
 }
 
 static inline void nastie_tree(){
