@@ -362,12 +362,12 @@ static inline void nastie_tree(){
             }
             curr->speed[X] = dir ? -WALKSPEED : WALKSPEED;
         break;
-        case RIGHT_TURN_LEFT:
+        case RIGHT_TURN_LEFT: //transitory
             newstatus = WALK_RIGHT | !dir;
             curr->speed[X] = dir ? WALKSPEED : -WALKSPEED;
             curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
         break;
-        case ATTACK_RIGHT_IN:
+        case ATTACK_RIGHT_IN: //transitory
             if(curr->character->onAttack){
                 (*curr->character->onAttack)();
             }
@@ -375,7 +375,7 @@ static inline void nastie_tree(){
             curr->frames = ATTK_FRAMES;
             curr->speed[X] = 0;
         break;
-        case ATTACK_RIGHT_OUT:
+        case ATTACK_RIGHT_OUT: //transitory
             (*curr->character->onFinishAttack)();
         break;
         case FALL_RIGHT:
