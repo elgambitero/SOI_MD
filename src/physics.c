@@ -8,11 +8,6 @@
 
 #include "globals.h"
 
-
-
-
-
-
 u16 attr;
 PlayerStat * pl_stat;
 PlayerStat * bl_stat;
@@ -362,12 +357,14 @@ static inline void nastie_tree(){
             }
             curr->speed[X] = dir ? -WALKSPEED : WALKSPEED;
         break;
-        case RIGHT_TURN_LEFT: //transitory
+        case RIGHT_TURN_LEFT:
+            if(curr->frames--) return;
             newstatus = WALK_RIGHT | !dir;
             curr->speed[X] = dir ? WALKSPEED : -WALKSPEED;
             curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
         break;
-        case ATTACK_RIGHT_IN: //transitory
+        case ATTACK_RIGHT_IN: 
+            if(curr->frames--) return;
             if(curr->character->onAttack){
                 (*curr->character->onAttack)();
             }
@@ -375,7 +372,8 @@ static inline void nastie_tree(){
             curr->frames = ATTK_FRAMES;
             curr->speed[X] = 0;
         break;
-        case ATTACK_RIGHT_OUT: //transitory
+        case ATTACK_RIGHT_OUT: 
+            if(curr->frames--) return;
             (*curr->character->onFinishAttack)();
         break;
         case FALL_RIGHT:
@@ -405,6 +403,7 @@ static inline void fx_tree(){
             curr->speed[Y] += GRAVITY;
         break;
         case DELETER:
+            if(curr->frames--) return;
             result = ACT_DELETION;
         break;
     }
@@ -453,10 +452,12 @@ static inline void player_tree(){
             return;
         break;
         case RIGHT_TURN_LEFT:
+            if(curr->frames--) return;
             newstatus = WALK_RIGHT | !dir;
             curr->speed[X] = dir ? PL_WALKSPEED : -PL_WALKSPEED;
         break;
         case ATTACK_RIGHT_IN:
+            if(curr->frames--) return;
             switch(*pl_act){
                 case MK_BLOCK:
                     calc_next(dir);
@@ -489,6 +490,7 @@ static inline void player_tree(){
             curr->frames = BP_ATTK_FRAMES;
         break;
         case ATTACK_RIGHT_OUT:
+            if(curr->frames--) return;
             newstatus = *after_status;
             memcpy(curr->speed, after_speed, sizeof(curr->speed));
         break;
@@ -531,6 +533,7 @@ static inline void player_tree(){
             return;
         break;
         case LOW_ATTK_RIGHT_IN:
+            if(curr->frames--) return;
             switch(*pl_act){
                 case MK_BLOCK:
                     calc_next(dir);
@@ -559,10 +562,12 @@ static inline void player_tree(){
             curr->frames = BP_ATTK_FRAMES;
         break;
         case LOW_ATTK_RIGHT_OUT:
+            if(curr->frames--) return;
             newstatus = *after_status;
             memcpy(curr->speed, after_speed, sizeof(curr->speed));
         break;
         case STL_TO_RIGHT:
+            if(curr->frames--) return;
             newstatus = WALK_RIGHT | dir;
             calc_front(dir);
             calc_front_block();
@@ -570,6 +575,7 @@ static inline void player_tree(){
                 curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
         break;
         case STL_RIGHT_TO_LEFT:
+            if(curr->frames--) return;
             newstatus = WALK_RIGHT | !dir ;
             calc_front_margin(!dir);
             calc_front_block();
@@ -579,6 +585,7 @@ static inline void player_tree(){
                 curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
         break;
         case RIGHT_TO_STL:
+            if(curr->frames--) return;
             newstatus = STILL_RIGHT | dir;
             curr->speed[X] = 0;
         break;
@@ -631,6 +638,7 @@ static inline void player_tree(){
             }
         break;
         case JUMP_ATTK_RIGHT_IN:
+            if(curr->frames--) return;
             curr->frames = BP_ATTK_FRAMES;
             newstatus = JUMP_ATTK_RIGHT_OUT | dir;
             calc_top();
@@ -650,6 +658,7 @@ static inline void player_tree(){
             }
         break;
         case JUMP_ATTK_RIGHT_OUT:
+            if(curr->frames--) return;
             newstatus = *after_status;
         break;
         case DEAD:
@@ -780,10 +789,12 @@ void PHY_send_inputs(u8 ctrl1, u8 ctrl2){
 
 u8 PHY_computeStatus(Actor * actor){
     result = 0;
+    /*
     if(actor->frames > 0){
         actor->frames--;
         return result;
     }
+    */
     curr = actor;
     status = curr->status;
     newstatus = status;
