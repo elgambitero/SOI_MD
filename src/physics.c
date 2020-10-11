@@ -14,6 +14,8 @@ PlayerStat * bl_stat;
 PlayerStat * gr_stat;
 
 u8 collided;
+u8 blue_collided;
+u8 green_collided;
 
 //TODO: Organize. Make more understandable
 
@@ -25,6 +27,14 @@ u16 front;
 u16 back;
 u16 top;
 u16 center_ind;
+
+
+#define B0 0
+#define B1 1
+#define G0 2
+#define G1 3
+
+u8 player_lines[4] = {255,255,255,255};
 
 //TODO: Organize. Make more understandable
 enum player_action{
@@ -742,15 +752,20 @@ static inline void class_tree(){
             nastie_tree();
             if(curr->status == DEAD)
                 return;
-            if(collided){
-                if(blue_player && ACT_collision(blue_player, curr)){
+            if(blue_collided){
+                if(ACT_collision(blue_player, curr)){
                     kill(blue_player, 0, -2*FALLSPEED);
                     blue_player = NULL;
                 }
-                if(green_player && ACT_collision(green_player, curr)){
+            }
+            if(green_collided){
+                if(ACT_collision(green_player, curr)){
                     kill(green_player, 0, -2*FALLSPEED);
                     green_player = NULL;
                 }
+            }
+            if(collided){
+
                 Actor * proj_act = ACT_getFirst(&pl_projectiles);
                 while(proj_act){
                     if(ACT_collision(proj_act, curr)){
@@ -777,13 +792,25 @@ static inline void class_tree(){
 
 void PHY_HCallback(){
     if(GET_VDPSTATUS(VDP_SPRCOLLISION_FLAG)){
-        collided = TRUE;
+        register int line = VDP_getHIntCounter();
+
+        if(line < player_lines[B1] && line > player_lines[B0]){
+            blue_collided = TRUE;
+        }
+        if(line < player_lines[G1] && line > player_lines[G0]){
+            blue_collided = TRUE;
+        }
+        else {
+            collided = TRUE;
+        }
     }
 }
 
 u8 PHY_init(Board * board, PlayerStat * bl_stats, PlayerStat * gr_stats){
     env = board;
     collided = FALSE;
+    blue_collided = FALSE;
+    green_collided = FALSE;
     SYS_setHIntCallback(PHY_HCallback);
     VDP_setHIntCounter(0);
     VDP_setHInterrupt(1);
@@ -799,6 +826,8 @@ u8 PHY_init(Board * board, PlayerStat * bl_stats, PlayerStat * gr_stats){
 
 void PHY_end(){
     collided = FALSE;
+    blue_collided = FALSE;
+    green_collided = FALSE;
     VDP_setHInterrupt(0);
     ACT_end(&nasties);
     ACT_end(&fx_buf);
@@ -836,10 +865,20 @@ u8 PHY_computeStatus(Actor * actor){
 
 
 void PHY_update(){
+    if(blue_player){
+        player_lines[B0] = blue_player->character->spr_pos[X] + BOARD_OFFSET_X;
+        player_lines[B1] = player_lines[B0] + 16;
+    }
+    if(green_player){
+        player_lines[G0] = green_player->character->spr_pos[X] + BOARD_OFFSET_X;
+        player_lines[G1] = player_lines[G0] + 16;
+    }
     ACT_update(&players);
     ACT_update(&nasties);
     ACT_update(&projectiles);
     ACT_update(&pl_projectiles);
     ACT_update(&fx_buf);
     if(collided) collided = FALSE;
+    if(blue_collided) blue_collided = FALSE;
+    if(green_collided) green_collided = FALSE;
 }
