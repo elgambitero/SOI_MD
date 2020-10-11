@@ -843,12 +843,6 @@ void PHY_send_inputs(u8 ctrl1, u8 ctrl2){
 
 u8 PHY_computeStatus(Actor * actor){
     result = 0;
-    /*
-    if(actor->frames > 0){
-        actor->frames--;
-        return result;
-    }
-    */
     curr = actor;
     status = curr->status;
     newstatus = status;
