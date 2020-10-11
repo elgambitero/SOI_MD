@@ -795,6 +795,17 @@ u8 PHY_init(Board * board, PlayerStat * bl_stats, PlayerStat * gr_stats){
     return TRUE;
 }
 
+void PHY_end(){
+    collided = FALSE;
+    VDP_setHInterrupt(0);
+    ACT_end(&nasties);
+    ACT_end(&fx_buf);
+    ACT_end(&players);
+    ACT_end(&projectiles);
+    ACT_end(&pl_projectiles);
+
+}
+
 void PHY_send_inputs(u8 ctrl1, u8 ctrl2){
     bl_ctrl = ctrl1;
     gr_ctrl = ctrl2;
