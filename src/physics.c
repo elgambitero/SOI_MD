@@ -793,7 +793,6 @@ static inline void class_tree(){
 void PHY_HCallback(){
     if(GET_VDPSTATUS(VDP_SPRCOLLISION_FLAG)){
         register int line = VDP_getHIntCounter();
-
         if(line < player_lines[B1] && line > player_lines[B0]){
             blue_collided = TRUE;
         }
@@ -866,12 +865,12 @@ u8 PHY_computeStatus(Actor * actor){
 
 void PHY_update(){
     if(blue_player){
-        player_lines[B0] = blue_player->character->spr_pos[X] + BOARD_OFFSET_X;
-        player_lines[B1] = player_lines[B0] + 16;
+        player_lines[B0] = POS_TO_PX(blue_player->pos[Y]) - blue_player->character->spr_pos[Y] + BOARD_OFFSET_Y;
+        player_lines[B1] = player_lines[B0] + 15;
     }
     if(green_player){
-        player_lines[G0] = green_player->character->spr_pos[X] + BOARD_OFFSET_X;
-        player_lines[G1] = player_lines[G0] + 16;
+        player_lines[G0] = POS_TO_PX(green_player->pos[Y]) - green_player->character->spr_pos[Y] + BOARD_OFFSET_Y;
+        player_lines[G1] = player_lines[G0] + 15;
     }
     ACT_update(&players);
     ACT_update(&nasties);
