@@ -797,7 +797,7 @@ void PHY_HCallback(){
             blue_collided = TRUE;
         }
         if(line < player_lines[G1] && line > player_lines[G0]){
-            blue_collided = TRUE;
+            green_collided = TRUE;
         }
         else {
             collided = TRUE;
