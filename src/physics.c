@@ -776,7 +776,9 @@ static inline void class_tree(){
 
 
 void PHY_HCallback(){
-    collided = TRUE;
+    if(GET_VDPSTATUS(VDP_SPRCOLLISION_FLAG)){
+        collided = TRUE;
+    }
 }
 
 u8 PHY_init(Board * board, PlayerStat * bl_stats, PlayerStat * gr_stats){
