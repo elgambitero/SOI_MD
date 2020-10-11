@@ -13,6 +13,8 @@ PlayerStat * pl_stat;
 PlayerStat * bl_stat;
 PlayerStat * gr_stat;
 
+u8 collided;
+
 //TODO: Organize. Make more understandable
 
 u16 back_floor_ind;
@@ -740,21 +742,23 @@ static inline void class_tree(){
             nastie_tree();
             if(curr->status == DEAD)
                 return;
-            if(blue_player && ACT_collision(blue_player, curr)){
-                kill(blue_player, 0, -2*FALLSPEED);
-                blue_player = NULL;
-            }
-            if(green_player && ACT_collision(green_player, curr)){
-                kill(green_player, 0, -2*FALLSPEED);
-                green_player = NULL;
-            }
-            Actor * proj_act = ACT_getFirst(&pl_projectiles);
-            while(proj_act){
-                if(ACT_collision(proj_act, curr)){
-                    kill(curr, 0, -2*FALLSPEED);
-                    kill(proj_act, 0, 0);
+            if(collided){
+                if(blue_player && ACT_collision(blue_player, curr)){
+                    kill(blue_player, 0, -2*FALLSPEED);
+                    blue_player = NULL;
                 }
+                if(green_player && ACT_collision(green_player, curr)){
+                    kill(green_player, 0, -2*FALLSPEED);
+                    green_player = NULL;
+                }
+                Actor * proj_act = ACT_getFirst(&pl_projectiles);
+                while(proj_act){
+                    if(ACT_collision(proj_act, curr)){
+                        kill(curr, 0, -2*FALLSPEED);
+                        kill(proj_act, 0, 0);
+                    }
                 proj_act = proj_act->next;
+                }
             }
         break;
         case BIG_ENTITY:
@@ -770,8 +774,17 @@ static inline void class_tree(){
     }
 }
 
+
+void PHY_HCallback(){
+    collided = TRUE;
+}
+
 u8 PHY_init(Board * board, PlayerStat * bl_stats, PlayerStat * gr_stats){
     env = board;
+    collided = FALSE;
+    SYS_setHIntCallback(PHY_HCallback);
+    VDP_setHIntCounter(0);
+    VDP_setHInterrupt(1);
     bl_stat = bl_stats;
     gr_stat = gr_stats;
     if(!ACT_init(&nasties, MAX_NASTIES)) return FALSE;
@@ -808,10 +821,12 @@ u8 PHY_computeStatus(Actor * actor){
     return result;
 }
 
+
 void PHY_update(){
     ACT_update(&players);
     ACT_update(&nasties);
     ACT_update(&projectiles);
     ACT_update(&pl_projectiles);
     ACT_update(&fx_buf);
+    if(collided) collided = FALSE;
 }
