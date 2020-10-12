@@ -8,4 +8,5 @@ IMAGE wt_blk        "blocks/white_blocks.bmp"      NONE
 IMAGE pl_blk_bg     "blocks/pl_blk_bg.bmp"         NONE
 IMAGE pl_blk_fg     "blocks/pl_blk_fg.bmp"         NONE
 
-IMAGE gd_sys0      "sprites/goodies/silvercoin.bmp" NONE
+IMAGE gd_sys0      "sprites/goodies/gd_sys0.bmp"   NONE
+IMAGE gd_sys1      "sprites/goodies/gd_sys1.bmp"   NONE
