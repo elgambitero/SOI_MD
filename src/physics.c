@@ -311,7 +311,7 @@ void summon_deletor(u8 front_ind, u8 deletes){
     ACT_add(&fx, &fx_buf);
 }
 
-static inline void summon_arrow(u8 dir){
+static inline void summon_arrow(u8 dir, ActorList * list){
     fx.status = dir;
     fx.character = &arrow_ent;
     fx.frames = 0;
@@ -319,7 +319,7 @@ static inline void summon_arrow(u8 dir){
     fx.pos[Y] = POS_TO_PX(curr->pos[Y]);
     fx.speed[X] = dir ? -2*WALKSPEED : 2*WALKSPEED;
     fx.speed[Y] = 0;
-    ACT_add(&fx, &pl_projectiles);
+    ACT_add(&fx, list);
 }
 
 void kill(Actor * act, u8 speed_x, u8 speed_y){
@@ -491,7 +491,10 @@ static inline void player_tree(){
                 case SHOOT:
                     XGM_setPCM(SFX_IND, fim, sizeof(fim));
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
-                    summon_arrow(dir);
+                    if(pl_act == &bl_act)
+                        summon_arrow(dir, &bp_projectiles);
+                    else
+                        summon_arrow(dir, &gp_projectiles);
                 break;
                 default:
                 break;
@@ -700,6 +703,7 @@ static inline void proj_tree(){
                                 result = ACT_DELETION;
                             }
                         }
+                        result = ACT_DELETION;
                     }else{
                         result = ACT_DELETION;
                         return;
@@ -760,13 +764,25 @@ static inline void class_tree(){
                     green_player = NULL;
                 }
                 if(curr->character->attr & MOVT_BITMSK){
-                    Actor * proj_act = ACT_getFirst(&pl_projectiles);
+                    Actor * proj_act = ACT_getFirst(&bp_projectiles);
                     while(proj_act){
                         if(ACT_collision(proj_act, curr)){
                             kill(curr, 0, -2*FALLSPEED);
                             kill(proj_act, 0, 0);
                             newstatus = DEAD;
                             status = DEAD; //Ugly hack to prevent animation from changing.
+                            bl_stat->score += curr->character->points;
+                        }
+                        proj_act = proj_act->next;
+                    }
+                    proj_act = ACT_getFirst(&gp_projectiles);
+                    while(proj_act){
+                        if(ACT_collision(proj_act, curr)){
+                            kill(curr, 0, -2*FALLSPEED);
+                            kill(proj_act, 0, 0);
+                            newstatus = DEAD;
+                            status = DEAD; //Ugly hack to prevent animation from changing.
+                            gr_stat->score += curr->character->points;
                         }
                         proj_act = proj_act->next;
                     }
@@ -805,7 +821,8 @@ u8 PHY_init(Board * board, PlayerStat * bl_stats, PlayerStat * gr_stats){
     if(!ACT_init(&fx_buf, MAX_FX)) return FALSE;
     if(!ACT_init(&players, MAX_PLAYERS)) return FALSE;
     if(!ACT_init(&projectiles, MAX_PROJ)) return FALSE;
-    if(!ACT_init(&pl_projectiles, MAX_PROJ)) return FALSE;
+    if(!ACT_init(&bp_projectiles, MAX_PROJ)) return FALSE;
+    if(!ACT_init(&gp_projectiles, MAX_PROJ)) return FALSE;
     return TRUE;
 }
 
@@ -816,8 +833,8 @@ void PHY_end(){
     ACT_end(&fx_buf);
     ACT_end(&players);
     ACT_end(&projectiles);
-    ACT_end(&pl_projectiles);
-
+    ACT_end(&bp_projectiles);
+    ACT_end(&gp_projectiles);
 }
 
 void PHY_send_inputs(u8 ctrl1, u8 ctrl2){
@@ -845,7 +862,8 @@ void PHY_update(){
     ACT_update(&players);
     ACT_update(&nasties);
     ACT_update(&projectiles);
-    ACT_update(&pl_projectiles);
+    ACT_update(&bp_projectiles);
+    ACT_update(&gp_projectiles);
     ACT_update(&fx_buf);
     if(collided) collided = FALSE;
 }

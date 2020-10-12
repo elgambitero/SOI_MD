@@ -10,7 +10,7 @@
 
 #define MAX_NASTIES 20
 #define MAX_FX 10
-#define MAX_PROJ 8
+#define MAX_PROJ 4
 
 #define PX_TO_TILE(px) (px >> 3)
 #define PX_TO_BLOCK(px) (px >> 4)
@@ -52,7 +52,8 @@ ActorList nasties;
 ActorList fx_buf;
 ActorList players;
 ActorList projectiles;
-ActorList pl_projectiles;
+ActorList bp_projectiles;
+ActorList gp_projectiles;
 
 Actor * curr;
 

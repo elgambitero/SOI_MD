@@ -103,7 +103,7 @@ const Entity piggy_ent = {
     &NST_fall,
     &NST_keep_walking,
     &NST_deletes,
-    &NST_keep_walking
+    &NST_turn_around_fast
 };
 
 const Entity teeth_ent = {
