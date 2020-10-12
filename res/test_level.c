@@ -18,7 +18,7 @@
 #define CHI (NORMAL_BLOCK | SOLID | BLK_CHISEL)
 #define QUE (NORMAL_BLOCK | SOLID | BLK_QUESTION)
 #define NET (NORMAL_BLOCK | BLK_NET)
-#define GLC (GOODIE | GD_3x)
+#define GLC (GOODIE | GD_GOLDC)
 
 static const Actor blp = {&blue_player_ent,
        STILL_RIGHT,
@@ -101,7 +101,7 @@ const Board test_level = {
      BFG, BOG, BDG,   0,   0,   0,   0,   0,  OB, GLC,  OB,   0,  OB,  OB,  OB,  FW,   0,   0,   0,
      BFR, BOR, BDR,   0,   0,   0, BOR, BOR, BOR, BOR, BOR, BOR, BOW, BOR, BOR, BOR,   0,   0,   0,
      BFB, BOB, BDB,   0,   0,   0, BOB, NET, NET, NET, NET,   0,   0,   0,   0,   0,   0,   0,   0,
-       0,   0,   0,   0,   0,   0, BOB, NET, NET, NET, NET,   0,   0,   0,   0,   0,   0,  FW, BDB,
+       0,   0,   0,   0,   0,   0, BOB, NET, NET, NET, NET,   0,   0,   0,   0,   0,   0,  GLC, BDB,
        0,   0,   0,   0,   0,   0, BOB, NET,   0, NET, NET,   0,   0,   0,   0,   0, BOG, BDR,   0,
       GP,   0,   0,   0,   0,   0, BOB, NET,   0, NET, NET,   0,   0, BFG,   0,   0,   0,   0,   0,
        0,  BP,   0,   0,   0,   0,   0, NET,   0, BFW,   0,   0,   0,   0, BFW, BFW,   0,   0,   0,
