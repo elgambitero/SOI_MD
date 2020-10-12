@@ -759,15 +759,17 @@ static inline void class_tree(){
                     kill(green_player, 0, -2*FALLSPEED);
                     green_player = NULL;
                 }
-                Actor * proj_act = ACT_getFirst(&pl_projectiles);
-                while(proj_act){
-                    if(ACT_collision(proj_act, curr)){
-                        kill(curr, 0, -2*FALLSPEED);
-                        kill(proj_act, 0, 0);
-                        newstatus = DEAD;
-                        status = DEAD; //Ugly hack to prevent animation from changing.
+                if(curr->character->attr & MOVT_BITMSK){
+                    Actor * proj_act = ACT_getFirst(&pl_projectiles);
+                    while(proj_act){
+                        if(ACT_collision(proj_act, curr)){
+                            kill(curr, 0, -2*FALLSPEED);
+                            kill(proj_act, 0, 0);
+                            newstatus = DEAD;
+                            status = DEAD; //Ugly hack to prevent animation from changing.
+                        }
+                        proj_act = proj_act->next;
                     }
-                    proj_act = proj_act->next;
                 }
             }
         break;
