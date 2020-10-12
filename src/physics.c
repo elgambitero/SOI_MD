@@ -764,8 +764,10 @@ static inline void class_tree(){
                     if(ACT_collision(proj_act, curr)){
                         kill(curr, 0, -2*FALLSPEED);
                         kill(proj_act, 0, 0);
+                        newstatus = DEAD;
+                        status = DEAD; //Ugly hack to prevent animation from changing.
                     }
-                proj_act = proj_act->next;
+                    proj_act = proj_act->next;
                 }
             }
         break;
