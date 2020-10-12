@@ -16,6 +16,7 @@ u16 sp_blk_ind = TILE_USERINDEX;
 u16 wt_blk_ind = TILE_USERINDEX;
 u16 pl_blk_fg_ind = TILE_USERINDEX;
 u16 pl_blk_bg_ind = TILE_USERINDEX;
+u16 gd_sys0_ind = TILE_USERINDEX;
 
 void drawBlock(u8 x, u8 y, u16 block){
     u8 map_ind = 0;
@@ -109,6 +110,18 @@ void drawBlock(u8 x, u8 y, u16 block){
         case SPECIAL_BLOCK:
             break;
         case GOODIE:
+            //goodie index should translate into tile index, SYS0 and SYS1 goodies should be consecutive.
+            switch(GOOD_TYP_MSK & block){
+                case GD_SILVC:
+                    tile_index[FG] = gd_sys0_ind;
+                    map_ind = 0;
+                    palette[FG] = PAL_SYS0;
+                    fg_blk_map = gd_sys0.map;
+                    break;
+            }
+            VDP_setMapEx(PLAN_B, fg_blk_map, TILE_ATTR_FULL(palette[FG], FALSE, FALSE, FALSE, tile_index[FG]),
+                BLK_TO_TILE(x), BLK_TO_TILE(y), map_ind, 0, 2, 2);
+            return;
             break;
     }
     /*
@@ -152,4 +165,7 @@ void load_blk_tiles(u16 ind){
     VDP_loadTileSet(pl_blk_fg.tileset, ind, DMA);
     pl_blk_fg_ind = ind;
     ind += pl_blk_fg.tileset->numTile;
+    VDP_loadTileSet(gd_sys0.tileset, ind, DMA);
+    gd_sys0_ind = ind;
+    ind += gd_sys0.tileset->numTile;
 }

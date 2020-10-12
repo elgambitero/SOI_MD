@@ -7,3 +7,5 @@ IMAGE sp_blk        "blocks/sp_blk.bmp"            NONE
 IMAGE wt_blk        "blocks/white_blocks.bmp"      NONE
 IMAGE pl_blk_bg     "blocks/pl_blk_bg.bmp"         NONE
 IMAGE pl_blk_fg     "blocks/pl_blk_fg.bmp"         NONE
+
+IMAGE gd_sys0      "sprites/goodies/silvercoin.bmp" NONE
