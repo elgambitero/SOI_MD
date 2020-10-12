@@ -153,6 +153,8 @@ static inline u8 crash_into(){
         return FRAME;
     if(SOLID & env->front_blocks[front_ind])
         return BLOCK;
+    if(GOODIE & env->front_blocks[front_ind])
+        return GOODIE;
     else
         return 0;
 }
@@ -425,12 +427,16 @@ static inline void player_tree(){
         case WALK_RIGHT:
             calc_front_margin(dir);
             calc_front_block();
-            if(crash_into()){
+            switch(crash_into()){
+                case FRAME:
+                case BLOCK:
                 curr->speed[X] = 0;
                 curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
-            }
-            else{
-                curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
+                    break;
+                case GOODIE:
+                default:
+                    curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
+                    break;
             }
             calc_front(dir);
             calc_back(dir);
@@ -585,18 +591,31 @@ static inline void player_tree(){
             newstatus = WALK_RIGHT | dir;
             calc_front(dir);
             calc_front_block();
-            if(!crash_into())
-                curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
+            switch(crash_into()){
+                case FRAME:
+                case BLOCK:
+                    break;
+                case GOODIE:
+                default:
+                    curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
+                    break;
+            }
         break;
         case STL_RIGHT_TO_LEFT:
             if(curr->frames--) return;
             newstatus = WALK_RIGHT | !dir ;
             calc_front_margin(!dir);
             calc_front_block();
-            if(!crash_into())
-                curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
-            else
-                curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
+            switch(crash_into()){
+                case FRAME:
+                case BLOCK:
+                    curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
+                    break;
+                case GOODIE:
+                default:
+                    curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
+                    break;
+            }
         break;
         case RIGHT_TO_STL:
             if(curr->frames--) return;
@@ -611,14 +630,26 @@ static inline void player_tree(){
                 curr->speed[X] = push ? -PL_WALKSPEED : PL_WALKSPEED;
                 calc_front_margin( push );
                 calc_front_block_hi();
-                if(crash_into()){
-                    curr->pos[X] += push ? COLL_CORR : -COLL_CORR;
-                    curr->speed[X] = 0;
+                switch(crash_into()){
+                    case FRAME:
+                    case BLOCK:
+                        curr->pos[X] += push ? COLL_CORR : -COLL_CORR;
+                        curr->speed[X] = 0;
+                        break;
+                    case GOODIE:
+                    default:
+                        break;
                 }
                 calc_front_block_lo();
-                if(crash_into()){
-                    curr->pos[X] += push ? COLL_CORR : -COLL_CORR;
-                    curr->speed[X] = 0;
+                switch(crash_into()){
+                    case FRAME:
+                    case BLOCK:
+                        curr->pos[X] += push ? COLL_CORR : -COLL_CORR;
+                        curr->speed[X] = 0;
+                        break;
+                    case GOODIE:
+                    default:
+                        break;
                 }
             }else{
                 curr->speed[X] = 0;
