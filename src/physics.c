@@ -353,7 +353,8 @@ static inline void nastie_tree(){
                     NST_turn_around();
                     return;
                 case BLOCK:
-                    (*curr->character->onCrash)();
+                    if(breakable(front_ind)) (*curr->character->onCrash)();
+                    else NST_turn_around();
                     return;
                 default:
                     break;
