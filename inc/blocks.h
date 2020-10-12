@@ -54,7 +54,7 @@
 #define SP_COL_MSK      0x0700
 
 #define GOODIE          0x0003
-#define GOOD_TYP_MSK    0x01F0
+#define GOOD_TYP_MSK    0x00FC
 
 #define GD_SILVC         (0 << 2)
 #define GD_ARROW         (1 << 2)
