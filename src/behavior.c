@@ -63,3 +63,8 @@ void NST_die(){
     newstatus = DEAD;
     status = DEAD;
 }
+
+void NST_deletes_and_keeps_going(){
+    NST_deletes();
+    NST_keep_walking();
+}

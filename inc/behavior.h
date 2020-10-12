@@ -11,5 +11,6 @@ void NST_deletes();
 void NST_keep_walking();
 void NST_turn_around_fast();
 void NST_die();
+void NST_deletes_and_keeps_going();
 
 #endif

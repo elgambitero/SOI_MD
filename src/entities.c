@@ -115,7 +115,7 @@ const Entity teeth_ent = {
     &teeth_spr,
     0,
     0,
-    &NST_attack,
+    &NST_deletes_and_keeps_going,
     NULL,
     &NST_fall,
     &NST_keep_walking,
