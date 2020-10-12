@@ -97,7 +97,23 @@ const Entity piggy_ent = {
     &NST_fall,
     &NST_keep_walking,
     &NST_deletes,
-    &NST_turn_around_fast
+    &NST_keep_walking
+};
+
+const Entity teeth_ent = {
+    NASTIE | WALKS | LEAPS | DELETES | GOES_THRU,
+    {8, 15},
+    {8, 15},
+    PAL_SYS0,
+    &teeth_spr,
+    0,
+    0,
+    &NST_attack,
+    NULL,
+    &NST_fall,
+    &NST_keep_walking,
+    &NST_deletes,
+    &NST_keep_walking
 };
 
 const Entity arrow_ent = {

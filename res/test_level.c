@@ -65,7 +65,7 @@ static const Actor spinner = {&spinner_ent,
     &spinner2
     };
 
-static const Actor robo = {&robo_ent,
+static const Actor robo = {&teeth_ent,
    WALK_RIGHT,
    0,
    {152, 32},

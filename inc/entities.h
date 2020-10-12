@@ -77,6 +77,7 @@ extern const Entity spinner_ent;
 extern const Entity robo_ent;
 extern const Entity ant_ent;
 extern const Entity piggy_ent;
+extern const Entity teeth_ent;
 
 extern const Entity arrow_ent;
 
