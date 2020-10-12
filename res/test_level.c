@@ -18,7 +18,7 @@
 #define CHI (NORMAL_BLOCK | SOLID | BLK_CHISEL)
 #define QUE (NORMAL_BLOCK | SOLID | BLK_QUESTION)
 #define NET (NORMAL_BLOCK | BLK_NET)
-#define GLC (GOODIE | GD_GOLDC)
+#define GLC (GOODIE | GD_SILVC)
 
 static const Actor blp = {&blue_player_ent,
        STILL_RIGHT,
