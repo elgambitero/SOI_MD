@@ -1,0 +1,1 @@
+make -f $GENDEV/sgdk/mkfiles/makefile.gen && rm -r out/src/
