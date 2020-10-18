@@ -157,6 +157,517 @@ const Entity gd_silvCoin_ent = {
     NULL
 };
 
+const Entity gd_arrow_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    0,
+    &gd_sys0_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_clk3h_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    0,
+    &gd_sys0_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_clk6h_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    0,
+    &gd_sys0_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_clk9h_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    0,
+    &gd_sys0_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_clk12h_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    0,
+    &gd_sys0_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_glass_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    0,
+    &gd_sys0_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_shield_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    0,
+    &gd_sys0_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_boost_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    0,
+    &gd_sys0_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_boot_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    0,
+    &gd_sys0_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_thnball_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    0,
+    &gd_sys0_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_rdkey_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    0,
+    &gd_sys0_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_blkey_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    0,
+    &gd_sys0_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_rddoor_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    0,
+    &gd_sys0_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_bldoor_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    0,
+    &gd_sys0_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_rddoor_open_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    0,
+    &gd_sys0_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_bddoor_open_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    0,
+    &gd_sys0_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_goldCoin_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    0,
+    &gd_sys1_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_1UP_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    0,
+    &gd_sys1_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_2x_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    0,
+    &gd_sys1_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_3x_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    0,
+    &gd_sys1_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_4x_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    0,
+    &gd_sys1_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_5x_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    0,
+    &gd_sys1_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_ball_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    0,
+    &gd_sys1_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_gem_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    0,
+    &gd_sys1_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_gold_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    0,
+    &gd_sys1_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_turtl_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    0,
+    &gd_sys1_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_star_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    0,
+    &gd_sys1_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_grkey_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    0,
+    &gd_sys1_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_grdoor_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    0,
+    &gd_sys1_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+const Entity gd_grdoor_open_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    0,
+    &gd_sys1_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
+
 const Entity deletor_ent = {
     FX | DELETER,
     {7, 15},

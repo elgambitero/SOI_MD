@@ -82,6 +82,36 @@ extern const Entity piggy_ent;
 extern const Entity teeth_ent;
 
 extern const Entity gd_silvCoin_ent;
+extern const Entity gd_arrow_ent;
+extern const Entity gd_clk3h_ent;
+extern const Entity gd_clk6h_ent;
+extern const Entity gd_clk9h_ent;
+extern const Entity gd_clk12h_ent;
+extern const Entity gd_glass_ent;
+extern const Entity gd_shield_ent;
+extern const Entity gd_boost_ent;
+extern const Entity gd_boot_ent;
+extern const Entity gd_thnball_ent;
+extern const Entity gd_rdkey_ent;
+extern const Entity gd_blkey_ent;
+extern const Entity gd_rddoor_ent;
+extern const Entity gd_bldoor_ent;
+extern const Entity gd_rddoor_open_ent;
+extern const Entity gd_bddoor_open_ent;
+extern const Entity gd_goldCoin_ent;
+extern const Entity gd_1UP_ent;
+extern const Entity gd_2x_ent;
+extern const Entity gd_3x_ent;
+extern const Entity gd_4x_ent;
+extern const Entity gd_5x_ent;
+extern const Entity gd_ball_ent;
+extern const Entity gd_gem_ent;
+extern const Entity gd_gold_ent;
+extern const Entity gd_turtl_ent;
+extern const Entity gd_star_ent;
+extern const Entity gd_grkey_ent;
+extern const Entity gd_grdoor_ent;
+extern const Entity gd_grdoor_open_ent;
 
 extern const Entity arrow_ent;
 
