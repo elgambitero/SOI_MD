@@ -307,7 +307,7 @@ static inline void goodie_debris(u8 front_ind){
     fx.pos[X] = BLOCK_TO_PX(IND_TO_X(front_ind)) + 8;
     fx.pos[Y] = BLOCK_TO_PX(IND_TO_Y(front_ind)) + 8;
     fx.frames = 0;
-    fx.character = &blk_debris0_ent;
+    fx.character = goodies_vector[0];
     fx.speed[X] = 0;
     fx.speed[Y] = -BRK_SPEED;
     break_block_ind(env, front_ind);
@@ -421,6 +421,7 @@ static inline void nastie_tree(){
 
 static inline void fx_tree(){
     switch(attr & FX_TYP_MSK){
+        case WAS_GOODIE:
         case SHRAPNEL:
             if(curr->pos[X] >= PX_TO_POS(BOARD_X_PX) || curr->pos[Y] >= PX_TO_POS(BOARD_Y_PX) ){
                 result = ACT_DELETION;

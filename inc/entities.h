@@ -67,10 +67,11 @@ typedef struct Entity{
 
 #define FX             3
 
-#define FX_TYP_MSK  0x000C   //B0000000100000000
+#define FX_TYP_MSK  0x001C   //B0000000000011100
 
 #define SHRAPNEL    0x0004   //B0000000000000100
 #define DELETER     0x0008   //B0000000000001000
+#define WAS_GOODIE  0x0010   //B0000000000010000
 
 extern const Entity blue_player_ent;
 extern const Entity green_player_ent;
@@ -80,6 +81,8 @@ extern const Entity ant_ent;
 extern const Entity piggy_ent;
 extern const Entity teeth_ent;
 
+extern const Entity gd_silvCoin_ent;
+
 extern const Entity arrow_ent;
 
 extern const Entity deletor_ent;
@@ -87,5 +90,7 @@ extern const Entity blk_debris0_ent;
 extern const Entity blk_debris1_ent;
 extern const Entity blk_debris2_ent;
 extern const Entity blk_debris3_ent;
+
+extern const Entity * const goodies_vector[];
 
 #endif

@@ -140,6 +140,23 @@ const Entity arrow_ent = {
     NULL
 };
 
+const Entity gd_silvCoin_ent = {
+    FX | WAS_GOODIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    500,
+    &gd_sys0_spr,
+    0,
+    0,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
 const Entity deletor_ent = {
     FX | DELETER,
     {7, 15},
@@ -223,4 +240,8 @@ const Entity blk_debris3_ent = {
     NULL,
     NULL,
     NULL
+};
+
+const Entity * const goodies_vector[] = {
+    &gd_silvCoin_ent
 };

@@ -55,9 +55,10 @@
 
 #define GOODIE          0x0003
 #define GOOD_TYP_MSK    0x00FC
+#define GD_GET_INDEX(good) ( good >> 2 )
 
-#define GD_ADD_INFO(good) (good << 8)
-#define GD_GET_INFO(gd)   (gd >> 8)
+#define GD_ADD_INFO(good) ( good << 8 )
+#define GD_GET_INFO(gd)   ( gd >> 8 )
 
 #define GD_SILVC         (0 << 2)
 #define GD_ARROW         (1 << 2)
