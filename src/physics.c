@@ -302,6 +302,18 @@ static inline void jmp_brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
     ACT_add(&fx, &fx_buf);
 }
 
+static inline void goodie_debris(u8 front_ind){
+    fx.status = 0;
+    fx.pos[X] = BLOCK_TO_PX(IND_TO_X(front_ind)) + 8;
+    fx.pos[Y] = BLOCK_TO_PX(IND_TO_Y(front_ind)) + 8;
+    fx.frames = 0;
+    fx.character = &blk_debris0_ent;
+    fx.speed[X] = 0;
+    fx.speed[Y] = -BRK_SPEED;
+    break_block_ind(env, front_ind);
+    ACT_add(&fx, &fx_buf);
+}
+
 void summon_deletor(u8 front_ind, u8 deletes){
     fx.status = deletes ? 1 : 0;
     fx.character = &deletor_ent;
@@ -434,6 +446,7 @@ static inline void player_tree(){
                 curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
                     break;
                 case GOODIE:
+                    goodie_debris(front_ind);
                 default:
                     curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
                     break;
