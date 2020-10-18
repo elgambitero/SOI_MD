@@ -303,7 +303,7 @@ const Entity gd_thnball_ent = {
     0,
     0,
     &GD_obtain,
-    NULL,
+    &GD_killAll,
     NULL,
     NULL,
     NULL,

@@ -85,3 +85,11 @@ void GD_obtain(){
     }
     break_block_ind(env, front_ind);
 }
+
+void GD_killAll(){
+    Actor * nastie = ACT_getFirst(&nasties);
+    while(nastie){
+        kill(nastie, 0, -2*FALLSPEED);
+        nastie = nastie->next;
+    }
+}

@@ -24,6 +24,7 @@
 #define M2X (GOODIE | GD_2x)
 #define RDK (GOODIE | GD_RDKEY)
 #define RDD (GOODIE | GD_RDDOOR)
+#define THN (GOODIE | GD_THNBALL)
 
 static const Actor blp = {&blue_player_ent,
        STILL_RIGHT,
@@ -108,7 +109,7 @@ const Board test_level = {
      BFB, BOB, BDB,   0,   0,   0, BOB, NET, NET, NET, NET,   0,   0,   0,   0,   0,   0,   0,  RDK,
        0,   0,   0,   0,   0,   0, BOB, NET, NET, NET, NET,   0,   0,   0,   0,   0,   0,  GLC, BDB,
        0,   0,   0,   0,   0,   0, BOB, NET,   0, NET, NET,   0,   0,   0,   0,   0, BOG, BDR,   0,
-      GP, ARR,   0,   0,   0,   0, BOB, NET,   0, NET, NET,   0,   0, BFG, GLC, GLC,   0,   0,   0,
+      GP, THN,   0,   0,   0,   0, BOB, NET,   0, NET, NET,   0,   0, BFG, GLC, GLC,   0,   0,   0,
        0,  BP,   0, ARR,   0,   0,   0, NET,   0, BFW,   0,   0,   0,   0, BFW, BFW,   0,   0,   0,
        0,   0,  BP,  OB,   0,   0,   0, NET,   0,   0,   0,   0,   0,   0,   0,   0, NET, NET, BFW,
        0,   0,   0,   0,   0, BFW,   0, BFW,   0,   0, BFW, BFW,   0,   0,   0,   0, QUE, BFW,   0,
