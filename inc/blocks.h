@@ -56,6 +56,9 @@
 #define GOODIE          0x0003
 #define GOOD_TYP_MSK    0x00FC
 
+#define GD_ADD_INFO(good) (good << 8)
+#define GD_GET_INFO(gd)   (gd >> 8)
+
 #define GD_SILVC         (0 << 2)
 #define GD_ARROW         (1 << 2)
 #define GD_CLK3h         (2 << 2)
@@ -86,8 +89,6 @@
 #define GD_GRKEY         (27 << 2)
 #define GD_GRDOOR        (28 << 2)
 #define GD_GRDOOR_open   (29 << 2)
-
-#define GD_ADD_INFO(good) (good > 8)
 
 #define  BP ( NORMAL_BLOCK | SOLID | BREAKABLE | BLK_PLAYER | PL_BLUE )
 #define  GP ( NORMAL_BLOCK | SOLID | BREAKABLE | BLK_PLAYER | PL_GREEN )

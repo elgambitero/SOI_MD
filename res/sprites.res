@@ -14,4 +14,7 @@ SPRITE blk_debris2_spr "sprites/fx/blk_debris2.bmp" 1 1 AUTO 2
 SPRITE blk_debris3_spr "sprites/fx/blk_debris3.bmp" 1 1 AUTO 2
 SPRITE deletor_spr "sprites/fx/deletor.bmp" 2 2 AUTO 2
 
+SPRITE gd_sys0_spr "sprites/goodies/gd_sys0.bmp" 2 2 AUTO 0
+SPRITE gd_sys1_spr "sprites/goodies/gd_sys1.bmp" 2 2 AUTO 0
+
 SPRITE arrow_spr "sprites/weapons/arrow.bmp" 2 1 AUTO 2
