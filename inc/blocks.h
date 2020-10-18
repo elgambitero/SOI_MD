@@ -4,6 +4,8 @@
 
 #include "globals.h"
 
+#define BLK_TYPE        0x0003
+
 #define NORMAL_BLOCK    0x0001
 
 #define SOLID           0x0004
@@ -54,42 +56,42 @@
 #define SP_COL_MSK      0x0700
 
 #define GOODIE          0x0003
-#define GOOD_TYP_MSK    0x00FC
-#define GD_GET_INDEX(good) ( good >> 2 )
+#define GOOD_TYP_MSK    0x03F0
+#define GD_GET_INDEX(good) ( ( GOOD_TYP_MSK & good) >> 4 )
 
 #define GD_ADD_INFO(good) ( good << 8 )
 #define GD_GET_INFO(gd)   ( gd >> 8 )
 
-#define GD_SILVC         (0 << 2)
-#define GD_ARROW         (1 << 2)
-#define GD_CLK3h         (2 << 2)
-#define GD_CLK6h         (3 << 2)
-#define GD_CLK9h         (4 << 2)
-#define GD_CLK12h        (5 << 2)
-#define GD_GLASS         (6 << 2)
-#define GD_SHLD          (7 << 2)
-#define GD_BOOT          (8 << 2)
-#define GD_THNBALL       (9 << 2)
-#define GD_RDKEY         (10 << 2)
-#define GD_BLKEY         (11 << 2)
-#define GD_RDDOOR        (12 << 2)
-#define GD_BLDOOR        (13 << 2)
-#define GD_RDDOOR_open   (14 << 2)
-#define GD_BLDOOR_open   (15 << 2)
-#define GD_GOLDC         (16 << 2)
-#define GD_1UP           (17 << 2)
-#define GD_2x            (18 << 2)
-#define GD_3x            (19 << 2)
-#define GD_4x            (20 << 2)
-#define GD_5x            (21 << 2)
-#define GD_BALL          (22 << 2)
-#define GD_GEM           (23 << 2)
-#define GD_GOLD          (24 << 2)
-#define GD_TURTL         (25 << 2)
-#define GD_STAR          (26 << 2)
-#define GD_GRKEY         (27 << 2)
-#define GD_GRDOOR        (28 << 2)
-#define GD_GRDOOR_open   (29 << 2)
+#define GD_SILVC         (0 << 4)
+#define GD_ARROW         (1 << 4)
+#define GD_CLK3h         (2 << 4)
+#define GD_CLK6h         (3 << 4)
+#define GD_CLK9h         (4 << 4)
+#define GD_CLK12h        (5 << 4)
+#define GD_GLASS         (6 << 4)
+#define GD_SHLD          (7 << 4)
+#define GD_BOOT          (8 << 4)
+#define GD_THNBALL       (9 << 4)
+#define GD_RDKEY         (10 << 4)
+#define GD_BLKEY         (11 << 4)
+#define GD_RDDOOR        (12 << 4)
+#define GD_BLDOOR        (13 << 4)
+#define GD_RDDOOR_open   (14 << 4)
+#define GD_BLDOOR_open   (15 << 4)
+#define GD_GOLDC         (16 << 4)
+#define GD_1UP           (17 << 4)
+#define GD_2x            (18 << 4)
+#define GD_3x            (19 << 4)
+#define GD_4x            (20 << 4)
+#define GD_5x            (21 << 4)
+#define GD_BALL          (22 << 4)
+#define GD_GEM           (23 << 4)
+#define GD_GOLD          (24 << 4)
+#define GD_TURTL         (25 << 4)
+#define GD_STAR          (26 << 4)
+#define GD_GRKEY         (27 << 4)
+#define GD_GRDOOR        (28 << 4)
+#define GD_GRDOOR_open   (29 << 4)
 
 #define  BP ( NORMAL_BLOCK | SOLID | BREAKABLE | BLK_PLAYER | PL_BLUE )
 #define  GP ( NORMAL_BLOCK | SOLID | BREAKABLE | BLK_PLAYER | PL_GREEN )

@@ -307,7 +307,7 @@ static inline void goodie_debris(u8 front_ind){
     fx.pos[X] = BLOCK_TO_PX(IND_TO_X(front_ind)) + 8;
     fx.pos[Y] = BLOCK_TO_PX(IND_TO_Y(front_ind)) + 8;
     fx.frames = 0;
-    fx.character = goodies_vector[0];
+    fx.character = goodies_vector[GD_GET_INDEX( env->front_blocks[front_ind] )];
     fx.speed[X] = 0;
     fx.speed[Y] = -BRK_SPEED;
     break_block_ind(env, front_ind);

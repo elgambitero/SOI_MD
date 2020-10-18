@@ -276,23 +276,6 @@ const Entity gd_shield_ent = {
     NULL
 };
 
-const Entity gd_boost_ent = {
-    FX | WAS_GOODIE,
-    {7, 15},
-    {7, 15},
-    PAL_SYS0,
-    0,
-    &gd_sys0_spr,
-    0,
-    0,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL,
-    NULL
-};
-
 const Entity gd_boot_ent = {
     FX | WAS_GOODIE,
     {7, 15},
@@ -762,7 +745,6 @@ const Entity * const goodies_vector[] = {
     &gd_clk12h_ent,
     &gd_glass_ent,
     &gd_shield_ent,
-    &gd_boost_ent,
     &gd_boot_ent,
     &gd_thnball_ent,
     &gd_rdkey_ent,
