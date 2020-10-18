@@ -2,6 +2,7 @@
 
 #include "physics.h"
 #include "sound.h"
+#include "blocks.h"
 
 void NST_still_fall(){
     newstatus = FALL_RIGHT;
@@ -67,4 +68,20 @@ void NST_die(){
 void NST_deletes_and_keeps_going(){
     NST_deletes();
     NST_keep_walking();
+}
+
+void GD_obtain(){
+    fx.status = 0;
+    fx.pos[X] = BLOCK_TO_PX(IND_TO_X(front_ind)) + 8;
+    fx.pos[Y] = BLOCK_TO_PX(IND_TO_Y(front_ind)) + 8;
+    fx.frames = 0;
+    fx.character = goodies_vector[gd_index];
+    fx.speed[X] = 0;
+    fx.speed[Y] = -BRK_SPEED;
+    Actor * result = ACT_add(&fx, &fx_buf);
+    if(result){
+        if(gd_index >= GD_GET_INDEX( GD_GOLDC ) ) gd_index -= GD_GET_INDEX( GD_GOLDC );
+        SPR_setFrame(result->sprite, gd_index);
+    }
+    break_block_ind(env, front_ind);
 }

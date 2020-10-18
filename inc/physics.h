@@ -63,6 +63,10 @@ u8 dir;
 
 u16 front_ind;
 
+u8 gd_index;
+
+struct Actor fx;
+
 u8 PHY_init(Board * board, PlayerStat * bl_stats, PlayerStat * gr_stats);
 u8 PHY_computeStatus(Actor * actor);
 void PHY_send_inputs(u8 ctrl1, u8 ctrl2);

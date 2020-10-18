@@ -53,7 +53,8 @@ u8 * after_speed;
 
 u8 result;
 
-struct Actor fx = {0,
+/*
+fx = {0,
     0,
     0,
     {0, 0},
@@ -61,6 +62,7 @@ struct Actor fx = {0,
     0,
     0
 };
+*/
 
 u32 board_presence[8];
 
@@ -302,21 +304,11 @@ static inline void jmp_brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
     ACT_add(&fx, &fx_buf);
 }
 
-static inline void goodie_debris(u8 front_ind){
-    fx.status = 0;
-    fx.pos[X] = BLOCK_TO_PX(IND_TO_X(front_ind)) + 8;
-    fx.pos[Y] = BLOCK_TO_PX(IND_TO_Y(front_ind)) + 8;
-    fx.frames = 0;
-    u8 index = GD_GET_INDEX( env->front_blocks[front_ind] );
-    fx.character = goodies_vector[index];
-    fx.speed[X] = 0;
-    fx.speed[Y] = -BRK_SPEED;
-    break_block_ind(env, front_ind);
-    Actor * result = ACT_add(&fx, &fx_buf);
-    if(result){
-        if(index >= GD_GET_INDEX( GD_GOLDC ) ) index -= GD_GET_INDEX( GD_GOLDC );
-        SPR_setFrame(result->sprite, index);
-    }
+static inline void gd_process(u8 front_ind){
+    gd_index = GD_GET_INDEX( env->front_blocks[front_ind] );
+    const Entity * character = goodies_vector[gd_index];
+    if(character->onCrash) character->onCrash();
+    if(character->onTrip) character->onTrip();
 }
 
 void summon_deletor(u8 front_ind, u8 deletes){
@@ -452,7 +444,7 @@ static inline void player_tree(){
                 curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
                     break;
                 case GOODIE:
-                    goodie_debris(front_ind);
+                    gd_process(front_ind);
                 default:
                     curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
                     break;
