@@ -16,6 +16,8 @@ u16 ind;
 u16 frmInd;
 PlayerStat bl_stats, gr_stats;
 
+u16 levelInd;
+
 void gameInit();
 void levelInit();
 void drawFrame();
@@ -44,13 +46,16 @@ void gameplayLoop(){
             SPR_update();
         break;
         case ENDBOARD:
-
+            PAL_fadeOut(0, 63, 30, FALSE);
+            PHY_end();
+            gameState = AFTERBOARD;
         break;
         case AFTERBOARD:
-
+            gameState = NEXTBOARD;
         break;
         case NEXTBOARD:
-
+            levelInd++;
+            gameState = INITBOARD;
         break;
         case GAMEENDING:
 
@@ -75,10 +80,12 @@ void gameplayLoop(){
 }
 
 void gameInit(){
-    current_level = levels[0];
+    levelInd = 0;
 }
 
 void levelInit(){
+
+    current_level = levels[levelInd];
 
     ind = TILE_USERINDEX;
     blue_player = NULL;
