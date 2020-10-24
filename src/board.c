@@ -170,21 +170,18 @@ void play_board_music(Board * board){
 }
 
 u16 seek_block(Board * board, u16 block){
-    u16 result = BOARD_NOTFOUND;
-
-    for(u8 i = 0; i++; i<BOARD_BUFFER){
+    
+    for(u8 i = 0; i<BOARD_BUFFER; i++){
         if(board->front_blocks[i] == block){
-            result = i;
-            return result;
+            return i;
         }
     }
 
-    for(u8 i = 0; i++; i<BOARD_BUFFER){
+    for(u8 i = 0; i<BOARD_BUFFER; i++){
         if(board->back_blocks[i] == block){
-            result = i + BOARD_BUFFER;
-            return result;
+            return i + BOARD_BUFFER;
         }
     }
 
-    return result;
+    return BOARD_NOTFOUND;;
 }

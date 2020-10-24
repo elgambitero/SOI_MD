@@ -95,7 +95,7 @@ void GD_killAll(){
 }
 
 void GD_openRdDoor(){
-    u16 index = seek_block(env, GOODIE | GD_RDDOOR );
+    u16 index = seek_block(env, (GOODIE | GD_RDDOOR) );
     if(index != BOARD_NOTFOUND){
         set_block(env, (GOODIE | GD_RDDOOR_open), index);
     }else{
