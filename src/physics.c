@@ -155,7 +155,7 @@ static inline u8 crash_into(){
         return FRAME;
     if(SOLID & env->front_blocks[front_ind])
         return BLOCK;
-    if(GOODIE & env->front_blocks[front_ind])
+    if((GOODIE & env->front_blocks[front_ind]) == GOODIE)
         return GOODIE;
     else
         return 0;
