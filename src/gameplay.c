@@ -44,10 +44,14 @@ void gameplayLoop(){
             PHY_send_inputs(bl_ctrl, gr_ctrl);
             PHY_update();
             SPR_update();
+            if(blue_player == PASSING_PLAYER){
+                PAL_fadeOut(0, 63, 30, FALSE);
+                gameState = ENDBOARD;
+            }
         break;
         case ENDBOARD:
-            PAL_fadeOut(0, 63, 30, FALSE);
             PHY_end();
+            memset(&board, 0, sizeof(board));
             gameState = AFTERBOARD;
         break;
         case AFTERBOARD:
@@ -113,13 +117,11 @@ void levelInit(){
     SPR_init();
     
     if(!PHY_init(&board, &bl_stats, &gr_stats)) {
-        gameState = GAMEEXIT;
-        return;
+        SYS_die("Error when initializing Physics");
     }
     
     if(!load_board(&board, current_level)) {
-        gameState = GAMEEXIT;
-        return;
+        SYS_die("Error when loading the Board");
     }
 
     blue_player = ACT_seek(&blue_player_ent, &players);

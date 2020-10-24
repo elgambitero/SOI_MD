@@ -7,6 +7,10 @@
 #define BOW (NORMAL_BLOCK | SOLID | BLK_DOT   | COL_WHITE)
 #define BFW (NORMAL_BLOCK | SOLID | BLK_FLAT  | COL_WHITE)
 #define BFR (NORMAL_BLOCK | SOLID | BLK_FLAT  | COL_SLOT1)
+#define GLC (GOODIE | GD_GOLDC)
+#define SLC (GOODIE | GD_SILVC)
+#define RDK (GOODIE | GD_RDKEY)
+#define RDD (GOODIE | GD_RDDOOR)
 
 static const Actor blp = {&blue_player_ent,
        0,
@@ -40,18 +44,18 @@ static const Actor robo = {&robo_ent,
 const Board level1 = {
     {
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+       0,   0, SLC,   0,   0,   0,   0,   0, GLC,   0, GLC,   0,   0,   0,   0,   0, SLC,   0,   0,
        0,   0, BOR, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BOR,   0,   0,
+       0,   0,   0,   0,   0, SLC,   0,   0,   0,  SLC,   0,   0,   0, SLC,   0,   0,   0,   0,   0,
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+     RDD,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, RDK,
      BFW, BFW, BOR,   0,   0,   0,   0, BOR, BFW, BFW, BFW, BOR,   0,   0,   0,   0, BOR, BFW, BFW,
      BFR, BFR, BFW,   0,   0,   0,   0, BFW, BFR, BFR, BFR, BFW,   0,   0,   0,   0, BFW, BFR, BFR,
      BFR, BFR, BFW,   0,   0,   0,   0, BFW, BFR, BFR, BFR, BFW,   0,   0,   0,   0, BFW, BFR, BFR,
      BFR, BFR, BFW,   0,   0,   0,   0, BFW, BFR, BFR, BFR, BFW,   0,   0,   0,   0, BFW, BFR, BFR,
      BFR, BFR, BFW,   0,   0,   0,   0, BFW, BFR, BFR, BFR, BFW,   0,   0,   0,   0, BFW, BFR, BFR,
-     BFR, BFR, BFW,   0,   0,   0,   0, BFW, BFR, BFR, BFR, BFW,   0,   0,   0,   0, BFW, BFR, BFR,
+     BFR, BFR, BFW, SLC,   0,   0,   0, BFW, BFR, BFR, BFR, BFW,   0,   0,   0, SLC, BFW, BFR, BFR,
     },
 
     {

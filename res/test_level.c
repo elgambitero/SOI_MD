@@ -104,9 +104,9 @@ static const Actor ant = {&ant_ent,
 const Board test_level = {
     {
      BFW, BOW, BDW, CHI, QUE, NET,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-     BFG, BOG, BDG,   0,   0,   0,   0,   0,  OB, GLC,  OB, GLC,  OB,  OB,  OB,  FW,   0,   0,   0,
+     BFG, BOG, BDG,   0,   0,   0,   0,   0,   0, RDK,   0, RDD,   0,   0,   0,   0,   0,   0,   0,
      BFR, BOR, BDR,   0,   0,   0, BOR, BOR, BOR, BOR, BOR, BOR, BOW, BOR, BOR, BOR,   0,   0,   0,
-     BFB, BOB, BDB,   0,   0,   0, BOB, NET, NET, NET, NET,   0,   0,   0,   0,   0,   0,   0,  RDK,
+     BFB, BOB, BDB,   0,   0,   0, BOB, NET, NET, NET, NET,   0,   0,   0,   0,   0,   0,   0,   0,
        0,   0,   0,   0,   0,   0, BOB, NET, NET, NET, NET,   0,   0,   0,   0,   0,   0,  GLC, BDB,
        0,   0,   0,   0,   0,   0, BOB, NET,   0, NET, NET,   0,   0,   0,   0,   0, BOG, BDR,   0,
       GP, THN,   0,   0,   0,   0, BOB, NET,   0, NET, NET,   0,   0, BFG, GLC, GLC,   0,   0,   0,

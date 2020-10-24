@@ -65,6 +65,8 @@ u16 front_ind;
 
 u8 gd_index;
 
+u8 result;
+
 struct Actor fx;
 
 u8 PHY_init(Board * board, PlayerStat * bl_stats, PlayerStat * gr_stats);

@@ -387,7 +387,7 @@ const Entity gd_rddoor_open_ent = {
     &gd_sys0_spr,
     0,
     0,
-    NULL,
+    &GD_enterRdDoor,
     NULL,
     NULL,
     NULL,

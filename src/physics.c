@@ -51,8 +51,6 @@ u8 * after_status;
 u8 bl_after_speed[2], gr_after_speed[2];
 u8 * after_speed;
 
-u8 result;
-
 /*
 fx = {0,
     0,

@@ -1,6 +1,7 @@
 #include "behavior.h"
 
 #include "physics.h"
+#include "gameplay.h"
 #include "sound.h"
 #include "blocks.h"
 
@@ -101,5 +102,18 @@ void GD_openRdDoor(){
     }else{
         //this crashes the game on purpose
         SYS_die("Red Door not found");
+    }
+}
+
+void GD_enterRdDoor(){
+    if(curr == blue_player){
+        blue_player = PASSING_PLAYER;
+        result = ACT_DELETION;
+        return;
+    }
+    if(curr == green_player){
+        green_player = PASSING_PLAYER;
+        result = ACT_DELETION;
+        return;
     }
 }

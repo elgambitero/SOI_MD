@@ -84,7 +84,7 @@ void ACT_end(ActorList * actors){
     actors->actorBank = NULL;
     MEM_free(actors->actorStack);
     actors->actorStack = NULL;
-    MEM_free(actors->actorFree);
+    //MEM_free(actors->actorFree);
     actors->actorFree = NULL;
     
 }
