@@ -6,10 +6,7 @@
 
 const Board test_level;
 const Board level1;
-/*
-extern const Board *levels[] = {
-    &test_level,
-    &level1
-};
-*/
+
+extern const Board * levels[];
+
 #endif

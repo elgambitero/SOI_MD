@@ -75,7 +75,7 @@ void gameplayLoop(){
 }
 
 void gameInit(){
-    current_level = &test_level;
+    current_level = levels[0];
 }
 
 void levelInit(){
