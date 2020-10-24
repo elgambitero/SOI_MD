@@ -44,7 +44,8 @@ void gameplayLoop(){
             PHY_send_inputs(bl_ctrl, gr_ctrl);
             PHY_update();
             SPR_update();
-            if(blue_player == PASSING_PLAYER){
+            if(blue_player == PASSING_PLAYER &
+                green_player == PASSING_PLAYER){
                 PAL_fadeOut(0, 63, 30, FALSE);
                 gameState = ENDBOARD;
             }
