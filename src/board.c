@@ -113,6 +113,15 @@ u16 getBlock(Board * board, u8 x, u8 y){
     return board->front_blocks[XY_TO_IND(x, y)];
 }
 
+void set_block(Board * board, u16 block, u16 ind){
+    if(ind < BOARD_BUFFER){
+        board->front_blocks[ind] = block;
+        drawBlock(IND_TO_X(ind), IND_TO_Y(ind), block);
+    }else{
+        board->back_blocks[ind - BOARD_BUFFER] = block;
+    }
+}
+
 void create_block(Board * board, u16 block, u8 x, u8 y){
     u8 ind = XY_TO_IND(x, y);
     board->front_blocks[ind] = block;
@@ -158,4 +167,24 @@ void play_board_music(Board * board){
             XGM_startPlay(heavy1);
             break;
     }
+}
+
+u16 seek_block(Board * board, u16 block){
+    u16 result = BOARD_NOTFOUND;
+
+    for(u8 i = 0; i++; i<BOARD_BUFFER){
+        if(board->front_blocks[i] == block){
+            result = i;
+            return result;
+        }
+    }
+
+    for(u8 i = 0; i++; i<BOARD_BUFFER){
+        if(board->back_blocks[i] == block){
+            result = i + BOARD_BUFFER;
+            return result;
+        }
+    }
+
+    return result;
 }

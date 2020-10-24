@@ -7,6 +7,7 @@
 #define BOARD_X 19
 #define BOARD_Y 13
 #define BOARD_BUFFER BOARD_X * BOARD_Y
+#define BOARD_NOTFOUND 0xFFFF
 
 #define BOARD_X_PX BOARD_X * 16
 #define BOARD_Y_PX BOARD_Y * 16
@@ -35,9 +36,11 @@ void load_board_palettes(Board * board);
 void draw_board(Board * board);
 void play_board_music(Board * board);
 u16 getBlock(Board * board, u8 x, u8 y);
+void set_block(Board * board, u16 block, u16 ind);
 void create_block(Board * board, u16 block, u8 x, u8 y);
 void create_block_ind(Board * board, u16 block, u8 ind);
 void break_block(Board * board, u8 x, u8 y);
 void break_block_ind(Board * board, u8 ind);
+u16 seek_block(Board * board, u16 block);
 
 #endif

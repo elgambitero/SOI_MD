@@ -320,7 +320,7 @@ const Entity gd_rdkey_ent = {
     0,
     0,
     &GD_obtain,
-    NULL,
+    &GD_openRdDoor,
     NULL,
     NULL,
     NULL,

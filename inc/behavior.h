@@ -15,5 +15,6 @@ void NST_deletes_and_keeps_going();
 
 void GD_obtain();
 void GD_killAll();
+void GD_openRdDoor();
 
 #endif
