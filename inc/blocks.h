@@ -98,5 +98,6 @@
 
 void drawBlock(u8 x, u8 y, u16 block);
 void eraseBlock(u8 x, u8 y);
+void eraseBlock_ind(u8 ind);
 
 #endif

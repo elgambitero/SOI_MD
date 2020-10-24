@@ -32,6 +32,7 @@ typedef struct Board{
 } Board;
 
 u8 load_board(Board * board, const Board * level);
+void unload_board(Board * board);
 void load_board_palettes(Board * board);
 void draw_board(Board * board);
 void play_board_music(Board * board);

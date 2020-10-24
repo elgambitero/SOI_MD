@@ -51,7 +51,7 @@ void gameplayLoop(){
         break;
         case ENDBOARD:
             PHY_end();
-            memset(&board, 0, sizeof(board));
+            unload_board(&board);
             gameState = AFTERBOARD;
         break;
         case AFTERBOARD:

@@ -151,6 +151,11 @@ void eraseBlock(u8 x, u8 y){
     VDP_clearTileMapRect(PLAN_B, BLK_TO_TILE(x), BLK_TO_TILE(y), 2, 2);
 }
 
+void eraseBlock_ind(u8 ind){
+    VDP_clearTileMapRect(PLAN_A, BLK_TO_TILE(IND_TO_X(ind)), BLK_TO_TILE(IND_TO_Y(ind)), 2, 2);
+    VDP_clearTileMapRect(PLAN_B, BLK_TO_TILE(IND_TO_X(ind)), BLK_TO_TILE(IND_TO_Y(ind)), 2, 2);
+}
+
 void load_blk_tiles(u16 ind){
     VDP_loadTileSet(clr_blk_bg.tileset, ind, DMA);
     clr_blk_bg_ind = ind;

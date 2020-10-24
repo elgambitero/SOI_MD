@@ -24,6 +24,13 @@ u8 load_board(Board * board, const Board * level){
     return 1;
 }
 
+void unload_board(Board * board){
+    memset(board, 0, sizeof(board));
+    for(u8 i = 0; i<BOARD_BUFFER; i++){
+        eraseBlock_ind(i);
+    }
+}
+
 void load_board_palettes(Board * board){
     u16 white[8];
     u16 slot0[8];
