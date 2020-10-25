@@ -5,4 +5,51 @@ WAV fim "sounds/fim.wav" 5
 WAV metal2 "sounds/metal2.wav" 5
 WAV smack "sounds/smack.wav" 5
 WAV bell "sounds/bell.wav" 5
-WAV moon_blast "sounds/moon_blast.wav" 5
+
+WAV snd_1up "sounds/1up.wav" 5
+WAV snd_arrow "sounds/arrow.wav" 5
+WAV snd_ball "sounds/ball.wav" 5
+WAV snd_boot "sounds/boot.wav" 5
+WAV snd_clock "sounds/clock.wav" 5
+WAV snd_door_exit "sounds/door_exit.wav" 5
+WAV snd_gem "sounds/gem.wav" 5
+WAV snd_glass "sounds/glass.wav" 5
+WAV snd_goldbar "sounds/goldbar.wav" 5
+WAV snd_gold_coin "sounds/gold_coin.wav" 5
+WAV snd_key "sounds/key.wav" 5
+WAV snd_multiplier "sounds/multiplier.wav" 5
+WAV snd_shield "sounds/shield.wav" 5
+WAV snd_silver_coin "sounds/silver_coin.wav" 5
+WAV snd_thunderball "sounds/thunderball.wav" 5
+WAV snd_turtle "sounds/turtle.wav" 5
+
+WAV snd_beanie "sounds/beanie.wav" 5
+WAV snd_cowbell "sounds/cowbell.wav" 5
+WAV snd_piggy "sounds/piggy.wav" 5
+WAV snd_robo "sounds/robo.wav" 5
+WAV snd_player_death "sounds/player_death.wav" 5
+WAV snd_smiley "sounds/smiley.wav" 5
+
+WAV snd_arrow_fire "sounds/arrow_fire.wav" 5
+WAV snd_ball_fire "sounds/ball_fire.wav" 5
+WAV snd_beanie_fire "sounds/beanie_fire.wav" 5
+WAV snd_block_break "sounds/block_break.wav" 5
+WAV snd_block_crack "sounds/block_crack.wav" 5
+WAV snd_block_create "sounds/block_create.wav" 5
+WAV snd_block_delete "sounds/block_delete.wav" 5
+WAV snd_cannon_fire "sounds/cannon_fire.wav" 5
+WAV snd_one "sounds/one.wav" 5
+WAV snd_two "sounds/two.wav" 5
+WAV snd_three "sounds/three.wav" 5
+WAV snd_four "sounds/four.wav" 5
+WAV snd_five "sounds/five.wav" 5
+WAV snd_gargoyle_fire "sounds/gargoyle_fire.wav" 5
+WAV snd_hait "sounds/hait.wav" 5
+WAV snd_huoh "sounds/huoh.wav" 5
+WAV snd_hurry_up "sounds/hurry_up.wav" 5
+WAV snd_metal_bonk "sounds/metal_bonk.wav" 5
+WAV snd_switch "sounds/switch.wav" 5
+WAV snd_teleport "sounds/teleport.wav" 5
+
+WAV snd_bonus_nothing "sounds/bonus_nothing.wav" 5
+WAV snd_bonus_start "sounds/bonus_start.wav" 5
