@@ -609,6 +609,7 @@ static inline void player_tree(){
                 case BLOCK:
                     break;
                 case GOODIE:
+                    gd_process(front_ind);
                 default:
                     curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
                     break;
@@ -625,6 +626,7 @@ static inline void player_tree(){
                     curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
                     break;
                 case GOODIE:
+                    gd_process(front_ind);
                 default:
                     curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
                     break;
@@ -650,6 +652,7 @@ static inline void player_tree(){
                         curr->speed[X] = 0;
                         break;
                     case GOODIE:
+                        gd_process(front_ind);
                     default:
                         break;
                 }
@@ -661,6 +664,7 @@ static inline void player_tree(){
                         curr->speed[X] = 0;
                         break;
                     case GOODIE:
+                    gd_process(front_ind);
                     default:
                         break;
                 }

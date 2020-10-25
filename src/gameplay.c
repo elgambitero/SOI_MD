@@ -46,7 +46,7 @@ void gameplayLoop(){
             SPR_update();
             if(blue_player == PASSING_PLAYER &
                 green_player == PASSING_PLAYER){
-                PAL_fadeOut(0, 63, 30, FALSE);
+                PAL_fadeOut(0, 63, 60, FALSE);
                 gameState = ENDBOARD;
             }
         break;
