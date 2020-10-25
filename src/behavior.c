@@ -40,7 +40,7 @@ void NST_breaks(){
     calc_front_block();
     break_block_ind(env, front_ind);
     brk_debris(front_ind, BRK_SPEED, 0);
-    XGM_setPCM(SFX_IND, blk_phy_break, sizeof(blk_phy_break));
+    XGM_setPCM(SFX_IND, snd_metal_bonk, sizeof(snd_metal_bonk));
     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
 }
 

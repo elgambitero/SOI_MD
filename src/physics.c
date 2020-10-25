@@ -305,6 +305,10 @@ static inline void jmp_brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
 static inline void gd_process(u8 front_ind){
     gd_index = GD_GET_INDEX( env->front_blocks[front_ind] );
     const Entity * character = goodies_vector[gd_index];
+    if(character->death_sound){
+        XGM_setPCM(SFX_IND, character->death_sound, character->death_sound_size);
+        XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    }
     if(character->onCrash) character->onCrash();
     if(character->onTrip) character->onTrip();
 }
@@ -492,7 +496,7 @@ static inline void player_tree(){
                         create_block_ind(env, BP, front_ind);
                     else
                         create_block_ind(env, GP, front_ind);
-                    XGM_setPCM(SFX_IND, whoah, sizeof(whoah));
+                    XGM_setPCM(SFX_IND, snd_block_create, sizeof(snd_block_create));
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                     summon_deletor(front_ind, FALSE);
                 break;
@@ -500,12 +504,12 @@ static inline void player_tree(){
                     calc_next(dir);
                     calc_front_block();
                     break_block_ind(env, front_ind);
-                    XGM_setPCM(SFX_IND, fim, sizeof(fim));
+                    XGM_setPCM(SFX_IND, snd_block_delete, sizeof(snd_block_delete));
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                     summon_deletor(front_ind, TRUE);
                 break;
                 case SHOOT:
-                    XGM_setPCM(SFX_IND, fim, sizeof(fim));
+                    XGM_setPCM(SFX_IND, snd_arrow_fire, sizeof(snd_arrow_fire));
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                     if(pl_act == &bl_act)
                         summon_arrow(dir, &bp_projectiles);
@@ -571,7 +575,7 @@ static inline void player_tree(){
                         create_block_ind(env, BP, front_ind);
                     else
                         create_block_ind(env, GP, front_ind);
-                    XGM_setPCM(SFX_IND, whoah, sizeof(whoah));
+                    XGM_setPCM(SFX_IND, snd_block_create, sizeof(snd_block_create));
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                     summon_deletor(front_ind, FALSE);
                 break;
@@ -579,7 +583,7 @@ static inline void player_tree(){
                     calc_next(dir);
                     calc_next_floor();
                     break_block_ind(env, front_ind);
-                    XGM_setPCM(SFX_IND, fim, sizeof(fim));
+                    XGM_setPCM(SFX_IND, snd_block_delete, sizeof(snd_block_delete));
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                     summon_deletor(front_ind, TRUE);
                 break;
@@ -699,13 +703,13 @@ static inline void player_tree(){
             calc_top_block();
             if(top < BOARD_X_PX && ( env->front_blocks[top_ind] & BREAKABLE )){
                 if(env->front_blocks[top_ind] & BROKEN){
-                    XGM_setPCM(SFX_IND, smack, sizeof(smack));
+                    XGM_setPCM(SFX_IND, snd_block_break, sizeof(snd_block_break));
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                     //play snap sound
                     break_block_ind(env, top_ind);
                     jmp_brk_debris(top_ind, 0, -BRK_SPEED);
                 }else{
-                    XGM_setPCM(SFX_IND, metal2, sizeof(metal2));
+                    XGM_setPCM(SFX_IND, snd_block_crack, sizeof(snd_block_crack));
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                     create_block_ind(env, env->front_blocks[top_ind] | BROKEN, top_ind);
                 }
