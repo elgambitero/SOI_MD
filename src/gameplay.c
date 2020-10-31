@@ -60,10 +60,22 @@ void gameplayLoop(){
         break;
         case NEXTBOARD:
             levelInd++;
+            if(levelInd == max_levels)
+            {
+                gameState = GAMEENDING;
+                break;
+            }
             gameState = INITBOARD;
         break;
         case GAMEENDING:
-
+            //VDP_resetScreen();
+            SPR_end();
+            VDP_clearPlan(PLAN_A, TRUE);
+            VDP_clearPlan(PLAN_B, TRUE);
+            XGM_stopPlay();
+            PAL_setColor(15, 0x0FFF);
+            VDP_drawTextBG(PLAN_A,"Thank you for playing", 5, 10);
+            gameState = GAMEEXIT;
         break;
         case GAMEEXIT:
             /*
