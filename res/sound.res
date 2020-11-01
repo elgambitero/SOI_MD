@@ -16,11 +16,17 @@ WAV snd_thunderball "sounds/thunderball.wav" 5
 WAV snd_turtle "sounds/turtle.wav" 5
 
 WAV snd_beanie "sounds/beanie.wav" 5
-WAV snd_cowbell "sounds/cowbell.wav" 5
+WAV snd_ant "sounds/cowbell.wav" 5
+WAV snd_hippo "sounds/hippo.wav" 5
 WAV snd_piggy "sounds/piggy.wav" 5
 WAV snd_robo "sounds/robo.wav" 5
 WAV snd_player_death "sounds/player_death.wav" 5
 WAV snd_smiley "sounds/smiley.wav" 5
+WAV snd_teeth "sounds/bonus_nothing.wav" 5
+WAV snd_hammer "sounds/explosion.wav" 5
+WAV snd_wheelie "sounds/laser.wav" 5
+WAV snd_ostrich "sounds/honk.wav" 5
+WAV snd_walker "sounds/snare.wav" 5
 
 WAV snd_arrow_fire "sounds/arrow_fire.wav" 5
 WAV snd_ball_fire "sounds/ball_fire.wav" 5
