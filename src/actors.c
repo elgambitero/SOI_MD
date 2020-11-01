@@ -127,6 +127,10 @@ void ACT_update(ActorList * actors){
             POS_TO_PX(current->pos[X]) - current->character->spr_pos[X] + BOARD_OFFSET_X,
             POS_TO_PX(current->pos[Y]) - current->character->spr_pos[Y] + BOARD_OFFSET_Y);
         next = current->next;
+        if(current->timer){
+            current->timer++;
+            if(current->timer == MAX_TIMER) phy_result = ACT_DELETION;
+        }
         switch(phy_result){
             case ACT_CHANGED:
                 SPR_setAnim(current->sprite, current->status);

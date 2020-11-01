@@ -6,6 +6,10 @@
 
 #define DECIMALS 2
 
+#define MAX_TIMER 65535
+#define SPAWN_TIME 500
+#define STAY_TIME 1300
+
 #define PX_TO_POS(x) (x << DECIMALS)
 #define POS_TO_PX(x) (x >> DECIMALS)
 
@@ -15,6 +19,7 @@ typedef struct Actor{
     u8 frames;
     u16 pos[2]; //px when declared, px/DECIMALS when in use.
     s8 speed[2];
+    u16 timer;
     Sprite * sprite;
     struct Actor * next;
 }Actor;

@@ -1,5 +1,6 @@
 #include "levels.h"
 #include "blocks.h"
+#include "actors.h"
 
 #define BDR (NORMAL_BLOCK | SOLID | BLK_DONUT | COL_SLOT1)
 #define BOR (NORMAL_BLOCK | SOLID | BLK_DOT   | COL_SLOT1)
@@ -18,6 +19,7 @@ static const Actor blp = {&blue_player_ent,
     {120, 112},
     {   0,    0},
       0,
+      0,
       0
     };
 
@@ -27,6 +29,7 @@ static const Actor blp = {&blue_player_ent,
    {184, 112},
    {   0,    0},
       0,
+      0,
       &blp
    };
 
@@ -35,6 +38,7 @@ static const Actor robo = {&robo_ent,
    0,
    {40, 32},
    {0, 0},
+      0,
    0,
    0,
    };

@@ -1,5 +1,6 @@
 #include "levels.h"
 #include "blocks.h"
+#include "actors.h"
 
 #define BDG (NORMAL_BLOCK | SOLID | BLK_DONUT | COL_SLOT1)
 #define BOG (NORMAL_BLOCK | SOLID | BLK_DOT   | COL_SLOT1)
@@ -31,6 +32,7 @@ static const Actor blp = {&blue_player_ent,
        0,
     {104, 31},
     {   0,    0},
+      0,
        0,
        0
     };
@@ -40,6 +42,7 @@ static const Actor glp = {&green_player_ent,
        0,
     {120, 31},
     {   0,    0},
+      0,
        0,
        &blp
     };
@@ -49,6 +52,7 @@ static const Actor spinner3 = {&spinner_ent,
        0,
     {134, 60},
     {   0,    0},
+      0,
        0,
       0
     };
@@ -58,6 +62,7 @@ static const Actor spinner2 = {&spinner_ent,
        0,
     {166, 60},
     {   0,    0},
+      0,
        0,
     &spinner3
     };
@@ -68,6 +73,7 @@ static const Actor spinner = {&spinner_ent,
        0,
     {150, 60},
     {   0,    0},
+      0,
        0,
     &spinner2
     };
@@ -77,6 +83,7 @@ static const Actor robo = {&teeth_ent,
    0,
    {152, 32},
    {0, 0},
+      MAX_TIMER - STAY_TIME,
    0,
    &spinner
    };
@@ -86,6 +93,7 @@ static const Actor piggy = {&piggy_ent,
    0,
    {264, 31},
    {0, 0},
+      0,
    0,
    &robo
    };
@@ -95,6 +103,7 @@ static const Actor ant = {&ant_ent,
       0,
    {264, 31},
    {   0,    0},
+      MAX_TIMER - STAY_TIME,
       0,
    &piggy
    };
