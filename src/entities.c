@@ -303,7 +303,7 @@ const Entity gd_thnball_ent = {
     snd_thunderball,
     sizeof(snd_thunderball),
     &GD_obtain,
-    &GD_killAll,
+    &GD_killSpawned,
     NULL,
     NULL,
     NULL,

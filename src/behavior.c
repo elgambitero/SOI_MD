@@ -95,6 +95,14 @@ void GD_killAll(){
     }
 }
 
+void GD_killSpawned(){
+    Actor * nastie = ACT_getFirst(&nasties);
+    while(nastie){
+        if(nastie->timer) kill(nastie, 0, -2*FALLSPEED);
+        nastie = nastie->next;
+    }
+}
+
 void GD_openRdDoor(){
     u16 index = seek_block(env, (GOODIE | GD_RDDOOR) );
     if(index != BOARD_NOTFOUND){
