@@ -49,12 +49,17 @@ Actor * ACT_add(Actor * actor, ActorList * actors)
 
     result->next = NULL;
 
-    result->sprite =
+    if(result->character->sprite_def){
+        result->sprite =
         SPR_addSprite(result->character->sprite_def,
         POS_TO_PX(result->pos[0]) - result->character->spr_pos[X] + BOARD_OFFSET_X, 
         POS_TO_PX(result->pos[1]) - result->character->spr_pos[Y] + BOARD_OFFSET_Y,
         TILE_ATTR_FULL(result->character->palette,TRUE, FALSE, FALSE,TILE_USERINDEX));
-    if(result) SPR_setAnim(result->sprite, result->status);
+        
+    }else{
+        result->sprite = NULL;
+    }
+    if(result->sprite) SPR_setAnim(result->sprite, result->status);
     return result;
 }
 
@@ -71,7 +76,7 @@ u8 ACT_remove(Actor * actor, ActorList * actors)
     if(prev){
         if(actor == actors->lastActor) actors->lastActor = prev;
         prev->next = actor->next;
-        SPR_releaseSprite(actor->sprite);
+        if(actor->sprite) SPR_releaseSprite(actor->sprite);
         *(actors->actorFree)++ = actor;
         return 1;
     }else{
@@ -123,7 +128,7 @@ void ACT_update(ActorList * actors){
         current->pos[X] += current->speed[X];
         current->pos[Y] += current->speed[Y];
 
-        SPR_setPosition(current->sprite,
+        if(current->sprite) SPR_setPosition(current->sprite,
             POS_TO_PX(current->pos[X]) - current->character->spr_pos[X] + BOARD_OFFSET_X,
             POS_TO_PX(current->pos[Y]) - current->character->spr_pos[Y] + BOARD_OFFSET_Y);
         next = current->next;
@@ -133,7 +138,7 @@ void ACT_update(ActorList * actors){
         }
         switch(phy_result){
             case ACT_CHANGED:
-                SPR_setAnim(current->sprite, current->status);
+                if(current->sprite) SPR_setAnim(current->sprite, current->status);
             break;
             case ACT_DELETION:
                 ACT_remove(current, actors);

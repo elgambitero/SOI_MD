@@ -75,11 +75,14 @@ typedef struct Entity{
 
 extern const Entity blue_player_ent;
 extern const Entity green_player_ent;
+
 extern const Entity spinner_ent;
 extern const Entity robo_ent;
 extern const Entity ant_ent;
 extern const Entity piggy_ent;
 extern const Entity teeth_ent;
+
+extern const Entity ant_spawner_ent;
 
 extern const Entity gd_silvCoin_ent;
 extern const Entity gd_arrow_ent;

@@ -108,6 +108,15 @@ static const Actor ant = {&ant_ent,
    &piggy
    };
 
+static const Actor ant_spawn = {&ant_spawner_ent,
+      0,
+      0,
+      {231,31},
+      {0, 0},
+      0,
+      0,
+      &ant
+};
 
 
 const Board test_level = {
@@ -145,6 +154,6 @@ const Board test_level = {
     {PAL_GR, PAL_R, PAL_BL},
     0,
     0,
-    &ant,
+    &ant_spawn,
     &glp
 };

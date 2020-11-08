@@ -38,6 +38,23 @@ const Entity green_player_ent = {
     NULL
 };
 
+const Entity ant_spawner_ent = {
+    NASTIE | STILL | CREATES_NASTIE,
+    {8, 15},
+    {7, 15},
+    PAL_SYS0,
+    0,
+    0,
+    0,
+    0,
+    NULL,
+    NULL,
+    NST_still_fall,
+    NST_still_land,
+    NULL,
+    NULL
+};
+
 const Entity spinner_ent = {
     NASTIE | STILL,
     {6, 15},
