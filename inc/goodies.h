@@ -49,6 +49,6 @@ extern const Entity GD_grkey;
 extern const Entity GD_grdoor;
 extern const Entity GD_grdoor_open;
 
-//extern const Entity * const goodies_vector[];
+extern const Entity * const goodies_vector[];
 
 #endif

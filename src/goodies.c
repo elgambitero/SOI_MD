@@ -470,6 +470,42 @@ const Entity GD_grdoor_open = {
 
 
 
+const OLDEntity * const goodies_vector[] = {
+    &GD_silvCoin,
+    &GD_arrow,
+    &GD_clk3h,
+    &GD_clk6h,
+    &GD_clk9h,
+    &GD_clk12h,
+    &GD_glass,
+    &GD_shield,
+    &GD_boot,
+    &GD_thnball,
+    &GD_rdkey,
+    &GD_blkey,
+    &GD_rddoor,
+    &GD_bldoor,
+    &GD_rddoor_open,
+    &GD_bddoor_open,
+    &GD_goldCoin,
+    &GD_1UP,
+    &GD_2x,
+    &GD_3x,
+    &GD_4x,
+    &GD_5x,
+    &GD_ball,
+    &GD_gem,
+    &GD_gold,
+    &GD_turtl,
+    &GD_star,
+    &GD_grkey,
+    &GD_grdoor,
+    &GD_grdoor_open,
+};
+
+
+
+
 void GD_obtain(){
     fx.status = 0;
     fx.pos[X] = BLOCK_TO_PX(IND_TO_X(front_ind)) + 8;
