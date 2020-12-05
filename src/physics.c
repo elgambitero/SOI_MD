@@ -304,7 +304,7 @@ static inline void jmp_brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
 
 static inline void gd_process(u8 front_ind){
     gd_index = GD_GET_INDEX( env->front_blocks[front_ind] );
-    const Entity * character = goodies_vector[gd_index];
+    const OLDEntity * character = goodies_vector[gd_index];
     if(character->death_sound){
         XGM_setPCM(SFX_IND, character->death_sound, character->death_sound_size);
         XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);

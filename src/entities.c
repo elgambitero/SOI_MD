@@ -4,7 +4,7 @@
 #include "sound.h"
 #include "behavior.h"
 
-const Entity blue_player_ent = {
+const OLDEntity blue_player_ent = {
     BLUE_PLAYER,
     {2, 15},
     {7, 15},
@@ -21,7 +21,7 @@ const Entity blue_player_ent = {
     NULL
 };
 
-const Entity green_player_ent = {
+const OLDEntity green_player_ent = {
     GREEN_PLAYER,
     {2, 15},
     {7, 15},
@@ -38,7 +38,7 @@ const Entity green_player_ent = {
     NULL
 };
 
-const Entity ant_spawner_ent = {
+const OLDEntity ant_spawner_ent = {
     NASTIE | STILL | CREATES_NASTIE,
     {8, 15},
     {7, 15},
@@ -55,7 +55,7 @@ const Entity ant_spawner_ent = {
     NULL
 };
 
-const Entity spinner_ent = {
+const OLDEntity spinner_ent = {
     NASTIE | STILL,
     {6, 15},
     {7, 15},
@@ -72,7 +72,7 @@ const Entity spinner_ent = {
     NULL
 };
 
-const Entity robo_ent = {
+const OLDEntity robo_ent = {
     NASTIE | WALKS | DIES_ON_LEAP | BREAKS | GOES_THRU,
     {4, 15},
     {7, 15},
@@ -89,7 +89,7 @@ const Entity robo_ent = {
     &NST_keep_walking
 };
 
-const Entity ant_ent = {
+const OLDEntity ant_ent = {
     NASTIE | WALKS | LEAPS,
     {7, 8},
     {7, 8},
@@ -106,7 +106,7 @@ const Entity ant_ent = {
     NULL
 };
 
-const Entity piggy_ent = {
+const OLDEntity piggy_ent = {
     NASTIE | WALKS | LEAPS | DELETES,
     {7, 15},
     {7, 15},
@@ -123,7 +123,7 @@ const Entity piggy_ent = {
     &NST_turn_around_fast
 };
 
-const Entity teeth_ent = {
+const OLDEntity teeth_ent = {
     NASTIE | WALKS | LEAPS | DELETES | GOES_THRU,
     {8, 15},
     {8, 15},
@@ -140,7 +140,7 @@ const Entity teeth_ent = {
     &NST_keep_walking
 };
 
-const Entity arrow_ent = {
+const OLDEntity arrow_ent = {
     PROJECTILE | FLIES ,
     {7, 15},
     {7, 15},
@@ -157,7 +157,7 @@ const Entity arrow_ent = {
     NULL
 };
 
-const Entity gd_silvCoin_ent = {
+const OLDEntity gd_silvCoin_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -174,7 +174,7 @@ const Entity gd_silvCoin_ent = {
     NULL
 };
 
-const Entity gd_arrow_ent = {
+const OLDEntity gd_arrow_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -191,7 +191,7 @@ const Entity gd_arrow_ent = {
     NULL
 };
 
-const Entity gd_clk3h_ent = {
+const OLDEntity gd_clk3h_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -208,7 +208,7 @@ const Entity gd_clk3h_ent = {
     NULL
 };
 
-const Entity gd_clk6h_ent = {
+const OLDEntity gd_clk6h_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -225,7 +225,7 @@ const Entity gd_clk6h_ent = {
     NULL
 };
 
-const Entity gd_clk9h_ent = {
+const OLDEntity gd_clk9h_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -242,7 +242,7 @@ const Entity gd_clk9h_ent = {
     NULL
 };
 
-const Entity gd_clk12h_ent = {
+const OLDEntity gd_clk12h_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -259,7 +259,7 @@ const Entity gd_clk12h_ent = {
     NULL
 };
 
-const Entity gd_glass_ent = {
+const OLDEntity gd_glass_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -276,7 +276,7 @@ const Entity gd_glass_ent = {
     NULL
 };
 
-const Entity gd_shield_ent = {
+const OLDEntity gd_shield_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -293,7 +293,7 @@ const Entity gd_shield_ent = {
     NULL
 };
 
-const Entity gd_boot_ent = {
+const OLDEntity gd_boot_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -310,7 +310,7 @@ const Entity gd_boot_ent = {
     NULL
 };
 
-const Entity gd_thnball_ent = {
+const OLDEntity gd_thnball_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -327,7 +327,7 @@ const Entity gd_thnball_ent = {
     NULL
 };
 
-const Entity gd_rdkey_ent = {
+const OLDEntity gd_rdkey_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -344,7 +344,7 @@ const Entity gd_rdkey_ent = {
     NULL
 };
 
-const Entity gd_blkey_ent = {
+const OLDEntity gd_blkey_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -361,7 +361,7 @@ const Entity gd_blkey_ent = {
     NULL
 };
 
-const Entity gd_rddoor_ent = {
+const OLDEntity gd_rddoor_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -378,7 +378,7 @@ const Entity gd_rddoor_ent = {
     NULL
 };
 
-const Entity gd_bldoor_ent = {
+const OLDEntity gd_bldoor_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -395,7 +395,7 @@ const Entity gd_bldoor_ent = {
     NULL
 };
 
-const Entity gd_rddoor_open_ent = {
+const OLDEntity gd_rddoor_open_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -412,7 +412,7 @@ const Entity gd_rddoor_open_ent = {
     NULL
 };
 
-const Entity gd_bddoor_open_ent = {
+const OLDEntity gd_bddoor_open_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -429,7 +429,7 @@ const Entity gd_bddoor_open_ent = {
     NULL
 };
 
-const Entity gd_goldCoin_ent = {
+const OLDEntity gd_goldCoin_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -446,7 +446,7 @@ const Entity gd_goldCoin_ent = {
     NULL
 };
 
-const Entity gd_1UP_ent = {
+const OLDEntity gd_1UP_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -463,7 +463,7 @@ const Entity gd_1UP_ent = {
     NULL
 };
 
-const Entity gd_2x_ent = {
+const OLDEntity gd_2x_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -480,7 +480,7 @@ const Entity gd_2x_ent = {
     NULL
 };
 
-const Entity gd_3x_ent = {
+const OLDEntity gd_3x_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -497,7 +497,7 @@ const Entity gd_3x_ent = {
     NULL
 };
 
-const Entity gd_4x_ent = {
+const OLDEntity gd_4x_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -514,7 +514,7 @@ const Entity gd_4x_ent = {
     NULL
 };
 
-const Entity gd_5x_ent = {
+const OLDEntity gd_5x_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -531,7 +531,7 @@ const Entity gd_5x_ent = {
     NULL
 };
 
-const Entity gd_ball_ent = {
+const OLDEntity gd_ball_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -548,7 +548,7 @@ const Entity gd_ball_ent = {
     NULL
 };
 
-const Entity gd_gem_ent = {
+const OLDEntity gd_gem_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -565,7 +565,7 @@ const Entity gd_gem_ent = {
     NULL
 };
 
-const Entity gd_gold_ent = {
+const OLDEntity gd_gold_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -582,7 +582,7 @@ const Entity gd_gold_ent = {
     NULL
 };
 
-const Entity gd_turtl_ent = {
+const OLDEntity gd_turtl_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -599,7 +599,7 @@ const Entity gd_turtl_ent = {
     NULL
 };
 
-const Entity gd_star_ent = {
+const OLDEntity gd_star_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -616,7 +616,7 @@ const Entity gd_star_ent = {
     NULL
 };
 
-const Entity gd_grkey_ent = {
+const OLDEntity gd_grkey_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -633,7 +633,7 @@ const Entity gd_grkey_ent = {
     NULL
 };
 
-const Entity gd_grdoor_ent = {
+const OLDEntity gd_grdoor_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -650,7 +650,7 @@ const Entity gd_grdoor_ent = {
     NULL
 };
 
-const Entity gd_grdoor_open_ent = {
+const OLDEntity gd_grdoor_open_ent = {
     FX | WAS_GOODIE,
     {7, 15},
     {7, 15},
@@ -668,7 +668,7 @@ const Entity gd_grdoor_open_ent = {
 };
 
 
-const Entity deletor_ent = {
+const OLDEntity deletor_ent = {
     FX | DELETER,
     {7, 15},
     {7, 15},
@@ -685,7 +685,7 @@ const Entity deletor_ent = {
     NULL
 };
 
-const Entity blk_debris0_ent = {
+const OLDEntity blk_debris0_ent = {
     FX | SHRAPNEL,
     {4, 8},
     {4, 4},
@@ -702,7 +702,7 @@ const Entity blk_debris0_ent = {
     NULL
 };
 
-const Entity blk_debris1_ent = {
+const OLDEntity blk_debris1_ent = {
     FX | SHRAPNEL,
     {4, 8},
     {4, 4},
@@ -719,7 +719,7 @@ const Entity blk_debris1_ent = {
     NULL
 };
 
-const Entity blk_debris2_ent = {
+const OLDEntity blk_debris2_ent = {
     FX | SHRAPNEL,
     {4, 8},
     {4, 4},
@@ -736,7 +736,7 @@ const Entity blk_debris2_ent = {
     NULL
 };
 
-const Entity blk_debris3_ent = {
+const OLDEntity blk_debris3_ent = {
     FX | SHRAPNEL,
     {4, 8},
     {4, 4},
@@ -753,7 +753,7 @@ const Entity blk_debris3_ent = {
     NULL
 };
 
-const Entity * const goodies_vector[] = {
+const OLDEntity * const goodies_vector[] = {
     &gd_silvCoin_ent,
     &gd_arrow_ent,
     &gd_clk3h_ent,

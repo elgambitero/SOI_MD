@@ -14,7 +14,7 @@
 #define POS_TO_PX(x) (x >> DECIMALS)
 
 typedef struct Actor{
-    const Entity * character;
+    const OLDEntity * character;
     u8 status;
     u8 frames;
     u16 pos[2]; //px when declared, px/DECIMALS when in use.
@@ -36,7 +36,7 @@ u8 ACT_init(ActorList * actors, u8 max_actors);
 Actor * ACT_add(Actor * actor, ActorList * actors);
 u8 ACT_remove(Actor * actor, ActorList * actors);
 Actor * ACT_getFirst(ActorList * actors);
-Actor * ACT_seek(const Entity * ent, ActorList * actors);
+Actor * ACT_seek(const OLDEntity * ent, ActorList * actors);
 u8 ACT_collision(Actor * act1, Actor * act2);
 void ACT_update(ActorList * actors);
 void ACT_end(ActorList * actors);
