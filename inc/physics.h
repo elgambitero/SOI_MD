@@ -4,7 +4,7 @@
 
 #include "actors.h"
 #include "board.h"
-#include "player.h"
+#include "players.h"
 
 #define SFX_IND 5 //magic number
 

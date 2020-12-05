@@ -4,6 +4,8 @@
 
 #include <genesis.h>
 
+#include "entities.h"
+
 typedef struct Player{
     u8 size[2];
     u8 spr_pos[2];
@@ -35,11 +37,6 @@ typedef struct Player{
     u8 (*const onBlockCtrl)(u8);
     u8 (*const onWeapCtrl)(u8);
     u8 (*const onJumpCtrl)(u8);
-
-    u32 score;
-    u8 arrows;
-    u8 balls;
-    u8 lives;
 }Player;
 
 typedef struct PlayerStat{
@@ -48,5 +45,8 @@ typedef struct PlayerStat{
     u8 balls;
     u8 lives;
 }PlayerStat;
+
+extern const Entity PL_blue;
+extern const Entity PL_green;
 
 #endif

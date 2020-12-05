@@ -6,7 +6,10 @@
 
 #include "globals.h"
 #include "nasties.h"
-#include "player.h"
+#include "players.h"
+#include "goodies.h"
+#include "effects.h"
+#include "projectiles.h"
 
 typedef struct Entity{
     u16 attr;
@@ -93,7 +96,7 @@ extern const OLDEntity ant_ent;
 extern const OLDEntity piggy_ent;
 extern const OLDEntity teeth_ent;
 
-extern const OLDEntity ant_spawner_ent;
+//extern const OLDEntity ant_spawner_ent;
 
 extern const OLDEntity gd_silvCoin_ent;
 extern const OLDEntity gd_arrow_ent;
