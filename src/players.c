@@ -1,8 +1,9 @@
 #include "players.h"
 
-#include "sprites.h"
+#include "physics.h"
+#include "gameplay.h"
 #include "sound.h"
-
+#include "blocks.h"
 
 //TODO: Fill this!
 const Entity PL_blue = {

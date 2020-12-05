@@ -1,5 +1,10 @@
 #include "goodies.h"
 
+#include "physics.h"
+#include "gameplay.h"
+#include "sound.h"
+#include "blocks.h"
+
 void GD_obtain();
 void GD_killAll();
 void GD_killSpawned();

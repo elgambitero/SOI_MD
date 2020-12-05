@@ -1,6 +1,9 @@
-#include "entities.h"
+#include "effects.h"
 
-
+#include "physics.h"
+#include "gameplay.h"
+#include "sound.h"
+#include "blocks.h"
 
 const Entity FX_deletor = {
     FX | DELETER,

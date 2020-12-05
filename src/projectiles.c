@@ -1,5 +1,10 @@
 #include "projectiles.h"
 
+#include "physics.h"
+#include "gameplay.h"
+#include "sound.h"
+#include "blocks.h"
+
 void PR_arrow_fired();
 
 const Entity PR_arrow = {
