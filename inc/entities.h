@@ -3,8 +3,19 @@
 #define ENTITIES_H
 
 #include <genesis.h>
-#include "globals.h"
 
+#include "globals.h"
+#include "nasties.h"
+#include "player.h"
+
+typedef struct Entity{
+    u16 attr;
+    union{
+        Player player;
+        Nastie nastie;
+        Goodie goodie;
+    }role;
+}Entity;
 
 typedef struct OLDEntity{
     u16 attr;
