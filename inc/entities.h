@@ -22,23 +22,6 @@ typedef struct Entity{
     }role;
 }Entity;
 
-typedef struct OLDEntity{
-    u16 attr;
-    u8 size[2];
-    u8 spr_pos[2];
-    u8 palette;
-    u16 points;
-    const SpriteDefinition * sprite_def;
-    const u8 * death_sound;
-    const u16 death_sound_size;
-    void (*const onCrash)();
-    void (*const onTrip)();
-    void (*const onFall)();
-    void (*const onLand)();
-    void (*const onAttack)();
-    void (*const onFinishAttack)();
-}OLDEntity;
-
 #define ENT_CHECK_BITMSK 0x0003
 
 #define BIG_ENTITY   0
@@ -88,58 +71,5 @@ typedef struct OLDEntity{
 #define SHRAPNEL    0x0004   //B0000000000000100
 #define DELETER     0x0008   //B0000000000001000
 #define WAS_GOODIE  0x0010   //B0000000000010000
-
-extern const OLDEntity blue_player_ent;
-extern const OLDEntity green_player_ent;
-
-extern const OLDEntity spinner_ent;
-extern const OLDEntity robo_ent;
-extern const OLDEntity ant_ent;
-extern const OLDEntity piggy_ent;
-extern const OLDEntity teeth_ent;
-
-//extern const OLDEntity ant_spawner_ent;
-
-extern const OLDEntity gd_silvCoin_ent;
-extern const OLDEntity gd_arrow_ent;
-extern const OLDEntity gd_clk3h_ent;
-extern const OLDEntity gd_clk6h_ent;
-extern const OLDEntity gd_clk9h_ent;
-extern const OLDEntity gd_clk12h_ent;
-extern const OLDEntity gd_glass_ent;
-extern const OLDEntity gd_shield_ent;
-extern const OLDEntity gd_boost_ent;
-extern const OLDEntity gd_boot_ent;
-extern const OLDEntity gd_thnball_ent;
-extern const OLDEntity gd_rdkey_ent;
-extern const OLDEntity gd_blkey_ent;
-extern const OLDEntity gd_rddoor_ent;
-extern const OLDEntity gd_bldoor_ent;
-extern const OLDEntity gd_rddoor_open_ent;
-extern const OLDEntity gd_bddoor_open_ent;
-extern const OLDEntity gd_goldCoin_ent;
-extern const OLDEntity gd_1UP_ent;
-extern const OLDEntity gd_2x_ent;
-extern const OLDEntity gd_3x_ent;
-extern const OLDEntity gd_4x_ent;
-extern const OLDEntity gd_5x_ent;
-extern const OLDEntity gd_ball_ent;
-extern const OLDEntity gd_gem_ent;
-extern const OLDEntity gd_gold_ent;
-extern const OLDEntity gd_turtl_ent;
-extern const OLDEntity gd_star_ent;
-extern const OLDEntity gd_grkey_ent;
-extern const OLDEntity gd_grdoor_ent;
-extern const OLDEntity gd_grdoor_open_ent;
-
-extern const OLDEntity arrow_ent;
-
-extern const OLDEntity deletor_ent;
-extern const OLDEntity blk_debris0_ent;
-extern const OLDEntity blk_debris1_ent;
-extern const OLDEntity blk_debris2_ent;
-extern const OLDEntity blk_debris3_ent;
-
-extern const OLDEntity * const goodies_vector[];
 
 #endif
