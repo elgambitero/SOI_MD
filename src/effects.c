@@ -2,7 +2,7 @@
 
 
 
-extern const Entity FX_deletor = {
+const Entity FX_deletor = {
     FX | DELETER,
     {
         {7, 15},
@@ -12,7 +12,7 @@ extern const Entity FX_deletor = {
     }
 };
 
-extern const Entity FX_blk_debris0 = {
+const Entity FX_blk_debris0 = {
     FX | SHRAPNEL,
     {
         {4, 8},
@@ -22,7 +22,7 @@ extern const Entity FX_blk_debris0 = {
     }
 };
 
-extern const Entity FX_blk_debris1 = {
+const Entity FX_blk_debris1 = {
     FX | SHRAPNEL,
     {
         {4, 8},
@@ -33,7 +33,7 @@ extern const Entity FX_blk_debris1 = {
 };
 
 
-extern const Entity FX_blk_debris2 = {
+const Entity FX_blk_debris2 = {
     FX | SHRAPNEL,
     {
         {4, 8},
@@ -44,7 +44,7 @@ extern const Entity FX_blk_debris2 = {
 };
 
 
-extern const Entity FX_blk_debris3 = {
+const Entity FX_blk_debris3 = {
     FX | SHRAPNEL,
     {
         {4, 8},

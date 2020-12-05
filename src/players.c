@@ -5,7 +5,7 @@
 
 
 //TODO: Fill this!
-extern const Entity PL_blue = {
+const Entity PL_blue = {
     BLUE_PLAYER,
     {
         {2, 15},
@@ -36,7 +36,7 @@ extern const Entity PL_blue = {
     }
 };
 
-extern const Entity PL_green = {
+const Entity PL_green = {
     GREEN_PLAYER,
     {
         {2, 15},

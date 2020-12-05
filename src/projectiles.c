@@ -2,7 +2,7 @@
 
 void PR_arrow_fired();
 
-extern const Entity PR_arrow = {
+const Entity PR_arrow = {
     PROJECTILE | FLIES,
     {
         {7, 15},
