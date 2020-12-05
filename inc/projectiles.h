@@ -10,6 +10,8 @@ typedef struct Projectile{
 
     const SpriteDefinition * sprite_def;
 
+    void (*const onFire)();
+
     void (*const onCrash)();
 }Projectile;
 
