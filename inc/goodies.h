@@ -13,6 +13,7 @@ typedef struct Goodie{
     const u8 * pickup_sound;
     const u16 pickup_sound_size;
 
+    void (*const onCrash)();
     void (*const onPickUp)();
 }Goodie;
 
