@@ -1,5 +1,7 @@
 #include "projectiles.h"
 
+void PR_arrow_fired();
+
 extern const Entity PR_arrow = {
     PROJECTILE | FLIES,
     {
