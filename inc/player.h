@@ -2,6 +2,8 @@
 
 #define PLAYER_H
 
+#include <genesis.h>
+
 typedef struct Player{
     u8 size[2];
     u8 spr_pos[2];
@@ -12,13 +14,24 @@ typedef struct Player{
     const u8 * death_sound;
     const u16 death_sound_size;
 
-    void (*const onWalkInto)();
-    void (*const onJumpInto)();
+    void (*const onWalkInto)(u8);
+    void (*const onTurnInto)(u8);
+    void (*const onJumpInto)(u8);
     void (*const onFall)();
-    void (*const onStartWalking)();
-    void (*const onStopWalking)();
+    void (*const onFallLands)();
+    void (*const onJumpLands)();
 
-    void (*const onAttack)();
+    //void (*const onTurnAround)();
+    //void (*const onStartWalking)();
+    //void (*const onStartTurnAround);
+    //void (*const onStopWalking)();
+
+    void (*const onMakeBlock)();
+    void (*const onDeleteBlock)();
+    void (*const onMakeLowBlock)();
+    void (*const onDeleteLowBlock)();
+    void (*const onShoot)();
+    void (*const onHeadBonk)();
 
     u8 (*const onBlockCtrl)(u8);
     u8 (*const onWeapCtrl)(u8);

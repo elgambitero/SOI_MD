@@ -466,7 +466,7 @@ static inline void player_tree(){
             if(jump_ctrl(status)) return; //TODO: DECIPHER THIS.
             if( *ctrl & CTRL_MOV ){
                 if( ( *ctrl & CTRL_LEFT ) != dir ){
-                    //onStartWalking
+                    //onTurnAround
                     newstatus = RIGHT_TURN_LEFT | dir;
                     curr->frames = BP_TURN_FRAMES;
                     curr->speed[X] = 0;
@@ -534,6 +534,7 @@ static inline void player_tree(){
         case FALL_RIGHT:
             calc_floor();
             if(land(floor_ind)) {
+                //onLand
                 curr->pos[Y] &= FLOOR_CORR;
                 newstatus = dir | STILL_RIGHT;
                 curr->speed[Y] = 0;
@@ -550,6 +551,7 @@ static inline void player_tree(){
             calc_front_floor();
             calc_back_floor();
             if(fall(front_floor_ind) && fall(back_floor_ind)){
+                //onFall
                 newstatus = FALL_RIGHT | dir;
                 curr->speed[Y] = FALLSPEED;
                 return;
@@ -608,9 +610,10 @@ static inline void player_tree(){
             newstatus = WALK_RIGHT | dir;
             calc_front(dir);
             calc_front_block();
-            switch(crash_into()){
+            switch(crash_into()){//is this even correct?
                 case FRAME:
                 case BLOCK:
+                //Should be onStopWalking
                     break;
                 case GOODIE:
                     gd_process(front_ind);
@@ -627,6 +630,7 @@ static inline void player_tree(){
             switch(crash_into()){
                 case FRAME:
                 case BLOCK:
+                    //onWalkInto
                     curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
                     break;
                 case GOODIE:
@@ -683,6 +687,7 @@ static inline void player_tree(){
                 calc_front_floor();
                 calc_back_floor();
                 if(land(back_floor_ind) || land(front_floor_ind)) {
+                    //onJumpLands
                     curr->pos[Y] &= FLOOR_CORR;
                     curr->speed[Y] = 0;
                     curr->speed[X] = 0;
