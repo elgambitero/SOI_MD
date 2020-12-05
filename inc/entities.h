@@ -13,10 +13,12 @@
 
 typedef struct Entity{
     u16 attr;
-    union{
+    union Role{
         Player player;
         Nastie nastie;
         Goodie goodie;
+        FX effect;
+        Projectile proj;
     }role;
 }Entity;
 
