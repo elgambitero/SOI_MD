@@ -440,6 +440,7 @@ static inline void player_tree(){
             calc_front_margin(dir);
             calc_front_block();
             switch(crash_into()){
+                //onWalkInto
                 case FRAME:
                 case BLOCK:
                 curr->speed[X] = 0;
@@ -456,14 +457,16 @@ static inline void player_tree(){
             calc_front_floor();
             calc_back_floor();
             if(fall(front_floor_ind) && fall(back_floor_ind)){
+                //onFall
                 newstatus = FALL_RIGHT | dir;
                 curr->speed[Y] = FALLSPEED;
                 curr->speed[X] = 0;
                 return;
             }
-            if(jump_ctrl(status)) return;
+            if(jump_ctrl(status)) return; //TODO: DECIPHER THIS.
             if( *ctrl & CTRL_MOV ){
                 if( ( *ctrl & CTRL_LEFT ) != dir ){
+                    //onStartWalking
                     newstatus = RIGHT_TURN_LEFT | dir;
                     curr->frames = BP_TURN_FRAMES;
                     curr->speed[X] = 0;
@@ -472,6 +475,7 @@ static inline void player_tree(){
             }
             else
             {
+                //onStopWalking
                 newstatus = RIGHT_TO_STL | dir;
                 curr->frames = BP_STL_FRAMES;
                 curr->speed[X] = 0;
