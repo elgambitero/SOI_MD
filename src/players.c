@@ -7,7 +7,6 @@
 #include "gameplay.h"
 #include "blocks.h"
 
-//TODO: Fill this!
 const Entity PL_blue = {
     BLUE_PLAYER,
     {2, 15},
