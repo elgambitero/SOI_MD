@@ -217,7 +217,7 @@ void kill(Actor * act, u8 speed_x, u8 speed_y){
                 act->character->role.nastie.death_sound_size);
             XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
             break;
-        case BIG_ENT_MSK: //TODO: THIS VIOLATES THE CURRENT STUCTURE!!! FIX!!!
+        case PLAYER_MSK: //TODO: THIS VIOLATES THE CURRENT STUCTURE!!! FIX!!!
             XGM_setPCM(SFX_IND, act->character->role.player.death_sound,
                 act->character->role.player.death_sound_size);
             XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
@@ -665,8 +665,8 @@ static inline void proj_tree(){
     }
 }
 
-static inline void big_entity_tree(){
-    switch(attr & BIG_ENT_MSK){
+static inline void player_preprocess(){
+    switch(attr & PLAYER_MSK){
         case BLUE_PLAYER:
             ctrl = &bl_ctrl;
             pl_act = &bl_act;
@@ -683,10 +683,10 @@ static inline void big_entity_tree(){
             after_speed = gr_after_speed;
             player_tree();
         break;
-        case KNIGHT:
+        case RED_PLAYER:
 
         break;
-        case GARGOYLE:
+        case PINK_PLAYER:
 
         break;
     }
@@ -734,7 +734,7 @@ static inline void class_tree(){
             }
         break;
         case BIG_ENTITY:
-            big_entity_tree();
+            player_preprocess();
         break;
         case PROJECTILE:
             proj_tree();

@@ -74,12 +74,12 @@ typedef struct Entity{
 
 #define BIG_ENTITY   0
 
-#define BIG_ENT_MSK   0x0018 //B0000000000011000
+#define PLAYER_MSK   0x0018 //B0000000000011000
 
 #define BLUE_PLAYER   0x0000 //B0000000000000000
 #define GREEN_PLAYER  0x0008 //B0000000000001000
-#define KNIGHT        0x0018 //B0000000000011000
-#define GARGOYLE      0x0010 //B0000000000010000
+#define RED_PLAYER        0x0018 //B0000000000011000
+#define PINK_PLAYER      0x0010 //B0000000000010000
 
 #define NASTIE        1
 
@@ -124,16 +124,7 @@ typedef struct Entity{
 
 
 
-#define PLAYER         5
-
-#define PLAYER_MSK  0x0180   //B0000000000011000
-
-#define PL_BLUE     0x0000   //B0000000000000000
-#define PL_GREEN    0x0000   //B0000000000001000
-#define PL_RED      0x0000   //B0000000000010000
-#define PL_PINK     0x0000   //B0000000000011000
-
-#define SPAWNER         6
+#define SPAWNER        5
 
 
 #endif
