@@ -1,8 +1,10 @@
 #include "nasties.h"
 
+#include "sprites.h"
+#include "sound.h"
+
 #include "physics.h"
 #include "gameplay.h"
-#include "sound.h"
 #include "blocks.h"
 
 void NST_still_fall();
