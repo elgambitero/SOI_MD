@@ -666,11 +666,11 @@ static inline void proj_tree(){
 }
 
 static inline void player_preprocess(){
+        pl_stat = curr->character->role.player.statistics;
     switch(attr & PLAYER_MSK){
         case BLUE_PLAYER:
             ctrl = &bl_ctrl;
             pl_act = &bl_act;
-            pl_stat = bl_stat;
             after_status = &bl_after_status;
             after_speed = bl_after_speed;
             player_tree();
@@ -678,7 +678,6 @@ static inline void player_preprocess(){
         case GREEN_PLAYER:
             ctrl = &gr_ctrl;
             pl_act = &gr_act;
-            pl_stat = gr_stat;
             after_status = &gr_after_status;
             after_speed = gr_after_speed;
             player_tree();
