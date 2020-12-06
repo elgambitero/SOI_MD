@@ -14,7 +14,7 @@
 
 #define MAX_PLAYERS 2
 
-#define PASSING_PLAYER 0xFFFF
+#define PASSING_PLAYER 0x0000
 
 const Board * current_level;
 Actor * blue_player;
