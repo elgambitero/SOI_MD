@@ -120,4 +120,20 @@ typedef struct Entity{
 #define DELETER     0x0010   //B0000000000010000
 #define WAS_GOODIE  0x0020   //B0000000000100000
 
+#define GOODY          4
+
+
+
+#define PLAYER         5
+
+#define PLAYER_MSK  0x0180   //B0000000000011000
+
+#define PL_BLUE     0x0000   //B0000000000000000
+#define PL_GREEN    0x0000   //B0000000000001000
+#define PL_RED      0x0000   //B0000000000010000
+#define PL_PINK     0x0000   //B0000000000011000
+
+#define SPAWNER         6
+
+
 #endif
