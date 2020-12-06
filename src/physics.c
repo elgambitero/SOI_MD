@@ -208,29 +208,22 @@ static inline void summon_arrow(u8 dir, ActorList * list){
 }
 
 void kill(Actor * act, u8 speed_x, u8 speed_y){
-    //Nastie and Player have their death_sound
-    //pointers at the same data offset.
     u16 attrib = act->character->attr;
     u8 * death_sound;
     u16 death_sound_size = 0;
     switch(attrib & ENT_CHECK_BITMSK){
         case NASTIE:
-            death_sound = 
-                act->character->role.nastie.death_sound;
-            death_sound_size = 
-                act->character->role.nastie.death_sound_size;
+            XGM_setPCM(SFX_IND, act->character->role.nastie.death_sound,
+                act->character->role.nastie.death_sound_size);
+            XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
             break;
         case BIG_ENT_MSK: //TODO: THIS VIOLATES THE CURRENT STUCTURE!!! FIX!!!
-            death_sound =
-                act->character->role.player.death_sound;
-            death_sound_size = 
-                act->character->role.player.death_sound_size;
+            XGM_setPCM(SFX_IND, act->character->role.player.death_sound,
+                act->character->role.player.death_sound_size);
+            XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
             break;
     }
     if(death_sound){
-        XGM_setPCM(SFX_IND, death_sound, 
-            death_sound_size);
-        XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
     }
     act->status = DEAD;
     act->pos[Y] -= COLL_CORR;
