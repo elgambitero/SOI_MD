@@ -61,7 +61,34 @@ u8 status;
 u8 newstatus;
 u8 dir;
 
+enum player_action{
+    NOTHING,
+    DEL_BLOCK,
+    MK_BLOCK,
+    SHOOT
+};
+enum player_action * pl_act;
+enum player_action bl_act, gr_act;
+
+PlayerStat * pl_stat;
+PlayerStat * bl_stat;
+PlayerStat * gr_stat;
+
+u8 * ctrl;
+u8 bl_after_status, gr_after_status;
+u8 * after_status;
+u8 bl_after_speed[2], gr_after_speed[2];
+u8 * after_speed;
+
 u16 front_ind;
+u16 back_floor_ind;
+u16 front_floor_ind;
+u16 floor_ind;
+u16 top_ind;
+u16 front;
+u16 back;
+u16 top;
+u16 center_ind;
 
 u8 gd_index;
 
@@ -78,8 +105,29 @@ void PHY_end();
 void summon_deletor(u8 front_ind, u8 deletes);
 void kill(Actor * act, u8 speed_x, u8 speed_y);
 
-void calc_front(u8 direction);
+
+void calc_front_block_hi();
 void calc_front_block();
+void calc_front_block_lo();
+void calc_next_floor();
+void calc_front_floor();
+void calc_back_floor();
+void calc_floor();
+void calc_top_block();
+void calc_top_block_left();
+void calc_top_block_right();
+void calc_center_block();
+void calc_front(u8 direction);
+void calc_front_margin(u8 direction);
+void calc_next(u8 direction);
+void calc_back(u8 direction);
+
+u8 fall(u8 ind);
+u8 land(u8 ind);
+
+u8 cliff();
+u8 crash_into();
+
 void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y);
 
 #endif

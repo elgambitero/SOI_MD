@@ -10,22 +10,11 @@
 #include "globals.h"
 
 u16 attr;
-PlayerStat * pl_stat;
-PlayerStat * bl_stat;
-PlayerStat * gr_stat;
 
 u8 collided;
 
 //TODO: Organize. Make more understandable
 
-u16 back_floor_ind;
-u16 front_floor_ind;
-u16 floor_ind;
-u16 top_ind;
-u16 front;
-u16 back;
-u16 top;
-u16 center_ind;
 
 
 #define B0 0
@@ -36,21 +25,8 @@ u16 center_ind;
 u8 player_lines[4] = {255,255,255,255};
 
 //TODO: Organize. Make more understandable
-enum player_action{
-    NOTHING,
-    DEL_BLOCK,
-    MK_BLOCK,
-    SHOOT
-};
-enum player_action * pl_act;
-enum player_action bl_act, gr_act;
 u8 bl_ctrl;
 u8 gr_ctrl;
-u8 * ctrl;
-u8 bl_after_status, gr_after_status;
-u8 * after_status;
-u8 bl_after_speed[2], gr_after_speed[2];
-u8 * after_speed;
 
 u32 board_presence[8];
 
@@ -69,7 +45,7 @@ static inline u8 is_occupied(u8 ind){
 }
 
 //TODO: Organize. Make more understandable.
-static inline void calc_front_block_hi(){
+void calc_front_block_hi(){
     front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 12 ) ) ) );
 }
 
@@ -77,36 +53,36 @@ void calc_front_block(){
     front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 8 ) ) ) );
 }
 
-static inline void calc_front_block_lo(){
+void calc_front_block_lo(){
     front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 4 ) ) ) );
 }
 
-static inline void calc_next_floor(){
+void calc_next_floor(){
     front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) + 8 ) ) ) );
 }
 
-static inline void calc_front_floor(){
+void calc_front_floor(){
     front_floor_ind = XY_TO_IND( PX_TO_BLOCK( front ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) );
 }
 
-static inline void calc_back_floor(){
+void calc_back_floor(){
     back_floor_ind = XY_TO_IND( PX_TO_BLOCK( back ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y])  ) ) ) ;
 }
 
-static inline void calc_floor(){
+void calc_floor(){
     floor_ind = XY_TO_IND( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y])  ) ) ) ;
 }
 
-static inline void calc_top_block(){
+void calc_top_block(){
     top_ind =  XY_TO_IND( ( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
 }
-static inline void calc_top_block_left(){
+void calc_top_block_left(){
     top_ind =  XY_TO_IND( ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[X] ) - curr->character->size[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
 }
-static inline void calc_top_block_right(){
+void calc_top_block_right(){
     top_ind =  XY_TO_IND( ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[X] ) + curr->character->size[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
 }
-static inline void calc_center_block(){
+void calc_center_block(){
     center_ind = XY_TO_IND( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ), (PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - (curr->character->size[Y] >> 1) ) ) ) ) ;
 }
 
@@ -114,31 +90,31 @@ static inline void calc_center_block(){
 void calc_front(u8 direction){
     front = direction ? POS_TO_PX(curr->pos[X]) - curr->character->size[X] : POS_TO_PX(curr->pos[X]) + curr->character->size[X];
 }
-static inline void calc_front_margin(u8 direction){
+void calc_front_margin(u8 direction){
     front = direction ? POS_TO_PX(curr->pos[X]) - curr->character->size[X] - COLL_MARGIN : POS_TO_PX(curr->pos[X]) + curr->character->size[X] + COLL_MARGIN;
 }
-static inline void calc_next(u8 direction){
+void calc_next(u8 direction){
     front = direction ? POS_TO_PX(curr->pos[X]) - BLOCK_SIZE_PX : POS_TO_PX(curr->pos[X]) + BLOCK_SIZE_PX;
 }
-static inline void calc_back(u8 direction){
+void calc_back(u8 direction){
     back = direction ? POS_TO_PX(curr->pos[X]) + curr->character->size[X] : POS_TO_PX(curr->pos[X]) - curr->character->size[X];
 }
-static inline void calc_top(){
+void calc_top(){
     top = POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1;
 }
 
-static inline u8 fall(u8 ind){
+u8 fall(u8 ind){
     return !( SOLID & env->front_blocks[ind] ) &&  ( POS_TO_PX(curr->pos[Y])  < BOARD_Y_PX );
 }
-static inline u8 land(u8 ind){
+u8 land(u8 ind){
     return ( SOLID & env->front_blocks[ ind ] ) || (POS_TO_PX(curr->pos[Y]) >= BOARD_Y_PX);
 }
 
-static inline u8 cliff(){
+u8 cliff(){
     return (front_floor_ind < BOARD_BUFFER) && !( SOLID & env->front_blocks[front_floor_ind] );
 }
 
-static inline u8 crash_into(){
+u8 crash_into(){
     if( front >= BOARD_X_PX )
         return FRAME;
     if(SOLID & env->front_blocks[front_ind])
