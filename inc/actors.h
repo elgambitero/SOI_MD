@@ -36,7 +36,7 @@ u8 ACT_init(ActorList * actors, u8 max_actors);
 Actor * ACT_add(Actor * actor, ActorList * actors);
 u8 ACT_remove(Actor * actor, ActorList * actors);
 Actor * ACT_getFirst(ActorList * actors);
-Actor * ACT_seek(const OLDEntity * ent, ActorList * actors);
+Actor * ACT_seek(const Entity * ent, ActorList * actors);
 u8 ACT_collision(Actor * act1, Actor * act2);
 void ACT_update(ActorList * actors);
 void ACT_end(ActorList * actors);

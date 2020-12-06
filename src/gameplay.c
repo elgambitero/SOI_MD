@@ -44,8 +44,8 @@ void gameplayLoop(){
             PHY_send_inputs(bl_ctrl, gr_ctrl);
             PHY_update();
             SPR_update();
-            if(blue_player == PASSING_PLAYER &
-                green_player == PASSING_PLAYER){
+            if((blue_player == PASSING_PLAYER) &&
+                (green_player == PASSING_PLAYER)){
                 PAL_fadeOut(0, 63, 60, FALSE);
                 gameState = ENDBOARD;
             }
@@ -137,8 +137,8 @@ void levelInit(){
         SYS_die("Error when loading the Board");
     }
 
-    blue_player = ACT_seek(&blue_player_ent, &players);
-    green_player = ACT_seek(&green_player_ent, &players);
+    blue_player = ACT_seek(&PL_blue, &players);
+    green_player = ACT_seek(&PL_green, &players);
 
     if(JOY_getPortType(PORT_2) == PORT_TYPE_UNKNOWN){
         ACT_remove(green_player, &players);
