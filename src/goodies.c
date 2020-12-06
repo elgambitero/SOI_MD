@@ -18,451 +18,510 @@ void GD_enterRdDoor();
 const Entity GD_silvCoin = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    &gd_spr0_spr,
     {
-        {7, 15},
-        PAL_SYS0,
-        500,
-        &gd_spr0_spr,
-        snd_silver_coin,
-        sizeof(snd_silver_coin),
-        &GD_obtain,
-        NULL
+        {
+            500,
+            snd_silver_coin,
+            sizeof(snd_silver_coin),
+            &GD_obtain,
+            NULL
+        }
     }
 };
 
 const Entity GD_arrow = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    &gd_spr0_spr,
     {
-        {7, 15},
-        PAL_SYS0,
-        0,
-        &gd_spr0_spr,
-        snd_arrow,
-        sizeof(snd_arrow),
-        &GD_obtain,
-        NULL
+        {
+            0,
+            snd_arrow,
+            sizeof(snd_arrow),
+            &GD_obtain,
+            NULL
+        }
     }
 };
 
 const Entity GD_clk3h = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    &gd_spr0_spr,
     {
-        {7, 15},
-        PAL_SYS0,
-        0,
-        &gd_spr0_spr,
-        snd_clock,
-        sizeof(snd_clock),
-        &GD_obtain,
-        NULL
+        {
+            0,
+            snd_clock,
+            sizeof(snd_clock),
+            &GD_obtain,
+            NULL
+        }
     }
 };
 
 const Entity GD_clk6h = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    &gd_spr0_spr,
     {
-        {7, 15},
-        PAL_SYS0,
-        0,
-        &gd_spr0_spr,
-        snd_clock,
-        sizeof(snd_clock),
-        &GD_obtain,
-        NULL
+        {
+            0,
+            snd_clock,
+            sizeof(snd_clock),
+            &GD_obtain,
+            NULL
+        }
     }
 };
 
 const Entity GD_clk9h = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    &gd_spr0_spr,
     {
-        {7, 15},
-        PAL_SYS0,
-        0,
-        &gd_spr0_spr,
-        snd_clock,
-        sizeof(snd_clock),
-        &GD_obtain,
-        NULL
+        {
+            0,
+            snd_clock,
+            sizeof(snd_clock),
+            &GD_obtain,
+            NULL
+        }
     }
 };
 
 const Entity GD_clk12h = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    &gd_spr0_spr,
     {
-        {7, 15},
-        PAL_SYS0,
-        0,
-        &gd_spr0_spr,
-        snd_clock,
-        sizeof(snd_clock),
-        &GD_obtain,
-        NULL
+        {
+            0,
+            snd_clock,
+            sizeof(snd_clock),
+            &GD_obtain,
+            NULL
+        }
     }
 };
 
 const Entity GD_glass = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    &gd_sys0_spr,
     {
-        {7, 15},
-        PAL_SYS0,
-        0,
-        &gd_sys0_spr,
-        snd_glass,
-        sizeof(snd_glass),
-        NULL,
-        NULL
+        {
+            0,
+            snd_glass,
+            sizeof(snd_glass),
+            NULL,
+            NULL
+        }
     }
 };
 
 const Entity GD_shield = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    &gd_sys0_spr,
     {
-        {7, 15},
-        {7, 15},
-        PAL_SYS0,
-        0,
-        &gd_sys0_spr,
-        snd_shield,
-        sizeof(snd_shield),
-        &GD_obtain,
-        NULL
+        {
+            0,
+            snd_shield,
+            sizeof(snd_shield),
+            &GD_obtain,
+            NULL
+        }
     }
 };
 
 const Entity GD_boot = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    &gd_sys0_spr,
     {
-        {7, 15},
-        PAL_SYS0,
-        0,
-        &gd_sys0_spr,
-        snd_boot,
-        sizeof(snd_boot),
-        &GD_obtain,
-        NULL
+        {
+            0,
+            snd_boot,
+            sizeof(snd_boot),
+            &GD_obtain,
+            NULL
+        }
     }
 };
 
 const Entity GD_thnball = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    &gd_sys0_spr,
     {
-        {7, 15},
-        PAL_SYS0,
-        0,
-        &gd_sys0_spr,
-        snd_thunderball,
-        sizeof(snd_thunderball),
-        &GD_obtain,
-        &GD_killSpawned
+        {
+            0,
+            snd_thunderball,
+            sizeof(snd_thunderball),
+            &GD_obtain,
+            &GD_killSpawned
+        }
     }
 };
 
 const Entity GD_rdkey = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    &gd_sys0_spr,
     {
-        {7, 15},
-        PAL_SYS0,
-        0,
-        &gd_sys0_spr,
-        snd_key,
-        sizeof(snd_key),
-        &GD_obtain,
-        &GD_openRdDoor
+        {
+            0,
+            snd_key,
+            sizeof(snd_key),
+            &GD_obtain,
+            &GD_openRdDoor
+        }
     }
 };
 
 const Entity GD_blkey = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    &gd_sys0_spr,
     {
-        {7, 15},
-        PAL_SYS0,
-        0,
-        &gd_sys0_spr,
-        snd_key,
-        sizeof(snd_key),
-        &GD_obtain,
-        NULL
+        {
+            0,
+            snd_key,
+            sizeof(snd_key),
+            &GD_obtain,
+            NULL
+        }
     }
 };
 
 const Entity GD_rddoor = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    &gd_sys0_spr,
     {
-        {7, 15},
-        PAL_SYS0,
-        0,
-        &gd_sys0_spr,
-        0,
-        0,
-        NULL,
-        NULL
+        {
+            0,
+            0,
+            0,
+            NULL,
+            NULL
+        }
     }
 };
 
 const Entity GD_bldoor = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    &gd_sys0_spr,
     {
-        {7, 15},
-        PAL_SYS0,
-        0,
-        &gd_sys0_spr,
-        0,
-        0,
-        NULL,
-        NULL
+        {
+            0,
+            0,
+            0,
+            NULL,
+            NULL
+        }
     }
 };
 
 const Entity GD_rddoor_open = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    &gd_sys0_spr,
     {
-        {7, 15},
-        PAL_SYS0,
-        0,
-        &gd_sys0_spr,
-        snd_door_exit,
-        sizeof(snd_door_exit),
-        &GD_enterRdDoor,
-        NULL
+        {
+            0,
+            snd_door_exit,
+            sizeof(snd_door_exit),
+            &GD_enterRdDoor,
+            NULL
+        }
     }
 };
 
 const Entity GD_bddoor_open = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    &gd_sys0_spr,
     {
-        {7, 15},
-        PAL_SYS0,
-        0,
-        &gd_sys0_spr,
-        snd_door_exit,
-        sizeof(snd_door_exit),
-        NULL,
-        NULL
+        {
+            0,
+            snd_door_exit,
+            sizeof(snd_door_exit),
+            NULL,
+            NULL
+        }
     }
 };
 
 const Entity GD_goldCoin = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    &gd_sys1_spr,
     {
-        {7, 15},
-        PAL_SYS1,
-        0,
-        &gd_sys1_spr,
-        snd_gold_coin,
-        sizeof(snd_gold_coin),
-        &GD_obtain,
-        NULL
+        {
+            0,
+            snd_gold_coin,
+            sizeof(snd_gold_coin),
+            &GD_obtain,
+            NULL
+        }
     }
 };
 
 const Entity GD_1UP = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    &gd_sys1_spr,
     {
-        {7, 15},
-        PAL_SYS1,
-        0,
-        &gd_sys1_spr,
-        snd_1up,
-        sizeof(snd_1up),
-        &GD_obtain,
-        NULL
+        {
+            0,
+            snd_1up,
+            sizeof(snd_1up),
+            &GD_obtain,
+            NULL
+        }
     }
 };
 
 const Entity GD_2x = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    &gd_sys1_spr,
     {
-        {7, 15},
-        PAL_SYS1,
-        0,
-        &gd_sys1_spr,
-        snd_multiplier,
-        sizeof(snd_multiplier),
-        &GD_obtain,
-        NULL
+        {
+            0,
+            snd_multiplier,
+            sizeof(snd_multiplier),
+            &GD_obtain,
+            NULL
+        }
     }
 };
 
 const Entity GD_3x = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    &gd_sys1_spr,
     {
-        {7, 15},
-        PAL_SYS1,
-        0,
-        &gd_sys1_spr,
-        snd_multiplier,
-        sizeof(snd_multiplier),
-        &GD_obtain,
-        NULL
+        {
+            0,
+            snd_multiplier,
+            sizeof(snd_multiplier),
+            &GD_obtain,
+            NULL
+        }
     }
 };
 
 const Entity GD_4x = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    &gd_sys1_spr,
     {
-        {7, 15},
-        PAL_SYS1,
-        0,
-        &gd_sys1_spr,
-        snd_multiplier,
-        sizeof(snd_multiplier),
-        &GD_obtain,
-        NULL
+        {
+            0,
+            snd_multiplier,
+            sizeof(snd_multiplier),
+            &GD_obtain,
+            NULL
+        }
     }
 };
 
 const Entity GD_5x = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    &gd_sys1_spr,
     {
-        {7, 15},
-        PAL_SYS1,
-        0,
-        &gd_sys1_spr,
-        snd_multiplier,
-        sizeof(snd_multiplier),
-        &GD_obtain,
-        NULL
+        {
+            0,
+            snd_multiplier,
+            sizeof(snd_multiplier),
+            &GD_obtain,
+            NULL
+        }
     }
 };
 
 const Entity GD_ball = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    &gd_sys1_spr,
     {
-        {7, 15},
-        PAL_SYS1,
-        0,
-        &gd_sys1_spr,
-        snd_ball,
-        sizeof(snd_ball),
-        &GD_obtain,
-        NULL
+        {
+            0,
+            snd_ball,
+            sizeof(snd_ball),
+            &GD_obtain,
+            NULL
+        }
     }
 };
 
 const Entity GD_gem = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    &gd_sys1_spr,
     {
-        {7, 15},
-        PAL_SYS1,
-        0,
-        &gd_sys1_spr,
-        snd_gem,
-        sizeof(snd_gem),
-        &GD_obtain,
-        NULL
+        {
+            0,
+            snd_gem,
+            sizeof(snd_gem),
+            &GD_obtain,
+            NULL
+        }
     }
 };
 
 const Entity GD_gold = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    &gd_sys1_spr,
     {
-        {7, 15},
-        PAL_SYS1,
-        0,
-        &gd_sys1_spr,
-        snd_goldbar,
-        sizeof(snd_goldbar),
-        &GD_obtain,
-        NULL
+        {
+            0,
+            snd_goldbar,
+            sizeof(snd_goldbar),
+            &GD_obtain,
+            NULL
+        }
     }
 };
 
 const Entity GD_turtl = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    &gd_sys1_spr,
     {
-        {7, 15},
-        PAL_SYS1,
-        0,
-        &gd_sys1_spr,
-        snd_turtle,
-        sizeof(snd_turtle),
-        &GD_obtain,
-        NULL
+        {
+            0,
+            snd_turtle,
+            sizeof(snd_turtle),
+            &GD_obtain,
+            NULL
+        }
     }
 };
 
 const Entity GD_star = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    &gd_sys1_spr,
     {
-        {7, 15},
-        PAL_SYS1,
-        0,
-        &gd_sys1_spr,
-        0,
-        0,
-        &GD_obtain,
-        NULL
+        {
+            0,
+            0,
+            0,
+            &GD_obtain,
+            NULL
+        }
     }
 };
 
 const Entity GD_grkey = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    &gd_sys1_spr,
     {
-        {7, 15},
-        PAL_SYS1,
-        0,
-        &gd_sys1_spr,
-        snd_key,
-        sizeof(snd_key),
-        &GD_obtain,
-        NULL
+        {
+            0,
+            snd_key,
+            sizeof(snd_key),
+            &GD_obtain,
+            NULL
+        }
     }
 };
 
 const Entity GD_grdoor = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    &gd_sys1_spr,
     {
-        {7, 15},
-        PAL_SYS1,
-        0,
-        &gd_sys1_spr,
-        0,
-        0,
-        NULL,
-        NULL
+        {
+            0,
+            0,
+            0,
+            NULL,
+            NULL
+        }
     }
 };
 
 const Entity GD_grdoor_open = {
     FX | WAS_GOODIE,
     {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    &gd_sys1_spr,
     {
-        {7, 15},
-        PAL_SYS1,
-        0,
-        &gd_sys1_spr,
-        snd_door_exit,
-        sizeof(snd_door_exit),
-        NULL,
-        NULL
+        {
+            0,
+            snd_door_exit,
+            sizeof(snd_door_exit),
+            NULL,
+            NULL
+        }
     }
 };
 
