@@ -303,10 +303,19 @@ static inline void nastie_tree(){
     }
 }
 
+static inline void goodie_tree(){
+    if(curr->pos[X] >= PX_TO_POS(BOARD_X_PX) || curr->pos[Y] >= PX_TO_POS(BOARD_Y_PX) ){
+        result = ACT_DELETION;
+    }
+    curr->speed[Y] += GRAVITY;
+}
+
 static inline void fx_tree(){
     switch(attr & FX_TYP_MSK){
         //TODO: Substitute with callback.
         case WAS_GOODIE:
+            goodie_tree();
+            break;
         case SHRAPNEL:
             if(curr->pos[X] >= PX_TO_POS(BOARD_X_PX) || curr->pos[Y] >= PX_TO_POS(BOARD_Y_PX) ){
                 result = ACT_DELETION;
@@ -721,6 +730,9 @@ static inline void class_tree(){
         case FX:
             fx_tree();
         break;
+        case GOODY:
+            goodie_tree();
+            break;
 
     }
 }
