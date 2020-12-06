@@ -14,7 +14,7 @@
 #define POS_TO_PX(x) (x >> DECIMALS)
 
 typedef struct Actor{
-    const OLDEntity * character;
+    const Entity * character;
     u8 status;
     u8 frames;
     u16 pos[2]; //px when declared, px/DECIMALS when in use.

@@ -5,6 +5,7 @@
 #include "gameplay.h"
 #include "behavior.h"
 #include "sound.h"
+#include "players.h"
 
 #include "globals.h"
 
@@ -50,17 +51,6 @@ u8 bl_after_status, gr_after_status;
 u8 * after_status;
 u8 bl_after_speed[2], gr_after_speed[2];
 u8 * after_speed;
-
-/*
-fx = {0,
-    0,
-    0,
-    {0, 0},
-    {0, 0},
-    0,
-    0
-};
-*/
 
 u32 board_presence[8];
 
@@ -163,99 +153,6 @@ static inline u8 breakable(u8 ind){
     return (BREAKABLE & env->front_blocks[ind]);
 }
 
-static inline u8 weap_ctrl(u8 after){
-    if( *ctrl & CTRL_FIRE ){
-        *after_status = after;
-        memcpy(after_speed, curr->speed, sizeof(curr->speed));
-        curr->speed[X] = 0;
-        curr->speed[Y] = 0;
-        if(*ctrl & CTRL_ALT){
-            curr->frames = BP_ATTK_FRAMES;
-            newstatus = LOW_ATTK_RIGHT_IN | dir;/*
-            if(TRUE){ // ran out of magic balls. Deactivated for now.
-                *pl_act = NOTHING;
-                return TRUE;
-            }
-            *pl_act = SHOOT;
-            return TRUE;*/
-            *pl_act = NOTHING;
-            return TRUE;
-        }else{
-            curr->frames = BP_ATTK_FRAMES;
-            newstatus = ATTACK_RIGHT_IN | dir;
-            if(!pl_stat->arrows){ // ran out of arrows. Infinite for now for now.
-                *pl_act = NOTHING;
-                return TRUE;
-            }
-            pl_stat->arrows--;
-            *pl_act = SHOOT;
-            return TRUE;
-        }
-        return TRUE;
-    }
-    return FALSE;
-}
-
-static inline u8 block_ctrl(u8 after){
-    if( *ctrl & CTRL_BLOCK ){
-        *after_status = after;
-        memcpy(after_speed, curr->speed, sizeof(curr->speed));
-        curr->speed[X] = 0;
-        curr->speed[Y] = 0;
-        calc_next(dir);
-        if(*ctrl & CTRL_ALT){
-            calc_next_floor();
-            curr->frames = BP_ATTK_FRAMES;
-            newstatus = LOW_ATTK_RIGHT_IN | dir;
-        }else{
-            calc_front_block();
-            curr->frames = BP_ATTK_FRAMES;
-            newstatus = ATTACK_RIGHT_IN | dir;
-        }
-        if(front >= BOARD_X_PX || front_ind > BOARD_BUFFER || is_occupied(front_ind)){
-            *pl_act = NOTHING;
-            return TRUE;
-        }
-        if(env->front_blocks[front_ind]){
-            if(breakable(front_ind)){
-                *pl_act = DEL_BLOCK;
-            }else{
-                *pl_act = NOTHING;
-            }
-        }else{
-            *pl_act = MK_BLOCK;
-        }
-        return TRUE;
-    }
-    return FALSE;
-}
-
-static inline u8 jump_ctrl(u8 after){
-    if( *ctrl & CTRL_JUMP ){
-        calc_top();
-        calc_top_block_left();
-        if(top >= BOARD_Y_MAX || ( env->front_blocks[top_ind] & SOLID )){
-            *after_status = after;
-            curr->speed[X] = 0;
-            curr->frames = BP_ATTK_FRAMES;
-            newstatus = JUMP_ATTK_RIGHT_IN | dir;
-            return TRUE;
-        }
-        calc_top_block_right();
-        if(top >= BOARD_Y_MAX || ( env->front_blocks[top_ind] & SOLID )){
-            *after_status = after;
-            curr->speed[X] = 0;
-            curr->frames = BP_ATTK_FRAMES;
-            newstatus = JUMP_ATTK_RIGHT_IN | dir;
-            return TRUE;
-        }
-        newstatus = JUMP_RIGHT | dir;
-        curr->speed[Y] = PL_JMP_BOOST;
-        return TRUE;
-    }
-    return FALSE;
-}
-
 void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
     fx.status = 0;
     fx.pos[X] = BLOCK_TO_PX(IND_TO_X(front_ind));
@@ -304,13 +201,14 @@ static inline void jmp_brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
 
 static inline void gd_process(u8 front_ind){
     gd_index = GD_GET_INDEX( env->front_blocks[front_ind] );
-    const OLDEntity * character = goodies_vector[gd_index];
-    if(character->death_sound){
-        XGM_setPCM(SFX_IND, character->death_sound, character->death_sound_size);
+    const Entity * character = goodies_vector[gd_index];
+    if(character->role->goodie->pickup_sound){
+        XGM_setPCM(SFX_IND, character->role->goodie->pickup_sound, 
+            character->role->goodie->pickup_sound_size);
         XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
     }
-    if(character->onCrash) character->onCrash();
-    if(character->onTrip) character->onTrip();
+    if(character->role->onCrash) character->role->goodie->onCrash();
+    if(character->role->onPickUp) character->role->goodie->onPickUp();
 }
 
 void summon_deletor(u8 front_ind, u8 deletes){
@@ -336,8 +234,28 @@ static inline void summon_arrow(u8 dir, ActorList * list){
 }
 
 void kill(Actor * act, u8 speed_x, u8 speed_y){
-    if(act->character->death_sound){
-        XGM_setPCM(SFX_IND, act->character->death_sound, act->character->death_sound_size);
+    //Nastie and Player have their death_sound
+    //pointers at the same data offset.
+    u16 attrib = act->character->attr;
+    u8 * death_sound;
+    u16 death_sound_size = 0;
+    switch(attrib & ENT_CHECK_BITMSK){
+        case NASTIE:
+            death_sound = 
+                act->character->role->nastie->death_sound;
+            death_sound_size = 
+                act->character->role->nastie->death_sound_size;
+            break;
+        case BIG_ENT_MSK: //TODO: THIS VIOLATES THE CURRENT STUCTURE!!! FIX!!!
+            death_sound 
+                act->character->role->player->death_sound;
+            death_sound_size = 
+                act->character->role->player->death_sound_size
+            break;
+    }
+    if(death_sound){
+        XGM_setPCM(SFX_IND, death_sound, 
+            death_sound_size);
         XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
     }
     act->status = DEAD;
@@ -354,8 +272,8 @@ static inline void nastie_tree(){
             calc_back(dir);
             calc_back_floor();
             if(fall(back_floor_ind)){
-                if(curr->character->onFall){
-                    (*curr->character->onFall)();
+                if(curr->character->role->nastie->onFall){
+                    (*curr->character->role->nastie->onFall)();
                     return;
                 }
             }
@@ -363,10 +281,10 @@ static inline void nastie_tree(){
             calc_front_block();
             switch(crash_into()){
                 case FRAME:
-                    NST_turn_around();
+                    NST_turn_around(); //why tho.
                     return;
                 case BLOCK:
-                    if(breakable(front_ind)) (*curr->character->onCrash)();
+                    if(breakable(front_ind)) (*curr->character->role->nastie->onCrash)();
                     else NST_turn_around();
                     return;
                 default:
@@ -374,8 +292,8 @@ static inline void nastie_tree(){
             }
             calc_front_floor();
             if(cliff()){
-                if(curr->character->onTrip){
-                    (*curr->character->onTrip)();
+                if(curr->character->role->nastie->onTrip){
+                    (*curr->character->role->nastie->onTrip)();
                     return;
                 }
             }
@@ -390,7 +308,7 @@ static inline void nastie_tree(){
         case ATTACK_RIGHT_IN: 
             if(curr->frames--) return;
             if(curr->character->onAttack){
-                (*curr->character->onAttack)();
+                (*curr->character->role->nastie->onAttack)();
             }
             newstatus = dir | ATTACK_RIGHT_OUT;
             curr->frames = ATTK_FRAMES;
@@ -405,7 +323,7 @@ static inline void nastie_tree(){
             if(land(floor_ind)) {
                 curr->pos[Y] &= FLOOR_CORR;
                 curr->speed[Y] = 0;
-                (*curr->character->onLand)();
+                (*curr->character->role->nastie->onLand)();
                 break;
             }
         break;
@@ -420,6 +338,7 @@ static inline void nastie_tree(){
 
 static inline void fx_tree(){
     switch(attr & FX_TYP_MSK){
+        //TODO: Substitute with callback.
         case WAS_GOODIE:
         case SHRAPNEL:
             if(curr->pos[X] >= PX_TO_POS(BOARD_X_PX) || curr->pos[Y] >= PX_TO_POS(BOARD_Y_PX) ){
