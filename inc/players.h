@@ -6,12 +6,7 @@
 
 #include "entities.h"
 
-typedef struct PlayerStat{
-    u32 score;
-    u8 arrows;
-    u8 balls;
-    u8 lives;
-}PlayerStat;
+
 
 u8 weap_ctrl(u8 after);
 u8 block_ctrl(u8 after);

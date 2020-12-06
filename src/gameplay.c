@@ -6,7 +6,6 @@
 #include "physics.h"
 #include "palettes.h"
 #include "blocks.h"
-#include "players.h"
 #include "levels.h"
 
 Board board;
