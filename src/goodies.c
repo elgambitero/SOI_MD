@@ -1,8 +1,10 @@
 #include "goodies.h"
 
+#include "sound.h"
+#include "sprites.h"
+
 #include "physics.h"
 #include "gameplay.h"
-#include "sound.h"
 #include "blocks.h"
 
 void GD_obtain();
@@ -20,7 +22,7 @@ const Entity GD_silvCoin = {
     {7, 15},
     {7, 15},
     PAL_SYS0,
-    &gd_spr0_spr,
+    &gd_sys0_spr,
     {
         {
             500,
@@ -529,7 +531,7 @@ const Entity GD_grdoor_open = {
 
 
 
-const OLDEntity * const goodies_vector[] = {
+const Entity * const goodies_vector[] = {
     &GD_silvCoin,
     &GD_arrow,
     &GD_clk3h,
@@ -575,7 +577,7 @@ void GD_obtain(){
     fx.speed[Y] = -BRK_SPEED;
     Actor * result = ACT_add(&fx, &fx_buf);
     if(result){
-        if(gd_index >= GD_GET_INDEX( GD_GOLDC ) ) gd_index -= GD_GET_INDEX( GD_GOLDC );
+        if(gd_index >= GD_GET_INDEX( GDi_GOLDC ) ) gd_index -= GD_GET_INDEX( GDi_GOLDC );
         SPR_setFrame(result->sprite, gd_index);
     }
     break_block_ind(env, front_ind);
@@ -598,9 +600,9 @@ void GD_killSpawned(){
 }
 
 void GD_openRdDoor(){
-    u16 index = seek_block(env, (GOODIE | GD_RDDOOR) );
+    u16 index = seek_block(env, (GOODIE | GDi_RDDOOR) );
     if(index != BOARD_NOTFOUND){
-        set_block(env, (GOODIE | GD_RDDOOR_open), index);
+        set_block(env, (GOODIE | GDi_RDDOOR_open), index);
     }else{
         //this crashes the game on purpose
         SYS_die("Red Door not found");

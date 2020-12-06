@@ -3,6 +3,7 @@
 
 #include "entities.h"
 
+
 extern const Entity GD_silvCoin;
 extern const Entity GD_arrow;
 extern const Entity GD_clk3h;

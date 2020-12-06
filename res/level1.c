@@ -23,7 +23,7 @@ static const Actor blp = {&PL_blue,
       0
     };
 
-   static const Actor glp = {&PL_green_player,
+   static const Actor glp = {&PL_green,
       0,
       0,
    {184, 112},

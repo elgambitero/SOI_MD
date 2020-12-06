@@ -19,13 +19,13 @@
 #define CHI (NORMAL_BLOCK | SOLID | BLK_CHISEL)
 #define QUE (NORMAL_BLOCK | SOLID | BLK_QUESTION)
 #define NET (NORMAL_BLOCK | BLK_NET)
-#define GLC (GOODIE | GD_GOLDC)
-#define ARR (GOODIE | GD_ARROW)
-#define C3H (GOODIE | GD_CLK3h)
-#define M2X (GOODIE | GD_2x)
-#define RDK (GOODIE | GD_RDKEY)
-#define RDD (GOODIE | GD_RDDOOR)
-#define THN (GOODIE | GD_THNBALL)
+#define GLC (GOODIE | GDi_GOLDC)
+#define ARR (GOODIE | GDi_ARROW)
+#define C3H (GOODIE | GDi_CLK3h)
+#define M2X (GOODIE | GDi_2x)
+#define RDK (GOODIE | GDi_RDKEY)
+#define RDD (GOODIE | GDi_RDDOOR)
+#define THN (GOODIE | GDi_THNBALL)
 
 static const Actor blp = {&PL_blue,
        STILL_RIGHT,
@@ -34,7 +34,7 @@ static const Actor blp = {&PL_blue,
     {   0,    0},
       0,
        0,
-       0
+       NULL
     };
 
 static const Actor glp = {&PL_green,
@@ -108,16 +108,6 @@ static const Actor ant = {&NST_ant,
    &piggy
    };
 
-static const Actor ant_spawn = {&NST_ant_spawner,
-      0,
-      0,
-      {231,31},
-      {0, 0},
-      0,
-      0,
-      &ant
-};
-
 
 const Board test_level = {
     {
@@ -154,6 +144,6 @@ const Board test_level = {
     {PAL_GR, PAL_R, PAL_BL},
     0,
     0,
-    &ant_spawn,
+    &ant,
     &glp
 };
