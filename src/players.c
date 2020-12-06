@@ -13,7 +13,7 @@ const Entity PL_blue = {
     {7, 15},
     PAL_SYS0,
     &bp_spr,
-    {
+    {.player =
         {
             snd_player_death,
             sizeof(snd_player_death)
@@ -27,7 +27,7 @@ const Entity PL_green = {
     {7, 15},
     PAL_SYS1,
     &bp_spr,
-    {
+    {.player =
         {
             snd_player_death,
             sizeof(snd_player_death),

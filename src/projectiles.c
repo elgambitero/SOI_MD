@@ -15,7 +15,7 @@ const Entity PR_arrow = {
     {7, 15},
     PAL_SYS0,
     &arrow_spr,
-    {
+    {.proj =
         {
             &PR_arrow_fired,
 
