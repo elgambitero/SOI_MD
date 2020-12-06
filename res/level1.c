@@ -8,12 +8,12 @@
 #define BOW (NORMAL_BLOCK | SOLID | BLK_DOT   | COL_WHITE)
 #define BFW (NORMAL_BLOCK | SOLID | BLK_FLAT  | COL_WHITE)
 #define BFR (NORMAL_BLOCK | SOLID | BLK_FLAT  | COL_SLOT1)
-#define GLC (GOODIE | GD_GOLDC)
-#define SLC (GOODIE | GD_SILVC)
-#define RDK (GOODIE | GD_RDKEY)
-#define RDD (GOODIE | GD_RDDOOR)
+#define GLC (GOODIE | GDi_GOLDC)
+#define SLC (GOODIE | GDi_SILVC)
+#define RDK (GOODIE | GDi_RDKEY)
+#define RDD (GOODIE | GDi_RDDOOR)
 
-static const Actor blp = {&blue_player_ent,
+static const Actor blp = {&PL_blue,
        0,
        0,
     {120, 112},
@@ -23,7 +23,7 @@ static const Actor blp = {&blue_player_ent,
       0
     };
 
-   static const Actor glp = {&green_player_ent,
+   static const Actor glp = {&PL_green_player,
       0,
       0,
    {184, 112},
@@ -33,7 +33,7 @@ static const Actor blp = {&blue_player_ent,
       &blp
    };
 
-static const Actor robo = {&robo_ent,
+static const Actor robo = {&NST_robo,
    WALK_RIGHT,
    0,
    {40, 32},

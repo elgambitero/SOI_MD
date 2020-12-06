@@ -27,7 +27,7 @@
 #define RDD (GOODIE | GD_RDDOOR)
 #define THN (GOODIE | GD_THNBALL)
 
-static const Actor blp = {&blue_player_ent,
+static const Actor blp = {&PL_blue,
        STILL_RIGHT,
        0,
     {104, 31},
@@ -37,7 +37,7 @@ static const Actor blp = {&blue_player_ent,
        0
     };
 
-static const Actor glp = {&green_player_ent,
+static const Actor glp = {&PL_green,
        STILL_RIGHT,
        0,
     {120, 31},
@@ -47,7 +47,7 @@ static const Actor glp = {&green_player_ent,
        &blp
     };
 
-static const Actor spinner3 = {&spinner_ent,
+static const Actor spinner3 = {&NST_spinner,
        0,
        0,
     {134, 60},
@@ -57,7 +57,7 @@ static const Actor spinner3 = {&spinner_ent,
       0
     };
 
-static const Actor spinner2 = {&spinner_ent,
+static const Actor spinner2 = {&NST_spinner,
        0,
        0,
     {166, 60},
@@ -68,7 +68,7 @@ static const Actor spinner2 = {&spinner_ent,
     };
 
 
-static const Actor spinner = {&spinner_ent,
+static const Actor spinner = {&NST_spinner,
        0,
        0,
     {150, 60},
@@ -78,7 +78,7 @@ static const Actor spinner = {&spinner_ent,
     &spinner2
     };
 
-static const Actor robo = {&teeth_ent,
+static const Actor robo = {&NST_teeth,
    WALK_RIGHT,
    0,
    {152, 32},
@@ -88,7 +88,7 @@ static const Actor robo = {&teeth_ent,
    &spinner
    };
 
-static const Actor piggy = {&piggy_ent,
+static const Actor piggy = {&NST_piggy,
    WALK_RIGHT,
    0,
    {264, 31},
@@ -98,7 +98,7 @@ static const Actor piggy = {&piggy_ent,
    &robo
    };
 
-static const Actor ant = {&ant_ent,
+static const Actor ant = {&NST_ant,
       0,
       0,
    {264, 31},
@@ -108,7 +108,7 @@ static const Actor ant = {&ant_ent,
    &piggy
    };
 
-static const Actor ant_spawn = {&ant_spawner_ent,
+static const Actor ant_spawn = {&NST_ant_spawner,
       0,
       0,
       {231,31},
