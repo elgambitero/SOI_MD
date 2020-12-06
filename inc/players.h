@@ -6,16 +6,6 @@
 
 #include "entities.h"
 
-typedef struct Player{
-    u8 size[2];
-    u8 spr_pos[2];
-    u8 palette;
-
-    const SpriteDefinition * sprite_def;
-    const u8 * death_sound;
-    const u16 death_sound_size;
-}Player;
-
 typedef struct PlayerStat{
     u32 score;
     u8 arrows;

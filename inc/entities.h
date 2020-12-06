@@ -4,12 +4,72 @@
 
 #include <genesis.h>
 
-#include "globals.h"
-#include "nasties.h"
-#include "players.h"
-#include "goodies.h"
-#include "effects.h"
-#include "projectiles.h"
+typedef struct Nastie{
+    u8 size[2];
+    u8 spr_pos[2];
+    u8 palette;
+
+    const SpriteDefinition * sprite_def;
+    const u8 * death_sound;
+    const u16 death_sound_size;
+    
+    u16 points;
+
+    void (*const onCrash)();
+    void (*const onTrip)();
+    void (*const onFall)();
+    void (*const onLand)();
+    void (*const onAttack)();
+    void (*const onFinishAttack)();
+}Nastie;
+
+typedef struct FX{
+    u8 size[2];
+    u8 spr_pos[2];
+    u8 palette;
+    const SpriteDefinition * sprite_def;
+}FX;
+
+
+typedef struct Player{
+    u8 size[2];
+    u8 spr_pos[2];
+    u8 palette;
+
+    const SpriteDefinition * sprite_def;
+    const u8 * death_sound;
+    const u16 death_sound_size;
+}Player;
+
+
+typedef struct Projectile{
+    u8 size[2];
+    u8 spr_pos[2];
+    u8 palette;
+
+    const SpriteDefinition * sprite_def;
+
+    void (*const onFire)();
+
+    void (*const onCrash)();
+}Projectile;
+
+
+typedef struct Goodie{
+    u8 size[2];
+    u8 spr_pos[2];
+    u8 palette;
+    u16 points;
+
+    const SpriteDefinition * sprite_def;
+    const u8 * pickup_sound;
+    const u16 pickup_sound_size;
+
+    void (*const onCrash)();
+    void (*const onPickUp)();
+}Goodie;
+
+
 
 typedef struct Entity{
     u16 attr;
@@ -21,6 +81,13 @@ typedef struct Entity{
         Projectile proj;
     }role;
 }Entity;
+
+#include "globals.h"
+#include "nasties.h"
+#include "players.h"
+#include "goodies.h"
+#include "effects.h"
+#include "projectiles.h"
 
 #define ENT_CHECK_BITMSK 0x0003
 
