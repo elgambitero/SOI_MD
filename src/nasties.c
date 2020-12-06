@@ -23,8 +23,8 @@ void NST_deletes_and_keeps_going();
 
 const Entity ant_spawner_ent = {
     NASTIE | STILL | CREATES_NASTIE,
+    {8, 15},
     {
-        {8, 15},
         {7, 15},
         PAL_SYS0,
         0,
@@ -42,8 +42,8 @@ const Entity ant_spawner_ent = {
 
 const Entity spinner_ent = {
     NASTIE | STILL,
+    {6, 15},
     {
-        {6, 15},
         {7, 15},
         PAL_SYS0,
         0,
@@ -61,8 +61,8 @@ const Entity spinner_ent = {
 
 const Entity robo_ent = {
     NASTIE | WALKS | DIES_ON_LEAP | BREAKS | GOES_THRU,
+    {4, 15},
     {
-        {4, 15},
         {7, 15},
         PAL_SYS0,
         1000,
@@ -80,8 +80,8 @@ const Entity robo_ent = {
 
 const Entity ant_ent = {
     NASTIE | WALKS | LEAPS,
+    {7, 8},
     {
-        {7, 8},
         {7, 8},
         PAL_SYS0,
         50,
@@ -99,8 +99,8 @@ const Entity ant_ent = {
 
 const Entity piggy_ent = {
     NASTIE | WALKS | LEAPS | DELETES,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS1,
         250,
@@ -118,8 +118,8 @@ const Entity piggy_ent = {
 
 const Entity teeth_ent = {
     NASTIE | WALKS | LEAPS | DELETES | GOES_THRU,
+    {8, 15},
     {
-        {8, 15},
         {8, 15},
         PAL_SYS0,
         1500,

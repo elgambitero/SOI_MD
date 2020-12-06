@@ -128,6 +128,10 @@ u8 land(u8 ind);
 u8 cliff();
 u8 crash_into();
 
+void clean_presence();
+void set_presence(u8 ind);
+u8 is_occupied(u8 ind);
+
 void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y);
 
 #endif

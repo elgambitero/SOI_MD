@@ -17,8 +17,8 @@ void GD_enterRdDoor();
 //TODO: Fix FX | WAS_GOODIE for something more specific.
 const Entity GD_silvCoin = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS0,
         500,
@@ -32,8 +32,8 @@ const Entity GD_silvCoin = {
 
 const Entity GD_arrow = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS0,
         0,
@@ -47,8 +47,8 @@ const Entity GD_arrow = {
 
 const Entity GD_clk3h = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS0,
         0,
@@ -62,8 +62,8 @@ const Entity GD_clk3h = {
 
 const Entity GD_clk6h = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS0,
         0,
@@ -77,8 +77,8 @@ const Entity GD_clk6h = {
 
 const Entity GD_clk9h = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS0,
         0,
@@ -92,8 +92,8 @@ const Entity GD_clk9h = {
 
 const Entity GD_clk12h = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS0,
         0,
@@ -107,8 +107,8 @@ const Entity GD_clk12h = {
 
 const Entity GD_glass = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS0,
         0,
@@ -122,8 +122,8 @@ const Entity GD_glass = {
 
 const Entity GD_shield = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        FX | WAS_GOODIE,
         {7, 15},
         {7, 15},
         PAL_SYS0,
@@ -138,8 +138,8 @@ const Entity GD_shield = {
 
 const Entity GD_boot = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS0,
         0,
@@ -153,8 +153,8 @@ const Entity GD_boot = {
 
 const Entity GD_thnball = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS0,
         0,
@@ -168,8 +168,8 @@ const Entity GD_thnball = {
 
 const Entity GD_rdkey = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS0,
         0,
@@ -183,8 +183,8 @@ const Entity GD_rdkey = {
 
 const Entity GD_blkey = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS0,
         0,
@@ -198,8 +198,8 @@ const Entity GD_blkey = {
 
 const Entity GD_rddoor = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS0,
         0,
@@ -213,8 +213,8 @@ const Entity GD_rddoor = {
 
 const Entity GD_bldoor = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS0,
         0,
@@ -228,8 +228,8 @@ const Entity GD_bldoor = {
 
 const Entity GD_rddoor_open = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS0,
         0,
@@ -243,8 +243,8 @@ const Entity GD_rddoor_open = {
 
 const Entity GD_bddoor_open = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS0,
         0,
@@ -258,8 +258,8 @@ const Entity GD_bddoor_open = {
 
 const Entity GD_goldCoin = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS1,
         0,
@@ -273,8 +273,8 @@ const Entity GD_goldCoin = {
 
 const Entity GD_1UP = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS1,
         0,
@@ -288,8 +288,8 @@ const Entity GD_1UP = {
 
 const Entity GD_2x = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS1,
         0,
@@ -303,8 +303,8 @@ const Entity GD_2x = {
 
 const Entity GD_3x = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS1,
         0,
@@ -318,8 +318,8 @@ const Entity GD_3x = {
 
 const Entity GD_4x = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS1,
         0,
@@ -333,8 +333,8 @@ const Entity GD_4x = {
 
 const Entity GD_5x = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS1,
         0,
@@ -348,8 +348,8 @@ const Entity GD_5x = {
 
 const Entity GD_ball = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS1,
         0,
@@ -363,8 +363,8 @@ const Entity GD_ball = {
 
 const Entity GD_gem = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS1,
         0,
@@ -378,8 +378,8 @@ const Entity GD_gem = {
 
 const Entity GD_gold = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS1,
         0,
@@ -393,8 +393,8 @@ const Entity GD_gold = {
 
 const Entity GD_turtl = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS1,
         0,
@@ -408,8 +408,8 @@ const Entity GD_turtl = {
 
 const Entity GD_star = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS1,
         0,
@@ -423,8 +423,8 @@ const Entity GD_star = {
 
 const Entity GD_grkey = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS1,
         0,
@@ -438,8 +438,8 @@ const Entity GD_grkey = {
 
 const Entity GD_grdoor = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS1,
         0,
@@ -453,8 +453,8 @@ const Entity GD_grdoor = {
 
 const Entity GD_grdoor_open = {
     FX | WAS_GOODIE,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS1,
         0,

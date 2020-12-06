@@ -30,15 +30,15 @@ u8 gr_ctrl;
 
 u32 board_presence[8];
 
-static inline void clean_presence(){
+void clean_presence(){
     memset(board_presence, 0x00000000, sizeof(board_presence));
 }
-static inline void set_presence(u8 ind){
+void set_presence(u8 ind){
     register u8 slot = (ind >> 5);
     register u8 shift = (ind & 0x1F);
     board_presence[slot] = (1 << shift);
 }
-static inline u8 is_occupied(u8 ind){
+u8 is_occupied(u8 ind){
     register u8 slot = (ind >> 5);
     register u8 shift = (ind & 0x1F);
     return board_presence[slot] & (1 << shift);

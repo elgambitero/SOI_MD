@@ -9,8 +9,8 @@ void PR_arrow_fired();
 
 const Entity PR_arrow = {
     PROJECTILE | FLIES,
+    {7, 15},
     {
-        {7, 15},
         {7, 15},
         PAL_SYS0,
 
