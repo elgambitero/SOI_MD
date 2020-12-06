@@ -64,11 +64,6 @@ typedef struct Entity{
 }Entity;
 
 #include "globals.h"
-#include "nasties.h"
-#include "players.h"
-#include "goodies.h"
-#include "effects.h"
-#include "projectiles.h"
 
 #define ENT_CHECK_BITMSK 0x0003
 

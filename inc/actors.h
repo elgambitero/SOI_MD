@@ -2,7 +2,11 @@
 
 #define ACTORS_H
 
-#include "entities.h"
+#include "players.h"
+#include "effects.h"
+#include "nasties.h"
+#include "projectiles.h"
+#include "goodies.h"
 
 #define DECIMALS 2
 

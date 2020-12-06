@@ -1,9 +1,10 @@
 #include "players.h"
 
-#include "physics.h"
 #include "sprites.h"
-#include "gameplay.h"
 #include "sound.h"
+
+#include "physics.h"
+#include "gameplay.h"
 #include "blocks.h"
 
 //TODO: Fill this!
