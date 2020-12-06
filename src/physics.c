@@ -321,6 +321,11 @@ static inline void fx_tree(){
 }
 
 static inline void player_tree(){
+    pl_stat = curr->character->role.player.statistics;
+    pl_act = curr->character->role.player.intent;
+    after_status = curr->character->role.player.future;
+    ctrl = curr->character->role.player.ctrl;
+    after_speed = curr->character->role.player.future_speed;
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
             calc_front_margin(dir);
@@ -665,30 +670,6 @@ static inline void proj_tree(){
     }
 }
 
-static inline void player_preprocess(){
-        pl_stat = curr->character->role.player.statistics;
-        pl_act = curr->character->role.player.intent;
-        after_status = curr->character->role.player.future;
-    switch(attr & PLAYER_MSK){
-        case BLUE_PLAYER:
-            ctrl = &bl_ctrl;
-            after_speed = bl_after_speed;
-            player_tree();
-        break;
-        case GREEN_PLAYER:
-            ctrl = &gr_ctrl;
-            after_speed = gr_after_speed;
-            player_tree();
-        break;
-        case RED_PLAYER:
-
-        break;
-        case PINK_PLAYER:
-
-        break;
-    }
-}
-
 static inline void class_tree(){
     switch(attr & ENT_CHECK_BITMSK){
         case NASTIE:
@@ -731,7 +712,7 @@ static inline void class_tree(){
             }
         break;
         case BIG_ENTITY:
-            player_preprocess();
+            player_tree();
         break;
         case PROJECTILE:
             proj_tree();

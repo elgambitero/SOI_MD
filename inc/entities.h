@@ -30,6 +30,8 @@ typedef struct Player{
     PlayerStat * const statistics;
     u8 * const intent;
     u8 * const future;
+    u8 * const ctrl;
+    u8 * const future_speed;
 }Player;
 
 
