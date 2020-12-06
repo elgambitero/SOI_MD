@@ -680,9 +680,13 @@ static inline void proj_tree(){
 }
 
 
-static inline void class_tree(){
+static inline u8 class_tree(){
     switch(attr & ENT_CHECK_BITMSK){
         case NASTIE:
+            if(curr->timer){
+                curr->timer++;
+                if(curr->timer == MAX_TIMER) return ACT_DELETION;
+            }
             nastie_tree();
             if(curr->status == DEAD)
                 return;
@@ -735,6 +739,7 @@ static inline void class_tree(){
             break;
 
     }
+    return 0;
 }
 
 
@@ -785,8 +790,8 @@ u8 PHY_computeStatus(Actor * actor){
     attr = curr->character->attr;
     dir = (status & 0x0001);
 
-    class_tree();
-    
+    result = class_tree();
+    if(result) return result;
     curr->status = newstatus;
     if(status != newstatus) result = ACT_CHANGED;
     return result;
