@@ -74,7 +74,7 @@ typedef struct Entity{
 
 #define ENT_CHECK_BITMSK 0x0003
 
-#define BIG_ENTITY   0
+#define PLAYER   0
 
 #define PLAYER_MSK   0x0018 //B0000000000011000
 

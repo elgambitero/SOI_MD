@@ -670,6 +670,7 @@ static inline void proj_tree(){
     }
 }
 
+
 static inline void class_tree(){
     switch(attr & ENT_CHECK_BITMSK){
         case NASTIE:
@@ -711,7 +712,7 @@ static inline void class_tree(){
                 }
             }
         break;
-        case BIG_ENTITY:
+        case PLAYER:
             player_tree();
         break;
         case PROJECTILE:
