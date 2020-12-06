@@ -5,10 +5,6 @@
 #include <genesis.h>
 
 typedef struct Nastie{
-    u8 spr_pos[2];
-    u8 palette;
-
-    const SpriteDefinition * sprite_def;
     const u8 * death_sound;
     const u16 death_sound_size;
     
@@ -23,27 +19,16 @@ typedef struct Nastie{
 }Nastie;
 
 typedef struct FX{
-    u8 spr_pos[2];
-    u8 palette;
-    const SpriteDefinition * sprite_def;
 }FX;
 
 
 typedef struct Player{
-    u8 spr_pos[2];
-    u8 palette;
-
-    const SpriteDefinition * sprite_def;
     const u8 * death_sound;
     const u16 death_sound_size;
 }Player;
 
 
 typedef struct Projectile{
-    u8 spr_pos[2];
-    u8 palette;
-
-    const SpriteDefinition * sprite_def;
 
     void (*const onFire)();
 
@@ -52,11 +37,7 @@ typedef struct Projectile{
 
 
 typedef struct Goodie{
-    u8 spr_pos[2];
-    u8 palette;
     u16 points;
-
-    const SpriteDefinition * sprite_def;
     const u8 * pickup_sound;
     const u16 pickup_sound_size;
 
@@ -69,6 +50,10 @@ typedef struct Goodie{
 typedef struct Entity{
     u16 attr;
     u8 size[2];
+    u8 spr_pos[2];
+    u8 palette;
+    const SpriteDefinition * sprite_def;
+
     union Role{
         Player player;
         Nastie nastie;
