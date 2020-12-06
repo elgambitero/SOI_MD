@@ -1,6 +1,5 @@
 #include <genesis.h>
 
-#include "states.h"
 #include "gameplay.h"
 
 #define PAL
@@ -10,6 +9,13 @@
 #else
     #define FRAMES 50
 #endif
+
+enum MainStates{INTRO,
+    MAIN_MENU,
+    GAMEPLAY
+    };
+
+enum MainStates mainState;
 
 u16 ind;
 

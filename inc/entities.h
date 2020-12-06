@@ -28,6 +28,8 @@ typedef struct Player{
     const u8 * death_sound;
     const u16 death_sound_size;
     PlayerStat * const statistics;
+    u8 * const intent;
+    u8 * const future;
 }Player;
 
 

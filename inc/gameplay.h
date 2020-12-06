@@ -3,7 +3,6 @@
 
 #include <genesis.h>
 
-#include "states.h"
 #include "board.h"
 
 #define X 0

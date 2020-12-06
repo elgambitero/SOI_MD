@@ -46,6 +46,11 @@
 #define ACT_CHANGED 1
 #define ACT_DELETION 2
 
+#define NOTHING      0
+#define DEL_BLOCK    1
+#define MK_BLOCK     2
+#define SHOOT        3
+
 Board * env;
 
 ActorList nasties;
@@ -61,14 +66,9 @@ u8 status;
 u8 newstatus;
 u8 dir;
 
-enum player_action{
-    NOTHING,
-    DEL_BLOCK,
-    MK_BLOCK,
-    SHOOT
-};
-enum player_action * pl_act;
-enum player_action bl_act, gr_act;
+
+u8 * pl_act;
+u8 bl_act, gr_act;
 
 PlayerStat * pl_stat;
 PlayerStat * bl_stat;

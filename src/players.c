@@ -18,7 +18,9 @@ const Entity PL_blue = {
         {
             snd_player_death,
             sizeof(snd_player_death),
-            &bl_stats
+            &bl_stats,
+            &bl_act,
+            &bl_after_status
         }
     }
 };
@@ -33,7 +35,9 @@ const Entity PL_green = {
         {
             snd_player_death,
             sizeof(snd_player_death),
-            &gr_stats
+            &gr_stats,
+            &gr_act,
+            &gr_after_status
         }
     }
 };
