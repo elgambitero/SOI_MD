@@ -23,117 +23,129 @@ void NST_deletes_and_keeps_going();
 
 
 
-const Entity ant_spawner_ent = {
+const Entity NST_ant_spawner = {
     NASTIE | STILL | CREATES_NASTIE,
     {8, 15},
+    {7, 15},
+    PAL_SYS0,
+    NULL,
     {
-        {7, 15},
-        PAL_SYS0,
-        0,
-        0,
-        0,
-        0,
-        NULL,
-        NULL,
-        NST_still_fall,
-        NST_still_land,
-        NULL,
-        NULL
+        {
+            NULL,
+            0,
+            0,
+            NULL,
+            NULL,
+            NST_still_fall,
+            NST_still_land,
+            NULL,
+            NULL
+        }
     }
 };
 
-const Entity spinner_ent = {
+const Entity NST_spinner = {
     NASTIE | STILL,
     {6, 15},
+    {7, 15},
+    PAL_SYS0,
+    &spinner_spr,
     {
-        {7, 15},
-        PAL_SYS0,
-        0,
-        &spinner_spr,
-        0,
-        0,
-        NULL,
-        NULL,
-        &NST_still_fall,
-        &NST_still_land,
-        NULL,
-        NULL
+        {
+            NULL,
+            0,
+            0,
+            NULL,
+            NULL,
+            &NST_still_fall,
+            &NST_still_land,
+            NULL,
+            NULL
+        }
     }
 };
 
-const Entity robo_ent = {
+const Entity NST_robo = {
     NASTIE | WALKS | DIES_ON_LEAP | BREAKS | GOES_THRU,
     {4, 15},
+    {7, 15},
+    PAL_SYS0,
+    &robo_spr,
     {
-        {7, 15},
-        PAL_SYS0,
-        1000,
-        &robo_spr,
-        snd_robo,
-        sizeof(snd_robo),
-        &NST_attack,
-        &NST_turn_around,
-        &NST_fall,
-        &NST_die,
-        &NST_breaks,
-        &NST_keep_walking
+        {
+            snd_robo,
+            sizeof(snd_robo),
+            1000,
+            &NST_attack,
+            &NST_turn_around,
+            &NST_fall,
+            &NST_die,
+            &NST_breaks,
+            &NST_keep_walking
+        }
     }
 };
 
-const Entity ant_ent = {
+const Entity NST_ant = {
     NASTIE | WALKS | LEAPS,
     {7, 8},
+    {7, 8},
+    PAL_SYS0,
+    &ant_spr,
     {
-        {7, 8},
-        PAL_SYS0,
-        50,
-        &ant_spr,
-        snd_ant,
-        sizeof(snd_ant),
-        &NST_turn_around,
-        NULL,
-        &NST_fall,
-        &NST_keep_walking,
-        NULL,
-        NULL
+        {
+            snd_ant,
+            sizeof(snd_ant),
+            50,
+            &NST_turn_around,
+            NULL,
+            &NST_fall,
+            &NST_keep_walking,
+            NULL,
+            NULL
+        }
     }
 };
 
-const Entity piggy_ent = {
+const Entity NST_piggy = {
     NASTIE | WALKS | LEAPS | DELETES,
     {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    &piggy_spr,
     {
-        {7, 15},
-        PAL_SYS1,
-        250,
-        &piggy_spr,
-        snd_piggy,
-        sizeof(snd_piggy),
-        &NST_attack,
-        NULL,
-        &NST_fall,
-        &NST_keep_walking,
-        &NST_deletes,
-        &NST_turn_around_fast
+        {
+            snd_piggy,
+            sizeof(snd_piggy),
+            250,
+            &NST_attack,
+            NULL,
+            &NST_fall,
+            &NST_keep_walking,
+            &NST_deletes,
+            &NST_turn_around_fast
+        }
     }
 };
 
-const Entity teeth_ent = {
+const Entity NST_teeth = {
     NASTIE | WALKS | LEAPS | DELETES | GOES_THRU,
     {8, 15},
+    {8, 15},
+    PAL_SYS0,
+    &teeth_spr,
     {
-        {8, 15},
-        PAL_SYS0,
-        1500,
-        &teeth_spr,
-        snd_teeth,
-        sizeof(snd_teeth),
-        &NST_deletes_and_keeps_going,
-        NULL,
-        &NST_fall,
-        &NST_keep_walking,
-        &NST_deletes,
-        &NST_keep_walking
+        {
+            snd_teeth,
+            sizeof(snd_teeth),
+            1500,
+            &NST_deletes_and_keeps_going,
+            NULL,
+            &NST_fall,
+            &NST_keep_walking,
+            &NST_deletes,
+            &NST_keep_walking
+        }
     }
 };
 
