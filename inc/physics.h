@@ -2,9 +2,9 @@
 
 #define PHYSICS_H
 
+#include "gameplay.h"
 #include "actors.h"
 #include "board.h"
-#include "gameplay.h"
 
 #define SFX_IND 5 //magic number
 

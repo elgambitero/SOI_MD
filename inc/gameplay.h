@@ -16,12 +16,6 @@
 
 #define PASSING_PLAYER 0x0000
 
-typedef struct PlayerStat{
-    u32 score;
-    u8 arrows;
-    u8 balls;
-    u8 lives;
-}PlayerStat;
 
 const Board * current_level;
 Actor * blue_player;
