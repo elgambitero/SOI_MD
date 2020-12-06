@@ -95,7 +95,6 @@ static inline void game_controls(u16 joy, u16 changed, u16 state){
             }
         break;
     }
-    
 }
 
 void gameplayLoop();

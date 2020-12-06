@@ -3,7 +3,7 @@
 
 enum MainStates{INTRO,
     MAIN_MENU,
-    GAMEPLAY,
+    GAMEPLAY
     };
 
 enum MainStates mainState;

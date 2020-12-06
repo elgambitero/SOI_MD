@@ -4,7 +4,6 @@
 
 #include "actors.h"
 #include "board.h"
-#include "players.h"
 
 #define SFX_IND 5 //magic number
 
@@ -113,6 +112,7 @@ void calc_next_floor();
 void calc_front_floor();
 void calc_back_floor();
 void calc_floor();
+void calc_top();
 void calc_top_block();
 void calc_top_block_left();
 void calc_top_block_right();
@@ -122,6 +122,7 @@ void calc_front_margin(u8 direction);
 void calc_next(u8 direction);
 void calc_back(u8 direction);
 
+u8 breakable(u8 ind);
 u8 fall(u8 ind);
 u8 land(u8 ind);
 

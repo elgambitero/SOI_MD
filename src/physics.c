@@ -3,9 +3,7 @@
 #include "board.h"
 #include "blocks.h"
 #include "gameplay.h"
-#include "behavior.h"
 #include "sound.h"
-#include "players.h"
 
 #include "globals.h"
 
@@ -125,7 +123,7 @@ u8 crash_into(){
         return 0;
 }
 
-static inline u8 breakable(u8 ind){
+u8 breakable(u8 ind){
     return (BREAKABLE & env->front_blocks[ind]);
 }
 

@@ -55,11 +55,11 @@ typedef struct Entity{
     const SpriteDefinition * sprite_def;
 
     union Role{
-        Player player;
-        Nastie nastie;
-        Goodie goodie;
-        FX effect;
-        Projectile proj;
+        const Player player;
+        const Nastie nastie;
+        const Goodie goodie;
+        const FX effect;
+        const Projectile proj;
     }role;
 }Entity;
 

@@ -1,11 +1,11 @@
 #include "goodies.h"
 
-#include "sound.h"
-#include "sprites.h"
-
 #include "physics.h"
 #include "gameplay.h"
 #include "blocks.h"
+
+#include "sound.h"
+#include "sprites.h"
 
 void GD_obtain();
 void GD_killAll();
@@ -39,7 +39,7 @@ const Entity GD_arrow = {
     {7, 15},
     {7, 15},
     PAL_SYS0,
-    &gd_spr0_spr,
+    &gd_sys0_spr,
     {.goodie =
         {
             0,
@@ -56,7 +56,7 @@ const Entity GD_clk3h = {
     {7, 15},
     {7, 15},
     PAL_SYS0,
-    &gd_spr0_spr,
+    &gd_sys0_spr,
     {.goodie =
         {
             0,
@@ -73,7 +73,7 @@ const Entity GD_clk6h = {
     {7, 15},
     {7, 15},
     PAL_SYS0,
-    &gd_spr0_spr,
+    &gd_sys0_spr,
     {.goodie =
         {
             0,
@@ -90,7 +90,7 @@ const Entity GD_clk9h = {
     {7, 15},
     {7, 15},
     PAL_SYS0,
-    &gd_spr0_spr,
+    &gd_sys0_spr,
     {.goodie =
         {
             0,
@@ -107,7 +107,7 @@ const Entity GD_clk12h = {
     {7, 15},
     {7, 15},
     PAL_SYS0,
-    &gd_spr0_spr,
+    &gd_sys0_spr,
     {.goodie =
         {
             0,

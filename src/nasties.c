@@ -8,10 +8,6 @@
 #include "blocks.h"
 
 
-
-
-
-
 const Entity NST_ant_spawner = {
     NASTIE | STILL | CREATES_NASTIE,
     {8, 15},
