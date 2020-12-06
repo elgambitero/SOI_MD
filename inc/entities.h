@@ -4,6 +4,8 @@
 
 #include <genesis.h>
 
+#include "states.h"
+
 typedef struct Nastie{
     const u8 * death_sound;
     const u16 death_sound_size;
@@ -25,6 +27,7 @@ typedef struct FX{
 typedef struct Player{
     const u8 * death_sound;
     const u16 death_sound_size;
+    const PlayerStat * statistics;
 }Player;
 
 

@@ -13,7 +13,6 @@ Board board;
 u8 colors[4];
 u16 ind;
 u16 frmInd;
-PlayerStat bl_stats, gr_stats;
 
 u16 levelInd;
 

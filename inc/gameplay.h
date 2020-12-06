@@ -22,6 +22,7 @@ Actor * blue_player;
 Actor * green_player;
 
 u8 bl_ctrl, gr_ctrl;
+PlayerStat bl_stats, gr_stats;
 
 #define CTRL_DIR_MSK 0x03
 

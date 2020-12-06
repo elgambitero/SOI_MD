@@ -17,7 +17,8 @@ const Entity PL_blue = {
     {.player =
         {
             snd_player_death,
-            sizeof(snd_player_death)
+            sizeof(snd_player_death),
+            &bl_stats
         }
     }
 };
@@ -32,6 +33,7 @@ const Entity PL_green = {
         {
             snd_player_death,
             sizeof(snd_player_death),
+            &gr_stats
         }
     }
 };
