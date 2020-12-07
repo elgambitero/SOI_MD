@@ -8,27 +8,6 @@
 #include "blocks.h"
 
 
-const Entity NST_ant_spawner = {
-    NASTIE | STILL | CREATES_NASTIE,
-    {8, 15},
-    {7, 15},
-    PAL_SYS0,
-    NULL,
-    {.nastie =
-        {
-            NULL,
-            0,
-            0,
-            NULL,
-            NULL,
-            NST_still_fall,
-            NST_still_land,
-            NULL,
-            NULL
-        }
-    }
-};
-
 const Entity NST_spinner = {
     NASTIE | STILL,
     {6, 15},

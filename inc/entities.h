@@ -52,7 +52,10 @@ typedef struct Goodie{
     void (*const onPickUp)();
 }Goodie;
 
-
+typedef struct Spawner{
+    u16 timer;
+    void (*const onTimeout)();
+}Spawner;
 
 typedef struct Entity{
     u16 attr;
@@ -67,6 +70,7 @@ typedef struct Entity{
         const Goodie goodie;
         const FX effect;
         const Projectile proj;
+        const Spawner spawner;
     }role;
 }Entity;
 

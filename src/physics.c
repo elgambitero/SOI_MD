@@ -737,6 +737,14 @@ static inline u8 class_tree(){
         case GOODY:
             goodie_tree();
             break;
+        case SPAWNER:
+            if(curr->timer){
+                curr->timer++;
+                if(curr->timer == MAX_TIMER) {
+                    curr->character->role.spawner.onTimeout();
+                }
+            }
+            break;
 
     }
     return 0;
