@@ -113,7 +113,7 @@ static const Actor ant_spawn = {&SPW_ant,
       0,
    {264, 31},
    {   0,    0},
-      MAX_TIMER - 500,
+      MAX_TIMER - SPAWN_TIME,
       0,
    &ant
    };

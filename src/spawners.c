@@ -37,5 +37,5 @@ void SPW_spawn_ant(){
     fx.speed[X] = dir ? -WALKSPEED : WALKSPEED;
     fx.speed[Y] = 0;
     ACT_add(&fx, &nasties);
-    curr->timer = MAX_TIMER - STAY_TIME;
+    curr->timer = MAX_TIMER - SPAWN_TIME;
 }
