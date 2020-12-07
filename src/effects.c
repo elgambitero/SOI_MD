@@ -12,7 +12,7 @@ const Entity FX_hidden = {
     {7, 15},
     {8, 7},
     PAL_SYS1,
-    &fx_hidden, //TODO: FIX!!!
+    &fx_hidden,
     {.effect =
         {
 
