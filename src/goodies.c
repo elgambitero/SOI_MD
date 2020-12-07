@@ -567,6 +567,7 @@ const Entity * const goodies_vector[] = {
 
 
 void GD_reveal_hidden(){
+    Actor * act;
     fx.status = 0;
     fx.frames = 0;
     fx.timer = 0;
@@ -580,13 +581,16 @@ void GD_reveal_hidden(){
             ACT_add(&fx, &fx_buf);
         }
     }
-    //some logic to look up GOODIE blocks in the second layer.
-    //and paint them on top of the board. (with sprites?)
+    SPR_update();
     stop_time(REVEAL_TIME);
-    Actor * act = ACT_getFirst(&fx_buf);
-    while(act){
-        ACT_remove(&act, &fx_buf);
-        act = act->next; //dangerous read of deleted actor.
+    act = ACT_getFirst(&fx_buf);
+    if(act){
+        Actor * next;
+        do{
+            next = act->next;
+            if(!ACT_remove(act, &fx_buf)) SYS_die("NOT EMPTYING LIST");
+            act = next;
+        }while(next);
     }
 }
 
