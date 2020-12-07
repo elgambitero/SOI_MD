@@ -17,7 +17,7 @@ const Entity SPW_ant = {
     {8, 15},
     {7, 15},
     PAL_SYS0,
-    NULL,
+    &ant_spawner_spr,
     {.spawner =
         {
             STAY_TIME,
@@ -29,9 +29,10 @@ const Entity SPW_ant = {
 void SPW_spawn_ant(){
     fx.status = curr->status;
     u8 dir = fx.status & 0x01;
-    fx.pos[X] = curr->pos[X];
-    fx.pos[Y] = curr->pos[Y];
+    fx.pos[X] = POS_TO_PX(curr->pos[X]);
+    fx.pos[Y] = POS_TO_PX(curr->pos[Y]);
     fx.frames = 0;
+    fx.timer = MAX_TIMER - STAY_TIME;
     fx.character = &NST_ant;
     fx.speed[X] = dir ? -WALKSPEED : WALKSPEED;
     fx.speed[Y] = 0;

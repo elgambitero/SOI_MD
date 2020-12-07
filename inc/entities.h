@@ -76,7 +76,7 @@ typedef struct Entity{
 
 #include "globals.h"
 
-#define ENT_CHECK_BITMSK 0x0003
+#define ENT_CHECK_BITMSK 0x0007
 
 #define PLAYER   0
 
