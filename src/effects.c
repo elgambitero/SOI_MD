@@ -7,6 +7,19 @@
 #include "gameplay.h"
 #include "blocks.h"
 
+const Entity FX_hidden = {
+    FX,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    &blk_debris0_spr, //TODO: FIX!!!
+    {.effect =
+        {
+
+        }
+    }
+};
+
 const Entity FX_deletor = {
     FX | DELETER,
     {7, 15},

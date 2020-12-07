@@ -567,9 +567,27 @@ const Entity * const goodies_vector[] = {
 
 
 void GD_reveal_hidden(){
+    fx.status = 0;
+    fx.frames = 0;
+    fx.timer = 0;
+    fx.character = &FX_hidden;
+    fx.speed[X] = 0;
+    fx.speed[Y] = 0;
+    for(u8 i = 0; i<BOARD_BUFFER; i++){
+        if((env->back_blocks[i] & GOODIE) == GOODIE){
+            fx.pos[X] = BLOCK_TO_PX(IND_TO_X(i)) + 8;
+            fx.pos[Y] = BLOCK_TO_PX(IND_TO_Y(i)) + 8;
+            ACT_add(&fx, &fx_buf);
+        }
+    }
     //some logic to look up GOODIE blocks in the second layer.
     //and paint them on top of the board. (with sprites?)
     stop_time(REVEAL_TIME);
+    Actor * act = ACT_getFirst(&fx_buf);
+    while(act){
+        ACT_remove(&act, &fx_buf);
+        act = act->next; //dangerous read of deleted actor.
+    }
 }
 
 void GD_obtain(){
@@ -577,6 +595,7 @@ void GD_obtain(){
     fx.pos[X] = BLOCK_TO_PX(IND_TO_X(front_ind)) + 8;
     fx.pos[Y] = BLOCK_TO_PX(IND_TO_Y(front_ind)) + 8;
     fx.frames = 0;
+    fx.timer = 0;
     fx.character = goodies_vector[gd_index];
     fx.speed[X] = 0;
     fx.speed[Y] = -BRK_SPEED;
