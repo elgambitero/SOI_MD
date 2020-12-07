@@ -124,7 +124,6 @@ typedef struct Entity{
 
 #define SHRAPNEL    0x0008   //B0000000000001000
 #define DELETER     0x0010   //B0000000000010000
-#define WAS_GOODIE  0x0020   //B0000000000100000
 
 #define GOODY          4
 

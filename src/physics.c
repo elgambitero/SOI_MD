@@ -313,9 +313,6 @@ static inline void goodie_tree(){
 static inline void fx_tree(){
     switch(attr & FX_TYP_MSK){
         //TODO: Substitute with callback.
-        case WAS_GOODIE:
-            goodie_tree();
-            break;
         case SHRAPNEL:
             if(curr->pos[X] >= PX_TO_POS(BOARD_X_PX) || curr->pos[Y] >= PX_TO_POS(BOARD_Y_PX) ){
                 result = ACT_DELETION;
