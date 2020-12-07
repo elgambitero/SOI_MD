@@ -3,6 +3,7 @@
 
 #include "entities.h"
 
+#define REVEAL_TIME 150
 
 extern const Entity GD_silvCoin;
 extern const Entity GD_arrow;

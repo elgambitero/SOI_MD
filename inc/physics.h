@@ -123,6 +123,8 @@ void calc_front_margin(u8 direction);
 void calc_next(u8 direction);
 void calc_back(u8 direction);
 
+void stop_time(u16 frames);
+
 u8 breakable(u8 ind);
 u8 fall(u8 ind);
 u8 land(u8 ind);

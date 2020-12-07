@@ -123,6 +123,14 @@ u8 crash_into(){
         return 0;
 }
 
+void stop_time(u16 frames){
+    u16 time = frames;
+    while(time){
+        time--;
+        VDP_waitVSync();
+    }
+}
+
 u8 breakable(u8 ind){
     return (BREAKABLE & env->front_blocks[ind]);
 }

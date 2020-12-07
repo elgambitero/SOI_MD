@@ -12,6 +12,7 @@ void GD_killAll();
 void GD_killSpawned();
 void GD_openRdDoor();
 void GD_enterRdDoor();
+void GD_reveal_hidden();
 
 
 
@@ -130,8 +131,8 @@ const Entity GD_glass = {
             0,
             snd_glass,
             sizeof(snd_glass),
-            NULL,
-            NULL
+            &GD_obtain,
+            &GD_reveal_hidden
         }
     }
 };
@@ -565,7 +566,11 @@ const Entity * const goodies_vector[] = {
 };
 
 
-
+void GD_reveal_hidden(){
+    //some logic to look up GOODIE blocks in the second layer.
+    //and paint them on top of the board. (with sprites?)
+    stop_time(REVEAL_TIME);
+}
 
 void GD_obtain(){
     fx.status = 0;
