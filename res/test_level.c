@@ -108,6 +108,16 @@ static const Actor ant = {&NST_ant,
    &piggy
    };
 
+static const Actor ant_spawn = {&SPW_ant,
+      0,
+      0,
+   {264, 31},
+   {   0,    0},
+      MAX_TIMER - 500,
+      0,
+   &ant
+   };
+
 
 const Board test_level = {
     {
@@ -144,6 +154,6 @@ const Board test_level = {
     {PAL_GR, PAL_R, PAL_BL},
     0,
     0,
-    &ant,
+    &ant_spawn,
     &glp
 };

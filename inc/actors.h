@@ -7,6 +7,7 @@
 #include "nasties.h"
 #include "projectiles.h"
 #include "goodies.h"
+#include "spawners.h"
 
 #define DECIMALS 2
 

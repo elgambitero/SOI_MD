@@ -680,12 +680,15 @@ static inline void proj_tree(){
 }
 
 
-static inline u8 class_tree(){
+static inline void class_tree(){
     switch(attr & ENT_CHECK_BITMSK){
         case NASTIE:
             if(curr->timer){
                 curr->timer++;
-                if(curr->timer == MAX_TIMER) return ACT_DELETION;
+                if(curr->timer == MAX_TIMER){
+                    result = ACT_DELETION;
+                    return;
+                };
             }
             nastie_tree();
             if(curr->status == DEAD)
@@ -741,13 +744,21 @@ static inline u8 class_tree(){
             if(curr->timer){
                 curr->timer++;
                 if(curr->timer == MAX_TIMER) {
-                    curr->character->role.spawner.onTimeout();
+                    //curr->character->role.spawner.onTimeout();
+                    fx.status = curr->status;
+                    u8 dir = fx.status & 0x01;
+                    fx.pos[X] = curr->pos[X];
+                    fx.pos[Y] = curr->pos[Y];
+                    fx.frames = 0;
+                    fx.character = &NST_ant;
+                    fx.speed[X] = dir ? -WALKSPEED : WALKSPEED;
+                    fx.speed[Y] = 0;
+                    Actor * result = ACT_add(&fx, &nasties);
+                    curr->timer = MAX_TIMER - STAY_TIME;
                 }
             }
             break;
-
     }
-    return 0;
 }
 
 
@@ -798,8 +809,7 @@ u8 PHY_computeStatus(Actor * actor){
     attr = curr->character->attr;
     dir = (status & 0x0001);
 
-    result = class_tree();
-    if(result) return result;
+    class_tree();
     curr->status = newstatus;
     if(status != newstatus) result = ACT_CHANGED;
     return result;
