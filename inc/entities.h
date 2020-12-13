@@ -21,6 +21,8 @@ typedef struct Nastie{
 }Nastie;
 
 typedef struct FX{
+    void (*const onProcess)();
+    void (*const onTimeout)();
 }FX;
 
 

@@ -17,7 +17,8 @@ const Entity FX_hidden = {
     NULL,
     {.effect =
         {
-
+            NULL,
+            NULL
         }
     }
 };
@@ -32,7 +33,8 @@ const Entity FX_deletor = {
     NULL,
     {.effect =
         {
-
+            NULL,
+            NULL
         }
     }
 };
@@ -47,7 +49,8 @@ const Entity FX_blk_debris0 = {
     NULL,
     {.effect =
         {
-            
+            NULL,
+            NULL
         }
     }
 };
@@ -62,7 +65,8 @@ const Entity FX_blk_debris1 = {
     NULL,
     {.effect =
         {
-            
+            NULL,
+            NULL
         }
     }
 };
@@ -78,7 +82,8 @@ const Entity FX_blk_debris2 = {
     NULL,
     {.effect =
         {
-            
+            NULL,
+            NULL
         }
     }
 };
@@ -94,7 +99,24 @@ const Entity FX_blk_debris3 = {
     NULL,
     {.effect =
         {
-            
+            NULL,
+            NULL
+        }
+    }
+};
+
+const Entity boot_ind_bp = {
+    FX,
+    {4, 8},
+    {4, 3},
+    PAL_SYS1,
+    &boot_ind_spr,
+    NULL,
+    NULL,
+    {.effect =
+        {
+            NULL,
+            NULL
         }
     }
 };
