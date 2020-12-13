@@ -64,6 +64,9 @@ typedef struct Entity{
     u8 palette;
     const SpriteDefinition * sprite_def;
 
+    void (*const onCreate)();
+    void (*const onDestroy)();
+
     union Role{
         const Player player;
         const Nastie nastie;

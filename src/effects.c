@@ -13,6 +13,8 @@ const Entity FX_hidden = {
     {8, 7},
     PAL_SYS1,
     &fx_hidden,
+    NULL,
+    NULL,
     {.effect =
         {
 
@@ -26,6 +28,8 @@ const Entity FX_deletor = {
     {7, 15},
     PAL_SYS0,
     &deletor_spr,
+    NULL,
+    NULL,
     {.effect =
         {
 
@@ -39,6 +43,8 @@ const Entity FX_blk_debris0 = {
     {4, 4},
     PAL_SYS0,
     &blk_debris0_spr,
+    NULL,
+    NULL,
     {.effect =
         {
             
@@ -52,6 +58,8 @@ const Entity FX_blk_debris1 = {
     {4, 4},
     PAL_SYS0,
     &blk_debris1_spr,
+    NULL,
+    NULL,
     {.effect =
         {
             
@@ -66,6 +74,8 @@ const Entity FX_blk_debris2 = {
     {4, 4},
     PAL_SYS0,
     &blk_debris2_spr,
+    NULL,
+    NULL,
     {.effect =
         {
             
@@ -80,6 +90,8 @@ const Entity FX_blk_debris3 = {
     {4, 4},
     PAL_SYS0,
     &blk_debris3_spr,
+    NULL,
+    NULL,
     {.effect =
         {
             

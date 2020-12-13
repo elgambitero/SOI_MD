@@ -24,6 +24,8 @@ const Entity GD_silvCoin = {
     {7, 15},
     PAL_SYS0,
     &gd_sys0_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             500,
@@ -41,6 +43,8 @@ const Entity GD_arrow = {
     {7, 15},
     PAL_SYS0,
     &gd_sys0_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -58,6 +62,8 @@ const Entity GD_clk3h = {
     {7, 15},
     PAL_SYS0,
     &gd_sys0_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -75,6 +81,8 @@ const Entity GD_clk6h = {
     {7, 15},
     PAL_SYS0,
     &gd_sys0_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -92,6 +100,8 @@ const Entity GD_clk9h = {
     {7, 15},
     PAL_SYS0,
     &gd_sys0_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -109,6 +119,8 @@ const Entity GD_clk12h = {
     {7, 15},
     PAL_SYS0,
     &gd_sys0_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -126,6 +138,8 @@ const Entity GD_glass = {
     {7, 15},
     PAL_SYS0,
     &gd_sys0_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -143,6 +157,8 @@ const Entity GD_shield = {
     {7, 15},
     PAL_SYS0,
     &gd_sys0_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -160,6 +176,8 @@ const Entity GD_boot = {
     {7, 15},
     PAL_SYS0,
     &gd_sys0_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -177,6 +195,8 @@ const Entity GD_thnball = {
     {7, 15},
     PAL_SYS0,
     &gd_sys0_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -194,6 +214,8 @@ const Entity GD_rdkey = {
     {7, 15},
     PAL_SYS0,
     &gd_sys0_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -211,6 +233,8 @@ const Entity GD_blkey = {
     {7, 15},
     PAL_SYS0,
     &gd_sys0_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -228,6 +252,8 @@ const Entity GD_rddoor = {
     {7, 15},
     PAL_SYS0,
     &gd_sys0_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -245,6 +271,8 @@ const Entity GD_bldoor = {
     {7, 15},
     PAL_SYS0,
     &gd_sys0_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -262,6 +290,8 @@ const Entity GD_rddoor_open = {
     {7, 15},
     PAL_SYS0,
     &gd_sys0_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -279,6 +309,8 @@ const Entity GD_bddoor_open = {
     {7, 15},
     PAL_SYS0,
     &gd_sys0_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -296,6 +328,8 @@ const Entity GD_goldCoin = {
     {7, 15},
     PAL_SYS1,
     &gd_sys1_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -313,6 +347,8 @@ const Entity GD_1UP = {
     {7, 15},
     PAL_SYS1,
     &gd_sys1_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -330,6 +366,8 @@ const Entity GD_2x = {
     {7, 15},
     PAL_SYS1,
     &gd_sys1_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -347,6 +385,8 @@ const Entity GD_3x = {
     {7, 15},
     PAL_SYS1,
     &gd_sys1_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -364,6 +404,8 @@ const Entity GD_4x = {
     {7, 15},
     PAL_SYS1,
     &gd_sys1_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -381,6 +423,8 @@ const Entity GD_5x = {
     {7, 15},
     PAL_SYS1,
     &gd_sys1_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -398,6 +442,8 @@ const Entity GD_ball = {
     {7, 15},
     PAL_SYS1,
     &gd_sys1_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -415,6 +461,8 @@ const Entity GD_gem = {
     {7, 15},
     PAL_SYS1,
     &gd_sys1_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -432,6 +480,8 @@ const Entity GD_gold = {
     {7, 15},
     PAL_SYS1,
     &gd_sys1_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -449,6 +499,8 @@ const Entity GD_turtl = {
     {7, 15},
     PAL_SYS1,
     &gd_sys1_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -466,6 +518,8 @@ const Entity GD_star = {
     {7, 15},
     PAL_SYS1,
     &gd_sys1_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -483,6 +537,8 @@ const Entity GD_grkey = {
     {7, 15},
     PAL_SYS1,
     &gd_sys1_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -500,6 +556,8 @@ const Entity GD_grdoor = {
     {7, 15},
     PAL_SYS1,
     &gd_sys1_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,
@@ -517,6 +575,8 @@ const Entity GD_grdoor_open = {
     {7, 15},
     PAL_SYS1,
     &gd_sys1_spr,
+    NULL,
+    NULL,
     {.goodie =
         {
             0,

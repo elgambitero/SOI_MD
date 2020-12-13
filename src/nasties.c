@@ -14,6 +14,8 @@ const Entity NST_spinner = {
     {7, 15},
     PAL_SYS0,
     &spinner_spr,
+    NULL,
+    NULL,
     {.nastie =
         {
             NULL,
@@ -35,6 +37,8 @@ const Entity NST_robo = {
     {7, 15},
     PAL_SYS0,
     &robo_spr,
+    NULL,
+    NULL,
     {.nastie =
         {
             snd_robo,
@@ -56,6 +60,8 @@ const Entity NST_ant = {
     {7, 8},
     PAL_SYS0,
     &ant_spr,
+    NULL,
+    NULL,
     {.nastie =
         {
             snd_ant,
@@ -77,6 +83,8 @@ const Entity NST_piggy = {
     {7, 15},
     PAL_SYS1,
     &piggy_spr,
+    NULL,
+    NULL,
     {.nastie =
         {
             snd_piggy,
@@ -98,6 +106,8 @@ const Entity NST_teeth = {
     {8, 15},
     PAL_SYS0,
     &teeth_spr,
+    NULL,
+    NULL,
     {.nastie =
         {
             snd_teeth,

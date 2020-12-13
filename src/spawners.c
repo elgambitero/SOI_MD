@@ -18,6 +18,8 @@ const Entity SPW_ant = {
     {7, 15},
     PAL_SYS0,
     &ant_spawner_spr,
+    NULL,
+    NULL,
     {.spawner =
         {
             STAY_TIME,

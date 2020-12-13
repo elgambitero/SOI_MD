@@ -60,11 +60,13 @@ Actor * ACT_add(Actor * actor, ActorList * actors)
         result->sprite = NULL;
     }
     if(result->sprite) SPR_setAnim(result->sprite, result->status);
+    if(result->character->onCreate) result->character->onCreate();
     return result;
 }
 
 u8 ACT_remove(Actor * actor, ActorList * actors)
 {
+    if(actor->character->onDestroy) actor->character->onDestroy();
     Actor * prev;
 
     prev = actors->firstActor;
