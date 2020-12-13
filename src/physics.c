@@ -210,7 +210,7 @@ static inline void summon_arrow(u8 dir, ActorList * list){
     fx.frames = 0;
     fx.pos[X] = POS_TO_PX(curr->pos[X]);
     fx.pos[Y] = POS_TO_PX(curr->pos[Y]);
-    fx.speed[X] = dir ? -2*WALKSPEED : 2*WALKSPEED;
+    fx.speed[X] = dir ? -2*nastie_speed : 2*nastie_speed;
     fx.speed[Y] = 0;
     ACT_add(&fx, list);
 }
@@ -268,12 +268,12 @@ static inline void nastie_tree(){
                     return;
                 }
             }
-            curr->speed[X] = dir ? -WALKSPEED : WALKSPEED;
+            curr->speed[X] = dir ? -nastie_speed : nastie_speed;
         break;
         case RIGHT_TURN_LEFT:
             if(curr->frames--) return;
             newstatus = WALK_RIGHT | !dir;
-            curr->speed[X] = dir ? WALKSPEED : -WALKSPEED;
+            curr->speed[X] = dir ? nastie_speed : -nastie_speed;
             curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
         break;
         case ATTACK_RIGHT_IN: 
@@ -761,6 +761,7 @@ void PHY_HCallback(){
 
 u8 PHY_init(Board * board, PlayerStat * bl_stats, PlayerStat * gr_stats){
     env = board;
+    nastie_speed = WALKSPEED;
     collided = FALSE;
     SYS_setHIntCallback(PHY_HCallback);
     VDP_setHIntCounter(0);

@@ -65,6 +65,7 @@ Actor * curr;
 u8 status;
 u8 newstatus;
 u8 dir;
+u8 nastie_speed;
 
 
 u8 * pl_act;
@@ -79,6 +80,8 @@ u8 bl_after_status, gr_after_status;
 u8 * after_status;
 u8 bl_after_speed[2], gr_after_speed[2];
 u8 * after_speed;
+
+
 
 u16 front_ind;
 u16 back_floor_ind;
