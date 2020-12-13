@@ -26,7 +26,7 @@
 #define RDK (GOODIE | GDi_RDKEY)
 #define RDD (GOODIE | GDi_RDDOOR)
 #define THN (GOODIE | GDi_THNBALL)
-#define GLA (GOODIE | GDi_GLASS)
+#define BOO (GOODIE | GDi_BOOT)
 
 static const Actor blp = {&PL_blue,
        STILL_RIGHT,
@@ -123,7 +123,7 @@ static const Actor ant_spawn = {&SPW_ant,
 const Board test_level = {
     {
      BFW, BOW, BDW, CHI, QUE, NET,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-     BFG, BOG, BDG,   0,   0,   0,   0,   0,   0, GLA,   0, RDD,   0,   0,   0,   0,   0,   0,   0,
+     BFG, BOG, BDG,   0,   0,   0,   0,   0,   0, BOO,   0, RDD,   0,   0,   0,   0,   0,   0,   0,
      BFR, BOR, BDR,   0,   0,   0, BOR, BOR, BOR, BOR, BOR, BOR, BOW, BOR, BOR, BOR,   0,   0,   0,
      BFB, BOB, BDB,   0,   0,   0, BOB, NET, NET, NET, NET,   0,   0,   0,   0,   0,   0,   0,   0,
        0,   0,   0,   0,   0,   0, BOB, NET, NET, NET, NET,   0,   0,   0,   0,   0,   0,  GLC, BDB,

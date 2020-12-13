@@ -13,6 +13,7 @@ void GD_killSpawned();
 void GD_openRdDoor();
 void GD_enterRdDoor();
 void GD_reveal_hidden();
+void GD_speedUpPlayer();
 
 
 
@@ -184,7 +185,7 @@ const Entity GD_boot = {
             snd_boot,
             sizeof(snd_boot),
             &GD_obtain,
-            NULL
+            &GD_speedUpPlayer
         }
     }
 };
@@ -710,4 +711,8 @@ void GD_enterRdDoor(){
         result = ACT_DELETION;
         return;
     }
+}
+
+void GD_speedUpPlayer(){
+    pl_stat->speed *= 2;
 }
