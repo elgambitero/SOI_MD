@@ -350,7 +350,7 @@ static inline void player_tree(){
                 case GOODIE:
                     gd_process(front_ind);
                 default:
-                    curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
+                    curr->speed[X] = dir ? -pl_stat->speed : pl_stat->speed;
                     break;
             }
             calc_front(dir);

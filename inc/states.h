@@ -6,6 +6,7 @@ typedef struct PlayerStat{
     u8 arrows;
     u8 balls;
     u8 lives;
+    u8 speed;
 }PlayerStat;
 
 
