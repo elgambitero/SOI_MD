@@ -714,5 +714,14 @@ void GD_enterRdDoor(){
 }
 
 void GD_speedUpPlayer(){
-    pl_stat->speed *= 2;
+    pl_stat->speed = PL_FASTSPEED;
+    fx.status = 0;
+    fx.pos[X] = POS_TO_PX(curr->pos[X]);
+    fx.pos[Y] = POS_TO_PX(curr->pos[Y]);
+    fx.frames = MAX_FRAMES - SPEED_FRAMES;
+    fx.speed[X] = 0;
+    fx.speed[Y] = 0;
+    fx.character = &FX_boot_ind;
+    fx.actorData.fxData.following = curr;
+    ACT_add(&fx, &fx_buf);
 }

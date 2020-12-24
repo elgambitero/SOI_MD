@@ -24,6 +24,7 @@
 #define FALLSPEED 4
 #define WALKSPEED 3
 #define PL_WALKSPEED WALKSPEED
+#define PL_FASTSPEED 2 * PL_WALKSPEED
 #define PL_JMP_BOOST -12
 #define GRAVITY 1
 #define BRK_SPEED 8

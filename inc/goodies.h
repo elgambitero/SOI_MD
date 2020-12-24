@@ -4,6 +4,8 @@
 #include "entities.h"
 
 #define REVEAL_TIME 150
+#define SPEED_FRAMES 6000
+#define MAX_FRAMES 65535
 
 extern const Entity GD_silvCoin;
 extern const Entity GD_arrow;

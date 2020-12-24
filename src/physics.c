@@ -315,6 +315,10 @@ static inline void goodie_tree(){
 }
 
 static inline void fx_tree(){
+    if(curr->character->role.effect.onProcess){
+        curr->character->role.effect.onProcess();
+        return;
+    }
     switch(attr & FX_TYP_MSK){
         //TODO: Substitute with callback.
         case SHRAPNEL:

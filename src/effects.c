@@ -7,6 +7,9 @@
 #include "gameplay.h"
 #include "blocks.h"
 
+void FX_follow();
+void FX_restoreSpeed();
+
 const Entity FX_hidden = {
     FX,
     {7, 15},
@@ -105,18 +108,32 @@ const Entity FX_blk_debris3 = {
     }
 };
 
-const Entity boot_ind_bp = {
+const Entity FX_boot_ind = {
     FX,
     {4, 8},
-    {4, 3},
-    PAL_SYS1,
+    {4, 24},
+    PAL_SYS0,
     &boot_ind_spr,
     NULL,
-    NULL,
+    &FX_restoreSpeed,
     {.effect =
         {
-            NULL,
+            &FX_follow,
             NULL
         }
     }
 };
+
+
+void FX_follow(){
+    curr->pos[X] = curr->actorData.fxData.following->pos[X];
+    curr->pos[Y] = curr->actorData.fxData.following->pos[Y];
+}
+
+void FX_restoreSpeed(){
+    curr->
+    actorData.fxData.following->
+    character->
+    role.player.statistics->
+    speed = PL_WALKSPEED;
+}
