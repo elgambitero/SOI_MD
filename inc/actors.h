@@ -18,6 +18,12 @@
 #define PX_TO_POS(x) (x << DECIMALS)
 #define POS_TO_PX(x) (x >> DECIMALS)
 
+typedef struct Actor Actor;
+
+typedef struct FXData{
+    Actor * following;
+}FXData;
+
 typedef struct Actor{
     const Entity * character;
     u8 status;
@@ -27,6 +33,9 @@ typedef struct Actor{
     u16 timer;
     Sprite * sprite;
     struct Actor * next;
+    union ActorData{
+        FXData fxData;
+    }actorData;
 }Actor;
 
 typedef struct ActorList{
