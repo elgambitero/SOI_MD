@@ -319,19 +319,6 @@ static inline void fx_tree(){
         curr->character->role.effect.onProcess();
         return;
     }
-    switch(attr & FX_TYP_MSK){
-        //TODO: Substitute with callback.
-        case SHRAPNEL:
-            if(curr->pos[X] >= PX_TO_POS(BOARD_X_PX) || curr->pos[Y] >= PX_TO_POS(BOARD_Y_PX) ){
-                result = ACT_DELETION;
-            }
-            curr->speed[Y] += GRAVITY;
-        break;
-        case DELETER:
-            if(curr->frames--) return;
-            result = ACT_DELETION;
-        break;
-    }
 }
 
 static inline void player_tree(){

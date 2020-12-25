@@ -9,6 +9,8 @@
 
 void FX_follow();
 void FX_restoreSpeed();
+void FX_deletor_process();
+void FX_shrapnel_process();
 
 const Entity FX_hidden = {
     FX,
@@ -36,7 +38,7 @@ const Entity FX_deletor = {
     NULL,
     {.effect =
         {
-            NULL,
+            &FX_deletor_process,
             NULL
         }
     }
@@ -52,7 +54,7 @@ const Entity FX_blk_debris0 = {
     NULL,
     {.effect =
         {
-            NULL,
+            &FX_shrapnel_process,
             NULL
         }
     }
@@ -68,7 +70,7 @@ const Entity FX_blk_debris1 = {
     NULL,
     {.effect =
         {
-            NULL,
+            &FX_shrapnel_process,
             NULL
         }
     }
@@ -85,7 +87,7 @@ const Entity FX_blk_debris2 = {
     NULL,
     {.effect =
         {
-            NULL,
+            &FX_shrapnel_process,
             NULL
         }
     }
@@ -102,7 +104,7 @@ const Entity FX_blk_debris3 = {
     NULL,
     {.effect =
         {
-            NULL,
+            &FX_shrapnel_process,
             NULL
         }
     }
@@ -124,6 +126,17 @@ const Entity FX_boot_ind = {
     }
 };
 
+void FX_deletor_process() {
+    if(curr->frames--) return;
+    result = ACT_DELETION;
+}
+
+void FX_shrapnel_process(){
+    if(curr->pos[X] >= PX_TO_POS(BOARD_X_PX) || curr->pos[Y] >= PX_TO_POS(BOARD_Y_PX) ){
+        result = ACT_DELETION;
+    }
+    curr->speed[Y] += GRAVITY;
+}
 
 void FX_follow(){
     curr->pos[X] = curr->actorData.fxData.following->pos[X];
