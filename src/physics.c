@@ -685,12 +685,13 @@ static inline void class_tree(){
             nastie_tree();
             if(curr->status == DEAD)
                 return;
+            // TODO: THIS NEEDS A REFACTOR
             if(collided){
-                if(blue_player && ACT_collision(blue_player, curr)){
+                if(blue_player && bl_stat->effect != SHIELDED && ACT_collision(blue_player, curr)){
                     kill(blue_player, 0, -2*FALLSPEED);
                     blue_player = NULL;
                 }
-                if(green_player && ACT_collision(green_player, curr)){
+                if(green_player && gr_stat->effect != SHIELDED && ACT_collision(green_player, curr)){
                     kill(green_player, 0, -2*FALLSPEED);
                     green_player = NULL;
                 }
