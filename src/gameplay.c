@@ -118,7 +118,7 @@ void levelInit(){
     gr_stats.balls = 3;
     gr_stats.arrows = 3;
     gr_stats.score = 0;
-    bl_stats.speed = PL_WALKSPEED;
+    gr_stats.speed = PL_WALKSPEED;
     
     VDP_setPalette(PAL0, pal_sys0.data);
     VDP_setPalette(PAL1, pal_sys1.data);

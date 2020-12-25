@@ -740,6 +740,13 @@ static inline void class_tree(){
             proj_tree();
         break;
         case FX:
+            if(curr->timer){
+                curr->timer++;
+                if(curr->timer == MAX_TIMER){
+                    result = ACT_DELETION;
+                    return;
+                };
+            }
             fx_tree();
         break;
         case GOODY:

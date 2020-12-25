@@ -718,7 +718,7 @@ void GD_speedUpPlayer(){
     fx.status = 0;
     fx.pos[X] = POS_TO_PX(curr->pos[X]);
     fx.pos[Y] = POS_TO_PX(curr->pos[Y]);
-    fx.frames = MAX_FRAMES - SPEED_FRAMES;
+    fx.timer = (MAX_FRAMES - SPEED_FRAMES);
     fx.speed[X] = 0;
     fx.speed[Y] = 0;
     fx.character = &FX_boot_ind;
