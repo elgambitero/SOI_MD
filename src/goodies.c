@@ -701,16 +701,9 @@ void GD_openRdDoor(){
 }
 
 void GD_enterRdDoor(){
-    if(curr == blue_player){
-        blue_player = PASSING_PLAYER;
-        result = ACT_DELETION;
-        return;
-    }
-    if(curr == green_player){
-        green_player = PASSING_PLAYER;
-        result = ACT_DELETION;
-        return;
-    }
+    curr->character->role.player.statistics->effect = PASSING;
+    result = ACT_DELETION;
+    return;
 }
 
 void GD_speedUpPlayer(){
