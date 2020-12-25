@@ -10,7 +10,8 @@
 void FX_boot_follow();
 void FX_shield_follow();
 void FX_restoreSpeed();
-void FX_wearOff();
+void FX_wearShieldOff();
+void FX_wearBootOff();
 void FX_deletor_process();
 void FX_shrapnel_process();
 
@@ -135,7 +136,7 @@ const Entity FX_shield_ind = {
     PAL_SYS0,
     &shield_ind_spr,
     NULL,
-    &FX_wearOff,
+    &FX_wearShieldOff,
     {.effect =
         {
             &FX_shield_follow,
@@ -184,15 +185,28 @@ void FX_restoreSpeed(){
     character->
     role.player.statistics->
     speed = PL_WALKSPEED;
-    FX_wearOff();
+    FX_wearBootOff();
 }
 
-void FX_wearOff(){
+void FX_wearBootOff(){
     if(curr->
     actorData.fxData.following->
     character->
     role.player.statistics->
-    effect != PASSING)
+    effect == SPEEDUP)
+        curr->
+        actorData.fxData.following->
+        character->
+        role.player.statistics->
+        effect = 0;
+}
+
+void FX_wearShieldOff(){
+    if(curr->
+    actorData.fxData.following->
+    character->
+    role.player.statistics->
+    effect == SHIELDED)
         curr->
         actorData.fxData.following->
         character->
