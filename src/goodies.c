@@ -14,6 +14,7 @@ void GD_openRdDoor();
 void GD_enterRdDoor();
 void GD_reveal_hidden();
 void GD_speedUpPlayer();
+void GD_protectPlayer();
 
 
 
@@ -166,7 +167,7 @@ const Entity GD_shield = {
             snd_shield,
             sizeof(snd_shield),
             &GD_obtain,
-            NULL
+            &GD_protectPlayer
         }
     }
 };
@@ -716,6 +717,19 @@ void GD_speedUpPlayer(){
     fx.speed[X] = 0;
     fx.speed[Y] = 0;
     fx.character = &FX_boot_ind;
+    fx.actorData.fxData.following = curr;
+    ACT_add(&fx, &fx_buf);
+}
+
+void GD_protectPlayer(){
+    pl_stat->effect = SHIELDED;
+    fx.status = 0;
+    fx.pos[X] = POS_TO_PX(curr->pos[X]);
+    fx.pos[Y] = POS_TO_PX(curr->pos[Y]);
+    fx.timer = (MAX_FRAMES - SHIELD_FRAMES);
+    fx.speed[X] = 0;
+    fx.speed[Y] = 0;
+    fx.character = &FX_shield_ind;
     fx.actorData.fxData.following = curr;
     ACT_add(&fx, &fx_buf);
 }

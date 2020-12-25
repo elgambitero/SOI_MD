@@ -7,8 +7,10 @@
 #include "gameplay.h"
 #include "blocks.h"
 
-void FX_follow();
+void FX_boot_follow();
+void FX_shield_follow();
 void FX_restoreSpeed();
+void FX_wearOff();
 void FX_deletor_process();
 void FX_shrapnel_process();
 
@@ -120,7 +122,23 @@ const Entity FX_boot_ind = {
     &FX_restoreSpeed,
     {.effect =
         {
-            &FX_follow,
+            &FX_boot_follow,
+            NULL
+        }
+    }
+};
+
+const Entity FX_shield_ind = {
+    FX,
+    {4, 8},
+    {4, 24},
+    PAL_SYS0,
+    &shield_ind_spr,
+    NULL,
+    &FX_wearOff,
+    {.effect =
+        {
+            &FX_shield_follow,
             NULL
         }
     }
@@ -138,12 +156,23 @@ void FX_shrapnel_process(){
     curr->speed[Y] += GRAVITY;
 }
 
-void FX_follow(){
+void FX_boot_follow(){
     if(curr->
         actorData.fxData.following->
         character->
         role.player.statistics->
         effect != SPEEDUP)
+            curr->timer = MAX_FRAMES - 1;
+    curr->pos[X] = curr->actorData.fxData.following->pos[X];
+    curr->pos[Y] = curr->actorData.fxData.following->pos[Y];
+}
+
+void FX_shield_follow(){
+    if(curr->
+        actorData.fxData.following->
+        character->
+        role.player.statistics->
+        effect != SHIELDED)
             curr->timer = MAX_FRAMES - 1;
     curr->pos[X] = curr->actorData.fxData.following->pos[X];
     curr->pos[Y] = curr->actorData.fxData.following->pos[Y];
@@ -155,4 +184,18 @@ void FX_restoreSpeed(){
     character->
     role.player.statistics->
     speed = PL_WALKSPEED;
+    FX_wearOff();
+}
+
+void FX_wearOff(){
+    if(curr->
+    actorData.fxData.following->
+    character->
+    role.player.statistics->
+    effect != PASSING)
+        curr->
+        actorData.fxData.following->
+        character->
+        role.player.statistics->
+        effect = 0;
 }

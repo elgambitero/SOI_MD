@@ -1,9 +1,9 @@
 #ifndef STATES_H
 #define STATES_H
 
-#define SPEEDUP  1
+#define PASSING  1
 #define SHIELDED 2
-#define PASSING  3
+#define SPEEDUP  3
 
 typedef struct PlayerStat{
     u32 score;

@@ -27,6 +27,7 @@
 #define RDD (GOODIE | GDi_RDDOOR)
 #define THN (GOODIE | GDi_THNBALL)
 #define BOO (GOODIE | GDi_BOOT)
+#define SHI (GOODIE | GDi_SHLD)
 
 static const Actor blp = {&PL_blue,
        STILL_RIGHT,
@@ -134,7 +135,7 @@ const Board test_level = {
        0,   0,   0,   0,   0, BFW,   0, BFW,   0,   0, BFW, BFW,   0,   0,   0,   0, QUE, BFW,   0,
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, BDR,   0,   0,   0,   0,   0,   0,
-       0,   0,   0, C3H,   0,   0,   0, RDD,   0,   0,   0,   0,   0,   0,   0,   0, C3H,   0,   0,
+       0, SHI,   0, C3H,   0,   0,   0, RDD,   0,   0,   0,   0,   0,   0,   0,   0, C3H,   0,   0,
     },
 
     {
