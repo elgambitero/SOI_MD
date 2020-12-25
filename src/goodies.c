@@ -708,6 +708,7 @@ void GD_enterRdDoor(){
 
 void GD_speedUpPlayer(){
     pl_stat->speed = PL_FASTSPEED;
+    pl_stat->effect = SPEEDUP;
     fx.status = 0;
     fx.pos[X] = POS_TO_PX(curr->pos[X]);
     fx.pos[Y] = POS_TO_PX(curr->pos[Y]);

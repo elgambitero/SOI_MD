@@ -139,6 +139,12 @@ void FX_shrapnel_process(){
 }
 
 void FX_follow(){
+    if(curr->
+        actorData.fxData.following->
+        character->
+        role.player.statistics->
+        effect != SPEEDUP)
+            curr->timer = MAX_FRAMES - 1;
     curr->pos[X] = curr->actorData.fxData.following->pos[X];
     curr->pos[Y] = curr->actorData.fxData.following->pos[Y];
 }
