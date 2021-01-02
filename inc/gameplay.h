@@ -47,7 +47,8 @@ PlayerStat bl_stats, gr_stats;
 #define CTRL_BLOCK   0x10
 #define CTRL_JUMP    0x20
 
-
+#define COOPERATE    0
+#define COMPETE      1
 
 enum GameStates{
     GAMEINIT,
@@ -111,5 +112,6 @@ static inline void game_controls(u16 joy, u16 changed, u16 state){
 }
 
 void gameplayLoop();
+void GAM_setGametype(u8 game_type);
 
 #endif

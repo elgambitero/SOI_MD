@@ -43,8 +43,7 @@ void game_init(){
     VDP_setScreenWidth320();
 
 
-    mainState = GAMEPLAY;
-    gameState = GAMEINIT;
+    mainState = MAIN_MENU;
     
 
     SYS_enableInts();
@@ -61,7 +60,9 @@ int main()
 
             break;
             case MAIN_MENU:
-
+                gameState = GAMEINIT;
+                mainState = GAMEPLAY;
+                GAM_setGametype(COOPERATE);
             break;
             case GAMEPLAY:
                 gameplayLoop(ind);

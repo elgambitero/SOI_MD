@@ -16,12 +16,14 @@ u16 frmInd;
 
 u16 levelInd;
 
+u8 gameType;
+
 char strBuf[8];
 
 void GAM_gameInit();
 void GAM_levelInit();
 void GAM_drawFrame();
-void VDP_drawNumber(u8 number, u8 chars);
+void VDP_drawNumber(u8 number, u8 chars, u8 xpos, u8 ypos);
 
 
 void gameplayLoop(){
@@ -154,13 +156,13 @@ void GAM_levelInit(){
     play_board_music(&board);
 
     VDP_drawText("Score", 0, 0);
-    VDP_drawText("00000000", N_SCORE, 0);
+    VDP_drawText("00000000", X_SCORE, 0);
     VDP_drawText("Bonus", 15, 0);
-    VDP_drawText("00000", N_BONUS, 0);
+    VDP_drawText("00000", X_BONUS, 0);
     VDP_drawText("L:", 27, 0);
-    VDP_drawText("3", N_LIVES, 0);
+    VDP_drawText("3", X_LIVES, 0);
     VDP_drawText("Lvl", 33, 0);
-    VDP_drawText("001", N_LEVEL, 0);
+    VDP_drawNumber(levelInd, N_LEVEL, X_LEVEL, 0);
 
 }
 
@@ -199,6 +201,11 @@ void GAM_drawFrame(){
 }
 
 
-void VDP_drawNumber(u8 number, u8 chars){
+void VDP_drawNumber(u8 number, u8 chars, u8 xpos, u8 ypos){
+    sprintf(strBuf,"%d", number);
+    VDP_drawText(strBuf, xpos, ypos);
+}
 
+void GAM_setGametype(u8 game_type){
+    gameType = game_type;
 }
