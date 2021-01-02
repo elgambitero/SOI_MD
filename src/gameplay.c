@@ -17,13 +17,14 @@ u16 frmInd;
 u16 levelInd;
 
 u8 gameType;
+u16 bonusCount;
 
 char strBuf[8];
 
 void GAM_gameInit();
 void GAM_levelInit();
 void GAM_drawFrame();
-void VDP_drawNumber(u8 number, u8 chars, u8 xpos, u8 ypos);
+void VDP_drawNumber(u16 number, u8 chars, u8 xpos, u8 ypos);
 
 
 void gameplayLoop(){
@@ -46,6 +47,7 @@ void gameplayLoop(){
             PHY_send_inputs(bl_ctrl, gr_ctrl);
             PHY_update();
             SPR_update();
+            //VDP_drawNumber(bonusCount, N_BONUS, X_BONUS, 0);
             if((!blue_player || bl_stat->effect == PASSING) &&
                 (!green_player || gr_stat->effect == PASSING)){
                 gr_stat->effect = 0;
@@ -154,11 +156,12 @@ void GAM_levelInit(){
     load_board_palettes(&board);
     draw_board(&board);
     play_board_music(&board);
+    bonusCount = board.bonus;
 
     VDP_drawText("Score", 0, 0);
     VDP_drawText("00000000", X_SCORE, 0);
     VDP_drawText("Bonus", 15, 0);
-    VDP_drawText("00000", X_BONUS, 0);
+    VDP_drawNumber(5000, N_BONUS, X_BONUS, 0);
     VDP_drawText("L:", 27, 0);
     VDP_drawText("3", X_LIVES, 0);
     VDP_drawText("Lvl", 33, 0);
@@ -201,7 +204,7 @@ void GAM_drawFrame(){
 }
 
 
-void VDP_drawNumber(u8 number, u8 chars, u8 xpos, u8 ypos){
+void VDP_drawNumber(u16 number, u8 chars, u8 xpos, u8 ypos){
     sprintf(strBuf,"%d", number);
     VDP_drawText(strBuf, xpos, ypos);
 }

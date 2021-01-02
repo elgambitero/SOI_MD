@@ -27,6 +27,7 @@ typedef struct Board{
     u8 colors[3];
     u8 music;
     u8 attributes;
+    u16 bonus;
     Actor * actors;
     Actor * players;
 } Board;
