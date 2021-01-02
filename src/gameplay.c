@@ -16,24 +16,26 @@ u16 frmInd;
 
 u16 levelInd;
 
-void gameInit();
-void levelInit();
-void drawFrame();
-void load_blk_tiles();
+char strBuf[8];
+
+void GAM_gameInit();
+void GAM_levelInit();
+void GAM_drawFrame();
+void VDP_drawNumber(u8 number, u8 chars);
 
 
 void gameplayLoop(){
     switch(gameState){
         case GAMEINIT:
             SYS_disableInts();
-            gameInit();
+            GAM_gameInit();
 
             gameState = INITBOARD;
             SYS_enableInts();
         break;
         case INITBOARD:
             SYS_disableInts();
-            levelInit();
+            GAM_levelInit();
 
             gameState = GAME;
             SYS_enableInts();
@@ -96,11 +98,11 @@ void gameplayLoop(){
     }
 }
 
-void gameInit(){
+void GAM_gameInit(){
     levelInd = 0;
 }
 
-void levelInit(){
+void GAM_levelInit(){
 
     current_level = levels[levelInd];
 
@@ -125,7 +127,7 @@ void levelInit(){
     VDP_setPalette(PAL0, pal_sys0.data);
     VDP_setPalette(PAL1, pal_sys1.data);
 
-    drawFrame();
+    GAM_drawFrame();
 
     load_blk_tiles(ind);
 
@@ -152,17 +154,17 @@ void levelInit(){
     play_board_music(&board);
 
     VDP_drawText("Score", 0, 0);
-    VDP_drawText("00000000", 6, 0);
+    VDP_drawText("00000000", N_SCORE, 0);
     VDP_drawText("Bonus", 15, 0);
-    VDP_drawText("00000", 21, 0);
+    VDP_drawText("00000", N_BONUS, 0);
     VDP_drawText("L:", 27, 0);
-    VDP_drawText("3", 29, 0);
+    VDP_drawText("3", N_LIVES, 0);
     VDP_drawText("Lvl", 33, 0);
-    VDP_drawText("001", 37, 0);
+    VDP_drawText("001", N_LEVEL, 0);
 
 }
 
-void drawFrame(){
+void GAM_drawFrame(){
     VDP_loadTileSet(main_frame.tileset, ind, DMA);
     frmInd = ind;
     ind += main_frame.tileset->numTile;
@@ -196,3 +198,7 @@ void drawFrame(){
     }
 }
 
+
+void VDP_drawNumber(u8 number, u8 chars){
+
+}

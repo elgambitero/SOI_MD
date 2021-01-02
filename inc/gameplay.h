@@ -5,15 +5,27 @@
 
 #include "board.h"
 
-#define X 0
-#define Y 1
-
 #define SCREEN_WIDTH 40
 #define SCREEN_HEIGHT 30
+
+//Amount of digits and their positions in the stats line
+
+#define N_SCORE 8
+#define N_BONUS 5
+#define N_LIVES 1
+#define N_LEVEL 3
+
+#define X_SCORE 6
+#define X_BONUS 21
+#define X_LIVES 29
+#define X_LEVEL 37
 
 #define MAX_PLAYERS 2
 
 #define PASSING_PLAYER 0x0000
+
+#define X 0
+#define Y 1
 
 
 const Board * current_level;
