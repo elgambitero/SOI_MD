@@ -1,6 +1,4 @@
-#include "levels.h"
-#include "blocks.h"
-#include "actors.h"
+#include "SOI.h"
 
 #define BDR (NORMAL_BLOCK | SOLID | BLK_DONUT | COL_SLOT1)
 #define BOR (NORMAL_BLOCK | SOLID | BLK_DOT   | COL_SLOT1)

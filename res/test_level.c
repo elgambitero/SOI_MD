@@ -1,6 +1,4 @@
-#include "levels.h"
-#include "blocks.h"
-#include "actors.h"
+#include "SOI.h"
 
 #define BDG (NORMAL_BLOCK | SOLID | BLK_DONUT | COL_SLOT1)
 #define BOG (NORMAL_BLOCK | SOLID | BLK_DOT   | COL_SLOT1)
