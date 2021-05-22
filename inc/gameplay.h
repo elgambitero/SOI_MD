@@ -1,9 +1,6 @@
 #ifndef GAMEPLAY_H
 #define GAMEPLAY_H
 
-#include <genesis.h>
-
-#include "board.h"
 
 #define X 0
 #define Y 1

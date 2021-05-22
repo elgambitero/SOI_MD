@@ -2,11 +2,6 @@
 
 #define PLAYER_H
 
-#include <genesis.h>
-
-
-
-
 u8 weap_ctrl(u8 after);
 u8 block_ctrl(u8 after);
 u8 jump_ctrl(u8 after);

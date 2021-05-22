@@ -2,7 +2,6 @@
 
 #define ENTITIES_H
 
-#include <genesis.h>
 
 typedef struct Nastie{
     const u8 * death_sound;
