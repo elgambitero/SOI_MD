@@ -2,7 +2,6 @@
 
 #define LEVELS_H
 
-#include "board.h"
 
 const Board test_level;
 const Board level1;

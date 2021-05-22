@@ -1,7 +1,6 @@
 #ifndef GOODIES_H
 #define GOODIES_H
 
-#include "entities.h"
 
 #define REVEAL_TIME 150
 #define SPEED_FRAMES 3000

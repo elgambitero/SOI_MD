@@ -1,11 +1,6 @@
-#include "physics.h"
+#include "SOI.h"
 
-#include "board.h"
-#include "blocks.h"
-#include "gameplay.h"
 #include "sound.h"
-
-#include "globals.h"
 
 u16 attr;
 

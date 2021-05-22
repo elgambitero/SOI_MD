@@ -2,8 +2,6 @@
 
 #define BLOCKS_H
 
-#include "globals.h"
-
 #define BLK_TYPE        0x0003
 
 #define NORMAL_BLOCK    0x0001

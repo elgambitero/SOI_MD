@@ -1,11 +1,4 @@
-#include <genesis.h>
-
-#include "actors.h"
-#include "physics.h"
-
-#include "globals.h"
-
-
+#include "SOI.h"
 
 u8 ACT_init(ActorList * actors, u8 max_actors)
 {

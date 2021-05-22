@@ -1,8 +1,5 @@
-#include <genesis.h>
+#include "SOI.h"
 
-#include "blocks.h"
-
-#include "board.h"
 #include "stage.h"
 
 #define BLK_TO_TILE(x) (1 + x*2)

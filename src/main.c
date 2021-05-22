@@ -1,6 +1,4 @@
-#include <genesis.h>
-
-#include "gameplay.h"
+#include "SOI.h"
 
 #define PAL
 

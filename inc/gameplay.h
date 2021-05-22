@@ -1,9 +1,6 @@
 #ifndef GAMEPLAY_H
 #define GAMEPLAY_H
 
-#include <genesis.h>
-
-#include "board.h"
 
 #define SCREEN_WIDTH 40
 #define SCREEN_HEIGHT 30

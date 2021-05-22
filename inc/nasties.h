@@ -1,9 +1,6 @@
 #ifndef NASTIES_H
 #define NASTIES_H
 
-#include <genesis.h>
-
-#include "entities.h"
 
 void NST_still_fall();
 void NST_still_land();

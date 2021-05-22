@@ -1,11 +1,8 @@
-#include "projectiles.h"
+#include "SOI.h"
 
 #include "sprites.h"
 #include "sound.h"
 
-#include "physics.h"
-#include "gameplay.h"
-#include "blocks.h"
 
 void PR_arrow_fired();
 
