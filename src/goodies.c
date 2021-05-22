@@ -1,8 +1,4 @@
-#include "goodies.h"
-
-#include "physics.h"
-#include "gameplay.h"
-#include "blocks.h"
+#include "SOI.h"
 
 #include "sound.h"
 #include "sprites.h"

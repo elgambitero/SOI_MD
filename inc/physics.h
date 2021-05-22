@@ -2,10 +2,6 @@
 
 #define PHYSICS_H
 
-#include "gameplay.h"
-#include "actors.h"
-#include "board.h"
-
 #define SFX_IND 5 //magic number
 
 #define MAX_NASTIES 20

@@ -2,7 +2,6 @@
 
 #define BOARD_H
 
-#include "actors.h"
 
 #define BOARD_X 19
 #define BOARD_Y 13

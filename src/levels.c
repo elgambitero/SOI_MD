@@ -1,4 +1,4 @@
-#include "levels.h"
+#include "SOI.h"
 
 const Board * levels[] = {
     &test_level,

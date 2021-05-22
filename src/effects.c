@@ -1,11 +1,7 @@
-#include "effects.h"
+#include "SOI.h"
 
 #include "sprites.h"
 #include "sound.h"
-
-#include "physics.h"
-#include "gameplay.h"
-#include "blocks.h"
 
 void FX_boot_follow();
 void FX_shield_follow();

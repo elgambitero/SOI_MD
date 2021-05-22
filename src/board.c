@@ -1,8 +1,7 @@
-#include "board.h"
+#include "SOI.h"
+
 #include "palettes.h"
-#include "blocks.h"
 #include "music.h"
-#include "physics.h"
 
 #define XOFF 1
 #define YOFF 1

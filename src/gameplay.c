@@ -1,12 +1,7 @@
-#include <genesis.h>
+#include "SOI.h"
 
-#include "gameplay.h"
-#include "board.h"
-#include "stage.h"
-#include "physics.h"
 #include "palettes.h"
-#include "blocks.h"
-#include "levels.h"
+#include "stage.h"
 
 Board board;
 
