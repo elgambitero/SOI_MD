@@ -1,5 +1,7 @@
 #include "SOI.h"
 
+#include "stage.h"
+
 #define BLK_TO_TILE(x) (1 + x*2)
 #define FG 0
 #define BG 1
