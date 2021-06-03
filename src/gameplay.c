@@ -65,23 +65,23 @@ void gameplayLoop(){
         case GAMEENDING:
             //VDP_resetScreen();
             SPR_end();
-            VDP_clearPlan(PLAN_A, TRUE);
-            VDP_clearPlan(PLAN_B, TRUE);
+            VDP_clearPlane(BG_A, TRUE);
+            VDP_clearPlane(BG_B, TRUE);
             XGM_stopPlay();
             PAL_setColor(15, 0x0FFF);
-            VDP_drawTextBG(PLAN_A,"Thank you for playing", 5, 10);
+            VDP_drawTextBG(BG_A,"Thank you for playing", 5, 10);
             gameState = GAMEEXIT;
         break;
         case GAMEEXIT:
             /*
-            VDP_clearPlan(PLAN_A, TRUE);
-            VDP_clearPlan(PLAN_B, TRUE);
-            VDP_clearPlan(PLAN_WINDOW, TRUE);
+            VDP_clearPlane(BG_A, TRUE);
+            VDP_clearPlane(BG_B, TRUE);
+            VDP_clearPlane(PLAN_WINDOW, TRUE);
 
-            VDP_setHorizontalScroll(PLAN_A, 0);
-            VDP_setHorizontalScroll(PLAN_B, 0);
-            VDP_setVerticalScroll(PLAN_A, 0);
-            VDP_setVerticalScroll(PLAN_B, 0);
+            VDP_setHorizontalScroll(BG_A, 0);
+            VDP_setHorizontalScroll(BG_B, 0);
+            VDP_setVerticalScroll(BG_A, 0);
+            VDP_setVerticalScroll(BG_B, 0);
             VDP_setBackgroundColor(0);
 
             gameState = GAMEINIT;
@@ -162,31 +162,31 @@ void drawFrame(){
     frmInd = ind;
     ind += main_frame.tileset->numTile;
 
-    VDP_setMapEx(PLAN_B, main_frame.map, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, frmInd),
+    VDP_setMapEx(BG_B, main_frame.tilemap, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, frmInd),
                 0, 0, 0, 0, 1, 1);
 
-    VDP_setMapEx(PLAN_B, main_frame.map, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, frmInd),
+    VDP_setMapEx(BG_B, main_frame.tilemap, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, frmInd),
                 39, 0, 3, 0, 1, 1);
 
-    VDP_setMapEx(PLAN_B, main_frame.map, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, frmInd),
+    VDP_setMapEx(BG_B, main_frame.tilemap, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, frmInd),
                 0, 27, 0, 3, 1, 1);
 
-    VDP_setMapEx(PLAN_B, main_frame.map, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, frmInd),
+    VDP_setMapEx(BG_B, main_frame.tilemap, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, frmInd),
                 39, 27, 3, 3, 1, 1);
     
     for(u8 i = 0; i < 19; i++){
-        VDP_setMapEx(PLAN_B, main_frame.map, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, frmInd),
+        VDP_setMapEx(BG_B, main_frame.tilemap, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, frmInd),
                 1+i*2, 0, 1, 0, 2, 1);
 
-        VDP_setMapEx(PLAN_B, main_frame.map, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, frmInd),
+        VDP_setMapEx(BG_B, main_frame.tilemap, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, frmInd),
                 1+i*2, 27, 1, 3, 2, 1);
     }
 
     for(u8 i = 0; i < 13; i++){
-        VDP_setMapEx(PLAN_A, main_frame.map, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, frmInd),
+        VDP_setMapEx(BG_A, main_frame.tilemap, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, frmInd),
                 0, 1 + i*2, 0, 1, 1, 2);
 
-        VDP_setMapEx(PLAN_A, main_frame.map, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, frmInd),
+        VDP_setMapEx(BG_A, main_frame.tilemap, TILE_ATTR_FULL(PAL0, FALSE, FALSE, FALSE, frmInd),
                 39, 1 + i*2, 3, 1, 1, 2);
     }
 }
