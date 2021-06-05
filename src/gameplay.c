@@ -154,13 +154,13 @@ void GAM_levelInit(){
     bonusCount = board.bonus;
 
     VDP_drawText("Score", 0, 0);
-    VDP_drawText("00000000", X_SCORE, 0);
+    //VDP_drawText("00000000", X_SCORE, 0);
     VDP_drawText("Bonus", 15, 0);
-    VDP_drawNumber(5000, N_BONUS, X_BONUS, 0);
+    //VDP_drawNumber(5000, N_BONUS, X_BONUS, 0);
     VDP_drawText("L:", 27, 0);
     VDP_drawText("3", X_LIVES, 0);
     VDP_drawText("Lvl", 33, 0);
-    VDP_drawNumber(levelInd, N_LEVEL, X_LEVEL, 0);
+    //VDP_drawNumber(levelInd, N_LEVEL, X_LEVEL, 0);
 
 }
 
