@@ -152,7 +152,7 @@ const Board test_level = {
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
     },
     {PAL_GR, PAL_R, PAL_BL},
-    0,
+    2,
     0,
     5000,
     &ant_spawn,
