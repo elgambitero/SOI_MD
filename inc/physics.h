@@ -105,64 +105,88 @@ void PHY_end();
 void summon_deletor(u8 front_ind, u8 deletes);
 void kill(Actor * act, u8 speed_x, u8 speed_y);
 
-
-static inline void calc_front_block_hi(){
-    front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 12 ) ) ) );
-}
-static inline void calc_front_block(){
-    front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 8 ) ) ) );
-}
-static inline void calc_front_block_lo(){
-    front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 4 ) ) ) );
-}
-static inline void calc_next_floor(){
-    front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) + 8 ) ) ) );
-}
-static inline void calc_front_floor(){
-    front_floor_ind = XY_TO_IND( PX_TO_BLOCK( front ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) );
-}
-static inline void calc_back_floor(){
-    back_floor_ind = XY_TO_IND( PX_TO_BLOCK( back ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y])  ) ) ) ;
-}
-static inline void calc_floor(){
-    floor_ind = XY_TO_IND( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y])  ) ) ) ;
-}
-static inline void calc_top(){
+//Boundary coordinate calculations.
+__attribute__((always_inline)) static inline void calc_top(){
     top = POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1;
 }
-static inline void calc_top_block(){
-    top_ind =  XY_TO_IND( ( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
-}
-static inline void calc_top_block_left(){
-    top_ind =  XY_TO_IND( ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[X] ) - curr->character->size[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
-}
-static inline void calc_top_block_right(){
-    top_ind =  XY_TO_IND( ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[X] ) + curr->character->size[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
-}
-static inline void calc_center_block(){
-    center_ind = XY_TO_IND( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ), (PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - (curr->character->size[Y] >> 1) ) ) ) ) ;
-}
-static inline void calc_front(u8 direction){
+__attribute__((always_inline)) static inline void calc_front(u8 direction){
     front = direction ? POS_TO_PX(curr->pos[X]) - curr->character->size[X] : POS_TO_PX(curr->pos[X]) + curr->character->size[X];
 }
-static inline void calc_front_margin(u8 direction){
+__attribute__((always_inline)) static inline void calc_front_margin(u8 direction){
     front = direction ? POS_TO_PX(curr->pos[X]) - curr->character->size[X] - COLL_MARGIN : POS_TO_PX(curr->pos[X]) + curr->character->size[X] + COLL_MARGIN;
 }
-static inline void calc_next(u8 direction){
+__attribute__((always_inline)) static inline void calc_next(u8 direction){
     front = direction ? POS_TO_PX(curr->pos[X]) - BLOCK_SIZE_PX : POS_TO_PX(curr->pos[X]) + BLOCK_SIZE_PX;
 }
-static inline void calc_back(u8 direction){
+__attribute__((always_inline)) static inline void calc_back(u8 direction){
     back = direction ? POS_TO_PX(curr->pos[X]) + curr->character->size[X] : POS_TO_PX(curr->pos[X]) - curr->character->size[X];
+}
+
+//Block index calculations
+__attribute__((always_inline)) static inline void calc_front_block_hi(){
+    front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 12 ) ) ) );
+}
+__attribute__((always_inline)) static inline void calc_front_block(){
+    front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 8 ) ) ) );
+}
+__attribute__((always_inline)) static inline void calc_front_block_lo(){
+    front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 4 ) ) ) );
+}
+__attribute__((always_inline)) static inline void calc_next_floor(){
+    front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) + 8 ) ) ) );
+}
+__attribute__((always_inline)) static inline void calc_front_floor(){
+    front_floor_ind = XY_TO_IND( PX_TO_BLOCK( front ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) );
+}
+__attribute__((always_inline)) static inline void calc_back_floor(){
+    back_floor_ind = XY_TO_IND( PX_TO_BLOCK( back ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y])  ) ) ) ;
+}
+__attribute__((always_inline)) static inline void calc_floor(){
+    floor_ind = XY_TO_IND( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y])  ) ) ) ;
+}
+__attribute__((always_inline)) static inline void calc_top_block(){
+    top_ind =  XY_TO_IND( ( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
+}
+__attribute__((always_inline)) static inline void calc_top_block_left(){
+    top_ind =  XY_TO_IND( ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[X] ) - curr->character->size[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
+}
+__attribute__((always_inline)) static inline void calc_top_block_right(){
+    top_ind =  XY_TO_IND( ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[X] ) + curr->character->size[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
+}
+__attribute__((always_inline)) static inline void calc_center_block(){
+    center_ind = XY_TO_IND( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ), (PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - (curr->character->size[Y] >> 1) ) ) ) ) ;
+}
+
+//Environment colision calculation.
+
+__attribute__((always_inline)) static inline u8 fall(u8 ind){
+    return !( SOLID & env->front_blocks[ind] ) &&  ( POS_TO_PX(curr->pos[Y])  < BOARD_Y_PX );
+}
+__attribute__((always_inline)) static inline u8 land(u8 ind){
+    return ( SOLID & env->front_blocks[ ind ] ) || (POS_TO_PX(curr->pos[Y]) >= BOARD_Y_PX);
+}
+__attribute__((always_inline)) static inline u8 cliff(){
+    return (front_floor_ind < BOARD_BUFFER) && !( SOLID & env->front_blocks[front_floor_ind] );
+}
+__attribute__((always_inline)) static inline u8 crash_into(){
+    if( front >= BOARD_X_PX )
+        return FRAME;
+    if(SOLID & env->front_blocks[front_ind])
+        return BLOCK;
+    if((GOODIE & env->front_blocks[front_ind]) == GOODIE)
+        return GOODIE;
+    else
+        return 0;
+}
+
+//Environment analysis checks.
+__attribute__((always_inline)) static inline u8 breakable(u8 ind){
+    return (BREAKABLE & env->front_blocks[ind]);
 }
 
 void stop_time(u16 frames);
 
 u8 breakable(u8 ind);
-u8 fall(u8 ind);
-u8 land(u8 ind);
-
-u8 cliff();
-u8 crash_into();
 
 void clean_presence();
 void set_presence(u8 ind);

@@ -37,28 +37,6 @@ u8 is_occupied(u8 ind){
     return board_presence[slot] & (1 << shift);
 }
 
-u8 fall(u8 ind){
-    return !( SOLID & env->front_blocks[ind] ) &&  ( POS_TO_PX(curr->pos[Y])  < BOARD_Y_PX );
-}
-u8 land(u8 ind){
-    return ( SOLID & env->front_blocks[ ind ] ) || (POS_TO_PX(curr->pos[Y]) >= BOARD_Y_PX);
-}
-
-u8 cliff(){
-    return (front_floor_ind < BOARD_BUFFER) && !( SOLID & env->front_blocks[front_floor_ind] );
-}
-
-u8 crash_into(){
-    if( front >= BOARD_X_PX )
-        return FRAME;
-    if(SOLID & env->front_blocks[front_ind])
-        return BLOCK;
-    if((GOODIE & env->front_blocks[front_ind]) == GOODIE)
-        return GOODIE;
-    else
-        return 0;
-}
-
 void stop_time(u16 frames){
     u16 time = frames;
     while(time){
@@ -67,9 +45,6 @@ void stop_time(u16 frames){
     }
 }
 
-u8 breakable(u8 ind){
-    return (BREAKABLE & env->front_blocks[ind]);
-}
 
 void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
     fx.status = 0;
