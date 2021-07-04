@@ -106,22 +106,54 @@ void summon_deletor(u8 front_ind, u8 deletes);
 void kill(Actor * act, u8 speed_x, u8 speed_y);
 
 
-void calc_front_block_hi();
-void calc_front_block();
-void calc_front_block_lo();
-void calc_next_floor();
-void calc_front_floor();
-void calc_back_floor();
-void calc_floor();
-void calc_top();
-void calc_top_block();
-void calc_top_block_left();
-void calc_top_block_right();
-void calc_center_block();
-void calc_front(u8 direction);
-void calc_front_margin(u8 direction);
-void calc_next(u8 direction);
-void calc_back(u8 direction);
+static inline void calc_front_block_hi(){
+    front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 12 ) ) ) );
+}
+static inline void calc_front_block(){
+    front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 8 ) ) ) );
+}
+static inline void calc_front_block_lo(){
+    front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 4 ) ) ) );
+}
+static inline void calc_next_floor(){
+    front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) + 8 ) ) ) );
+}
+static inline void calc_front_floor(){
+    front_floor_ind = XY_TO_IND( PX_TO_BLOCK( front ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) );
+}
+static inline void calc_back_floor(){
+    back_floor_ind = XY_TO_IND( PX_TO_BLOCK( back ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y])  ) ) ) ;
+}
+static inline void calc_floor(){
+    floor_ind = XY_TO_IND( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y])  ) ) ) ;
+}
+static inline void calc_top(){
+    top = POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1;
+}
+static inline void calc_top_block(){
+    top_ind =  XY_TO_IND( ( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
+}
+static inline void calc_top_block_left(){
+    top_ind =  XY_TO_IND( ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[X] ) - curr->character->size[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
+}
+static inline void calc_top_block_right(){
+    top_ind =  XY_TO_IND( ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[X] ) + curr->character->size[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
+}
+static inline void calc_center_block(){
+    center_ind = XY_TO_IND( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ), (PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - (curr->character->size[Y] >> 1) ) ) ) ) ;
+}
+static inline void calc_front(u8 direction){
+    front = direction ? POS_TO_PX(curr->pos[X]) - curr->character->size[X] : POS_TO_PX(curr->pos[X]) + curr->character->size[X];
+}
+static inline void calc_front_margin(u8 direction){
+    front = direction ? POS_TO_PX(curr->pos[X]) - curr->character->size[X] - COLL_MARGIN : POS_TO_PX(curr->pos[X]) + curr->character->size[X] + COLL_MARGIN;
+}
+static inline void calc_next(u8 direction){
+    front = direction ? POS_TO_PX(curr->pos[X]) - BLOCK_SIZE_PX : POS_TO_PX(curr->pos[X]) + BLOCK_SIZE_PX;
+}
+static inline void calc_back(u8 direction){
+    back = direction ? POS_TO_PX(curr->pos[X]) + curr->character->size[X] : POS_TO_PX(curr->pos[X]) - curr->character->size[X];
+}
 
 void stop_time(u16 frames);
 
