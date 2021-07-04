@@ -109,7 +109,6 @@ void kill(Actor * act, u8 speed_x, u8 speed_y){
 //PHY module lifecycle.
 u8 PHY_init(Board * board, PlayerStat * bl_stats, PlayerStat * gr_stats){
     env = board;
-    nastie_speed = WALKSPEED;
     collided = FALSE;
     SYS_setHIntCallback(PHY_HCallback);
     VDP_setHIntCounter(0);

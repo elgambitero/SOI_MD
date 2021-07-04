@@ -48,8 +48,13 @@
 #define MK_BLOCK     2
 #define SHOOT        3
 
+//Pointer to level board.
 Board * env;
 
+//Flag for collision
+u8 collided;
+
+//Actor lists
 ActorList nasties;
 ActorList fx_buf;
 ActorList players;
@@ -57,42 +62,36 @@ ActorList projectiles;
 ActorList bp_projectiles;
 ActorList gp_projectiles;
 
+//Current actor being evaluated (kinda equivalent to self)
 Actor * curr;
-u8 collided;
 
+//Storage for status, direction and resulting status, for fast access.
 u8 status;
 u8 newstatus;
 u8 dir;
-u8 nastie_speed;
 
-
-u8 * pl_act;
-u8 bl_act, gr_act;
-
+//Player statistics, for goodie recollection.
 PlayerStat * pl_stat;
 PlayerStat * bl_stat;
 PlayerStat * gr_stat;
 
-u8 * ctrl;
-u8 bl_after_status, gr_after_status;
-u8 * after_status;
-u8 bl_after_speed[2], gr_after_speed[2];
-u8 * after_speed;
+//Actor boundary coordinates
+u16 front;
+u16 back;
+u16 top;
 
-
-
+//Neighbouring block indexes.
 u16 front_ind;
 u16 back_floor_ind;
 u16 front_floor_ind;
 u16 floor_ind;
 u16 top_ind;
-u16 front;
-u16 back;
-u16 top;
 u16 center_ind;
 
+//Index for calculating the index of the taken goodie (deprecated?)
 u8 gd_index;
 
+//Result of physics calculation.
 u8 result;
 
 struct Actor fx;
@@ -103,10 +102,21 @@ void PHY_send_inputs(u8 ctrl1, u8 ctrl2);
 void PHY_update();
 void PHY_end();
 
-void summon_deletor(u8 front_ind, u8 deletes);
 void kill(Actor * act, u8 speed_x, u8 speed_y);
 
-//Boundary coordinate calculations.
+//Time manipulation
+void stop_time(u16 frames);
+
+//Actor presence manipulation.
+void clean_presence();
+void set_presence(u8 ind);
+u8 is_occupied(u8 ind);
+
+//Special effects
+void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y);
+void summon_deletor(u8 front_ind, u8 deletes);
+
+//Actor boundary coordinate calculations.
 __attribute__((always_inline)) static inline void calc_top(){
     top = POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1;
 }
@@ -123,7 +133,7 @@ __attribute__((always_inline)) static inline void calc_back(u8 direction){
     back = direction ? POS_TO_PX(curr->pos[X]) + curr->character->size[X] : POS_TO_PX(curr->pos[X]) - curr->character->size[X];
 }
 
-//Block index calculations
+//Neighbouring block index calculations
 __attribute__((always_inline)) static inline void calc_front_block_hi(){
     front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 12 ) ) ) );
 }
@@ -159,7 +169,6 @@ __attribute__((always_inline)) static inline void calc_center_block(){
 }
 
 //Environment colision calculation.
-
 __attribute__((always_inline)) static inline u8 fall(u8 ind){
     return !( SOLID & env->front_blocks[ind] ) &&  ( POS_TO_PX(curr->pos[Y])  < BOARD_Y_PX );
 }
@@ -184,15 +193,5 @@ __attribute__((always_inline)) static inline u8 crash_into(){
 __attribute__((always_inline)) static inline u8 breakable(u8 ind){
     return (BREAKABLE & env->front_blocks[ind]);
 }
-
-void stop_time(u16 frames);
-
-u8 breakable(u8 ind);
-
-void clean_presence();
-void set_presence(u8 ind);
-u8 is_occupied(u8 ind);
-
-void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y);
 
 #endif

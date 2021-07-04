@@ -10,6 +10,14 @@ u8 jump_ctrl(u8 after);
 
 void PL_update();
 
+u8 * pl_act;
+u8 bl_act, gr_act;
+u8 * ctrl;
+u8 bl_after_status, gr_after_status;
+u8 * after_status;
+u8 bl_after_speed[2], gr_after_speed[2];
+u8 * after_speed;
+
 const Entity PL_blue = {
     BLUE_PLAYER,
     {2, 15},
@@ -166,7 +174,7 @@ static inline void summon_arrow(u8 dir, ActorList * list){
     fx.frames = 0;
     fx.pos[X] = POS_TO_PX(curr->pos[X]);
     fx.pos[Y] = POS_TO_PX(curr->pos[Y]);
-    fx.speed[X] = dir ? -2*nastie_speed : 2*nastie_speed;
+    fx.speed[X] = dir ? -2*WALKSPEED : 2*WALKSPEED;
     fx.speed[Y] = 0;
     ACT_add(&fx, list);
 }

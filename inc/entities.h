@@ -9,6 +9,8 @@ typedef struct Nastie{
     
     u16 points;
 
+    u8 speed;
+
     void (*const onCrash)();
     void (*const onTrip)();
     void (*const onFall)();

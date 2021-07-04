@@ -710,7 +710,7 @@ void GD_killAll(){
 void GD_killSpawned(){
     Actor * nastie = ACT_getFirst(&nasties);
     while(nastie){
-        if((nastie->character->attr & ENT_CHECK_BITMSK) == NASTIE){
+        if((nastie->character->attr & ENT_CHECK_BITMSK) == NASTIE){ //Why check this???
             if(nastie->timer) kill(nastie, 0, -2*FALLSPEED);
         }
         nastie = nastie->next;

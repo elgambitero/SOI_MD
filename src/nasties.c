@@ -4,6 +4,8 @@
 #include "sound.h"
 
 
+#define NASTIE_SPEED WALKSPEED
+
 void NST_still_fall();
 void NST_still_land();
 void NST_fall();
@@ -32,6 +34,7 @@ const Entity NST_spinner = {
             NULL,
             0,
             0,
+            0,
             NULL,
             NULL,
             &NST_still_fall,
@@ -56,6 +59,7 @@ const Entity NST_robo = {
             snd_robo,
             sizeof(snd_robo),
             1000,
+            NASTIE_SPEED,
             &NST_attack,
             &NST_turn_around,
             &NST_fall,
@@ -80,6 +84,7 @@ const Entity NST_ant = {
             snd_ant,
             sizeof(snd_ant),
             50,
+            NASTIE_SPEED,
             &NST_turn_around,
             NULL,
             &NST_fall,
@@ -104,6 +109,7 @@ const Entity NST_piggy = {
             snd_piggy,
             sizeof(snd_piggy),
             250,
+            NASTIE_SPEED,
             &NST_attack,
             NULL,
             &NST_fall,
@@ -128,6 +134,7 @@ const Entity NST_teeth = {
             snd_teeth,
             sizeof(snd_teeth),
             1500,
+            NASTIE_SPEED,
             &NST_deletes_and_keeps_going,
             NULL,
             &NST_fall,
@@ -190,7 +197,8 @@ void NST_deletes(){
 
 void NST_keep_walking(){
     newstatus = WALK_RIGHT | dir;
-    curr->speed[X] = dir ? -WALKSPEED : WALKSPEED;
+    curr->speed[X] = dir ? 
+        -curr->character->role.nastie.speed : curr->character->role.nastie.speed;
 }
 
 void NST_turn_around_fast(){
@@ -249,12 +257,14 @@ void NST_update(){
                     return;
                 }
             }
-            curr->speed[X] = dir ? -nastie_speed : nastie_speed;
+            curr->speed[X] = dir ? 
+                -curr->character->role.nastie.speed : curr->character->role.nastie.speed;
         break;
         case RIGHT_TURN_LEFT:
             if(curr->frames--) return;
             newstatus = WALK_RIGHT | !dir;
-            curr->speed[X] = dir ? nastie_speed : -nastie_speed;
+            curr->speed[X] = dir ? 
+                curr->character->role.nastie.speed : -curr->character->role.nastie.speed;
             curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
         break;
         case ATTACK_RIGHT_IN: 
