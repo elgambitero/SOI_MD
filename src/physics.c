@@ -146,7 +146,6 @@ u8 PHY_computeStatus(Actor * actor){
     curr = actor;
     status = curr->status;
     newstatus = status;
-    attr = curr->character->attr;
     dir = (status & 0x0001);
 
     (*curr->character->update)(); //Update according to pointer function.

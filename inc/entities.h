@@ -38,6 +38,8 @@ typedef struct Projectile{
 
     void (*const onFire)();
 
+    void (*const travel)();
+
     void (*const onCrash)();
 }Projectile;
 
