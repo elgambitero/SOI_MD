@@ -19,6 +19,7 @@ u8 player_lines[4] = {255,255,255,255};
 u8 bl_ctrl;
 u8 gr_ctrl;
 
+//Presence and collision system.
 u32 board_presence[8];
 
 void clean_presence(){
@@ -34,7 +35,13 @@ u8 is_occupied(u8 ind){
     register u8 shift = (ind & 0x1F);
     return board_presence[slot] & (1 << shift);
 }
+void PHY_HCallback(){
+    if(GET_VDPSTATUS(VDP_SPRCOLLISION_FLAG)){
+        collided = TRUE;    
+    }
+}
 
+//Time modification methods.
 void stop_time(u16 frames){
     u16 time = frames;
     while(time){
@@ -43,7 +50,7 @@ void stop_time(u16 frames){
     }
 }
 
-
+//Special effects based on environment modification.
 void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
     fx.status = 0;
     fx.pos[X] = BLOCK_TO_PX(IND_TO_X(front_ind));
@@ -78,7 +85,7 @@ void summon_deletor(u8 front_ind, u8 deletes){
     ACT_add(&fx, &fx_buf);
 }
 
-
+//To be moved.
 void kill(Actor * act, u8 speed_x, u8 speed_y){
     u16 attrib = act->character->attr;
     switch(attrib & ENT_CHECK_BITMSK){
@@ -99,12 +106,7 @@ void kill(Actor * act, u8 speed_x, u8 speed_y){
     act->speed[X] = speed_x;
 }
 
-void PHY_HCallback(){
-    if(GET_VDPSTATUS(VDP_SPRCOLLISION_FLAG)){
-        collided = TRUE;    
-    }
-}
-
+//PHY module lifecycle.
 u8 PHY_init(Board * board, PlayerStat * bl_stats, PlayerStat * gr_stats){
     env = board;
     nastie_speed = WALKSPEED;
