@@ -11,6 +11,8 @@ void FX_wearBootOff();
 void FX_deletor_process();
 void FX_shrapnel_process();
 
+void FX_update();
+
 const Entity FX_hidden = {
     FX,
     {7, 15},
@@ -18,6 +20,7 @@ const Entity FX_hidden = {
     PAL_SYS1,
     &fx_hidden,
     NULL,
+    FX_update,
     NULL,
     {.effect =
         {
@@ -34,6 +37,7 @@ const Entity FX_deletor = {
     PAL_SYS0,
     &deletor_spr,
     NULL,
+    &FX_update,
     NULL,
     {.effect =
         {
@@ -50,6 +54,7 @@ const Entity FX_blk_debris0 = {
     PAL_SYS0,
     &blk_debris0_spr,
     NULL,
+    &FX_update,
     NULL,
     {.effect =
         {
@@ -66,6 +71,7 @@ const Entity FX_blk_debris1 = {
     PAL_SYS0,
     &blk_debris1_spr,
     NULL,
+    &FX_update,
     NULL,
     {.effect =
         {
@@ -83,6 +89,7 @@ const Entity FX_blk_debris2 = {
     PAL_SYS0,
     &blk_debris2_spr,
     NULL,
+    &FX_update,
     NULL,
     {.effect =
         {
@@ -100,6 +107,7 @@ const Entity FX_blk_debris3 = {
     PAL_SYS0,
     &blk_debris3_spr,
     NULL,
+    &FX_update,
     NULL,
     {.effect =
         {
@@ -116,6 +124,7 @@ const Entity FX_boot_ind = {
     PAL_SYS0,
     &boot_ind_spr,
     NULL,
+    &FX_update,
     &FX_restoreSpeed,
     {.effect =
         {
@@ -132,6 +141,7 @@ const Entity FX_shield_ind = {
     PAL_SYS0,
     &shield_ind_spr,
     NULL,
+    &FX_update,
     &FX_wearShieldOff,
     {.effect =
         {
@@ -208,4 +218,18 @@ void FX_wearShieldOff(){
         character->
         role.player.statistics->
         effect = 0;
+}
+
+void FX_update(){
+    if(curr->timer){
+        curr->timer++;
+        if(curr->timer == MAX_TIMER){
+            result = ACT_DELETION;
+            return;
+        };
+    }
+    if(curr->character->role.effect.onProcess){
+        curr->character->role.effect.onProcess();
+        return;
+    }
 }

@@ -5,6 +5,8 @@
 
 void SPW_spawn_ant();
 
+void SPW_update();
+
 const Entity SPW_ant = {
     SPAWNER,
     {8, 15},
@@ -12,6 +14,7 @@ const Entity SPW_ant = {
     PAL_SYS0,
     &ant_spawner_spr,
     NULL,
+    &SPW_update,
     NULL,
     {.spawner =
         {
@@ -33,4 +36,13 @@ void SPW_spawn_ant(){
     fx.speed[Y] = 0;
     ACT_add(&fx, &nasties);
     curr->timer = MAX_TIMER - SPAWN_TIME;
+}
+
+void SPW_update(){
+    if(curr->timer){
+        curr->timer++;
+        if(curr->timer == MAX_TIMER) {
+            curr->character->role.spawner.onTimeout();
+        }
+    }
 }

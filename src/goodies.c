@@ -12,7 +12,7 @@ void GD_reveal_hidden();
 void GD_speedUpPlayer();
 void GD_protectPlayer();
 
-
+void GD_update();
 
 
 //TODO: Fix GOODY for something more specific.
@@ -23,6 +23,7 @@ const Entity GD_silvCoin = {
     PAL_SYS0,
     &gd_sys0_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -42,6 +43,7 @@ const Entity GD_arrow = {
     PAL_SYS0,
     &gd_sys0_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -61,6 +63,7 @@ const Entity GD_clk3h = {
     PAL_SYS0,
     &gd_sys0_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -80,6 +83,7 @@ const Entity GD_clk6h = {
     PAL_SYS0,
     &gd_sys0_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -99,6 +103,7 @@ const Entity GD_clk9h = {
     PAL_SYS0,
     &gd_sys0_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -118,6 +123,7 @@ const Entity GD_clk12h = {
     PAL_SYS0,
     &gd_sys0_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -137,6 +143,7 @@ const Entity GD_glass = {
     PAL_SYS0,
     &gd_sys0_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -156,6 +163,7 @@ const Entity GD_shield = {
     PAL_SYS0,
     &gd_sys0_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -175,6 +183,7 @@ const Entity GD_boot = {
     PAL_SYS0,
     &gd_sys0_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -194,6 +203,7 @@ const Entity GD_thnball = {
     PAL_SYS0,
     &gd_sys0_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -213,6 +223,7 @@ const Entity GD_rdkey = {
     PAL_SYS0,
     &gd_sys0_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -232,6 +243,7 @@ const Entity GD_blkey = {
     PAL_SYS0,
     &gd_sys0_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -251,6 +263,7 @@ const Entity GD_rddoor = {
     PAL_SYS0,
     &gd_sys0_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -270,6 +283,7 @@ const Entity GD_bldoor = {
     PAL_SYS0,
     &gd_sys0_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -289,6 +303,7 @@ const Entity GD_rddoor_open = {
     PAL_SYS0,
     &gd_sys0_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -308,6 +323,7 @@ const Entity GD_bddoor_open = {
     PAL_SYS0,
     &gd_sys0_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -327,6 +343,7 @@ const Entity GD_goldCoin = {
     PAL_SYS1,
     &gd_sys1_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -346,6 +363,7 @@ const Entity GD_1UP = {
     PAL_SYS1,
     &gd_sys1_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -365,6 +383,7 @@ const Entity GD_2x = {
     PAL_SYS1,
     &gd_sys1_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -384,6 +403,7 @@ const Entity GD_3x = {
     PAL_SYS1,
     &gd_sys1_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -403,6 +423,7 @@ const Entity GD_4x = {
     PAL_SYS1,
     &gd_sys1_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -422,6 +443,7 @@ const Entity GD_5x = {
     PAL_SYS1,
     &gd_sys1_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -441,6 +463,7 @@ const Entity GD_ball = {
     PAL_SYS1,
     &gd_sys1_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -460,6 +483,7 @@ const Entity GD_gem = {
     PAL_SYS1,
     &gd_sys1_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -479,6 +503,7 @@ const Entity GD_gold = {
     PAL_SYS1,
     &gd_sys1_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -498,6 +523,7 @@ const Entity GD_turtl = {
     PAL_SYS1,
     &gd_sys1_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -517,6 +543,7 @@ const Entity GD_star = {
     PAL_SYS1,
     &gd_sys1_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -536,6 +563,7 @@ const Entity GD_grkey = {
     PAL_SYS1,
     &gd_sys1_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -555,6 +583,7 @@ const Entity GD_grdoor = {
     PAL_SYS1,
     &gd_sys1_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -574,6 +603,7 @@ const Entity GD_grdoor_open = {
     PAL_SYS1,
     &gd_sys1_spr,
     NULL,
+    &GD_update,
     NULL,
     {.goodie =
         {
@@ -728,4 +758,11 @@ void GD_protectPlayer(){
     fx.character = &FX_shield_ind;
     fx.actorData.fxData.following = curr;
     ACT_add(&fx, &fx_buf);
+}
+
+void GD_update(){
+    if(curr->pos[X] >= PX_TO_POS(BOARD_X_PX) || curr->pos[Y] >= PX_TO_POS(BOARD_Y_PX) ){
+        result = ACT_DELETION;
+    }
+    curr->speed[Y] += GRAVITY;
 }

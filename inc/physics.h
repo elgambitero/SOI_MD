@@ -58,6 +58,8 @@ ActorList bp_projectiles;
 ActorList gp_projectiles;
 
 Actor * curr;
+u16 attr;
+u8 collided;
 
 u8 status;
 u8 newstatus;

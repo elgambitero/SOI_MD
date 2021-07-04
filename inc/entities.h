@@ -64,6 +64,9 @@ typedef struct Entity{
     const SpriteDefinition * sprite_def;
 
     void (*const onCreate)();
+
+    void (*const update)();
+    
     void (*const onDestroy)();
 
     union Role{
