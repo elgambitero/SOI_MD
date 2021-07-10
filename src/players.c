@@ -29,6 +29,7 @@ const Entity PL_blue = {
     NULL,
     {.player =
         {
+            0,
             snd_player_death,
             sizeof(snd_player_death),
             &bl_stats,
@@ -51,6 +52,7 @@ const Entity PL_green = {
     NULL,
     {.player =
         {
+            1,
             snd_player_death,
             sizeof(snd_player_death),
             &gr_stats,
@@ -202,12 +204,38 @@ static inline void jmp_brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
     ACT_add(&fx, &fx_buf);
 }
 
+
+__attribute__((always_inline)) static inline void set_Bplayer_presence(u8 line){
+    register u8 slot = (line >> 5);
+    register u8 shift = (line & 0x1F);
+    PL_B_HPresence[slot] |= (1 << shift);
+
+}
+__attribute__((always_inline)) static inline void set_Gplayer_presence(u8 line){
+    register u8 slot = (line >> 5);
+    register u8 shift = (line & 0x1F);
+    PL_G_HPresence[slot] |= (1 << shift);
+}
+void set_player_presence(u8 line, u8 player){
+    if(player){
+        set_Gplayer_presence(line);
+    }else{
+        set_Bplayer_presence(line);
+    }
+}
+
+void clear_playerLines(){
+     memset(PL_B_HPresence, 0x00, sizeof(PL_B_HPresence));
+     memset(PL_G_HPresence, 0x00, sizeof(PL_G_HPresence));
+}
+
 void PL_update(){
     pl_stat = curr->character->role.player.statistics;
     pl_act = curr->character->role.player.intent;
     after_status = curr->character->role.player.future;
     ctrl = curr->character->role.player.ctrl;
     after_speed = curr->character->role.player.future_speed;
+    set_player_presence(curr->pos[Y], curr->character->role.player.index);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
             calc_front_margin(dir);

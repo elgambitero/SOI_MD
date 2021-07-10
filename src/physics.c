@@ -13,7 +13,6 @@
 #define G0 2
 #define G1 3
 
-u8 player_lines[4] = {255,255,255,255};
 
 //TODO: Organize. Make more understandable
 u8 bl_ctrl;
@@ -35,9 +34,22 @@ u8 is_occupied(u8 ind){
     register u8 shift = (ind & 0x1F);
     return board_presence[slot] & (1 << shift);
 }
+
+
+u32 collision_marker[8];
+
+void clean_collisions(){
+    memset(collision_marker, 0x00000000, sizeof(board_presence));
+}
+__attribute__((always_inline)) static inline void set_collision(line){
+    register u8 slot = (line >> 5);
+    register u8 shift = (line & 0x1F);
+    board_presence[slot] |= (1 << shift);
+}
+
 void PHY_HCallback(){
     if(GET_VDPSTATUS(VDP_SPRCOLLISION_FLAG)){
-        collided = TRUE;    
+        set_collision(GET_VCOUNTER);
     }
 }
 
@@ -163,4 +175,5 @@ void PHY_update(){
     ACT_update(&gp_projectiles);
     ACT_update(&fx_buf);
     if(collided) collided = FALSE;
+    clear_playerLines();
 }

@@ -26,6 +26,7 @@ typedef struct FX{
 
 
 typedef struct Player{
+    const u8 index;
     const u8 * death_sound;
     const u16 death_sound_size;
     PlayerStat * const statistics;
