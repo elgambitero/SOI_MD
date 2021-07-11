@@ -18,7 +18,7 @@
 #define COLL_MARGIN 1
 #define FLOOR_CORR ( 0xFFFF << (DECIMALS + 4) )
 #define FALLSPEED 4
-#define WALKSPEED 3
+#define WALKSPEED 2
 #define PL_WALKSPEED WALKSPEED
 #define PL_FASTSPEED 2 * PL_WALKSPEED
 #define PL_JMP_BOOST -12
