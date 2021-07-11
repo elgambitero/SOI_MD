@@ -3,16 +3,10 @@
 #include "sprites.h"
 #include "sound.h"
 
-void FX_boot_follow();
-void FX_shield_follow();
-void FX_restoreSpeed();
-void FX_wearShieldOff();
-void FX_wearBootOff();
-void FX_deletor_process();
-void FX_shrapnel_process();
 
 void FX_update();
 
+void FX_hidden_loop();
 const Entity FX_hidden = {
     FX,
     {7, 15},
@@ -20,7 +14,7 @@ const Entity FX_hidden = {
     PAL_SYS1,
     &fx_hidden,
     NULL,
-    FX_update,
+    &FX_hidden_loop,
     NULL,
     {.effect =
         {
@@ -30,52 +24,54 @@ const Entity FX_hidden = {
     }
 };
 
+void FX_deletor_loop();
 const Entity FX_deletor = {
-    FX | DELETER,
+    FX,
     {7, 15},
     {7, 15},
     PAL_SYS0,
     &deletor_spr,
     NULL,
-    &FX_update,
+    &FX_deletor_loop,
     NULL,
     {.effect =
         {
-            &FX_deletor_process,
+            NULL,
             NULL
         }
     }
 };
 
+void FX_shrapnel_loop();
 const Entity FX_blk_debris0 = {
-    FX | SHRAPNEL,
+    FX,
     {4, 8},
     {4, 4},
     PAL_SYS0,
     &blk_debris0_spr,
     NULL,
-    &FX_update,
+    &FX_shrapnel_loop,
     NULL,
     {.effect =
         {
-            &FX_shrapnel_process,
+            NULL,
             NULL
         }
     }
 };
 
 const Entity FX_blk_debris1 = {
-    FX | SHRAPNEL,
+    FX,
     {4, 8},
     {4, 4},
     PAL_SYS0,
     &blk_debris1_spr,
     NULL,
-    &FX_update,
+    &FX_shrapnel_loop,
     NULL,
     {.effect =
         {
-            &FX_shrapnel_process,
+            NULL,
             NULL
         }
     }
@@ -83,17 +79,17 @@ const Entity FX_blk_debris1 = {
 
 
 const Entity FX_blk_debris2 = {
-    FX | SHRAPNEL,
+    FX,
     {4, 8},
     {4, 4},
     PAL_SYS0,
     &blk_debris2_spr,
     NULL,
-    &FX_update,
+    &FX_shrapnel_loop,
     NULL,
     {.effect =
         {
-            &FX_shrapnel_process,
+            NULL,
             NULL
         }
     }
@@ -101,22 +97,25 @@ const Entity FX_blk_debris2 = {
 
 
 const Entity FX_blk_debris3 = {
-    FX | SHRAPNEL,
+    FX,
     {4, 8},
     {4, 4},
     PAL_SYS0,
     &blk_debris3_spr,
     NULL,
-    &FX_update,
+    &FX_shrapnel_loop,
     NULL,
     {.effect =
         {
-            &FX_shrapnel_process,
+            NULL,
             NULL
         }
     }
 };
 
+void FX_boot_loop();
+void FX_wearBootOff();
+void FX_restoreSpeed();
 const Entity FX_boot_ind = {
     FX,
     {4, 8},
@@ -124,16 +123,18 @@ const Entity FX_boot_ind = {
     PAL_SYS0,
     &boot_ind_spr,
     NULL,
-    &FX_update,
+    &FX_boot_loop,
     &FX_restoreSpeed,
     {.effect =
         {
-            &FX_boot_follow,
+            NULL,
             NULL
         }
     }
 };
 
+void FX_shield_loop();
+void FX_wearShieldOff();
 const Entity FX_shield_ind = {
     FX,
     {4, 8},
@@ -141,29 +142,44 @@ const Entity FX_shield_ind = {
     PAL_SYS0,
     &shield_ind_spr,
     NULL,
-    &FX_update,
+    &FX_shield_loop,
     &FX_wearShieldOff,
     {.effect =
         {
-            &FX_shield_follow,
+            NULL,
             NULL
         }
     }
 };
 
-void FX_deletor_process() {
+__attribute__((always_inline)) static inline void FX_despawn(){
+    if(curr->timer){
+        curr->timer++;
+        if(curr->timer == MAX_TIMER){
+            result = ACT_DELETION;
+            return;
+        };
+    }
+}
+
+void FX_hidden_loop(){
+    return;
+}
+
+void FX_deletor_loop() {
     if(curr->frames--) return;
     result = ACT_DELETION;
 }
 
-void FX_shrapnel_process(){
+void FX_shrapnel_loop(){
     if(curr->pos[X] >= PX_TO_POS(BOARD_X_PX) || curr->pos[Y] >= PX_TO_POS(BOARD_Y_PX) ){
         result = ACT_DELETION;
     }
     curr->speed[Y] += GRAVITY;
 }
 
-void FX_boot_follow(){
+void FX_boot_loop(){
+    FX_despawn();
     if(curr->
         actorData.fxData.following->
         character->
@@ -174,7 +190,8 @@ void FX_boot_follow(){
     curr->pos[Y] = curr->actorData.fxData.following->pos[Y];
 }
 
-void FX_shield_follow(){
+void FX_shield_loop(){
+    FX_despawn();
     if(curr->
         actorData.fxData.following->
         character->

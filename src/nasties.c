@@ -8,7 +8,7 @@
 
 void NST_spinner_loop();
 const Entity NST_spinner = {
-    NASTIE | STILL,
+    NASTIE,
     {6, 15},
     {7, 15},
     PAL_SYS0,
@@ -28,7 +28,7 @@ const Entity NST_spinner = {
 
 void NST_robo_loop();
 const Entity NST_robo = {
-    NASTIE | WALKS | DIES_ON_LEAP | BREAKS | GOES_THRU,
+    NASTIE,
     {4, 15},
     {7, 15},
     PAL_SYS0,
@@ -48,7 +48,7 @@ const Entity NST_robo = {
 
 void NST_ant_loop();
 const Entity NST_ant = {
-    NASTIE | WALKS | LEAPS,
+    NASTIE,
     {7, 8},
     {7, 8},
     PAL_SYS0,
@@ -68,7 +68,7 @@ const Entity NST_ant = {
 
 void NST_piggy_loop();
 const Entity NST_piggy = {
-    NASTIE | WALKS | LEAPS | DELETES,
+    NASTIE,
     {7, 15},
     {7, 15},
     PAL_SYS1,
@@ -88,7 +88,7 @@ const Entity NST_piggy = {
 
 void NST_teeth_loop();
 const Entity NST_teeth = {
-    NASTIE | WALKS | LEAPS | DELETES | GOES_THRU,
+    NASTIE,
     {8, 15},
     {8, 15},
     PAL_SYS0,

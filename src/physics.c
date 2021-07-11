@@ -2,19 +2,6 @@
 
 #include "sound.h"
 
-
-
-//TODO: Organize. Make more understandable
-
-
-
-#define B0 0
-#define B1 1
-#define G0 2
-#define G1 3
-
-u8 player_lines[4] = {255,255,255,255};
-
 //TODO: Organize. Make more understandable
 u8 bl_ctrl;
 u8 gr_ctrl;
