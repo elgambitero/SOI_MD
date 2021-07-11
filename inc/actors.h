@@ -3,7 +3,7 @@
 #define ACTORS_H
 
 
-#define DECIMALS 2
+#define DECIMALS 3
 
 #define MAX_TIMER 65535
 #define SPAWN_TIME 500

@@ -15,15 +15,15 @@
 #define BLOCK_SIZE_POS PX_TO_POS(BLOCK_SIZE_PX)
 
 #define COLL_CORR (2 * DECIMALS)
-#define COLL_MARGIN 1
+#define COLL_MARGIN (1 << (DECIMALS - 2))
 #define FLOOR_CORR ( 0xFFFF << (DECIMALS + 4) )
-#define FALLSPEED 4
-#define WALKSPEED 2
+#define WALKSPEED (1 << (DECIMALS - 1) )
+#define FALLSPEED 2 * WALKSPEED
 #define PL_WALKSPEED WALKSPEED
 #define PL_FASTSPEED 2 * PL_WALKSPEED
-#define PL_JMP_BOOST -12
-#define GRAVITY 1
-#define BRK_SPEED 8
+#define PL_JMP_BOOST -( 3 << (DECIMALS))
+#define GRAVITY (1 << (DECIMALS - 2))
+#define BRK_SPEED (1 << (DECIMALS + 1))
 #define BRK_SPEED_2X 2 * BRK_SPEED
 
 #define TURN_FRAMES 32
