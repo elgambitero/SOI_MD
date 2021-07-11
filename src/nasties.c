@@ -18,6 +18,8 @@ void NST_turn_around_fast();
 void NST_die();
 void NST_deletes_and_keeps_going();
 
+void NST_robo_loop();
+
 void NST_update();
 
 const Entity NST_spinner = {
@@ -52,7 +54,7 @@ const Entity NST_robo = {
     PAL_SYS0,
     &robo_spr,
     NULL,
-    &NST_update,
+    &NST_robo_loop,
     NULL,
     {.nastie =
         {
@@ -60,12 +62,12 @@ const Entity NST_robo = {
             sizeof(snd_robo),
             1000,
             NASTIE_SPEED,
-            &NST_attack,
-            &NST_turn_around,
-            &NST_fall,
-            &NST_die,
-            &NST_breaks,
-            &NST_keep_walking
+            NULL,
+            NULL,
+            NULL,
+            NULL,
+            NULL,
+            NULL,
         }
     }
 };
@@ -216,6 +218,21 @@ void NST_deletes_and_keeps_going(){
     NST_keep_walking();
 }
 
+__attribute__((always_inline)) static inline void NST_despawn(){
+    curr->timer++;
+    if(curr->timer == MAX_TIMER){
+        result = ACT_DELETION;
+        return;
+    };
+}
+
+__attribute__((always_inline)) static inline void NST_keep_dying(){
+    if(curr->pos[X] >= PX_TO_POS(BOARD_X_PX) || curr->pos[Y] >= PX_TO_POS(BOARD_Y_PX) ){
+        result = ACT_DELETION;
+    }
+    curr->speed[Y] += GRAVITY;
+}
+
 void NST_update(){
     if(curr->timer){
         curr->timer++;
@@ -298,4 +315,66 @@ void NST_update(){
 
     if(curr->status == DEAD)
         return;
+}
+
+void NST_robo_loop(){
+    calc_center_block();
+    switch(status & ANIM_MSK){
+        case WALK_RIGHT:
+            calc_back(dir);
+            calc_back_floor();
+            if(fall(back_floor_ind)){
+                NST_fall();
+                return;
+            }
+            calc_front(dir);
+            calc_front_block();
+            switch(crash_into()){
+                case FRAME:
+                    NST_turn_around();
+                    return;
+                case BLOCK:
+                    if(breakable(front_ind)) NST_attack();
+                    else NST_turn_around();
+                    return;
+                default:
+                    break;
+            }
+            calc_front_floor();
+            if(cliff()){
+                NST_turn_around();
+                return;
+            }
+            curr->speed[X] = dir ? 
+                -curr->character->role.nastie.speed : curr->character->role.nastie.speed;
+        break;
+        case RIGHT_TURN_LEFT:
+            if(curr->frames--) return;
+            newstatus = WALK_RIGHT | !dir;
+            curr->speed[X] = dir ? 
+                curr->character->role.nastie.speed : -curr->character->role.nastie.speed;
+            curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
+        break;
+        case ATTACK_RIGHT_IN: 
+            if(curr->frames--) return;
+            NST_breaks();
+            newstatus = dir | ATTACK_RIGHT_OUT;
+            curr->frames = ATTK_FRAMES;
+            curr->speed[X] = 0;
+        break;
+        case ATTACK_RIGHT_OUT: 
+            if(curr->frames--) return;
+            NST_keep_walking();
+        break;
+        case FALL_RIGHT:
+            calc_floor();
+            if(land(floor_ind)) {
+                NST_die();
+                break;
+            }
+        break;
+        case DEAD:
+            NST_keep_dying();
+        break;
+    }
 }
