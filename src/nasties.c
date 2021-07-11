@@ -19,6 +19,7 @@ void NST_die();
 void NST_deletes_and_keeps_going();
 
 void NST_robo_loop();
+void NST_spinner_loop();
 
 void NST_update();
 
@@ -29,7 +30,7 @@ const Entity NST_spinner = {
     PAL_SYS0,
     &spinner_spr,
     NULL,
-    &NST_update,
+    &NST_spinner_loop,
     NULL,
     {.nastie =
         {
@@ -39,8 +40,8 @@ const Entity NST_spinner = {
             0,
             NULL,
             NULL,
-            &NST_still_fall,
-            &NST_still_land,
+            NULL,
+            NULL,
             NULL,
             NULL
         }
@@ -153,7 +154,7 @@ const Entity NST_teeth = {
 
 void NST_still_fall(){
     newstatus = FALL_RIGHT;
-    status = FALL_RIGHT; //Ugly hack
+    status = FALL_RIGHT; //Ugly hack to prevent animation change.
     curr->speed[Y] = FALLSPEED;
     curr->speed[X] = 0;
 }
@@ -310,6 +311,28 @@ void NST_update(){
                 result = ACT_DELETION;
             }
             curr->speed[Y] += GRAVITY;
+        break;
+    }
+
+    if(curr->status == DEAD)
+        return;
+}
+
+void NST_spinner_loop(){
+    switch(status & ANIM_MSK){
+        case WALK_RIGHT:
+            calc_back(dir);
+            calc_back_floor();
+            if(fall(back_floor_ind)){
+                NST_still_fall();
+                return;
+            }
+        break;
+        case FALL_RIGHT:
+            calc_floor();
+            if(land(floor_ind)) {
+                NST_still_land();
+            }
         break;
     }
 

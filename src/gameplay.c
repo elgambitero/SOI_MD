@@ -97,7 +97,7 @@ void gameplayLoop(){
 }
 
 void GAM_gameInit(){
-    levelInd = 1;
+    levelInd = 0;
 }
 
 void GAM_levelInit(){
