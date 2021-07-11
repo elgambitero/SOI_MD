@@ -40,13 +40,7 @@ const Entity NST_spinner = {
             NULL,
             0,
             0,
-            0,
-            NULL,
-            NULL,
-            NULL,
-            NULL,
-            NULL,
-            NULL
+            0
         }
     }
 };
@@ -66,12 +60,6 @@ const Entity NST_robo = {
             sizeof(snd_robo),
             1000,
             NASTIE_SPEED,
-            NULL,
-            NULL,
-            NULL,
-            NULL,
-            NULL,
-            NULL,
         }
     }
 };
@@ -91,12 +79,6 @@ const Entity NST_ant = {
             sizeof(snd_ant),
             50,
             NASTIE_SPEED,
-            NULL,
-            NULL,
-            NULL,
-            NULL,
-            NULL,
-            NULL
         }
     }
 };
@@ -116,12 +98,6 @@ const Entity NST_piggy = {
             sizeof(snd_piggy),
             250,
             NASTIE_SPEED,
-            NULL,
-            NULL,
-            NULL,
-            NULL,
-            NULL,
-            NULL,
         }
     }
 };
@@ -141,12 +117,6 @@ const Entity NST_teeth = {
             sizeof(snd_teeth),
             1500,
             NASTIE_SPEED,
-            NULL,
-            NULL,
-            NULL,
-            NULL,
-            NULL,
-            NULL
         }
     }
 };
@@ -237,6 +207,7 @@ __attribute__((always_inline)) static inline void NST_keep_dying(){
     curr->speed[Y] += GRAVITY;
 }
 
+/* OLD nastie_loop()
 void NST_update(){
     if(curr->timer){
         curr->timer++;
@@ -320,6 +291,7 @@ void NST_update(){
     if(curr->status == DEAD)
         return;
 }
+*/
 
 void NST_spinner_loop(){
     switch(status & ANIM_MSK){

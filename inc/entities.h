@@ -11,12 +11,6 @@ typedef struct Nastie{
 
     u8 speed;
 
-    void (*const onCrash)();
-    void (*const onTrip)();
-    void (*const onFall)();
-    void (*const onLand)();
-    void (*const onAttack)();
-    void (*const onFinishAttack)();
 }Nastie;
 
 typedef struct FX{
