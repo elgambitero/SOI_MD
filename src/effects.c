@@ -18,8 +18,6 @@ const Entity FX_hidden = {
     NULL,
     {.effect =
         {
-            NULL,
-            NULL
         }
     }
 };
@@ -36,8 +34,6 @@ const Entity FX_deletor = {
     NULL,
     {.effect =
         {
-            NULL,
-            NULL
         }
     }
 };
@@ -54,8 +50,6 @@ const Entity FX_blk_debris0 = {
     NULL,
     {.effect =
         {
-            NULL,
-            NULL
         }
     }
 };
@@ -71,8 +65,6 @@ const Entity FX_blk_debris1 = {
     NULL,
     {.effect =
         {
-            NULL,
-            NULL
         }
     }
 };
@@ -89,8 +81,6 @@ const Entity FX_blk_debris2 = {
     NULL,
     {.effect =
         {
-            NULL,
-            NULL
         }
     }
 };
@@ -107,8 +97,6 @@ const Entity FX_blk_debris3 = {
     NULL,
     {.effect =
         {
-            NULL,
-            NULL
         }
     }
 };
@@ -127,8 +115,6 @@ const Entity FX_boot_ind = {
     &FX_restoreSpeed,
     {.effect =
         {
-            NULL,
-            NULL
         }
     }
 };
@@ -146,8 +132,6 @@ const Entity FX_shield_ind = {
     &FX_wearShieldOff,
     {.effect =
         {
-            NULL,
-            NULL
         }
     }
 };
@@ -237,6 +221,7 @@ void FX_wearShieldOff(){
         effect = 0;
 }
 
+/*
 void FX_update(){
     if(curr->timer){
         curr->timer++;
@@ -250,3 +235,4 @@ void FX_update(){
         return;
     }
 }
+*/

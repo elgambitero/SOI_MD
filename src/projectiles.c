@@ -4,11 +4,6 @@
 #include "sound.h"
 
 
-void PR_arrow_fired();
-void PR_fly();
-
-void PR_update();
-
 void PR_arrow_loop();
 const Entity PR_arrow = {
     PROJECTILE,
@@ -21,9 +16,6 @@ const Entity PR_arrow = {
     NULL,
     {.proj =
         {
-            NULL,
-            NULL,
-            NULL
         }
     }
 };
@@ -39,6 +31,7 @@ void PR_arrow_loop(){
     }
 }
 
+/*
 void PR_update(){
     if( (status & ANIM_MSK) == DEAD){
         result = ACT_DELETION;
@@ -46,3 +39,4 @@ void PR_update(){
     }
     curr->character->role.proj.travel();
 }
+*/
