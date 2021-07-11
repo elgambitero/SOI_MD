@@ -80,13 +80,18 @@ u8 ACT_remove(Actor * actor, ActorList * actors)
 }
 
 void ACT_end(ActorList * actors){
+    Actor * current = ACT_getFirst(actors);
+    //Maybe unnecessary, but it wears off some effects.
+    while(current){
+        ACT_remove(current, actors);
+        current = current->next;
+    }
     MEM_free(actors->actorBank);
     actors->actorBank = NULL;
     MEM_free(actors->actorStack);
     actors->actorStack = NULL;
-    //MEM_free(actors->actorFree);
+    //MEM_free(actors->actorFree); //why is this commented??
     actors->actorFree = NULL;
-    
 }
 
 Actor * ACT_seek(const Entity * ent, ActorList * actors){
