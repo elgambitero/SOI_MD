@@ -104,11 +104,6 @@ void kill(Actor * act, u8 speed_x, u8 speed_y);
 //Time manipulation
 void stop_time(u16 frames);
 
-//Actor presence manipulation.
-void clean_presence();
-void set_presence(u8 ind);
-u8 is_occupied(u8 ind);
-
 //Special effects
 void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y);
 void summon_deletor(u8 front_ind, u8 deletes);

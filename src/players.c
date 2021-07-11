@@ -111,7 +111,7 @@ u8 block_ctrl(u8 after){
             curr->frames = BP_ATTK_FRAMES;
             newstatus = ATTACK_RIGHT_IN | dir;
         }
-        if(front >= BOARD_X_PX || front_ind > BOARD_BUFFER || is_occupied(front_ind)){
+        if(front >= BOARD_X_PX || front_ind > BOARD_BUFFER){
             *pl_act = NOTHING;
             return TRUE;
         }

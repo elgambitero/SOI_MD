@@ -19,22 +19,6 @@ u8 player_lines[4] = {255,255,255,255};
 u8 bl_ctrl;
 u8 gr_ctrl;
 
-//Presence and collision system.
-u32 board_presence[8];
-
-void clean_presence(){
-    memset(board_presence, 0x00000000, sizeof(board_presence));
-}
-void set_presence(u8 ind){
-    register u8 slot = (ind >> 5);
-    register u8 shift = (ind & 0x1F);
-    board_presence[slot] = (1 << shift);
-}
-u8 is_occupied(u8 ind){
-    register u8 slot = (ind >> 5);
-    register u8 shift = (ind & 0x1F);
-    return board_presence[slot] & (1 << shift);
-}
 
 //Time modification methods.
 void stop_time(u16 frames){

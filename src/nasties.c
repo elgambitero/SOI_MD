@@ -226,7 +226,6 @@ void NST_update(){
     }
 
     calc_center_block();
-    set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
             calc_back(dir);
