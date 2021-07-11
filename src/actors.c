@@ -117,10 +117,10 @@ Actor * ACT_getFirst(ActorList * actors){
 void ACT_update(ActorList * actors){
     Actor * current = actors->firstActor;
     Actor * next = 0;
+    u8 phy_result;
     while(current){
-        u8 phy_result = PHY_computeStatus(current);
-
         if(!(actors->effects & ~ACTOR_CLK)){
+            phy_result  = PHY_computeStatus(current);
             current->pos[X] += current->speed[X];
             current->pos[Y] += current->speed[Y];
             if(current->sprite) SPR_setPosition(current->sprite,
@@ -129,10 +129,16 @@ void ACT_update(ActorList * actors){
         }else{
             //Needs refactor if we need some other ActorList wide effect.
             if(actors->effects & FROZEN_MSK){
-                if(current->sprite) current->sprite->timer++;
-                break;
+                if(current->sprite){
+                    if(current->sprite->timer & ACTOR_CLK) current->sprite->timer++;
+                }
+                next = current->next;
+                current = next;
+                continue;
             }
             if(actors->effects & SLOW_MSK){
+
+                phy_result  = PHY_computeStatus(current);
                 current->pos[X] += (current->speed[X] >> 1);
                 current->pos[Y] += (current->speed[Y] >> 1);
                 if(current->frames && actors->effects & ACTOR_CLK) current->frames++;
@@ -144,7 +150,6 @@ void ACT_update(ActorList * actors){
         }
 
         
-        next = current->next;
         switch(phy_result){
             case ACT_CHANGED:
                 if(current->sprite) SPR_setAnim(current->sprite, current->status);
@@ -153,6 +158,8 @@ void ACT_update(ActorList * actors){
                 ACT_remove(current, actors);
             break;
         }
+
+        next = current->next;
         current = next;
     }
     if(actors->effects & ACTOR_CLK) actors->effects &= ~ACTOR_CLK;
