@@ -21,6 +21,7 @@ void NST_deletes_and_keeps_going();
 void NST_robo_loop();
 void NST_spinner_loop();
 void NST_ant_loop();
+void NST_piggy_loop();
 
 void NST_update();
 
@@ -106,7 +107,7 @@ const Entity NST_piggy = {
     PAL_SYS1,
     &piggy_spr,
     NULL,
-    &NST_update,
+    &NST_piggy_loop,
     NULL,
     {.nastie =
         {
@@ -114,12 +115,12 @@ const Entity NST_piggy = {
             sizeof(snd_piggy),
             250,
             NASTIE_SPEED,
-            &NST_attack,
             NULL,
-            &NST_fall,
-            &NST_keep_walking,
-            &NST_deletes,
-            &NST_turn_around_fast
+            NULL,
+            NULL,
+            NULL,
+            NULL,
+            NULL,
         }
     }
 };
@@ -424,10 +425,56 @@ void NST_ant_loop(){
                     NST_keep_walking();
                     return;
             }
-            calc_front_floor();
-            if(cliff()){
+            curr->speed[X] = dir ? 
+                -curr->character->role.nastie.speed : curr->character->role.nastie.speed;
+        break;
+        case RIGHT_TURN_LEFT:
+            if(curr->frames--) return;
+            newstatus = WALK_RIGHT | !dir;
+            curr->speed[X] = dir ? 
+                curr->character->role.nastie.speed : -curr->character->role.nastie.speed;
+            curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
+        break;
+        case FALL_RIGHT:
+            calc_floor();
+            if(land(floor_ind)) {
+                curr->pos[Y] &= FLOOR_CORR;
+                curr->speed[Y] = 0;
                 NST_keep_walking();
+                break;
+            }
+        break;
+        case DEAD:
+            NST_keep_dying();
+        break;
+    }
+}
+
+void NST_piggy_loop(){
+
+    NST_despawn();
+
+    calc_center_block();
+    switch(status & ANIM_MSK){
+        case WALK_RIGHT:
+            calc_back(dir);
+            calc_back_floor();
+            if(fall(back_floor_ind)){
+                NST_fall();
                 return;
+            }
+            calc_front(dir);
+            calc_front_block();
+            switch(crash_into()){
+                case FRAME:
+                    NST_turn_around(); //why tho.
+                    return;
+                case BLOCK:
+                    if(breakable(front_ind)) NST_attack();
+                    else NST_turn_around();
+                    return;
+                default:
+                    break;
             }
             curr->speed[X] = dir ? 
                 -curr->character->role.nastie.speed : curr->character->role.nastie.speed;
@@ -438,6 +485,17 @@ void NST_ant_loop(){
             curr->speed[X] = dir ? 
                 curr->character->role.nastie.speed : -curr->character->role.nastie.speed;
             curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
+        break;
+        case ATTACK_RIGHT_IN: 
+            if(curr->frames--) return;
+            NST_deletes();
+            newstatus = dir | ATTACK_RIGHT_OUT;
+            curr->frames = ATTK_FRAMES;
+            curr->speed[X] = 0;
+        break;
+        case ATTACK_RIGHT_OUT: 
+            if(curr->frames--) return;
+            NST_turn_around_fast();
         break;
         case FALL_RIGHT:
             calc_floor();
