@@ -35,11 +35,6 @@ u8 is_occupied(u8 ind){
     register u8 shift = (ind & 0x1F);
     return board_presence[slot] & (1 << shift);
 }
-void PHY_HCallback(){
-    if(GET_VDPSTATUS(VDP_SPRCOLLISION_FLAG)){
-        collided = TRUE;    
-    }
-}
 
 //Time modification methods.
 void stop_time(u16 frames){
@@ -109,8 +104,6 @@ void kill(Actor * act, u8 speed_x, u8 speed_y){
 //PHY module lifecycle.
 u8 PHY_init(Board * board, PlayerStat * bl_stats, PlayerStat * gr_stats){
     env = board;
-    collided = FALSE;
-    SYS_setHIntCallback(PHY_HCallback);
     VDP_setHIntCounter(0);
     VDP_setHInterrupt(1);
     bl_stat = bl_stats;
@@ -125,8 +118,6 @@ u8 PHY_init(Board * board, PlayerStat * bl_stats, PlayerStat * gr_stats){
 }
 
 void PHY_end(){
-    collided = FALSE;
-    VDP_setHInterrupt(0);
     ACT_end(&nasties);
     ACT_end(&fx_buf);
     ACT_end(&players);
@@ -162,5 +153,4 @@ void PHY_update(){
     ACT_update(&bp_projectiles);
     ACT_update(&gp_projectiles);
     ACT_update(&fx_buf);
-    if(collided) collided = FALSE;
 }

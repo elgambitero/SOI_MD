@@ -51,9 +51,6 @@
 //Pointer to level board.
 Board * env;
 
-//Flag for collision
-u8 collided;
-
 //Actor lists
 ActorList nasties;
 ActorList fx_buf;

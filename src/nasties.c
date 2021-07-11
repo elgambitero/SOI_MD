@@ -299,39 +299,4 @@ void NST_update(){
 
     if(curr->status == DEAD)
         return;
-    // TODO: THIS NEEDS A REFACTOR
-    if(collided){
-        if(blue_player && bl_stat->effect != SHIELDED && ACT_collision(blue_player, curr)){
-            kill(blue_player, 0, -2*FALLSPEED);
-            blue_player = NULL;
-        }
-        if(green_player && gr_stat->effect != SHIELDED && ACT_collision(green_player, curr)){
-            kill(green_player, 0, -2*FALLSPEED);
-            green_player = NULL;
-        }
-        if(curr->character->attr & MOVT_BITMSK){
-            Actor * proj_act = ACT_getFirst(&bp_projectiles);
-            while(proj_act){
-                if(ACT_collision(proj_act, curr)){
-                    kill(curr, 0, -2*FALLSPEED);
-                    kill(proj_act, 0, 0);
-                    newstatus = DEAD;
-                    status = DEAD; //Ugly hack to prevent animation from changing.
-                    bl_stat->score += curr->character->role.nastie.points;
-                }
-                proj_act = proj_act->next;
-            }
-            proj_act = ACT_getFirst(&gp_projectiles);
-            while(proj_act){
-                if(ACT_collision(proj_act, curr)){
-                    kill(curr, 0, -2*FALLSPEED);
-                    kill(proj_act, 0, 0);
-                    newstatus = DEAD;
-                    status = DEAD; //Ugly hack to prevent animation from changing.
-                    gr_stat->score += curr->character->role.nastie.points;
-                }
-                proj_act = proj_act->next;
-            }
-        }
-    }
 }
