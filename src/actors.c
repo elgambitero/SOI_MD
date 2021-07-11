@@ -120,7 +120,7 @@ void ACT_update(ActorList * actors){
     while(current){
         u8 phy_result = PHY_computeStatus(current);
 
-        if(!actors->effects){
+        if(!(actors->effects & ~ACTOR_CLK)){
             current->pos[X] += current->speed[X];
             current->pos[Y] += current->speed[Y];
             if(current->sprite) SPR_setPosition(current->sprite,
@@ -128,14 +128,18 @@ void ACT_update(ActorList * actors){
                 POS_TO_PX(current->pos[Y]) - current->character->spr_pos[Y] + BOARD_OFFSET_Y);
         }else{
             //Needs refactor if we need some other ActorList wide effect.
+            if(actors->effects & FROZEN_MSK){
+                if(current->sprite) current->sprite->timer++;
+                break;
+            }
             if(actors->effects & SLOW_MSK){
                 current->pos[X] += (current->speed[X] >> 1);
                 current->pos[Y] += (current->speed[Y] >> 1);
+                if(current->frames && actors->effects & ACTOR_CLK) current->frames++;
                 if(current->sprite){ SPR_setPosition(current->sprite,
                     POS_TO_PX(current->pos[X]) - current->character->spr_pos[X] + BOARD_OFFSET_X,
                     POS_TO_PX(current->pos[Y]) - current->character->spr_pos[Y] + BOARD_OFFSET_Y);
-                    if(current->timer & 0x01) current->sprite->timer++;}
-
+                    if(actors->effects & ACTOR_CLK) current->sprite->timer++;}
             }
         }
 
@@ -151,5 +155,7 @@ void ACT_update(ActorList * actors){
         }
         current = next;
     }
+    if(actors->effects & ACTOR_CLK) actors->effects &= ~ACTOR_CLK;
+    else actors->effects |= ACTOR_CLK;
 
 }

@@ -9,7 +9,9 @@
 #define SPAWN_TIME 500
 #define STAY_TIME 1300
 
-#define SLOW_MSK 0x01
+#define ACTOR_CLK 0x01
+#define SLOW_MSK 0x02
+#define FROZEN_MSK 0x04
 
 #define PX_TO_POS(x) (x << DECIMALS)
 #define POS_TO_PX(x) (x >> DECIMALS)
