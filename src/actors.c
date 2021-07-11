@@ -123,17 +123,23 @@ void ACT_update(ActorList * actors){
         if(!actors->effects){
             current->pos[X] += current->speed[X];
             current->pos[Y] += current->speed[Y];
+            if(current->sprite) SPR_setPosition(current->sprite,
+                POS_TO_PX(current->pos[X]) - current->character->spr_pos[X] + BOARD_OFFSET_X,
+                POS_TO_PX(current->pos[Y]) - current->character->spr_pos[Y] + BOARD_OFFSET_Y);
         }else{
             //Needs refactor if we need some other ActorList wide effect.
             if(actors->effects & SLOW_MSK){
                 current->pos[X] += (current->speed[X] >> 1);
                 current->pos[Y] += (current->speed[Y] >> 1);
+                if(current->sprite){ SPR_setPosition(current->sprite,
+                    POS_TO_PX(current->pos[X]) - current->character->spr_pos[X] + BOARD_OFFSET_X,
+                    POS_TO_PX(current->pos[Y]) - current->character->spr_pos[Y] + BOARD_OFFSET_Y);
+                    if(current->timer & 0x01) current->sprite->timer++;}
+
             }
         }
 
-        if(current->sprite) SPR_setPosition(current->sprite,
-            POS_TO_PX(current->pos[X]) - current->character->spr_pos[X] + BOARD_OFFSET_X,
-            POS_TO_PX(current->pos[Y]) - current->character->spr_pos[Y] + BOARD_OFFSET_Y);
+        
         next = current->next;
         switch(phy_result){
             case ACT_CHANGED:
