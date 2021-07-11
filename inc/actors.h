@@ -9,6 +9,8 @@
 #define SPAWN_TIME 500
 #define STAY_TIME 1300
 
+#define SLOW_MSK 0x01
+
 #define PX_TO_POS(x) (x << DECIMALS)
 #define POS_TO_PX(x) (x >> DECIMALS)
 
@@ -38,6 +40,7 @@ typedef struct ActorList{
     Actor * firstActor;
     Actor **actorFree;
     Actor **actorStack;
+    u8 effects;
 }ActorList;
 
 u8 ACT_init(ActorList * actors, u8 max_actors);

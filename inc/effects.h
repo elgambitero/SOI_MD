@@ -9,5 +9,6 @@ extern const Entity FX_blk_debris3;
 extern const Entity FX_hidden;
 extern const Entity FX_boot_ind;
 extern const Entity FX_shield_ind;
+extern const Entity FX_turtle;
 
 #endif

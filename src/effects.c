@@ -136,6 +136,24 @@ const Entity FX_shield_ind = {
     }
 };
 
+
+void FX_turtle_loop();
+void FX_turtleWearOff();
+const Entity FX_turtle = {
+    FX,
+    {4, 8},
+    {4, 24},
+    PAL_SYS0,
+    NULL,
+    NULL,
+    &FX_turtle_loop,
+    &FX_turtleWearOff,
+    {.effect =
+        {
+        }
+    }
+};
+
 __attribute__((always_inline)) static inline void FX_despawn(){
     if(curr->timer){
         curr->timer++;
@@ -219,6 +237,15 @@ void FX_wearShieldOff(){
         character->
         role.player.statistics->
         effect = 0;
+}
+
+void FX_turtle_loop(){
+    FX_despawn();
+}
+
+void FX_turtleWearOff(){
+    nasties.effects &= ~SLOW_MSK;
+    projectiles.effects &= ~SLOW_MSK;
 }
 
 /*

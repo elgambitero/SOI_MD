@@ -120,8 +120,16 @@ void ACT_update(ActorList * actors){
     while(current){
         u8 phy_result = PHY_computeStatus(current);
 
-        current->pos[X] += current->speed[X];
-        current->pos[Y] += current->speed[Y];
+        if(!actors->effects){
+            current->pos[X] += current->speed[X];
+            current->pos[Y] += current->speed[Y];
+        }else{
+            //Needs refactor if we need some other ActorList wide effect.
+            if(actors->effects & SLOW_MSK){
+                current->pos[X] += (current->speed[X] >> 1);
+                current->pos[Y] += (current->speed[Y] >> 1);
+            }
+        }
 
         if(current->sprite) SPR_setPosition(current->sprite,
             POS_TO_PX(current->pos[X]) - current->character->spr_pos[X] + BOARD_OFFSET_X,

@@ -763,6 +763,16 @@ void GD_protectPlayer(){
 }
 
 void GD_slowDownMonsters(){
+    nasties.effects |= SLOW_MSK;
+    projectiles.effects |= SLOW_MSK;
+    fx.status = 0;
+    fx.pos[X] = 0;
+    fx.pos[Y] = 0;
+    fx.timer = (MAX_FRAMES - TURTLE_FRAMES);
+    fx.speed[0] = 0;
+    fx.speed[Y] = 0;
+    fx.character = &FX_turtle;
+    ACT_add(&fx, &fx_buf);
     return;
 }
 
