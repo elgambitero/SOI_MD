@@ -11,6 +11,7 @@ void GD_enterRdDoor();
 void GD_reveal_hidden();
 void GD_speedUpPlayer();
 void GD_protectPlayer();
+void GD_slowDownMonsters();
 
 void GD_update();
 
@@ -531,7 +532,7 @@ const Entity GD_turtl = {
             snd_turtle,
             sizeof(snd_turtle),
             &GD_obtain,
-            NULL
+            &GD_slowDownMonsters
         }
     }
 };
@@ -696,7 +697,8 @@ void GD_obtain(){
         if(gd_index >= GD_GET_INDEX( GDi_GOLDC ) ) gd_index -= GD_GET_INDEX( GDi_GOLDC );
         SPR_setFrame(result->sprite, gd_index);
     }
-    break_block_ind(env, front_ind);
+    set_block(env, 0, front_ind);
+    eraseBlock_ind(front_ind);
 }
 
 void GD_killAll(){
@@ -758,6 +760,10 @@ void GD_protectPlayer(){
     fx.character = &FX_shield_ind;
     fx.actorData.fxData.following = curr;
     ACT_add(&fx, &fx_buf);
+}
+
+void GD_slowDownMonsters(){
+    return;
 }
 
 void GD_update(){
