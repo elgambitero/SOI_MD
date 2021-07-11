@@ -6,26 +6,7 @@
 
 #define NASTIE_SPEED WALKSPEED
 
-void NST_still_fall();
-void NST_still_land();
-void NST_fall();
-void NST_turn_around();
-void NST_attack();
-void NST_breaks();
-void NST_deletes();
-void NST_keep_walking();
-void NST_turn_around_fast();
-void NST_die();
-void NST_deletes_and_keeps_going();
-
-void NST_robo_loop();
 void NST_spinner_loop();
-void NST_ant_loop();
-void NST_piggy_loop();
-void NST_teeth_loop();
-
-void NST_update();
-
 const Entity NST_spinner = {
     NASTIE | STILL,
     {6, 15},
@@ -45,6 +26,7 @@ const Entity NST_spinner = {
     }
 };
 
+void NST_robo_loop();
 const Entity NST_robo = {
     NASTIE | WALKS | DIES_ON_LEAP | BREAKS | GOES_THRU,
     {4, 15},
@@ -64,6 +46,7 @@ const Entity NST_robo = {
     }
 };
 
+void NST_ant_loop();
 const Entity NST_ant = {
     NASTIE | WALKS | LEAPS,
     {7, 8},
@@ -83,6 +66,7 @@ const Entity NST_ant = {
     }
 };
 
+void NST_piggy_loop();
 const Entity NST_piggy = {
     NASTIE | WALKS | LEAPS | DELETES,
     {7, 15},
@@ -102,6 +86,7 @@ const Entity NST_piggy = {
     }
 };
 
+void NST_teeth_loop();
 const Entity NST_teeth = {
     NASTIE | WALKS | LEAPS | DELETES | GOES_THRU,
     {8, 15},
@@ -125,37 +110,37 @@ const Entity NST_teeth = {
 
 
 
-void NST_still_fall(){
+__attribute__((always_inline)) static inline void NST_still_fall(){
     newstatus = FALL_RIGHT;
     status = FALL_RIGHT; //Ugly hack to prevent animation change.
     curr->speed[Y] = FALLSPEED;
     curr->speed[X] = 0;
 }
 
-void NST_still_land(){
+__attribute__((always_inline)) static inline void NST_still_land(){
     curr->speed[Y] = 0;
     curr->speed[X] = 0;
 }
 
-void NST_fall(){
+__attribute__((always_inline)) static inline void NST_fall(){
     newstatus = dir | FALL_RIGHT;
     curr->speed[Y] = FALLSPEED;
     curr->speed[X] = 0;
 }
 
-void NST_turn_around(){
+__attribute__((always_inline)) static inline void NST_turn_around(){
     newstatus = dir | RIGHT_TURN_LEFT;
     curr->frames = TURN_FRAMES;
     curr->speed[X] = 0;
 }
 
-void NST_attack(){
+__attribute__((always_inline)) static inline void NST_attack(){
     newstatus = dir | ATTACK_RIGHT_IN;
     curr->frames = ATTK_FRAMES;
     curr->speed[X] = 0;
 }
 
-void NST_breaks(){
+__attribute__((always_inline)) static inline void NST_breaks(){
     calc_front(dir);
     calc_front_block();
     break_block_ind(env, front_ind);
@@ -164,30 +149,30 @@ void NST_breaks(){
     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
 }
 
-void NST_deletes(){
+__attribute__((always_inline)) static inline void NST_deletes(){
     calc_front(dir);
     calc_front_block();
     break_block_ind(env, front_ind);
     summon_deletor(front_ind, TRUE);
 }
 
-void NST_keep_walking(){
+__attribute__((always_inline)) static inline void NST_keep_walking(){
     newstatus = WALK_RIGHT | dir;
     curr->speed[X] = dir ? 
         -curr->character->role.nastie.speed : curr->character->role.nastie.speed;
 }
 
-void NST_turn_around_fast(){
+__attribute__((always_inline)) static inline void NST_turn_around_fast(){
     newstatus = WALK_RIGHT | !dir;
 }
 
-void NST_die(){
+__attribute__((always_inline)) static inline void NST_die(){
     kill(curr, WALKSPEED, -2*FALLSPEED);
     newstatus = DEAD;
     status = DEAD;
 }
 
-void NST_deletes_and_keeps_going(){
+__attribute__((always_inline)) static inline void NST_deletes_and_keeps_going(){
     NST_deletes();
     NST_keep_walking();
 }
