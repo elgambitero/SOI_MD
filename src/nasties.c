@@ -20,6 +20,7 @@ void NST_deletes_and_keeps_going();
 
 void NST_robo_loop();
 void NST_spinner_loop();
+void NST_ant_loop();
 
 void NST_update();
 
@@ -80,7 +81,7 @@ const Entity NST_ant = {
     PAL_SYS0,
     &ant_spr,
     NULL,
-    &NST_update,
+    &NST_ant_loop,
     NULL,
     {.nastie =
         {
@@ -88,10 +89,10 @@ const Entity NST_ant = {
             sizeof(snd_ant),
             50,
             NASTIE_SPEED,
-            &NST_turn_around,
             NULL,
-            &NST_fall,
-            &NST_keep_walking,
+            NULL,
+            NULL,
+            NULL,
             NULL,
             NULL
         }
@@ -335,9 +336,6 @@ void NST_spinner_loop(){
             }
         break;
     }
-
-    if(curr->status == DEAD)
-        return;
 }
 
 void NST_robo_loop(){
@@ -393,6 +391,60 @@ void NST_robo_loop(){
             calc_floor();
             if(land(floor_ind)) {
                 NST_die();
+                break;
+            }
+        break;
+        case DEAD:
+            NST_keep_dying();
+        break;
+    }
+}
+
+void NST_ant_loop(){
+
+    NST_despawn();
+
+    calc_center_block();
+    switch(status & ANIM_MSK){
+        case WALK_RIGHT:
+            calc_back(dir);
+            calc_back_floor();
+            if(fall(back_floor_ind)){
+                NST_fall();
+                return;
+            }
+            calc_front(dir);
+            calc_front_block();
+            switch(crash_into()){
+                case BLOCK:
+                case FRAME:
+                    NST_turn_around();
+                    return;
+                default:
+                    NST_keep_walking();
+                    return;
+            }
+            calc_front_floor();
+            if(cliff()){
+                NST_keep_walking();
+                return;
+            }
+            curr->speed[X] = dir ? 
+                -curr->character->role.nastie.speed : curr->character->role.nastie.speed;
+        break;
+        case RIGHT_TURN_LEFT:
+            if(curr->frames--) return;
+            newstatus = WALK_RIGHT | !dir;
+            curr->speed[X] = dir ? 
+                curr->character->role.nastie.speed : -curr->character->role.nastie.speed;
+            curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
+        break;
+        case FALL_RIGHT:
+            calc_floor();
+            if(land(floor_ind)) {
+                curr->pos[Y] &= FLOOR_CORR;
+                curr->speed[Y] = 0;
+                NST_keep_walking();
                 break;
             }
         break;
