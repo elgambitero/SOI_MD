@@ -37,8 +37,8 @@
 #define BP_TURN_FRAMES 4
 #define BP_STL_FRAMES 4
 
-#define BLOCK 1
-#define FRAME 2
+#define BLOCK 6
+#define FRAME 7
 
 #define ACT_CHANGED 1
 #define ACT_DELETION 2
@@ -170,15 +170,27 @@ __attribute__((always_inline)) static inline u8 land(u8 ind){
 __attribute__((always_inline)) static inline u8 cliff(){
     return (front_floor_ind < BOARD_BUFFER) && !( SOLID & env->front_blocks[front_floor_ind] );
 }
+//this is starting to get kind of terrible.
 __attribute__((always_inline)) static inline u8 crash_into(){
     if( front >= BOARD_X_PX )
         return FRAME;
-    if(SOLID & env->front_blocks[front_ind])
-        return BLOCK;
-    if((GOODIE & env->front_blocks[front_ind]) == GOODIE)
-        return GOODIE;
-    else
+    if( ! env->front_blocks[front_ind]){
         return 0;
+    }else{
+        if(SOLID & env->front_blocks[front_ind])
+            return BLOCK;
+        switch(BLK_TYPE & env->front_blocks[front_ind]){
+            case SPECIAL_BLOCK:
+                return SPECIAL_BLOCK;
+                break;
+            case GOODIE:
+                return GOODIE;
+                break;
+            default:
+                return 0;
+        }
+    }
+    return 0;
 }
 
 //Environment analysis checks.
