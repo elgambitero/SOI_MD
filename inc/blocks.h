@@ -45,11 +45,11 @@
 
 #define SP_ACTIVE       0x0004
 
-#define SP_TYP_MSK      0x0018
+#define SP_TYP_MSK      0x0060
 
-#define SP_TRANS        (1 << 3)
-#define SP_SWITCH       (2 << 3)
-#define SP_FLOP         (3 << 3)
+#define SP_TRANS        (1 << 5)
+#define SP_SWITCH       (2 << 5)
+#define SP_FLOP         (3 << 5)
 
 #define TRANS_DIR_MSK   0x0800
 
@@ -107,19 +107,21 @@
 #define  BP ( NORMAL_BLOCK | SOLID | BREAKABLE | BLK_PLAYER | PL_BLUE )
 #define  GP ( NORMAL_BLOCK | SOLID | BREAKABLE | BLK_PLAYER | PL_GREEN )
 
-#define TRANS_R_IN  ( SP_TRANS | TRANS_IN | SP_COL_R )
-#define TRANS_GR_IN ( SP_TRANS | TRANS_IN | SP_COL_GR )
-#define TRANS_BL_IN ( SP_TRANS | TRANS_IN | SP_COL_BL )
-#define TRANS_PK_IN ( SP_TRANS | TRANS_IN | SP_COL_PK )
-#define TRANS_YL_IN ( SP_TRANS | TRANS_IN | SP_COL_YL )
-#define TRANS_WT_IN ( SP_TRANS | TRANS_IN | SP_COL_WT )
 
-#define TRANS_R_OUT  ( SP_TRANS | TRANS_OUT | SP_COL_R )
-#define TRANS_GR_OUT ( SP_TRANS | TRANS_OUT | SP_COL_GR )
-#define TRANS_BL_OUT ( SP_TRANS | TRANS_OUT | SP_COL_BL )
-#define TRANS_PK_OUT ( SP_TRANS | TRANS_OUT | SP_COL_PK )
-#define TRANS_YL_OUT ( SP_TRANS | TRANS_OUT | SP_COL_YL )
-#define TRANS_WT_OUT ( SP_TRANS | TRANS_OUT | SP_COL_WT )
+#define TRI ( SPECIAL_BLOCK | SP_TRANS | TRANS_IN | SP_COL_R )
+#define TGI ( SPECIAL_BLOCK | SP_TRANS | TRANS_IN | SP_COL_GR )
+#define TBI ( SPECIAL_BLOCK | SP_TRANS | TRANS_IN | SP_COL_BL )
+#define TNI ( SPECIAL_BLOCK | SP_TRANS | TRANS_IN | SP_COL_PI )
+#define TYI ( SPECIAL_BLOCK | SP_TRANS | TRANS_IN | SP_COL_YL )
+#define TWI ( SPECIAL_BLOCK | SP_TRANS | TRANS_IN | SP_COL_WT )
+
+#define TRO ( SPECIAL_BLOCK | SP_TRANS | TRANS_OUT | SP_COL_R )
+#define TGO ( SPECIAL_BLOCK | SP_TRANS | TRANS_OUT | SP_COL_GR )
+#define TBO ( SPECIAL_BLOCK | SP_TRANS | TRANS_OUT | SP_COL_BL )
+#define TNO ( SPECIAL_BLOCK | SP_TRANS | TRANS_OUT | SP_COL_PI )
+#define TYO ( SPECIAL_BLOCK | SP_TRANS | TRANS_OUT | SP_COL_YL )
+#define TWO ( SPECIAL_BLOCK | SP_TRANS | TRANS_OUT | SP_COL_WT )
+
 
 void drawBlock(u8 x, u8 y, u16 block);
 void eraseBlock(u8 x, u8 y);

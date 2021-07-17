@@ -6,7 +6,6 @@
 #define FG 0
 #define BG 1
 
-//What??
 u16 clr_blk_bg_ind = TILE_USERINDEX;
 u16 clr_blk_sl0_ind = TILE_USERINDEX;
 u16 clr_blk_sl1_ind = TILE_USERINDEX;
@@ -31,7 +30,7 @@ void drawBlock(u8 x, u8 y, u16 block){
     TileMap * bg_blk_map;
     if(x >= BOARD_X || y >= BOARD_Y || !block)
         return;
-    switch(block & 0x0003){
+    switch(block & BLK_TYPE){
         case NORMAL_BLOCK:
             if( ( NBLK_TYP_MSK & block ) == BLK_PLAYER ){
                 fg_blk_map = pl_blk_fg.tilemap;
@@ -172,19 +171,16 @@ void drawBlock(u8 x, u8 y, u16 block){
                 BLK_TO_TILE(x), BLK_TO_TILE(y), map_ind, 0, 2, 2);
             return;
             break;
+        default:
+            return;
+            break;
     }
-    /*
-    VDP_setMapEx(BG_A, bg_blk_map, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX),
-            1, 1, 0, 0, 2, 2);
-            */
     
     VDP_setMapEx(BG_A, bg_blk_map, TILE_ATTR_FULL(palette[BG], FALSE, FALSE, FALSE, tile_index[BG]),
             BLK_TO_TILE(x), BLK_TO_TILE(y), map_ind, 0, 2, 2);
-            //1, 1, 2, 0, 2, 2);
     if(fg_blk_map)
         VDP_setMapEx(BG_B, fg_blk_map, TILE_ATTR_FULL(palette[FG], FALSE, FALSE, FALSE, tile_index[FG]),
                 BLK_TO_TILE(x), BLK_TO_TILE(y), map_ind, 0, 2, 2);
-                
 }
 
 void eraseBlock(u8 x, u8 y){
@@ -225,4 +221,16 @@ void load_blk_tiles(u16 ind){
     VDP_loadTileSet(gd_sys1.tileset, ind, DMA);
     gd_sys1_ind = ind;
     ind += gd_sys1.tileset->numTile;
+    VDP_loadTileSet(tele_bg.tileset, ind, DMA);
+    tele_bg_ind = ind;
+    ind += tele_bg.tileset->numTile;
+    VDP_loadTileSet(tele_sl0.tileset, ind, DMA);
+    tele_sl0_ind = ind;
+    ind += tele_sl0.tileset->numTile;
+    VDP_loadTileSet(tele_sl1.tileset, ind, DMA);
+    tele_sl1_ind = ind;
+    ind += tele_sl1.tileset->numTile;
+    VDP_loadTileSet(tele_sl2.tileset, ind, DMA);
+    tele_sl2_ind = ind;
+    ind += tele_sl2.tileset->numTile;
 }

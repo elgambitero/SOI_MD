@@ -29,6 +29,8 @@
 #define X3  (GOODIE | GDi_3x )
 #define TUR (GOODIE | GDi_TURTL)
 
+
+
 static const Actor blp = {&PL_blue,
        STILL_RIGHT,
        0,
@@ -123,7 +125,7 @@ static const Actor ant_spawn = {&SPW_ant,
 
 const Board test_level = {
     {
-     BFW, BOW, BDW, CHI, QUE, NET,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+     BFW, BOW, BDW, CHI, QUE, NET,   0,   0,   0,   0,   0,   0,   0, TRO, TGO, TBO, TNO, TYO, TWO,
      BFG, BOG, BDG,   0,   0,   0,   0,   0,   0, BOO,   0, RDD,   0, TUR,  X3,   0,   0,   0,   0,
      BFR, BOR, BDR,   0,   0,   0, BOR, BOR, BOR, BOR, BOR, BOR, BOW, BOR, BOR, BOR,   0,   0,   0,
      BFB, BOB, BDB,   0,   0,   0, BOB, NET, NET, NET, NET,   0,   0,   0,   0,   0,   0,   0,   0,
@@ -135,7 +137,7 @@ const Board test_level = {
        0,   0,   0,   0,   0, BFW,   0, BFW,   0,   0, BFW, BFW,   0,   0,   0,   0, QUE, BFW,   0,
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, BDR,   0,   0,   0,   0,   0,   0,
-       0, SHI,   0, C3H,   0,   0,   0, RDD,   0,   0,   0,   0,   0,   0,   0,   0, C3H,   0,   0,
+       0, SHI,   0, C3H,   0,   0,   0, RDD,   0,   0, TRI, TGI, TBI, TNI, TYI, TWI, C3H,   0,   0,
     },
 
     {
