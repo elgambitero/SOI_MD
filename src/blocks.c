@@ -116,7 +116,7 @@ void drawBlock(u8 x, u8 y, u16 block){
                 case SP_TRANS:
                     bg_blk_map = tele_bg.tilemap;
                     tile_index[BG] = tele_bg_ind;
-                    map_ind = block & TRANS_DIR_MSK ? 2 : 0;
+                    map_ind = block & TRANS_DIR_MSK ? 0 : 2;
                     switch(block & SP_COL_MSK){
                         case SP_COL_GR:
                             fg_blk_map = tele_sl0.tilemap;

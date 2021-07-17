@@ -168,6 +168,33 @@ static inline void gd_process(u8 front_ind){
     if(character->role.goodie.onPickUp) character->role.goodie.onPickUp();
 }
 
+static inline void PL_teleport(u16 block){
+    u8 exit_ind = 0;
+    switch(block){
+        case TRI:
+            exit_ind = seek_block(env, TRO);
+            break;
+        case TGI:
+            exit_ind = seek_block(env, TGO);
+            break;
+        case TBI:
+            exit_ind = seek_block(env, TBO);
+            break;
+        case TNI:
+            exit_ind = seek_block(env, TNO);
+            break;
+        case TYI:
+            exit_ind = seek_block(env, TYO);
+            break;
+        case TWI:
+            exit_ind = seek_block(env, TWO);
+            break;
+    }
+    if(exit_ind == 0) SYS_die("No teleport output");
+    curr->pos[X] = PX_TO_POS((IND_TO_X(exit_ind) << 4));
+    curr->pos[Y] = PX_TO_POS((IND_TO_Y(exit_ind) << 4) + 16);
+}
+
 static inline void summon_arrow(u8 dir, ActorList * list){
     fx.status = dir;
     fx.character = &PR_arrow;
@@ -216,8 +243,18 @@ void PL_update(){
                 //onWalkInto
                 case FRAME:
                 case BLOCK:
-                curr->speed[X] = 0;
-                curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
+                    curr->speed[X] = 0;
+                    curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
+                    break;
+                case SPECIAL_BLOCK:
+                    switch(SP_TYP_MSK & env->front_blocks[front_ind]){
+                        case SP_TRANS:
+                            if(env->front_blocks[front_ind] & TRANS_DIR_MSK){
+                                PL_teleport(env->front_blocks[front_ind]);
+                                return;
+                            }
+                            break;
+                    }
                     break;
                 case GOODIE:
                     gd_process(front_ind);
