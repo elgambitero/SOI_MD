@@ -108,6 +108,24 @@ void drawBlock(u8 x, u8 y, u16 block){
             if(block & BROKEN) map_ind += 2;
             break;
         case SPECIAL_BLOCK:
+            switch(block & SP_TYP_MSK){
+                case SP_TRANS:
+                    switch(block & SP_COL_MSK){
+                        case SP_COL_GR:
+                        break;
+                        case SP_COL_R:
+                        break;
+                        case SP_COL_BL:
+                        break;
+                        case SP_COL_PI:
+                        break;
+                        case SP_COL_YL:
+                        break;
+                        case SP_COL_BK:
+                        break;
+                    }
+                    break;
+            }
             break;
         case GOODIE:
             //goodie index should translate into tile index, SYS0 and SYS1 goodies should be consecutive.

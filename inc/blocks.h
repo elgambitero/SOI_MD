@@ -53,6 +53,13 @@
 
 #define SP_COL_MSK      0x0700
 
+#define SP_COL_GR       (0 << 8)
+#define SP_COL_R        (1 << 8)
+#define SP_COL_BL       (2 << 8)
+#define SP_COL_PI       (3 << 8)
+#define SP_COL_YL       (4 << 8)
+#define SP_COL_BK       (5 << 8)
+
 #define GOODIE          0x0003
 #define GOOD_TYP_MSK    0x03F0
 #define GD_GET_INDEX(good) ( ( GOOD_TYP_MSK & good) >> 4 )
