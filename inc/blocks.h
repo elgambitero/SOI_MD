@@ -53,8 +53,8 @@
 
 #define TRANS_DIR_MSK   0x0800
 
-#define TRANS_IN        0x0000
-#define TRANS_OUT       0x0800
+#define TRANS_IN        0x0800
+#define TRANS_OUT       0x0000
 
 
 #define SP_COL_MSK      0x0700
