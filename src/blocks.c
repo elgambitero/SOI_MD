@@ -110,6 +110,7 @@ void drawBlock(u8 x, u8 y, u16 block){
         case SPECIAL_BLOCK:
             switch(block & SP_TYP_MSK){
                 case SP_TRANS:
+                    //White frame
                     switch(block & SP_COL_MSK){
                         case SP_COL_GR:
                         break;
