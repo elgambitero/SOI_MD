@@ -64,7 +64,7 @@
 #define SP_COL_BL       (2 << 8)
 #define SP_COL_PI       (3 << 8)
 #define SP_COL_YL       (4 << 8)
-#define SP_COL_BK       (5 << 8)
+#define SP_COL_WT       (5 << 8)
 
 #define GOODIE          0x0003
 #define GOOD_TYP_MSK    0x03F0
@@ -106,6 +106,20 @@
 
 #define  BP ( NORMAL_BLOCK | SOLID | BREAKABLE | BLK_PLAYER | PL_BLUE )
 #define  GP ( NORMAL_BLOCK | SOLID | BREAKABLE | BLK_PLAYER | PL_GREEN )
+
+#define TRANS_R_IN  ( SP_TRANS | TRANS_IN | SP_COL_R )
+#define TRANS_GR_IN ( SP_TRANS | TRANS_IN | SP_COL_GR )
+#define TRANS_BL_IN ( SP_TRANS | TRANS_IN | SP_COL_BL )
+#define TRANS_PK_IN ( SP_TRANS | TRANS_IN | SP_COL_PK )
+#define TRANS_YL_IN ( SP_TRANS | TRANS_IN | SP_COL_YL )
+#define TRANS_WT_IN ( SP_TRANS | TRANS_IN | SP_COL_WT )
+
+#define TRANS_R_OUT  ( SP_TRANS | TRANS_OUT | SP_COL_R )
+#define TRANS_GR_OUT ( SP_TRANS | TRANS_OUT | SP_COL_GR )
+#define TRANS_BL_OUT ( SP_TRANS | TRANS_OUT | SP_COL_BL )
+#define TRANS_PK_OUT ( SP_TRANS | TRANS_OUT | SP_COL_PK )
+#define TRANS_YL_OUT ( SP_TRANS | TRANS_OUT | SP_COL_YL )
+#define TRANS_WT_OUT ( SP_TRANS | TRANS_OUT | SP_COL_WT )
 
 void drawBlock(u8 x, u8 y, u16 block);
 void eraseBlock(u8 x, u8 y);

@@ -6,6 +6,7 @@
 #define FG 0
 #define BG 1
 
+//What??
 u16 clr_blk_bg_ind = TILE_USERINDEX;
 u16 clr_blk_sl0_ind = TILE_USERINDEX;
 u16 clr_blk_sl1_ind = TILE_USERINDEX;
@@ -15,6 +16,10 @@ u16 pl_blk_fg_ind = TILE_USERINDEX;
 u16 pl_blk_bg_ind = TILE_USERINDEX;
 u16 gd_sys0_ind = TILE_USERINDEX;
 u16 gd_sys1_ind = TILE_USERINDEX;
+u16 tele_bg_ind = TILE_USERINDEX;
+u16 tele_sl0_ind = TILE_USERINDEX;
+u16 tele_sl1_ind = TILE_USERINDEX;
+u16 tele_sl2_ind = TILE_USERINDEX;
 
 
 void drawBlock(u8 x, u8 y, u16 block){
@@ -110,20 +115,40 @@ void drawBlock(u8 x, u8 y, u16 block){
         case SPECIAL_BLOCK:
             switch(block & SP_TYP_MSK){
                 case SP_TRANS:
-                    //White frame
+                    bg_blk_map = tele_bg.tilemap;
+                    tile_index[BG] = tele_bg_ind;
+                    map_ind = block & TRANS_DIR_MSK ? 2 : 0;
                     switch(block & SP_COL_MSK){
                         case SP_COL_GR:
-                        break;
-                        case SP_COL_R:
-                        break;
-                        case SP_COL_BL:
-                        break;
+                            fg_blk_map = tele_sl0.tilemap;
+                            tile_index[FG] = tele_sl0_ind;
+                            palette[FG] = PAL_SYS1;
+                            break;
                         case SP_COL_PI:
-                        break;
+                            fg_blk_map = tele_sl1.tilemap;
+                            tile_index[FG] = tele_sl1_ind;
+                            palette[FG] = PAL_SYS1;
+                            break;
                         case SP_COL_YL:
-                        break;
-                        case SP_COL_BK:
-                        break;
+                            fg_blk_map = tele_sl2.tilemap;
+                            tile_index[FG] = tele_sl2_ind;
+                            palette[FG] = PAL_SYS1;
+                            break;
+                        case SP_COL_BL:
+                            fg_blk_map = tele_sl0.tilemap;
+                            tile_index[FG] = tele_sl0_ind;
+                            palette[FG] = PAL_SYS0;
+                            break;
+                        case SP_COL_R:
+                            fg_blk_map = tele_sl1.tilemap;
+                            tile_index[FG] = tele_sl1_ind;
+                            palette[FG] = PAL_SYS0;
+                            break;
+                        case SP_COL_WT:
+                            fg_blk_map = tele_sl2.tilemap;
+                            tile_index[FG] = tele_sl2_ind;
+                            palette[FG] = PAL_SYS0;
+                            break;
                     }
                     break;
             }

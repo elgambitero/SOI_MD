@@ -10,3 +10,8 @@ IMAGE pl_blk_fg     "blocks/pl_blk_fg.bmp"         NONE
 
 IMAGE gd_sys0      "sprites/goodies/gd_sys0.bmp"   NONE
 IMAGE gd_sys1      "sprites/goodies/gd_sys1.bmp"   NONE
+
+IMAGE tele_bg      "blocks/tele_bg.bmp"            NONE
+IMAGE tele_sl0     "blocks/tele_sl0.bmp"           NONE
+IMAGE tele_sl1     "blocks/tele_sl1.bmp"           NONE
+IMAGE tele_sl2     "blocks/tele_sl2.bmp"           NONE
