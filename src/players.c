@@ -168,7 +168,7 @@ static inline void gd_process(u8 front_ind){
     if(character->role.goodie.onPickUp) character->role.goodie.onPickUp();
 }
 
-static inline void PL_teleport(u16 block){
+static inline void PL_teleport(u8 from_ind, u16 block){
     u8 exit_ind = 0;
     switch(block){
         case TRI:
@@ -191,8 +191,11 @@ static inline void PL_teleport(u16 block){
             break;
     }
     if(exit_ind == 0) SYS_die("No teleport output");
-    curr->pos[X] = PX_TO_POS((IND_TO_X(exit_ind) << 4));
-    curr->pos[Y] = PX_TO_POS((IND_TO_Y(exit_ind) << 4) + 16);
+    s16 delta[2];
+    delta[X] = PX_TO_POS((IND_TO_X(exit_ind) - IND_TO_X(from_ind)) << 4);
+    delta[Y] = PX_TO_POS((IND_TO_Y(exit_ind) - IND_TO_Y(from_ind)) << 4);
+    curr->pos[X] += delta[X];
+    curr->pos[Y] += delta[Y];
 }
 
 static inline void summon_arrow(u8 dir, ActorList * list){
@@ -250,7 +253,7 @@ void PL_update(){
                     switch(SP_TYP_MSK & env->front_blocks[front_ind]){
                         case SP_TRANS:
                             if(env->front_blocks[front_ind] & TRANS_DIR_MSK){
-                                PL_teleport(env->front_blocks[front_ind]);
+                                PL_teleport(front_ind, env->front_blocks[front_ind]);
                                 return;
                             }
                             break;
