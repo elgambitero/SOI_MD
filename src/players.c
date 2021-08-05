@@ -18,6 +18,10 @@ u8 * after_status;
 u8 bl_after_speed[2], gr_after_speed[2];
 u8 * after_speed;
 
+__attribute__((always_inline)) static inline u8 blk_evaluate(u8 ind){
+    return BLK_TYPE & env->front_blocks[ind];
+}
+
 const Entity PL_blue = {
     BLUE_PLAYER,
     {2, 15},
@@ -249,18 +253,6 @@ void PL_update(){
                     curr->speed[X] = 0;
                     curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
                     break;
-                case SPECIAL_BLOCK:
-                    switch(SP_TYP_MSK & env->front_blocks[front_ind]){
-                        case SP_TRANS:
-                            if(env->front_blocks[front_ind] & TRANS_DIR_MSK){
-                                PL_teleport(front_ind, env->front_blocks[front_ind]);
-                                return;
-                            }
-                            break;
-                    }
-                    break;
-                case GOODIE:
-                    gd_process(front_ind);
                 default:
                     curr->speed[X] = dir ? -pl_stat->speed : pl_stat->speed;
                     break;
@@ -275,6 +267,21 @@ void PL_update(){
                 curr->speed[Y] = FALLSPEED;
                 curr->speed[X] = 0;
                 return;
+            }
+            calc_center_block();
+            switch(blk_evaluate(center_ind)){
+                case SPECIAL_BLOCK:
+                    switch(SP_TYP_MSK & env->front_blocks[center_ind]){
+                        case SP_TRANS:
+                            if(env->front_blocks[center_ind] & TRANS_DIR_MSK){
+                                PL_teleport(center_ind, env->front_blocks[center_ind]);
+                                return;
+                            }
+                            break;
+                    }
+                    break;
+                case GOODIE:
+                    gd_process(center_ind);
             }
             if(jump_ctrl(status)) return; //TODO: DECIPHER THIS.
             if( *ctrl & CTRL_MOV ){
@@ -461,33 +468,20 @@ void PL_update(){
         case JUMP_RIGHT:
             if(curr->speed[Y] <= FALLSPEED)
                 curr->speed[Y] += GRAVITY;
+            
             if( *ctrl & CTRL_MOV){
                 register u8 push = *ctrl & CTRL_LEFT;
                 curr->speed[X] = push ? -PL_WALKSPEED : PL_WALKSPEED;
                 calc_front_margin( push );
                 calc_front_block_hi();
-                switch(crash_into()){
-                    case FRAME:
-                    case BLOCK:
-                        curr->pos[X] += push ? COLL_CORR : -COLL_CORR;
-                        curr->speed[X] = 0;
-                        break;
-                    case GOODIE:
-                        gd_process(front_ind);
-                    default:
-                        break;
+                if(crash_into()){
+                    curr->pos[X] += push ? COLL_CORR : -COLL_CORR;
+                    curr->speed[X] = 0;
                 }
                 calc_front_block_lo();
-                switch(crash_into()){
-                    case FRAME:
-                    case BLOCK:
-                        curr->pos[X] += push ? COLL_CORR : -COLL_CORR;
-                        curr->speed[X] = 0;
-                        break;
-                    case GOODIE:
-                    gd_process(front_ind);
-                    default:
-                        break;
+                if(crash_into()){
+                    curr->pos[X] += push ? COLL_CORR : -COLL_CORR;
+                    curr->speed[X] = 0;
                 }
             }else{
                 curr->speed[X] = 0;
