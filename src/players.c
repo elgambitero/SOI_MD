@@ -200,6 +200,7 @@ static inline void PL_teleport(u8 from_ind, u16 block){
     delta[Y] = PX_TO_POS((IND_TO_Y(exit_ind) - IND_TO_Y(from_ind)) << 4);
     curr->pos[X] += delta[X];
     curr->pos[Y] += delta[Y];
+    
 }
 
 static inline void summon_arrow(u8 dir, ActorList * list){

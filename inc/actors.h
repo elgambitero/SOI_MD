@@ -53,6 +53,8 @@ Actor * ACT_seek(const Entity * ent, ActorList * actors);
 u8 ACT_collision(Actor * act1, Actor * act2);
 void ACT_update(ActorList * actors);
 void ACT_end(ActorList * actors);
+void ACT_freeze(ActorList * actors);
+void ACT_unfreeze(ActorList * actors);
 
 #define ANIM_MSK 0xFE
 #define DIR_MSK ~ANIM_MSK

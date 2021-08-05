@@ -154,6 +154,23 @@ const Entity FX_turtle = {
     }
 };
 
+void FX_trans_loop();
+void FX_trans_finished();
+const Entity FX_transporter = {
+    FX,
+    {7, 15},
+    {12, 15},
+    PAL_SYS0,
+    &transporter_spr,
+    NULL,
+    &FX_trans_loop,
+    &FX_trans_finished,
+    {.effect =
+        {
+        }
+    }
+};
+
 __attribute__((always_inline)) static inline void FX_despawn(){
     if(curr->timer){
         curr->timer++;
@@ -246,6 +263,14 @@ void FX_turtle_loop(){
 void FX_turtleWearOff(){
     nasties.effects &= ~SLOW_MSK;
     projectiles.effects &= ~SLOW_MSK;
+}
+
+void FX_trans_loop(){
+    FX_despawn();
+}
+
+void FX_trans_finished(){
+
 }
 
 /*

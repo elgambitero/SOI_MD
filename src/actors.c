@@ -171,3 +171,11 @@ void ACT_update(ActorList * actors){
     else actors->effects |= ACTOR_CLK;
 
 }
+
+void ACT_freeze(ActorList * actors){
+    actors->effects |= FROZEN_MSK;
+}
+
+void ACT_unfreeze(ActorList * actors){
+    actors->effects &= ~FROZEN_MSK;
+}
