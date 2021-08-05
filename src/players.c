@@ -206,8 +206,10 @@ static inline void PL_teleport(u8 from_ind, u16 block){
     fx.pos[Y] = POS_TO_PX(curr->pos[Y]);
     fx.speed[X] = 0; //FIX ME
     fx.speed[Y] = 0;
-    fx.timer = TELEPORT_TIME;
+    fx.timer = MAX_TIMER - TELEPORT_TIME;
     fx.actorData.fxData.following = curr;
+    fx.speed[X] = delta[X]/TELEPORT_TIME;
+    fx.speed[Y] = delta[Y]/TELEPORT_TIME;
     ACT_add(&fx, &fx_buf);
     ACT_freeze(&projectiles);
     ACT_freeze(&players);
