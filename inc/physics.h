@@ -174,23 +174,21 @@ __attribute__((always_inline)) static inline u8 cliff(){
 __attribute__((always_inline)) static inline u8 crash_into(){
     if( front >= BOARD_X_PX )
         return FRAME;
-    if( ! env->front_blocks[front_ind]){
-        return 0;
-    }else{
-        if(SOLID & env->front_blocks[front_ind])
-            return BLOCK;
-        switch(BLK_TYPE & env->front_blocks[front_ind]){
-            case SPECIAL_BLOCK:
-                return SPECIAL_BLOCK;
-                break;
-            case GOODIE:
-                return GOODIE;
-                break;
-            default:
-                return 0;
-        }
-    }
+    if(SOLID & env->front_blocks[front_ind])
+        return BLOCK;
     return 0;
+    /*
+    switch(BLK_TYPE & env->front_blocks[front_ind]){
+        case SPECIAL_BLOCK:
+            return SPECIAL_BLOCK;
+            break;
+        case GOODIE:
+            return GOODIE;
+            break;
+        default:
+            return 0;
+    }
+    */
 }
 
 //Environment analysis checks.
