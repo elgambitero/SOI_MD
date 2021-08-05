@@ -270,7 +270,13 @@ void FX_trans_loop(){
 }
 
 void FX_trans_finished(){
-
+    SPR_setVisibility(curr->
+        actorData.fxData.following->sprite, VISIBLE);
+    ACT_unfreeze(&projectiles);
+    ACT_unfreeze(&players);
+    ACT_unfreeze(&nasties);
+    ACT_unfreeze(&bp_projectiles);
+    ACT_unfreeze(&gp_projectiles);
 }
 
 /*

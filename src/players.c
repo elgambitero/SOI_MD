@@ -198,8 +198,6 @@ static inline void PL_teleport(u8 from_ind, u16 block){
     s16 delta[2];
     delta[X] = PX_TO_POS((IND_TO_X(exit_ind) - IND_TO_X(from_ind)) << 4);
     delta[Y] = PX_TO_POS((IND_TO_Y(exit_ind) - IND_TO_Y(from_ind)) << 4);
-    curr->pos[X] += delta[X];
-    curr->pos[Y] += delta[Y];
     SPR_setVisibility(curr->sprite, HIDDEN);
     fx.status = 0;
     fx.character = &FX_transporter;
@@ -208,7 +206,8 @@ static inline void PL_teleport(u8 from_ind, u16 block){
     fx.pos[Y] = POS_TO_PX(curr->pos[Y]);
     fx.speed[X] = 0; //FIX ME
     fx.speed[Y] = 0;
-    fx.timer = TRANSPORT_TIME;
+    fx.timer = TELEPORT_TIME;
+    fx.actorData.fxData.following = curr;
     ACT_add(&fx, &fx_buf);
     ACT_freeze(&projectiles);
     ACT_freeze(&players);
@@ -217,6 +216,8 @@ static inline void PL_teleport(u8 from_ind, u16 block){
     ACT_freeze(&gp_projectiles);
     XGM_setPCM(SFX_IND, snd_teleport, sizeof(snd_teleport));
     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    curr->pos[X] += delta[X];
+    curr->pos[Y] += delta[Y];
 }
 
 static inline void summon_arrow(u8 dir, ActorList * list){
