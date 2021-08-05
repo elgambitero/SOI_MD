@@ -363,6 +363,21 @@ void PL_update(){
             }
             block_ctrl(FALL_RIGHT | dir);
             weap_ctrl(FALL_RIGHT | dir);
+            calc_center_block();
+            switch(blk_evaluate(center_ind)){
+                case SPECIAL_BLOCK:
+                    switch(SP_TYP_MSK & env->front_blocks[center_ind]){
+                        case SP_TRANS:
+                            if(env->front_blocks[center_ind] & TRANS_DIR_MSK){
+                                PL_teleport(center_ind, env->front_blocks[center_ind]);
+                                return;
+                            }
+                            break;
+                    }
+                    break;
+                case GOODIE:
+                    gd_process(center_ind);
+            }
         break;
         case STILL_RIGHT:
             curr->speed[X] = 0;
@@ -428,36 +443,14 @@ void PL_update(){
         case STL_TO_RIGHT:
             if(curr->frames--) return;
             newstatus = WALK_RIGHT | dir;
-            calc_front(dir);
-            calc_front_block();
-            switch(crash_into()){//is this even correct?
-                case FRAME:
-                case BLOCK:
-                //Should be onStopWalking
-                    break;
-                case GOODIE:
-                    gd_process(front_ind);
-                default:
-                    curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
-                    break;
-            }
         break;
         case STL_RIGHT_TO_LEFT:
             if(curr->frames--) return;
             newstatus = WALK_RIGHT | !dir ;
             calc_front_margin(!dir);
             calc_front_block();
-            switch(crash_into()){
-                case FRAME:
-                case BLOCK:
-                    //onWalkInto
-                    curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
-                    break;
-                case GOODIE:
-                    gd_process(front_ind);
-                default:
-                    curr->speed[X] = dir ? -PL_WALKSPEED : PL_WALKSPEED;
-                    break;
+            if(crash_into()){
+                curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
             }
         break;
         case RIGHT_TO_STL:
