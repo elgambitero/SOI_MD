@@ -160,8 +160,8 @@ u8 jump_ctrl(u8 after){
 }
 
 //Why here???
-static inline void gd_process(u8 front_ind){
-    gd_index = GD_GET_INDEX( env->front_blocks[front_ind] );
+static inline void gd_process(u8 ind){
+    gd_index = GD_GET_INDEX( env->front_blocks[ind] );
     const Entity * character = goodies_vector[gd_index];
     if(character->role.goodie.pickup_sound){
         XGM_setPCM(SFX_IND, character->role.goodie.pickup_sound, 
@@ -468,7 +468,21 @@ void PL_update(){
         case JUMP_RIGHT:
             if(curr->speed[Y] <= FALLSPEED)
                 curr->speed[Y] += GRAVITY;
-            
+            calc_center_block();
+            switch(blk_evaluate(center_ind)){
+                case SPECIAL_BLOCK:
+                    switch(SP_TYP_MSK & env->front_blocks[center_ind]){
+                        case SP_TRANS:
+                            if(env->front_blocks[center_ind] & TRANS_DIR_MSK){
+                                PL_teleport(center_ind, env->front_blocks[center_ind]);
+                                return;
+                            }
+                            break;
+                    }
+                    break;
+                case GOODIE:
+                    gd_process(center_ind);
+            }
             if( *ctrl & CTRL_MOV){
                 register u8 push = *ctrl & CTRL_LEFT;
                 curr->speed[X] = push ? -PL_WALKSPEED : PL_WALKSPEED;

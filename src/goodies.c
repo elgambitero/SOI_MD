@@ -685,8 +685,9 @@ void GD_reveal_hidden(){
 
 void GD_obtain(){
     fx.status = 0;
-    fx.pos[X] = BLOCK_TO_PX(IND_TO_X(front_ind)) + 8;
-    fx.pos[Y] = BLOCK_TO_PX(IND_TO_Y(front_ind)) + 8;
+    //FIX ME: Usage of center_ind here creates referencing errors.
+    fx.pos[X] = BLOCK_TO_PX(IND_TO_X(center_ind)) + 8;
+    fx.pos[Y] = BLOCK_TO_PX(IND_TO_Y(center_ind)) + 8;
     fx.frames = 0;
     fx.timer = 0;
     fx.character = goodies_vector[gd_index];
@@ -697,8 +698,8 @@ void GD_obtain(){
         if(gd_index >= GD_GET_INDEX( GDi_GOLDC ) ) gd_index -= GD_GET_INDEX( GDi_GOLDC );
         SPR_setFrame(result->sprite, gd_index);
     }
-    set_block(env, 0, front_ind);
-    eraseBlock_ind(front_ind);
+    set_block(env, 0, center_ind);
+    eraseBlock_ind(center_ind);
 }
 
 void GD_killAll(){
