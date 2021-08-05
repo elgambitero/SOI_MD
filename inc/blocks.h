@@ -2,15 +2,15 @@
 
 #define BLOCKS_H
 
-#define BLK_TYPE        0x0003
+#define BLK_TYPE        (3 << 0)
 
 #define NORMAL_BLOCK    0x0001
 
-#define SOLID           0x0004
-#define BREAKABLE       0x0008
-#define BROKEN          0x0010
+#define SOLID           (1 << 2)
+#define BREAKABLE       (1 << 3)
+#define BROKEN          (1 << 4)
 
-#define NBLK_TYP_MSK    0x00E0
+#define NBLK_TYP_MSK   (7 << 5) //0x00E0
 
 #define BLK_NOTHING    (0 << 5)
 #define BLK_FLAT       (1 << 5)
@@ -21,7 +21,7 @@
 #define BLK_QUESTION   (6 << 5)
 #define BLK_PLAYER     (7 << 5)
 
-#define NBLK_COL_MSK    0x0300
+#define NBLK_COL_MSK   (3 << 8)
 
 #define GET_BLK_PAL(byte) (byte >> 8)
 
@@ -41,23 +41,23 @@
 #define PAL_BK 5
 
 
-#define SPECIAL_BLOCK   0x0002
+#define SPECIAL_BLOCK   (1 << 1) //0x0002
 
-#define SP_ACTIVE       0x0004
+#define SP_ACTIVE       (1 << 2) //0x0004
 
-#define SP_TYP_MSK      0x0060
+#define SP_TYP_MSK      (3 << 5) //0x0060
 
 #define SP_TRANS        (1 << 5)
 #define SP_SWITCH       (2 << 5)
 #define SP_FLOP         (3 << 5)
 
-#define TRANS_DIR_MSK   0x0800
+#define TRANS_DIR_MSK   (1 << 11) //0x0800
 
-#define TRANS_IN        0x0800
+#define TRANS_IN        (1 << 11) //0x0800
 #define TRANS_OUT       0x0000
 
 
-#define SP_COL_MSK      0x0700
+#define SP_COL_MSK      (7 << 8) //0x0700
 
 #define SP_COL_GR       (0 << 8)
 #define SP_COL_R        (1 << 8)
@@ -66,8 +66,8 @@
 #define SP_COL_YL       (4 << 8)
 #define SP_COL_WT       (5 << 8)
 
-#define GOODIE          0x0003
-#define GOOD_TYP_MSK    0x03F0
+#define GOODIE          (3 << 0) //0x0003
+#define GOOD_TYP_MSK    (0x3F << 4) //0x03F0
 #define GD_GET_INDEX(good) ( ( GOOD_TYP_MSK & good) >> 4 )
 
 #define GD_ADD_INFO(good) ( good << 8 )
