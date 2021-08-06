@@ -10,7 +10,7 @@
 #define BREAKABLE                 (1 << 3)
 #define BROKEN                    (1 << 4)
 
-#define NBLK_TYP_SHFT          5
+#define NBLK_TYP_SHFT              5
 
 #define NBLK_TYP_MSK              (7 << NBLK_TYP_SHFT) //3 bits
 
@@ -23,18 +23,18 @@
 #define BLK_QUESTION              (6 << NBLK_TYP_SHFT)
 #define BLK_PLAYER                (7 << NBLK_TYP_SHFT)
 
-#define NBLK_COL_SHFT          8
+#define NBLK_COL_SHFT              9
 
-#define NBLK_COL_MSK              (3 << NBLK_COL_SHFT)
+#define NBLK_COL_MSK              ((3 << NBLK_COL_SHFT))
 
 
-#define COL_WHITE                 (0 << NBLK_COL_SHFT)
-#define COL_SLOT1                 (1 << NBLK_COL_SHFT)
-#define COL_SLOT2                 (2 << NBLK_COL_SHFT)
-#define COL_SLOT3                 (3 << NBLK_COL_SHFT)
+#define COL_WHITE                 ((0 << NBLK_COL_SHFT))
+#define COL_SLOT1                 ((1 << NBLK_COL_SHFT))
+#define COL_SLOT2                 ((2 << NBLK_COL_SHFT))
+#define COL_SLOT3                 ((3 << NBLK_COL_SHFT))
 
-#define PL_BLUE                   (0 << NBLK_COL_SHFT)
-#define PL_GREEN                  (1 << NBLK_COL_SHFT)
+#define PL_BLUE                   ((0 << NBLK_COL_SHFT))
+#define PL_GREEN                  ((1 << NBLK_COL_SHFT))
 
 #define PAL_GR                    0
 #define PAL_R                     1
