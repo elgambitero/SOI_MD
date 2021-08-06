@@ -21,6 +21,7 @@
 #define FALLSPEED 2 * WALKSPEED
 #define PL_WALKSPEED WALKSPEED
 #define PL_FASTSPEED 2 * PL_WALKSPEED
+#define CANBALL_SPEED  ( 4 << (DECIMALS - 1) )
 #define PL_JMP_BOOST -( 3 << (DECIMALS))
 #define GRAVITY (1 << (DECIMALS - 2))
 #define BRK_SPEED (1 << (DECIMALS + 1))

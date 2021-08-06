@@ -3,7 +3,6 @@
 #include "sprites.h"
 #include "sound.h"
 
-
 void PR_arrow_loop();
 const Entity PR_arrow = {
     PROJECTILE,
@@ -20,6 +19,22 @@ const Entity PR_arrow = {
     }
 };
 
+void PR_canb_loop();
+const Entity PR_cannonball = {
+    PROJECTILE,
+    {3, 7},
+    {3, 7},
+    PAL_SYS0,
+    &cannonball_spr,
+    NULL,
+    &PR_canb_loop,
+    NULL,
+    {.proj = 
+        {
+        }
+    }
+};
+
 void PR_arrow_loop(){
     calc_front(dir);
     calc_front_block();
@@ -28,6 +43,20 @@ void PR_arrow_loop(){
         case FRAME:
             result = ACT_DELETION;
             return;
+    }
+}
+
+void PR_canb_loop(){
+    calc_front(dir);
+    calc_front_block();
+    if(crash_into()){
+        result = ACT_DELETION;
+        if(breakable(front_ind)){
+            if(dir)
+                brk_debris(front_ind, -CANBALL_SPEED, 0);
+            else
+                brk_debris(front_ind,  CANBALL_SPEED, 0);
+        }
     }
 }
 
