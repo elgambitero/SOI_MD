@@ -25,3 +25,5 @@ SPRITE gd_sys1_spr "sprites/goodies/gd_sys1.bmp" 2 2 AUTO 0
 SPRITE arrow_spr "sprites/weapons/arrow.bmp" 2 1 AUTO 2
 
 SPRITE transporter_spr "sprites/fx/transporter.bmp" 3 2 AUTO 1
+
+SPRITE cannonball_spr "sprites/cannonball/cannonball.bmp" 1 1 AUTO 2
