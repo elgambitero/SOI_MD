@@ -15,3 +15,5 @@ IMAGE tele_bg      "blocks/tele_bg.bmp"            NONE
 IMAGE tele_sl0     "blocks/tele_sl0.bmp"           NONE
 IMAGE tele_sl1     "blocks/tele_sl1.bmp"           NONE
 IMAGE tele_sl2     "blocks/tele_sl2.bmp"           NONE
+
+IMAGE cannon_blk   "blocks/cannon.bmp"             NONE

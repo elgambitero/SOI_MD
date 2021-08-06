@@ -65,6 +65,13 @@
 #define TRANS_IN               (1 << TRANS_DIR_SHFT) //0x0800
 #define TRANS_OUT              (0 << TRANS_DIR_SHFT) 
 
+#define CAN_DIR_SHFT            11
+
+#define CAN_DIR_MSK            (1 << CAN_DIR_SHFT)
+
+#define CANNON_R               (0 << CAN_DIR_SHFT)
+#define CANNON_L               (1 << CAN_DIR_SHFT)
+
 #define SP_COL_SHFT             8
 
 #define SP_COL_MSK             (7 << SP_COL_SHFT) //3bit
@@ -130,6 +137,9 @@
 #define TNO ( SPECIAL_BLOCK | SP_TRANS | TRANS_OUT | SP_COL_PI )
 #define TYO ( SPECIAL_BLOCK | SP_TRANS | TRANS_OUT | SP_COL_YL )
 #define TWO ( SPECIAL_BLOCK | SP_TRANS | TRANS_OUT | SP_COL_WT )
+
+#define CNR ( SPECIAL_BLOCK | SP_CANNON | CANNON_R | SOLID )
+#define CNL ( SPECIAL_BLOCK | SP_CANNON | CANNON_L | SOLID )
 
 
 void drawBlock(u8 x, u8 y, u16 block);

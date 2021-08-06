@@ -19,6 +19,7 @@ u16 tele_bg_ind = TILE_USERINDEX;
 u16 tele_sl0_ind = TILE_USERINDEX;
 u16 tele_sl1_ind = TILE_USERINDEX;
 u16 tele_sl2_ind = TILE_USERINDEX;
+u16 cannon_blk_ind = TILE_USERINDEX;
 
 
 void drawBlock(u8 x, u8 y, u16 block){
@@ -150,6 +151,11 @@ void drawBlock(u8 x, u8 y, u16 block){
                             break;
                     }
                     break;
+                case SP_CANNON:
+                    bg_blk_map = cannon_blk.tilemap;
+                    tile_index[BG] = cannon_blk_ind;
+                    map_ind = block & CAN_DIR_MSK ? 2 : 0;
+                    break;
             }
             break;
         case GOODIE:
@@ -233,4 +239,7 @@ void load_blk_tiles(u16 ind){
     VDP_loadTileSet(tele_sl2.tileset, ind, DMA);
     tele_sl2_ind = ind;
     ind += tele_sl2.tileset->numTile;
+    VDP_loadTileSet(cannon_blk.tileset, ind, DMA);
+    cannon_blk_ind = ind;
+    ind += cannon_blk.tileset->numTile;
 }
