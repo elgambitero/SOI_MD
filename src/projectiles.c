@@ -52,6 +52,7 @@ void PR_canb_loop(){
     if(crash_into()){
         result = ACT_DELETION;
         if(breakable(front_ind)){
+            break_block_ind(env, front_ind);
             if(dir)
                 brk_debris(front_ind, -CANBALL_SPEED, 0);
             else
