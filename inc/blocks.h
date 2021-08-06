@@ -51,11 +51,12 @@
 
 #define SP_TYP_SHFT             5
 
-#define SP_TYP_MSK             (3 << SP_TYP_SHFT) //2 bit
+#define SP_TYP_MSK             (7 << SP_TYP_SHFT) //3 bit
 
 #define SP_TRANS               (1 << SP_TYP_SHFT)
 #define SP_SWITCH              (2 << SP_TYP_SHFT)
 #define SP_FLOP                (3 << SP_TYP_SHFT)
+#define SP_CANNON              (4 << SP_TYP_SHFT)
 
 #define TRANS_DIR_SHFT          11
 
