@@ -1,7 +1,7 @@
 #ifndef EFFECTS_H
 #define EFFECTS_H
 
-#define CANNON_TIME 150
+#define CANNON_TIME 300
 
 extern const Entity FX_deletor;
 extern const Entity FX_blk_debris0;
@@ -13,6 +13,5 @@ extern const Entity FX_boot_ind;
 extern const Entity FX_shield_ind;
 extern const Entity FX_turtle;
 extern const Entity FX_transporter;
-extern const Entity FX_cannon;
 
 #endif

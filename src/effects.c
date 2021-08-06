@@ -171,21 +171,6 @@ const Entity FX_transporter = {
     }
 };
 
-void FX_cannon_loop();
-const Entity FX_cannon = {
-    FX,
-    {7, 15},
-    {7, 15},
-    PAL_SYS0,
-    NULL,
-    NULL,
-    &FX_cannon_loop,
-    NULL,
-    {.effect =
-        {
-        }
-    }
-};
 
 __attribute__((always_inline)) static inline void FX_despawn(){
     if(curr->timer){
@@ -295,29 +280,6 @@ void FX_trans_finished(){
     ACT_unfreeze(&gp_projectiles);
 }
 
-void FX_cannon_loop(){
-    if(curr->timer){
-        curr->timer++;
-        if(curr->timer == MAX_TIMER){
-            curr->timer == MAX_TIMER - CANNON_TIME;
-            fx.status = 0;
-            fx.character = &PR_cannonball;
-            fx.speed[Y] = 0;
-            if(dir){
-                fx.pos[X] = curr->pos[X] - 8;
-                fx.pos[Y] = curr->pos[Y] - 4;
-                fx.speed[X] = -CANBALL_SPEED;
-            }else{
-                fx.pos[X] = curr->pos[X] + 8;
-                fx.pos[Y] = curr->pos[Y] - 4;
-                fx.speed[X] = CANBALL_SPEED;
-            }
-            XGM_setPCM(SFX_IND, snd_cannon_fire, sizeof(snd_cannon_fire));
-            XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
-            return;
-        };
-    }
-}
 
 /*
 void FX_update(){

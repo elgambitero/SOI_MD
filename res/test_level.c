@@ -123,6 +123,26 @@ static const Actor ant_spawn = {&SPW_ant,
    };
 
 
+static const Actor cannon_r = {&SPW_cannon,
+      0,
+      0,
+   {8, 176},
+   {   0,    0},
+      MAX_TIMER - CANNON_TIME,
+      0,
+   &ant_spawn
+   };
+
+static const Actor cannon_l = {&SPW_cannon,
+      1,
+      0,
+   {296, 176},
+   {   0,    0},
+      MAX_TIMER - (CANNON_TIME/2),
+      0,
+   &cannon_r
+   };
+
 const Board test_level = {
     {
      BFW, BOW, BDW, CHI, QUE, NET,   0,   0,   0,   0,   0, TRO,   0,   0, TGO, TBO, TNO, TYO, TWO,
@@ -159,6 +179,6 @@ const Board test_level = {
     2,
     0,
     5000,
-    &ant_spawn,
+    &cannon_l,
     &glp
 };

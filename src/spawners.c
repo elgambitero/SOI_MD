@@ -24,6 +24,25 @@ const Entity SPW_ant = {
     }
 };
 
+
+void SPW_cannon_loop();
+const Entity SPW_cannon = {
+    FX,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    NULL,
+    NULL,
+    &SPW_cannon_loop,
+    NULL,
+    {.spawner =
+        {
+            NULL,
+            NULL
+        }
+    }
+};
+
 void SPW_spawn_ant(){
     fx.status = curr->status;
     u8 dir = fx.status & 0x01;
@@ -46,5 +65,30 @@ void SPW_update(){
         if(curr->timer == MAX_TIMER) {
             curr->character->role.spawner.onTimeout();
         }
+    }
+}
+
+
+void SPW_cannon_loop(){
+    if(curr->timer){
+        curr->timer++;
+        if(curr->timer == MAX_TIMER){
+            fx.status = dir;
+            fx.character = &PR_cannonball;
+            fx.speed[Y] = 0;
+            fx.pos[Y] = POS_TO_PX(curr->pos[Y]) - 4;
+            if(dir){
+                fx.pos[X] = POS_TO_PX(curr->pos[X]) - 9;
+                fx.speed[X] = -CANBALL_SPEED;
+            }else{
+                fx.pos[X] = POS_TO_PX(curr->pos[X]) + 9;
+                fx.speed[X] = CANBALL_SPEED;
+            }
+            ACT_add(&fx, &projectiles);
+            XGM_setPCM(SFX_IND, snd_cannon_fire, sizeof(snd_cannon_fire));
+            XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+            curr->timer = MAX_TIMER - CANNON_TIME;
+            return;
+        };
     }
 }
