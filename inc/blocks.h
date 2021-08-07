@@ -57,6 +57,7 @@
 #define SP_SWITCH              (2 << SP_TYP_SHFT)
 #define SP_FLOP                (3 << SP_TYP_SHFT)
 #define SP_CANNON              (4 << SP_TYP_SHFT)
+#define SP_GATE                (5 << SP_TYP_SHFT)
 
 #define TRANS_DIR_SHFT          11
 
@@ -71,6 +72,27 @@
 
 #define CANNON_R               (0 << CAN_DIR_SHFT)
 #define CANNON_L               (1 << CAN_DIR_SHFT)
+
+#define FLOP_TOG_SHFT           11
+
+#define FLOP_TOG_MSK           (1 << FLOP_TOG_SHFT) //1bit
+
+#define FLOP_TOG_ON            (1 << FLOP_TOG_SHFT)
+#define FLOP_TOG_OFF           (0 << FLOP_TOG_SHFT)
+
+#define FLOP_ACT_SHFT           12
+
+#define FLOP_ACT_MSK           (1 << FLOP_ACT_SHFT) //1bit
+
+#define FLOP_ACT_ON            (1 << FLOP_ACT_SHFT)
+#define FLOP_ACT_OFF           (0 << FLOP_ACT_SHFT)
+
+#define GATE_SHFT               11
+
+#define GATE_MSK               (1 << GATE_SHFT) //1bit
+
+#define GATE_OPEN              (0 << GATE_SHFT)
+#define GATE_CLOSED            (1 << GATE_SHFT)
 
 #define SP_COL_SHFT             8
 
