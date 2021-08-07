@@ -17,3 +17,8 @@ IMAGE tele_sl1     "blocks/tele_sl1.bmp"           NONE
 IMAGE tele_sl2     "blocks/tele_sl2.bmp"           NONE
 
 IMAGE cannon_blk   "blocks/cannon.bmp"             NONE
+
+IMAGE flop_bg      "blocks/flop_bg.bmp"            NONE
+IMAGE flop_sl0     "blocks/flop_sl0.bmp"           NONE
+IMAGE flop_sl1     "blocks/flop_sl1.bmp"           NONE
+IMAGE flop_sl2     "blocks/flop_sl2.bmp"           NONE
