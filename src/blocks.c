@@ -6,6 +6,9 @@
 #define FG 0
 #define BG 1
 
+
+//These could be too many bytes.
+//Predictable as load_blk_tiles() is, these could be macros.
 u16 clr_blk_bg_ind = TILE_USERINDEX;
 u16 clr_blk_sl0_ind = TILE_USERINDEX;
 u16 clr_blk_sl1_ind = TILE_USERINDEX;
@@ -24,6 +27,11 @@ u16 flop_bg_ind = TILE_USERINDEX;
 u16 flop_sl0_ind = TILE_USERINDEX;
 u16 flop_sl1_ind = TILE_USERINDEX;
 u16 flop_sl2_ind = TILE_USERINDEX;
+u16 gate_bg_opn_ind = TILE_USERINDEX;
+u16 gate_bg_cls_ind = TILE_USERINDEX;
+u16 gate_sl0_ind = TILE_USERINDEX;
+u16 gate_sl1_ind = TILE_USERINDEX;
+u16 gate_sl2_ind = TILE_USERINDEX;
 
 
 void drawBlock(u8 x, u8 y, u16 block){
@@ -197,6 +205,54 @@ void drawBlock(u8 x, u8 y, u16 block){
                             break;
                     }
                     break;
+                case SP_GATE:
+                    map_ind = 0;
+                    switch(block & GATE_MSK){
+                        case GATE_OPEN:
+                            bg_blk_map = gate_bg_opn.tilemap;
+                            tile_index[BG] = flop_bg_opn_ind;
+                            break;
+                        case GATE_CLOSED:
+                            bg_blk_map = gate_bg_cls.tilemap;
+                            tile_index[BG] = flop_bg_cls_ind;
+                            break;
+                    }
+                    bg_blk_map = flop_bg.tilemap;
+                    tile_index[BG] = flop_bg_ind;
+                    map_ind = block & FLOP_TOG_MSK ? 0 : 2;
+                    switch(block & SP_COL_MSK){
+                        case SP_COL_GR:
+                            fg_blk_map = gate_sl1.tilemap;
+                            tile_index[FG] = gate_sl1_ind;
+                            palette[FG] = PAL_SYS1;
+                            break;
+                        case SP_COL_PI:
+                            fg_blk_map = gate_sl0.tilemap;
+                            tile_index[FG] = gate_sl0_ind;
+                            palette[FG] = PAL_SYS1;
+                            break;
+                        case SP_COL_YL:
+                            fg_blk_map = gate_sl2.tilemap;
+                            tile_index[FG] = gate_sl2_ind;
+                            palette[FG] = PAL_SYS1;
+                            break;
+                        case SP_COL_BL:
+                            fg_blk_map = gate_sl1.tilemap;
+                            tile_index[FG] = gate_sl1_ind;
+                            palette[FG] = PAL_SYS0;
+                            break;
+                        case SP_COL_R:
+                            fg_blk_map = gate_sl0.tilemap;
+                            tile_index[FG] = gate_sl0_ind;
+                            palette[FG] = PAL_SYS0;
+                            break;
+                        case SP_COL_WT:
+                            fg_blk_map = flop_sl2.tilemap;
+                            tile_index[FG] = flop_sl2_ind;
+                            palette[FG] = PAL_SYS0;
+                            break;
+                    }
+                    break;
             }
             break;
         case GOODIE:
@@ -295,4 +351,19 @@ void load_blk_tiles(u16 ind){
     VDP_loadTileSet(flop_sl2.tileset, ind, DMA);
     flop_sl2_ind = ind;
     ind += flop_sl2.tileset->numTile;
+    VDP_loadTileSet(gate_bg_opn.tileset, ind, DMA);
+    gate_bg_opn_ind = ind;
+    ind += gate_bg_opn.tileset->numTile;
+    VDP_loadTileSet(gate_bg_cls.tileset, ind, DMA);
+    gate_bg_cls_ind = ind;
+    ind += gate_bg_cls.tileset->numTile;
+    VDP_loadTileSet(gate_sl0.tileset, ind, DMA);
+    gate_sl0_ind = ind;
+    ind += gate_sl0.tileset->numTile;
+    VDP_loadTileSet(gate_sl1.tileset, ind, DMA);
+    gate_sl1_ind = ind;
+    ind += gate_sl1.tileset->numTile;
+    VDP_loadTileSet(gate_sl2.tileset, ind, DMA);
+    gate_sl2_ind = ind;
+    ind += gate_sl2.tileset->numTile;
 }

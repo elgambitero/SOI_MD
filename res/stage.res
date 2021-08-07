@@ -22,3 +22,9 @@ IMAGE flop_bg      "blocks/flop_bg.bmp"            NONE
 IMAGE flop_sl0     "blocks/flop_sl0.bmp"           NONE
 IMAGE flop_sl1     "blocks/flop_sl1.bmp"           NONE
 IMAGE flop_sl2     "blocks/flop_sl2.bmp"           NONE
+
+IMAGE gate_bg_opn "blocks/gate_bg_opn.bmp"         NONE
+IMAGE gate_bg_cls "blocks/gate_bg_cls.bmp"         NONE
+IMAGE gate_sl0    "blocks/gate_sl0.bmp"            NONE
+IMAGE gate_sl1    "blocks/gate_sl1.bmp"            NONE
+IMAGE gate_sl2    "blocks/gate_sl2.bmp"            NONE
