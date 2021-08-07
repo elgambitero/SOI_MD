@@ -132,13 +132,13 @@ void drawBlock(u8 x, u8 y, u16 block){
                     map_ind = block & TRANS_DIR_MSK ? 0 : 2;
                     switch(block & SP_COL_MSK){
                         case SP_COL_GR:
-                            fg_blk_map = tele_sl1.tilemap;
-                            tile_index[FG] = tele_sl1_ind;
+                            fg_blk_map = tele_sl0.tilemap;
+                            tile_index[FG] = tele_sl0_ind;
                             palette[FG] = PAL_SYS1;
                             break;
                         case SP_COL_PI:
-                            fg_blk_map = tele_sl0.tilemap;
-                            tile_index[FG] = tele_sl0_ind;
+                            fg_blk_map = tele_sl1.tilemap;
+                            tile_index[FG] = tele_sl1_ind;
                             palette[FG] = PAL_SYS1;
                             break;
                         case SP_COL_YL:
@@ -147,13 +147,13 @@ void drawBlock(u8 x, u8 y, u16 block){
                             palette[FG] = PAL_SYS1;
                             break;
                         case SP_COL_BL:
-                            fg_blk_map = tele_sl1.tilemap;
-                            tile_index[FG] = tele_sl1_ind;
+                            fg_blk_map = tele_sl0.tilemap;
+                            tile_index[FG] = tele_sl0_ind;
                             palette[FG] = PAL_SYS0;
                             break;
                         case SP_COL_R:
-                            fg_blk_map = tele_sl0.tilemap;
-                            tile_index[FG] = tele_sl0_ind;
+                            fg_blk_map = tele_sl1.tilemap;
+                            tile_index[FG] = tele_sl1_ind;
                             palette[FG] = PAL_SYS0;
                             break;
                         case SP_COL_WT:
@@ -174,13 +174,13 @@ void drawBlock(u8 x, u8 y, u16 block){
                     map_ind = block & FLOP_TOG_MSK ? 0 : 2;
                     switch(block & SP_COL_MSK){
                         case SP_COL_GR:
-                            fg_blk_map = flop_sl1.tilemap;
-                            tile_index[FG] = flop_sl1_ind;
+                            fg_blk_map = flop_sl0.tilemap;
+                            tile_index[FG] = flop_sl0_ind;
                             palette[FG] = PAL_SYS1;
                             break;
                         case SP_COL_PI:
-                            fg_blk_map = flop_sl0.tilemap;
-                            tile_index[FG] = flop_sl0_ind;
+                            fg_blk_map = flop_sl1.tilemap;
+                            tile_index[FG] = flop_sl1_ind;
                             palette[FG] = PAL_SYS1;
                             break;
                         case SP_COL_YL:
@@ -189,13 +189,13 @@ void drawBlock(u8 x, u8 y, u16 block){
                             palette[FG] = PAL_SYS1;
                             break;
                         case SP_COL_BL:
-                            fg_blk_map = flop_sl1.tilemap;
-                            tile_index[FG] = flop_sl1_ind;
+                            fg_blk_map = flop_sl0.tilemap;
+                            tile_index[FG] = flop_sl0_ind;
                             palette[FG] = PAL_SYS0;
                             break;
                         case SP_COL_R:
-                            fg_blk_map = flop_sl0.tilemap;
-                            tile_index[FG] = flop_sl0_ind;
+                            fg_blk_map = flop_sl1.tilemap;
+                            tile_index[FG] = flop_sl1_ind;
                             palette[FG] = PAL_SYS0;
                             break;
                         case SP_COL_WT:
@@ -210,25 +210,24 @@ void drawBlock(u8 x, u8 y, u16 block){
                     switch(block & GATE_MSK){
                         case GATE_OPEN:
                             bg_blk_map = gate_bg_opn.tilemap;
-                            tile_index[BG] = flop_bg_opn_ind;
+                            tile_index[BG] = gate_bg_opn_ind;
+                            palette[BG] = PAL_SYS1;
                             break;
                         case GATE_CLOSED:
                             bg_blk_map = gate_bg_cls.tilemap;
-                            tile_index[BG] = flop_bg_cls_ind;
+                            tile_index[BG] = gate_bg_cls_ind;
+                            palette[BG] = PAL_SYS0;
                             break;
                     }
-                    bg_blk_map = flop_bg.tilemap;
-                    tile_index[BG] = flop_bg_ind;
-                    map_ind = block & FLOP_TOG_MSK ? 0 : 2;
                     switch(block & SP_COL_MSK){
                         case SP_COL_GR:
-                            fg_blk_map = gate_sl1.tilemap;
-                            tile_index[FG] = gate_sl1_ind;
+                            fg_blk_map = gate_sl0.tilemap;
+                            tile_index[FG] = gate_sl0_ind;
                             palette[FG] = PAL_SYS1;
                             break;
                         case SP_COL_PI:
-                            fg_blk_map = gate_sl0.tilemap;
-                            tile_index[FG] = gate_sl0_ind;
+                            fg_blk_map = gate_sl1.tilemap;
+                            tile_index[FG] = gate_sl1_ind;
                             palette[FG] = PAL_SYS1;
                             break;
                         case SP_COL_YL:
@@ -237,18 +236,18 @@ void drawBlock(u8 x, u8 y, u16 block){
                             palette[FG] = PAL_SYS1;
                             break;
                         case SP_COL_BL:
-                            fg_blk_map = gate_sl1.tilemap;
-                            tile_index[FG] = gate_sl1_ind;
-                            palette[FG] = PAL_SYS0;
-                            break;
-                        case SP_COL_R:
                             fg_blk_map = gate_sl0.tilemap;
                             tile_index[FG] = gate_sl0_ind;
                             palette[FG] = PAL_SYS0;
                             break;
+                        case SP_COL_R:
+                            fg_blk_map = gate_sl1.tilemap;
+                            tile_index[FG] = gate_sl1_ind;
+                            palette[FG] = PAL_SYS0;
+                            break;
                         case SP_COL_WT:
-                            fg_blk_map = flop_sl2.tilemap;
-                            tile_index[FG] = flop_sl2_ind;
+                            fg_blk_map = gate_sl2.tilemap;
+                            tile_index[FG] = gate_sl2_ind;
                             palette[FG] = PAL_SYS0;
                             break;
                     }

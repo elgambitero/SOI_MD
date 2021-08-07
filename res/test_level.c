@@ -156,7 +156,7 @@ const Board test_level = {
        0,   0,  BP,  OB,   0,   0,   0, NET,   0,   0,   0,   0,   0,   0,   0,   0, NET, NET, BFW,
        0,   0,   0,   0,   0, BFW,   0, BFW,   0,   0, BFW, BFW,   0,   0,   0,   0, QUE, BFW,   0,
      CNR,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, CNL,
-     FRI, FGI, FBI, FNI, FYI, FWI,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+     FRI, FGI, FBI, FNI, FYI, FWI, GRI, GGI, GBI, GNI, GYI, GWI, GRO, GGO, GBO, GNO, GYO, GWO,   0,
        0, SHI,   0, C3H,   0,   0,   0, RDD,   0,   0, TRI, TGI, TBI, TNI, TYI, TWI, C3H,   0,   0,
     },
 
