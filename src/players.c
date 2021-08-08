@@ -413,21 +413,7 @@ void PL_update(){
             }
             block_ctrl(FALL_RIGHT | dir);
             weap_ctrl(FALL_RIGHT | dir);
-            calc_center_block();
-            switch(blk_evaluate(center_ind)){
-                case SPECIAL_BLOCK:
-                    switch(SP_TYP_MSK & env->front_blocks[center_ind]){
-                        case SP_TRANS:
-                            if(env->front_blocks[center_ind] & TRANS_DIR_MSK){
-                                PL_teleport(center_ind, env->front_blocks[center_ind]);
-                                return;
-                            }
-                            break;
-                    }
-                    break;
-                case GOODIE:
-                    gd_process(center_ind);
-            }
+            PL_checkspecials();
         break;
         case STILL_RIGHT:
             curr->speed[X] = 0;
@@ -511,21 +497,7 @@ void PL_update(){
         case JUMP_RIGHT:
             if(curr->speed[Y] <= FALLSPEED)
                 curr->speed[Y] += GRAVITY;
-            calc_center_block();
-            switch(blk_evaluate(center_ind)){
-                case SPECIAL_BLOCK:
-                    switch(SP_TYP_MSK & env->front_blocks[center_ind]){
-                        case SP_TRANS:
-                            if(env->front_blocks[center_ind] & TRANS_DIR_MSK){
-                                PL_teleport(center_ind, env->front_blocks[center_ind]);
-                                return;
-                            }
-                            break;
-                    }
-                    break;
-                case GOODIE:
-                    gd_process(center_ind);
-            }
+            PL_checkspecials();
             if( *ctrl & CTRL_MOV){
                 register u8 push = *ctrl & CTRL_LEFT;
                 curr->speed[X] = push ? -PL_WALKSPEED : PL_WALKSPEED;
