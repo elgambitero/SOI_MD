@@ -86,7 +86,7 @@ u8 weap_ctrl(u8 after){
         }else{
             curr->frames = BP_ATTK_FRAMES;
             newstatus = ATTACK_RIGHT_IN | dir;
-            if(!pl_stat->arrows){ // ran out of arrows. Infinite for now for now.
+            if(!pl_stat->arrows){
                 *pl_act = NOTHING;
                 return TRUE;
             }
@@ -224,6 +224,39 @@ static inline void PL_teleport(u8 from_ind, u16 block){
     curr->pos[Y] += delta[Y];
 }
 
+static inline void PL_flipflop(){
+    env->front_blocks[center_ind] &= ~FLOP_ACT_ON; //Deactivate switch
+    env->front_blocks[center_ind] ^= FLOP_TOG_ON; //Toggle the switch
+    drawBlock(IND_TO_X(center_ind), IND_TO_Y(center_ind), env->front_blocks[center_ind]);
+    XGM_setPCM(SFX_IND, snd_switch, sizeof(snd_switch));
+    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+
+}
+
+__attribute__((always_inline)) static inline void PL_checkspecials(){
+    calc_center_block();
+    switch(blk_evaluate(center_ind)){
+        case SPECIAL_BLOCK:
+            switch(SP_TYP_MSK & env->front_blocks[center_ind]){
+                case SP_TRANS:
+                    if(env->front_blocks[center_ind] & TRANS_DIR_MSK){
+                        PL_teleport(center_ind, env->front_blocks[center_ind]);
+                        return;
+                    }
+                    break;
+                case SP_FLOP:
+                    if(env->front_blocks[center_ind] & FLOP_ACT_ON){
+                        PL_flipflop();
+                    }
+                    break;
+            }
+            break;
+        case GOODIE:
+            gd_process(center_ind);
+            break;
+    }
+}
+
 static inline void summon_arrow(u8 dir, ActorList * list){
     fx.status = dir;
     fx.character = &PR_arrow;
@@ -290,21 +323,7 @@ void PL_update(){
                 curr->speed[X] = 0;
                 return;
             }
-            calc_center_block();
-            switch(blk_evaluate(center_ind)){
-                case SPECIAL_BLOCK:
-                    switch(SP_TYP_MSK & env->front_blocks[center_ind]){
-                        case SP_TRANS:
-                            if(env->front_blocks[center_ind] & TRANS_DIR_MSK){
-                                PL_teleport(center_ind, env->front_blocks[center_ind]);
-                                return;
-                            }
-                            break;
-                    }
-                    break;
-                case GOODIE:
-                    gd_process(center_ind);
-            }
+            PL_checkspecials();
             if(jump_ctrl(status)) return; //TODO: DECIPHER THIS.
             if( *ctrl & CTRL_MOV ){
                 if( ( *ctrl & CTRL_LEFT ) != dir ){
