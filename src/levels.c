@@ -2,7 +2,8 @@
 
 const Board * levels[] = {
     &test_level,
-    &level1
+    &level1,
+    &level6
 };
 
-const u8 max_levels = 2; //Not dynamic. Should be calculated upon compiling.
+const u8 max_levels = 3; //Not dynamic. Should be calculated upon compiling.
