@@ -20,6 +20,7 @@ typedef struct Actor Actor;
 
 typedef struct FXData{
     Actor * following;
+    u8 info;
 }FXData;
 
 typedef struct Actor{
