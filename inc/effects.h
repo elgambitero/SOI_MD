@@ -13,5 +13,6 @@ extern const Entity FX_boot_ind;
 extern const Entity FX_shield_ind;
 extern const Entity FX_turtle;
 extern const Entity FX_transporter;
+extern const Entity FX_antibounce;
 
 #endif

@@ -171,6 +171,21 @@ const Entity FX_transporter = {
     }
 };
 
+void FX_antibounce_loop();
+const Entity FX_antibounce = {
+    FX,
+    {7, 15},
+    {12, 15},
+    NULL,
+    NULL,
+    NULL,
+    &FX_trans_loop,
+    &FX_trans_finished,
+    {.effect =
+        {
+        }
+    }
+};
 
 __attribute__((always_inline)) static inline void FX_despawn(){
     if(curr->timer){
@@ -280,6 +295,14 @@ void FX_trans_finished(){
     ACT_unfreeze(&gp_projectiles);
 }
 
+void FX_antibounce_loop(){
+    u8 index = XY_TO_IND( PX_TO_BLOCK( POS_TO_PX( curr->actorData.fxData.following->pos[X] ) ),
+     (PX_TO_BLOCK( ( POS_TO_PX(curr->actorData.fxData.following->pos[Y]) - (curr->actorData.fxData.following->character->size[Y] >> 1) ) ) ) ) ;
+    if(index != curr->actorData.fxData.info){
+        env->front_blocks[curr->actorData.fxData.info] |= FLOP_ACT_ON;
+        result = ACT_DELETION;
+    }
+}
 
 /*
 void FX_update(){
