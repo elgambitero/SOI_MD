@@ -43,5 +43,6 @@ void create_block_ind(Board * board, u16 block, u8 ind);
 void break_block(Board * board, u8 x, u8 y);
 void break_block_ind(Board * board, u8 ind);
 u16 seek_block(Board * board, u16 block);
+u16 seek_block_front(Board * board, u16 block, u8 from);
 
 #endif
