@@ -196,11 +196,11 @@ u16 seek_block(Board * board, u16 block){
     return BOARD_NOTFOUND;;
 }
 
-u16 seek_block_front(Board * board, u16 block, u8 from){
-    for(u8 i = from; i<BOARD_BUFFER; i++){
-        if(board->front_blocks[i] == block){
+u16 seek_block_front_msk(Board * board, u16 block, u8 from, u16 msk){
+    for(u8 i = from; i<BOARD_BUFFER; i++ ){
+        if((board->front_blocks[i] & msk) == (block & msk)){
             return i;
         }
     }
     return BOARD_NOTFOUND;
-})
+}
