@@ -204,7 +204,7 @@ static inline void PL_teleport(u8 from_ind, u16 block){
     fx.frames = 0;
     fx.pos[X] = POS_TO_PX(curr->pos[X]);
     fx.pos[Y] = POS_TO_PX(curr->pos[Y]);
-    fx.speed[X] = 0; //FIX ME
+    fx.speed[X] = 0;
     fx.speed[Y] = 0;
     fx.timer = MAX_TIMER - TELEPORT_TIME;
     fx.actorData.fxData.following = curr;
@@ -237,6 +237,15 @@ static inline void PL_flipflop(){
         drawBlock(IND_TO_X(index), IND_TO_Y(index), env->front_blocks[index]);
         index = seek_block_front_msk(env, gate, index + 1, msk);
     }
+    fx.status = 0;
+    fx.character = &FX_antibounce;
+    fx.pos[X] = 0;
+    fx.pos[Y] = 0;
+    fx.speed[X] = 0;
+    fx.speed[Y] = 0;
+    fx.actorData.fxData.following = curr;
+    fx.actorData.fxData.info = center_ind;
+    ACT_add(&fx, &fx_buf);
     XGM_setPCM(SFX_IND, snd_switch, sizeof(snd_switch));
     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
 }

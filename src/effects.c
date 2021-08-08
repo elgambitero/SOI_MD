@@ -179,8 +179,8 @@ const Entity FX_antibounce = {
     NULL,
     NULL,
     NULL,
-    &FX_trans_loop,
-    &FX_trans_finished,
+    &FX_antibounce_loop,
+    NULL,
     {.effect =
         {
         }
