@@ -229,17 +229,16 @@ static inline void PL_flipflop(){
     env->front_blocks[center_ind] ^= FLOP_TOG_ON; //Toggle the switch
     drawBlock(IND_TO_X(center_ind), IND_TO_Y(center_ind), env->front_blocks[center_ind]);
     u16 gate = (SPECIAL_BLOCK | SP_GATE |
-        ((env->front_blocks[center_ind] & SP_COL_MSK)));
+        (env->front_blocks[center_ind] & SP_COL_MSK));
     u16 msk = (BLK_TYPE | SP_TYP_MSK | SP_COL_MSK);
     u8 index = seek_block_front_msk(env, gate, 0, msk);
     while(index != BOARD_NOTFOUND){
         env->front_blocks[index] ^= GATE_MSK; //Toggle gate.
         drawBlock(IND_TO_X(index), IND_TO_Y(index), env->front_blocks[index]);
-        index = seek_block_front_msk(env, gate, index + 1, gate);
+        index = seek_block_front_msk(env, gate, index + 1, msk);
     }
     XGM_setPCM(SFX_IND, snd_switch, sizeof(snd_switch));
     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
-
 }
 
 __attribute__((always_inline)) static inline void PL_checkspecials(){
