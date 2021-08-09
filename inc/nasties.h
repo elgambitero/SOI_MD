@@ -9,6 +9,10 @@
 #define GL_IDLE_FRAMES 16 * 4 * 3 //2 cycles
 #define GL_ATTK_FRAMES 41 * 4
 
+#define KN_BIRTH_FRAMES 16 * 4
+#define KN_IDLE_FRAMES 16 * 4 * 3 //2 cycles
+#define KN_ATTK_FRAMES 48 * 4
+
 extern const Entity NST_spinner;
 extern const Entity NST_robo;
 extern const Entity NST_ant;

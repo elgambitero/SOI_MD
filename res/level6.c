@@ -42,6 +42,16 @@ static const Actor gargoyle = {&BS_gargoyle,
    NULL
 };
 
+static const Actor knight = {&BS_knight,
+   BS_BIRTH,
+   KN_BIRTH_FRAMES,
+   {280, 112},
+   {0, 0},
+   0,
+   0,
+   &gargoyle
+};
+
 const Board level6 = {
     {
      RDK,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, CHI,   0,   0,   0,
@@ -75,9 +85,9 @@ const Board level6 = {
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
     },
     {PAL_R, PAL_GR, PAL_BL},
-    0,
+    MUS_HEAVY1,
     0,
     5000,
-    &gargoyle,
+    &knight,
     &glp
 };

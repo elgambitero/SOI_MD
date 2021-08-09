@@ -2,6 +2,8 @@
 
 #define LEVELS_H
 
+#define MUS_HEAVY1 0
+#define MUS_HEAVY3 2
 
 const Board test_level;
 const Board level1;
