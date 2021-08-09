@@ -557,7 +557,23 @@ void NST_teeth_loop(){
 }
 
 void BS_gargoyle_loop(){
-
+    switch(status & ANIM_MSK){
+        case BS_BIRTH:
+            curr->frames = GL_IDLE_FRAMES;
+            newstatus = BS_IDLE;
+            break;
+        case BS_IDLE:
+            curr->frames = GL_ATTK_FRAMES;
+            newstatus = BS_ATTK;
+            break;
+        case BS_ATTK:
+            curr->frames = GL_IDLE_FRAMES;
+            newstatus = BS_IDLE;
+            //Decide and fire projectile.
+            XGM_setPCM(SFX_IND, snd_gargoyle_fire, sizeof(snd_gargoyle_fire));
+            XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+            break;
+    }
 }
 
 void BS_knight_loop(){

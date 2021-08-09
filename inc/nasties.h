@@ -5,6 +5,10 @@
 #define BS_IDLE  1
 #define BS_ATTK  2
 
+#define GL_BIRTH_FRAMES 16
+#define GL_IDLE_FRAMES 16 * 4 //Four cycles
+#define GL_ATTK_FRAMES 41
+
 extern const Entity NST_spinner;
 extern const Entity NST_robo;
 extern const Entity NST_ant;
