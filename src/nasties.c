@@ -228,6 +228,9 @@ __attribute__((always_inline)) static inline void NST_keep_dying(){
     curr->speed[Y] += GRAVITY;
 }
 
+__attribute__((always_inline)) static inline s16 ABS(s16 x){
+    return x > 0 ? x : -x;
+}
 /* OLD nastie_loop()
 void NST_update(){
     if(curr->timer){
@@ -572,13 +575,22 @@ void BS_gargoyle_loop(){
         case BS_ATTK:
             curr->frames = GL_IDLE_FRAMES;
             newstatus = BS_IDLE;
-            //Decide and fire projectile.
+            //Decide which player to shoot
+            Actor * target = blue_player;
+            //fire projectile.
+            //fx.speed[X] = PX_TO_POS(-2);
+            //fx.speed[Y] = PX_TO_POS(2); //Provisional
+            s16 delta[2];
+            delta[X] = target->pos[X] - curr->pos[X];
+            delta[Y] = target->pos[Y] - (curr->pos[Y] - PX_TO_POS(GL_FIRE_HEIGHT) );
+            //Approximating with norm 1:
+            u16 norm = (ABS(delta[X]) + ABS(delta[Y]))/2;
+            fx.speed[X] = (delta[X] * GL_PROJ_SPEED) / norm;
+            fx.speed[Y] = (delta[Y] * GL_PROJ_SPEED) / norm;
             fx.status = 0;
             fx.character = &PR_simple;
             fx.pos[X] = POS_TO_PX(curr->pos[X]);
-            fx.pos[Y] = POS_TO_PX(curr->pos[Y]) - curr->character->size[Y] + 8;
-            fx.speed[X] = PX_TO_POS(-2);
-            fx.speed[Y] = PX_TO_POS(2); //Provisional
+            fx.pos[Y] = POS_TO_PX(curr->pos[Y]) - GL_FIRE_HEIGHT;
             ACT_add(&fx, &projectiles);
 
             XGM_setPCM(SFX_IND, snd_gargoyle_fire, sizeof(snd_gargoyle_fire));
