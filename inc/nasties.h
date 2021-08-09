@@ -10,7 +10,7 @@
 #define GL_ATTK_FRAMES 41 * 4
 
 #define GL_FIRE_HEIGHT 36
-#define GL_PROJ_SPEED (2 << (DECIMALS-1))
+#define GL_PROJ_SPEED (4 << (DECIMALS-1))
 
 #define KN_BIRTH_FRAMES 16 * 4
 #define KN_IDLE_FRAMES 16 * 4 * 3 //2 cycles
