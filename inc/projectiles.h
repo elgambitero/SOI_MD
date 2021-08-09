@@ -3,5 +3,6 @@
 
 extern const Entity PR_arrow;
 extern const Entity PR_cannonball;
+extern const Entity PR_simple;
 
 #endif

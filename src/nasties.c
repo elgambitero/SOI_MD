@@ -573,6 +573,14 @@ void BS_gargoyle_loop(){
             curr->frames = GL_IDLE_FRAMES;
             newstatus = BS_IDLE;
             //Decide and fire projectile.
+            fx.status = 0;
+            fx.character = &PR_simple;
+            fx.pos[X] = POS_TO_PX(curr->pos[X]);
+            fx.pos[Y] = POS_TO_PX(curr->pos[Y]) - curr->character->size[Y] + 8;
+            fx.speed[X] = PX_TO_POS(-2);
+            fx.speed[Y] = PX_TO_POS(2); //Provisional
+            ACT_add(&fx, &projectiles);
+
             XGM_setPCM(SFX_IND, snd_gargoyle_fire, sizeof(snd_gargoyle_fire));
             XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
             break;

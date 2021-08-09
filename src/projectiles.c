@@ -90,7 +90,7 @@ __attribute__((always_inline)) static inline u8 calc_PR_top(){
 }
 
 __attribute__((always_inline)) static inline u8 crashing(u8 ind){
-    if( front >= BOARD_X_PX || top >= BOARD_Y_PX)
+    if( front >= BOARD_X_PX || top >= BOARD_Y_PX  || curr->pos[Y] >= BOARD_Y_PX)
         return FRAME;
     if(SOLID & env->front_blocks[ind])
         return BLOCK;
@@ -106,10 +106,12 @@ void PR_simp_loop(){
             crashed = 1;
             break;
         case BLOCK:
-            crashed = 1;
-            if(breakable(front_floor_ind)){
-                break_block_ind(env, front_floor_ind);
-                brk_debris(front_floor_ind, curr->speed[X], curr->speed[Y]);
+            if(env->front_blocks[front_floor_ind] != CHI){
+                crashed = 1;
+                if(breakable(front_floor_ind)){
+                    break_block_ind(env, front_floor_ind);
+                    brk_debris(front_floor_ind, curr->speed[X], curr->speed[Y]);
+                }
             }
             break;
     }
@@ -119,10 +121,12 @@ void PR_simp_loop(){
             crashed = 1;
             break;
         case BLOCK:
-            crashed = 1;
-            if(breakable(front_top_ind)){
-                break_block_ind(env, front_top_ind);
-                brk_debris(front_top_ind, curr->speed[X], curr->speed[Y]);
+            if(env->front_blocks[front_top_ind] != CHI){
+                crashed = 1;
+                if(breakable(front_top_ind)){
+                    break_block_ind(env, front_top_ind);
+                    brk_debris(front_top_ind, curr->speed[X], curr->speed[Y]);
+                }
             }
             break;
     }
@@ -134,10 +138,12 @@ void PR_simp_loop(){
                 crashed = 1;
                 break;
             case BLOCK:
-                crashed = 1;
-                if(breakable(back_floor_ind)){
-                    break_block_ind(env, back_floor_ind);
-                    brk_debris(back_floor_ind, curr->speed[X], curr->speed[Y]);
+                if(env->front_blocks[back_floor_ind] != CHI){
+                    crashed = 1;
+                    if(breakable(back_floor_ind)){
+                        break_block_ind(env, back_floor_ind);
+                        brk_debris(back_floor_ind, curr->speed[X], curr->speed[Y]);
+                    }
                 }
                 break;
         }
@@ -148,10 +154,12 @@ void PR_simp_loop(){
                 crashed = 1;
                 break;
             case BLOCK:
-                crashed = 1;
-                if(breakable(back_top_ind)){
-                    break_block_ind(env, back_top_ind);
-                    brk_debris(back_top_ind, curr->speed[X], curr->speed[Y]);
+                if(env->front_blocks[back_top_ind] != CHI){
+                    crashed = 1;
+                    if(breakable(back_top_ind)){
+                        break_block_ind(env, back_top_ind);
+                        brk_debris(back_top_ind, curr->speed[X], curr->speed[Y]);
+                    }
                 }
                 break;
         }
