@@ -106,9 +106,45 @@ const Entity NST_teeth = {
     }
 };
 
+void BS_gargoyle_loop();
+const Entity NST_gargoyle = {
+    NASTIE,
+    {24, 48},
+    {24, 48},
+    PAL_SYS0,
+    &gargoyle_spr,
+    NULL,
+    &BS_gargoyle_loop,
+    NULL,
+    {.nastie =
+        {
+            NULL,
+            NULL,
+            NULL,
+            NULL,
+        }
+    }
+};
 
-
-
+void BS_knight_loop();
+const Entity NST_knight = {
+    NASTIE,
+    {12, 40},
+    {12, 40},
+    PAL_SYS0,
+    &knight_spr,
+    NULL,
+    &BS_knight_loop,
+    NULL,
+    {.nastie =
+        {
+            NULL,
+            NULL,
+            NULL,
+            NULL,
+        }
+    }
+};
 
 __attribute__((always_inline)) static inline void NST_still_fall(){
     newstatus = FALL_RIGHT;
@@ -518,4 +554,12 @@ void NST_teeth_loop(){
             NST_keep_dying();
         break;
     }
+}
+
+void BS_gargoyle_loop(){
+
+}
+
+void BS_knight_loop(){
+
 }
