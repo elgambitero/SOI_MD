@@ -30,7 +30,7 @@ SPRITE cannonball_spr "sprites/cannonball/cannonball.bmp" 1 1 AUTO 2
 
 SPRITE gargoyle_spr "sprites/gargoyle/gargoyle.bmp" 6 6 AUTO 4
 SPRITE simple_spr   "sprites/gargoyle/simple.bmp"   2 2 AUTO 2
-SPRITE destructor_spr "sprites/gargoyle/destructor.bmp" 2 2 AUTO 2
+SPRITE ultrabuster_spr "sprites/gargoyle/destructor.bmp" 2 2 AUTO 2
 SPRITE spawner_spr    "sprites/gargoyle/spawner.bmp" 2 2 AUTO 2
 
 SPRITE knight_spr   "sprites/knight/knight.bmp" 4 5 AUTO 4
