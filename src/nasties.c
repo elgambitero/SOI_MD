@@ -576,10 +576,12 @@ void BS_gargoyle_loop(){
             curr->frames = GL_IDLE_FRAMES;
             newstatus = BS_IDLE;
             //Decide which player to shoot
-            Actor * target = blue_player;
-            //fire projectile.
-            //fx.speed[X] = PX_TO_POS(-2);
-            //fx.speed[Y] = PX_TO_POS(2); //Provisional
+            Actor * target;
+            if(green_player){
+                target = (RNG_get() & 0x01) ? blue_player : green_player;
+            }else{
+                target = blue_player;
+            }
             s16 delta[2];
             delta[X] = target->pos[X] - curr->pos[X];
             delta[Y] = target->pos[Y] - (curr->pos[Y] - PX_TO_POS(GL_FIRE_HEIGHT) );
