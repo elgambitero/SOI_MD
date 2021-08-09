@@ -116,6 +116,7 @@ void PR_simp_loop(){
             }
             break;
     }
+    calc_PR_top();
     u8 front_top_ind = calc_front_block_top();
     switch(crashing(front_top_ind)){
         case FRAME:
@@ -133,7 +134,6 @@ void PR_simp_loop(){
     }
     if(curr->speed[Y] > 0){
         calc_back_floor();
-        calc_front_floor();
         switch(crashing(back_floor_ind)){
             case FRAME:
                 crashed = 1;
