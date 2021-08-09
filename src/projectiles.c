@@ -101,7 +101,7 @@ __attribute__((always_inline)) static inline u8 calc_back_block_top(){
     return XY_TO_IND( (PX_TO_BLOCK( back )),  (PX_TO_BLOCK( top )) );
 }
 
-__attribute__((always_inline)) static inline u8 calc_PR_top(){
+__attribute__((always_inline)) static inline void calc_PR_top(){
     top = POS_TO_PX(curr->pos[Y])  - curr->character->size[Y];
 }
 
