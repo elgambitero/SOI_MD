@@ -56,7 +56,7 @@ const Entity PR_ultrabuster = {
     PROJECTILE,
     {5, 10},
     {7, 15},
-    PAL_SYS1,
+    PAL_SYS0,
     &ultrabuster_spr,
     NULL,
     &PR_ub_loop,

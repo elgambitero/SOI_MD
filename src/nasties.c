@@ -633,7 +633,11 @@ void BS_gargoyle_loop(){
                     fx.character = &PR_simple;
                     break;
                 case 1:
-                    fx.character = &PR_simple;
+                    if(RNG_get() > 128 ){
+                        fx.character = &PR_ultrabuster;
+                    }else{
+                        fx.character = &PR_simple;
+                    }
                     break;
                 case 2:
                     fx.character = &PR_simple;
