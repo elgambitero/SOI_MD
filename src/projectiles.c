@@ -90,7 +90,7 @@ __attribute__((always_inline)) static inline u8 calc_PR_top(){
 }
 
 __attribute__((always_inline)) static inline u8 crashing(u8 ind){
-    if( front >= BOARD_X_PX || top >= BOARD_Y_PX  || curr->pos[Y] >= BOARD_Y_PX)
+    if( front >= BOARD_X_PX || top >= BOARD_Y_PX  || POS_TO_PX(curr->pos[Y]) >= BOARD_Y_PX)
         return FRAME;
     if(SOLID & env->front_blocks[ind])
         return BLOCK;
@@ -107,6 +107,7 @@ void PR_simp_loop(){
             break;
         case BLOCK:
             if(env->front_blocks[front_floor_ind] != CHI){
+                //Checking for chisels everywhere is pathetic.
                 crashed = 1;
                 if(breakable(front_floor_ind)){
                     break_block_ind(env, front_floor_ind);
