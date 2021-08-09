@@ -234,6 +234,7 @@ static inline void PL_flipflop(){
     u8 index = seek_block_front_msk(env, gate, 0, msk);
     while(index != BOARD_NOTFOUND){
         env->front_blocks[index] ^= GATE_MSK; //Toggle gate.
+        env->front_blocks[index] ^= SOLID; //Toggle solid flag.
         drawBlock(IND_TO_X(index), IND_TO_Y(index), env->front_blocks[index]);
         index = seek_block_front_msk(env, gate, index + 1, msk);
     }
