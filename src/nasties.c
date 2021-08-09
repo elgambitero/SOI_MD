@@ -557,12 +557,16 @@ void NST_teeth_loop(){
 }
 
 void BS_gargoyle_loop(){
+    if(curr->frames--) {
+        return;
+    }
     switch(status & ANIM_MSK){
         case BS_BIRTH:
-            curr->frames = GL_IDLE_FRAMES;
-            newstatus = BS_IDLE;
+            curr->frames = GL_ATTK_FRAMES;
+            newstatus = BS_ATTK;
             break;
         case BS_IDLE:
+            SYS_die(err);
             curr->frames = GL_ATTK_FRAMES;
             newstatus = BS_ATTK;
             break;
