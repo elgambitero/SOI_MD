@@ -2,7 +2,7 @@
 
 #define RANDOM_H
 
-void RND_seed(u8 seed);
-u8 RND_get();
+void RNG_seed(u16 seed);
+u8 RNG_get();
 
 #endif

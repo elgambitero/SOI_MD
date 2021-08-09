@@ -23,6 +23,8 @@ extern const Entity NST_piggy;
 extern const Entity NST_teeth;
 
 extern const Entity BS_gargoyle;
+extern const Entity BS_gargoyle1;
+extern const Entity BS_gargoyle2;
 extern const Entity BS_knight;
 
 #endif

@@ -121,7 +121,45 @@ const Entity BS_gargoyle = {
             NULL,
             NULL,
             NULL,
+            0,
+        }
+    }
+};
+
+const Entity BS_gargoyle1 = {
+    NASTIE,
+    {24, 48},
+    {24, 48},
+    PAL_SYS0,
+    &gargoyle_spr,
+    NULL,
+    &BS_gargoyle_loop,
+    NULL,
+    {.nastie =
+        {
             NULL,
+            NULL,
+            NULL,
+            1,
+        }
+    }
+};
+
+const Entity BS_gargoyle2 = {
+    NASTIE,
+    {24, 48},
+    {24, 48},
+    PAL_SYS0,
+    &gargoyle_spr,
+    NULL,
+    &BS_gargoyle_loop,
+    NULL,
+    {.nastie =
+        {
+            NULL,
+            NULL,
+            NULL,
+            2,
         }
     }
 };
@@ -590,7 +628,20 @@ void BS_gargoyle_loop(){
             fx.speed[X] = (delta[X] * GL_PROJ_SPEED) / norm;
             fx.speed[Y] = (delta[Y] * GL_PROJ_SPEED) / norm;
             fx.status = 0;
-            fx.character = &PR_simple;
+            switch(curr->character->role.nastie.speed){ //Incredibly inappropriate use of bytes
+                case 0:
+                    fx.character = &PR_simple;
+                    break;
+                case 1:
+                    fx.character = &PR_simple;
+                    break;
+                case 2:
+                    fx.character = &PR_simple;
+                    break;
+                default:
+                    fx.character = &PR_simple;
+                    break;
+            }
             fx.pos[X] = POS_TO_PX(curr->pos[X]);
             fx.pos[Y] = POS_TO_PX(curr->pos[Y]) - GL_FIRE_HEIGHT;
             ACT_add(&fx, &projectiles);
