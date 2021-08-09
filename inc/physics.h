@@ -111,7 +111,7 @@ void summon_deletor(u8 front_ind, u8 deletes);
 
 //Actor boundary coordinate calculations.
 __attribute__((always_inline)) static inline void calc_top(){
-    top = POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1;
+    top = POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1; //THIS IS REALLY BAD.
 }
 __attribute__((always_inline)) static inline void calc_front(u8 direction){
     front = direction ? POS_TO_PX(curr->pos[X]) - curr->character->size[X] : POS_TO_PX(curr->pos[X]) + curr->character->size[X];

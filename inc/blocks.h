@@ -190,6 +190,8 @@
 #define CNR ( SPECIAL_BLOCK | SP_CANNON | CANNON_R | SOLID )
 #define CNL ( SPECIAL_BLOCK | SP_CANNON | CANNON_L | SOLID )
 
+#define CHI (NORMAL_BLOCK | SOLID | BLK_CHISEL)
+
 
 void drawBlock(u8 x, u8 y, u16 block);
 void eraseBlock(u8 x, u8 y);
