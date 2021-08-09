@@ -107,7 +107,7 @@ const Entity NST_teeth = {
 };
 
 void BS_gargoyle_loop();
-const Entity NST_gargoyle = {
+const Entity BS_gargoyle = {
     NASTIE,
     {24, 48},
     {24, 48},
@@ -127,7 +127,7 @@ const Entity NST_gargoyle = {
 };
 
 void BS_knight_loop();
-const Entity NST_knight = {
+const Entity BS_knight = {
     NASTIE,
     {12, 40},
     {12, 40},

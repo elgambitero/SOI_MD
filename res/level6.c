@@ -22,16 +22,25 @@ static const Actor blp = {&PL_blue,
       0
     };
 
-   static const Actor glp = {&PL_green,
-      0,
-      0,
-   {24, 208},
-   {   0,    0},
-      0,
-      0,
-      &blp
-   };
+static const Actor glp = {&PL_green,
+   0,
+   0,
+{24, 208},
+{   0,    0},
+   0,
+   0,
+   &blp
+};
 
+static const Actor gargoyle = {&BS_gargoyle,
+   BS_BIRTH,
+   GL_BIRTH_FRAMES,
+   {280, 48},
+   {0, 0},
+   0,
+   0,
+   NULL
+};
 
 const Board level6 = {
     {
@@ -69,6 +78,6 @@ const Board level6 = {
     0,
     0,
     5000,
-    NULL,
+    &gargoyle,
     &glp
 };

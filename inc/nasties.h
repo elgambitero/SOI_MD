@@ -6,7 +6,7 @@
 #define BS_ATTK  2
 
 #define GL_BIRTH_FRAMES 16
-#define GL_IDLE_FRAMES 16 * 4 //Four cycles
+#define GL_IDLE_FRAMES 16 //Four cycles
 #define GL_ATTK_FRAMES 41
 
 extern const Entity NST_spinner;
