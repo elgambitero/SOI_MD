@@ -12,6 +12,8 @@
 #define RDK (GOODIE | GDi_RDKEY)
 #define RDD (GOODIE | GDi_RDDOOR)
 
+#define OWO (GOODIE | GDi_KNGOOD)
+
 static const Actor blp = {&PL_blue,
        0,
        0,
@@ -66,7 +68,7 @@ const Board level6 = {
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, RDD,
+       0,   0,   0,   0, OWO,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, RDD,
     },
 
     {

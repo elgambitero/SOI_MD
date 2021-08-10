@@ -639,6 +639,7 @@ const Entity * const goodies_vector[] = {
     &GD_rddoor_open,
     &GD_bddoor_open,
     &GD_goldCoin,
+    &GD_goldCoin,
     &GD_1UP,
     &GD_2x,
     &GD_3x,

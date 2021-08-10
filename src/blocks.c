@@ -32,7 +32,7 @@ u16 gate_bg_cls_ind = TILE_USERINDEX;
 u16 gate_sl0_ind = TILE_USERINDEX;
 u16 gate_sl1_ind = TILE_USERINDEX;
 u16 gate_sl2_ind = TILE_USERINDEX;
-
+u16 kn_good_ind = TILE_USERINDEX;
 
 void drawBlock(u8 x, u8 y, u16 block){
     u8 map_ind = 0;
@@ -263,11 +263,18 @@ void drawBlock(u8 x, u8 y, u16 block){
                 fg_blk_map = gd_sys0.tilemap;
                 palette[FG] = PAL_SYS0;
             }else{
-                good_ind -= 16;
-                map_ind = (good_ind << 1);
-                tile_index[FG] = gd_sys1_ind;
-                fg_blk_map = gd_sys1.tilemap;
-                palette[FG] = PAL_SYS1;
+                if(good_ind == 16){
+                    map_ind = 0;
+                    tile_index[FG] = kn_good_ind;
+                    fg_blk_map = kn_good.tilemap;
+                    palette[FG] = PAL_SYS0;
+                }else{
+                    good_ind -= 16;
+                    map_ind = (good_ind << 1);
+                    tile_index[FG] = gd_sys1_ind;
+                    fg_blk_map = gd_sys1.tilemap;
+                    palette[FG] = PAL_SYS1;
+                }
             }
             VDP_setMapEx(BG_B, fg_blk_map, TILE_ATTR_FULL(palette[FG], FALSE, FALSE, FALSE, tile_index[FG]),
                 BLK_TO_TILE(x), BLK_TO_TILE(y), map_ind, 0, 2, 2);
@@ -365,4 +372,7 @@ void load_blk_tiles(u16 ind){
     VDP_loadTileSet(gate_sl2.tileset, ind, DMA);
     gate_sl2_ind = ind;
     ind += gate_sl2.tileset->numTile;
+    VDP_loadTileSet(kn_good.tileset, ind, DMA);
+    kn_good_ind = ind;
+    ind += kn_good.tileset->numTile;
 }
