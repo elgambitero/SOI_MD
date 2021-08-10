@@ -30,7 +30,7 @@ typedef struct Player{
 
 
 typedef struct Projectile{
-
+    
 }Projectile;
 
 

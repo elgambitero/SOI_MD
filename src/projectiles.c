@@ -67,6 +67,22 @@ const Entity PR_ultrabuster = {
     }
 };
 
+void PR_packet_loop();
+const Entity PR_packet = {
+    PROJECTILE,
+    {5, 10},
+    {7, 15},
+    PAL_SYS0,
+    &packet_spr,
+    NULL,
+    &PR_packet_loop,
+    NULL,
+    {.proj = 
+        {
+        }
+    }
+};
+
 void PR_arrow_loop(){
     calc_front(dir);
     calc_front_block();
@@ -252,12 +268,17 @@ void PR_ub_loop(){
     }
     if(crashed) result = ACT_DELETION;
 }
-/*
-void PR_update(){
-    if( (status & ANIM_MSK) == DEAD){
+
+void PR_packet_loop(){
+    calc_center_block();
+    if(center_ind == curr->actorData.packData.block){
+        u16 good_block = (GOODIE | ( curr->actorData.packData.good << GOOD_TYP_SHFT));
+        if(!env->front_blocks[center_ind]){
+            env->front_blocks[center_ind] = good_block;
+        }else{
+            env->back_blocks[center_ind] = good_block;
+            create_block_ind(env, QUE, center_ind);
+        }
         result = ACT_DELETION;
-        return;
     }
-    curr->character->role.proj.travel();
 }
-*/

@@ -733,16 +733,19 @@ if(curr->frames--) {
             newstatus = BS_IDLE;
             u8 target_ind;
             u8 count = 6;
+            //Choose block
             do{
                 target_ind = RNG_get();
                 count--;
             }while(count && ( (env->back_blocks[target_ind] == CHI) ||
                                 (target_ind >= BOARD_BUFFER) ||
                                 ((env->front_blocks[target_ind] & BLK_TYPE) == GOODIE)));
+            if(!count) return;
+            //Choose goodie
+            u8 good = BS_knight_good(RNG_get());
+
+            //Fire target
             
-            if(count){
-                //Fire target
-            }
             break;
     }
 }

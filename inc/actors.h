@@ -23,6 +23,11 @@ typedef struct FXData{
     u8 info;
 }FXData;
 
+typedef struct PackData{
+    u8 block;
+    u8 good;
+}PackData;
+
 typedef struct Actor{
     const Entity * character;
     u8 status;
@@ -34,6 +39,7 @@ typedef struct Actor{
     struct Actor * next;
     union ActorData{
         FXData fxData;
+        PackData packData;
     }actorData;
 }Actor;
 

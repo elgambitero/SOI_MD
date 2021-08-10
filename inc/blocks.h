@@ -191,6 +191,7 @@
 #define CNL ( SPECIAL_BLOCK | SP_CANNON | CANNON_L | SOLID )
 
 #define CHI (NORMAL_BLOCK | SOLID | BLK_CHISEL)
+#define QUE (NORMAL_BLOCK | SOLID | BLK_QUESTION)
 
 
 void drawBlock(u8 x, u8 y, u16 block);
