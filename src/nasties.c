@@ -745,7 +745,26 @@ if(curr->frames--) {
             u8 good = BS_knight_good(RNG_get());
 
             //Fire target
-            
+            fx.status = 0;
+            fx.character = &PR_packet;
+            fx.actorData.packData.block = target_ind;
+            fx.actorData.packData.good = good;
+            fx.pos[X] = POS_TO_PX(curr->pos[X]);
+            fx.pos[Y] = POS_TO_PX(curr->pos[Y]) - GL_FIRE_HEIGHT;
+
+            s16 delta[2];
+            delta[X] = BLOCK_TO_PX( IND_TO_X(target_ind) ) - POS_TO_PX(curr->pos[X]);
+            delta[Y] = BLOCK_TO_PX( IND_TO_Y(target_ind) ) - (POS_TO_PX(curr->pos[Y]) - GL_FIRE_HEIGHT );
+            //Approximating with norm 1:
+            u16 norm = (ABS(delta[X]) + ABS(delta[Y]))/2;
+            fx.speed[X] = (delta[X] * GL_PROJ_SPEED) / norm;
+            fx.speed[Y] = (delta[Y] * GL_PROJ_SPEED) / norm;
+            ACT_add(&fx, &fx_buf);
+
+            u8 err[16];
+            sprintf(err, "dlx: %d", delta[X]);
+            VDP_drawText(err, 0, 0);
+
             break;
     }
 }
