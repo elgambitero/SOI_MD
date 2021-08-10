@@ -754,7 +754,7 @@ if(curr->frames--) {
 
             s16 delta[2];
             delta[X] = (BLOCK_TO_PX( IND_TO_X(target_ind) ) + 8 ) - POS_TO_PX(curr->pos[X]);
-            delta[Y] = (BLOCK_TO_PX( IND_TO_Y(target_ind) ) + 8 + 10) - (POS_TO_PX(curr->pos[Y]) - GL_FIRE_HEIGHT );
+            delta[Y] = (BLOCK_TO_PX( IND_TO_Y(target_ind) ) + 8 + 5) - (POS_TO_PX(curr->pos[Y]) - GL_FIRE_HEIGHT );
             //Approximating with norm 1:
             u16 norm = (ABS(delta[X]) + ABS(delta[Y]))/2;
             fx.speed[X] = (delta[X] * GL_PROJ_SPEED) / norm;

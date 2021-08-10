@@ -271,11 +271,12 @@ void PR_ub_loop(){
 }
 
 void PR_packet_loop(){
+    /*
     calc_center_block();
     if(center_ind == curr->actorData.packData.block){
         result = ACT_DELETION;
     }
-    
+    */
     if(!curr->timer--){
         result = ACT_DELETION;
     }
