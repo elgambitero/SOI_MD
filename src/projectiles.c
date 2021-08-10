@@ -68,6 +68,7 @@ const Entity PR_ultrabuster = {
 };
 
 void PR_packet_loop();
+void PR_packet_land();
 const Entity PR_packet = {
     PROJECTILE,
     {5, 10},
@@ -76,7 +77,7 @@ const Entity PR_packet = {
     &packet_spr,
     NULL,
     &PR_packet_loop,
-    NULL,
+    &PR_packet_land,
     {.proj = 
         {
         }
@@ -272,14 +273,18 @@ void PR_ub_loop(){
 void PR_packet_loop(){
     calc_center_block();
     if(center_ind == curr->actorData.packData.block){
-        u16 good_block = (GOODIE | ( curr->actorData.packData.good << GOOD_TYP_SHFT));
-        if(!env->front_blocks[center_ind]){
-            env->front_blocks[center_ind] = good_block;
-            drawBlock(IND_TO_X(center_ind), IND_TO_Y(center_ind), KNI);
-        }else{
-            env->back_blocks[center_ind] = good_block;
-            create_block_ind(env, QUE, center_ind);
-        }
         result = ACT_DELETION;
+    }
+}
+
+void PR_packet_land(){
+    u8 block_ind = curr->actorData.packData.block;
+    u16 good_block = (GOODIE | ( curr->actorData.packData.good << GOOD_TYP_SHFT));
+    if(!env->front_blocks[block_ind]){
+        env->front_blocks[block_ind] = good_block;
+        drawBlock(IND_TO_X(block_ind), IND_TO_Y(block_ind), KNI);
+    }else{
+        env->back_blocks[block_ind] = good_block;
+        create_block_ind(env, QUE, block_ind);
     }
 }
