@@ -275,6 +275,11 @@ void PR_packet_loop(){
     if(center_ind == curr->actorData.packData.block){
         result = ACT_DELETION;
     }
+    
+    if(!curr->timer--){
+        result = ACT_DELETION;
+    }
+    
 }
 
 void PR_packet_land(){
