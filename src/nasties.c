@@ -656,6 +656,65 @@ void BS_gargoyle_loop(){
     }
 }
 
+#define GOLDC_LIMIT (KN_PROB_GDi_SILVC + KN_PROB_GDi_GOLDC)
+#define GOLD_LIMIT (GOLDC_LIMIT + KN_PROB_GDi_GOLD)
+#define GEM_LIMIT (GOLD_LIMIT + KN_PROB_GDi_GEM)
+#define CLK3h_LIMIT (GEM_LIMIT + KN_PROB_GDi_CLK3h)
+#define CLK6h_LIMIT (CLK3h_LIMIT + KN_PROB_GDi_CLK6h)
+#define CLK9h_LIMIT (CLK6h_LIMIT + KN_PROB_GDi_CLK9h)
+#define CLK12h_LIMIT (CLK9h_LIMIT + KN_PROB_GDi_CLK12h)
+#define SHLD_LIMIT (CLK12h_LIMIT + KN_PROB_GDi_SHLD)
+#define BOOT_LIMIT (SHLD_LIMIT + KN_PROB_GDi_BOOT)
+#define UP1_LIMIT (BOOT_LIMIT + KN_PROB_GDi_1UP)
+#define M2X_LIMIT (UP1_LIMIT + KN_PROB_GDi_2x)
+#define M3X_LIMIT (M2X_LIMIT + KN_PROB_GDi_3x)
+#define M4X_LIMIT (M3X_LIMIT + KN_PROB_GDi_4x)
+#define M5X_LIMIT (M4X_LIMIT + KN_PROB_GDi_5x)
+#define BALL_LIMIT (M5X_LIMIT + KN_PROB_GDi_BALL)
+#define ARROW_LIMIT (BALL_LIMIT + KN_PROB_GDi_ARROW)
+
+u8 BS_knight_good(u8 dice){
+    //WARNING: NON-STANDARD RANGE SWITCH:
+    switch(dice){
+        case 0 ... KN_PROB_GDi_SILVC-1:
+            return (GDi_SILVC >> GOOD_TYP_SHFT);
+        case KN_PROB_GDi_SILVC ... GOLDC_LIMIT - 1:
+            return (GDi_GOLDC >> GOOD_TYP_SHFT);
+        case GOLDC_LIMIT ... GOLD_LIMIT - 1:
+            return (GDi_GOLD >> GOOD_TYP_SHFT);
+        case GOLD_LIMIT ... GEM_LIMIT - 1:
+            return (GDi_GEM >> GOOD_TYP_SHFT);
+        case GEM_LIMIT ... CLK3h_LIMIT - 1:
+            return (GDi_CLK3h >> GOOD_TYP_SHFT);
+        case CLK3h_LIMIT ... CLK6h_LIMIT - 1:
+            return (GDi_CLK6h >> GOOD_TYP_SHFT);
+        case CLK6h_LIMIT ... CLK9h_LIMIT - 1:
+            return (GDi_CLK9h >> GOOD_TYP_SHFT);
+        case CLK9h_LIMIT ... CLK12h_LIMIT - 1:
+            return (GDi_CLK12h >> GOOD_TYP_SHFT);
+        case CLK12h_LIMIT ... SHLD_LIMIT - 1:
+            return (GDi_SHLD >> GOOD_TYP_SHFT);
+        case SHLD_LIMIT ... BOOT_LIMIT - 1:
+            return (GDi_BOOT >> GOOD_TYP_SHFT);
+        case BOOT_LIMIT ... UP1_LIMIT - 1:
+            return (GDi_1UP >> GOOD_TYP_SHFT);
+        case UP1_LIMIT ... M2X_LIMIT - 1:
+            return (GDi_2x >> GOOD_TYP_SHFT);
+        case M2X_LIMIT ... M3X_LIMIT - 1:
+            return (GDi_3x >> GOOD_TYP_SHFT);
+        case M3X_LIMIT ... M4X_LIMIT - 1:
+            return (GDi_4x >> GOOD_TYP_SHFT);
+        case M4X_LIMIT ... M5X_LIMIT - 1:
+            return (GDi_5x >> GOOD_TYP_SHFT);
+        case M5X_LIMIT ... BALL_LIMIT - 1:
+            return (GDi_BALL >> GOOD_TYP_SHFT);
+        case BALL_LIMIT ... ARROW_LIMIT - 1:
+            return (GDi_ARROW >> GOOD_TYP_SHFT);
+        default:
+            return (GDi_SILVC >> GOOD_TYP_SHFT);
+    }
+}
+
 void BS_knight_loop(){
 if(curr->frames--) {
         return;
@@ -680,6 +739,7 @@ if(curr->frames--) {
             }while(count && ( (env->back_blocks[target_ind] == CHI) ||
                                 (target_ind >= BOARD_BUFFER) ||
                                 ((env->front_blocks[target_ind] & BLK_TYPE) == GOODIE)));
+            
             if(count){
                 //Fire target
             }

@@ -16,6 +16,25 @@
 #define KN_IDLE_FRAMES 16 * 4 * 3 //2 cycles
 #define KN_ATTK_FRAMES 48 * 4
 
+//THESE NEED TO SUM 256!
+#define KN_PROB_GDi_SILVC       72
+#define KN_PROB_GDi_GOLDC       30
+#define KN_PROB_GDi_GOLD        28
+#define KN_PROB_GDi_GEM         24
+#define KN_PROB_GDi_CLK6h       8
+#define KN_PROB_GDi_CLK3h       8
+#define KN_PROB_GDi_CLK9h       8
+#define KN_PROB_GDi_CLK12h      8
+#define KN_PROB_GDi_SHLD        8
+#define KN_PROB_GDi_BOOT        8
+#define KN_PROB_GDi_1UP         8
+#define KN_PROB_GDi_2x          8
+#define KN_PROB_GDi_3x          8
+#define KN_PROB_GDi_4x          8
+#define KN_PROB_GDi_5x          8
+#define KN_PROB_GDi_BALL        8
+#define KN_PROB_GDi_ARROW       8
+
 extern const Entity NST_spinner;
 extern const Entity NST_robo;
 extern const Entity NST_ant;
