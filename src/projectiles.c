@@ -275,6 +275,7 @@ void PR_packet_loop(){
         u16 good_block = (GOODIE | ( curr->actorData.packData.good << GOOD_TYP_SHFT));
         if(!env->front_blocks[center_ind]){
             env->front_blocks[center_ind] = good_block;
+            drawBlock(IND_TO_X(center_ind), IND_TO_Y(center_ind), KNI);
         }else{
             env->back_blocks[center_ind] = good_block;
             create_block_ind(env, QUE, center_ind);
