@@ -27,7 +27,7 @@
 #define KN_PROB_GDi_CLK12h      8
 #define KN_PROB_GDi_SHLD        8
 #define KN_PROB_GDi_BOOT        8
-#define KN_PROB_GDi_1UP         8
+#define KN_PROB_GDi_1UP         4
 #define KN_PROB_GDi_2x          8
 #define KN_PROB_GDi_3x          8
 #define KN_PROB_GDi_4x          8
