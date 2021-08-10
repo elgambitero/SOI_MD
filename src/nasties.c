@@ -672,7 +672,17 @@ if(curr->frames--) {
         case BS_ATTK:
             curr->frames = KN_IDLE_FRAMES;
             newstatus = BS_IDLE;
-            //Decide and fire gift.
+            u8 target_ind;
+            u8 count = 6;
+            do{
+                target_ind = RNG_get();
+                count--;
+            }while(count && ( (env->back_blocks[target_ind] == CHI) ||
+                                (target_ind >= BOARD_BUFFER) ||
+                                ((env->front_blocks[target_ind] & BLK_TYPE) == GOODIE)));
+            if(count){
+                //Fire target
+            }
             break;
     }
 }
