@@ -7,6 +7,7 @@
 
 typedef struct PlayerStat{
     u32 score;
+    u16 bonus;
     u8 arrows;
     u8 balls;
     u8 lives;

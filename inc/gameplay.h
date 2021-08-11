@@ -24,6 +24,7 @@
 #define X 0
 #define Y 1
 
+u8 GAM_gameType;
 
 const Board * current_level;
 Actor * blue_player;

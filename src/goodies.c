@@ -57,6 +57,7 @@ const Entity GD_arrow = {
     }
 };
 
+void GD_clk3h_pickup();
 const Entity GD_clk3h = {
     GOODY,
     {7, 15},
@@ -72,11 +73,12 @@ const Entity GD_clk3h = {
             snd_clock,
             sizeof(snd_clock),
             &GD_obtain,
-            NULL
+            &GD_clk3h_pickup
         }
     }
 };
 
+void GD_clk6h_pickup();
 const Entity GD_clk6h = {
     GOODY,
     {7, 15},
@@ -92,11 +94,12 @@ const Entity GD_clk6h = {
             snd_clock,
             sizeof(snd_clock),
             &GD_obtain,
-            NULL
+            &GD_clk6h_pickup
         }
     }
 };
 
+void GD_clk9h_pickup();
 const Entity GD_clk9h = {
     GOODY,
     {7, 15},
@@ -112,11 +115,12 @@ const Entity GD_clk9h = {
             snd_clock,
             sizeof(snd_clock),
             &GD_obtain,
-            NULL
+            &GD_clk9h_pickup
         }
     }
 };
 
+void GD_clk12h_pickup();
 const Entity GD_clk12h = {
     GOODY,
     {7, 15},
@@ -132,7 +136,7 @@ const Entity GD_clk12h = {
             snd_clock,
             sizeof(snd_clock),
             &GD_obtain,
-            NULL
+            &GD_clk12h_pickup
         }
     }
 };
@@ -783,4 +787,40 @@ void GD_update(){
         result = ACT_DELETION;
     }
     curr->speed[Y] += GRAVITY;
+}
+
+void GD_clk3h_pickup(){
+    if(GAM_gameType == COOPERATE){
+        bl_stat->bonus += 1000;
+        gr_stat->bonus += 1000;
+    }else{
+        //only current player
+    }
+}
+
+void GD_clk6h_pickup(){
+    if(GAM_gameType == COOPERATE){
+        bl_stat->bonus += 2000;
+        gr_stat->bonus += 2000;
+    }else{
+        //only current player
+    }
+}
+
+void GD_clk9h_pickup(){
+    if(GAM_gameType == COOPERATE){
+        bl_stat->bonus += 3000;
+        gr_stat->bonus += 3000;
+    }else{
+        //only current player
+    }
+}
+
+void GD_clk12h_pickup(){
+    if(GAM_gameType == COOPERATE){
+        bl_stat->bonus += 4000;
+        gr_stat->bonus += 4000;
+    }else{
+        //only current player
+    }
 }

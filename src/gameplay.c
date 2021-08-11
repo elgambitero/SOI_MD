@@ -9,10 +9,11 @@ u8 colors[4];
 u16 ind;
 u16 frmInd;
 
+u16 bonusCount;
+
 u16 levelInd;
 
-u8 gameType;
-u16 bonusCount;
+u8 bonusText[N_BONUS + 1];
 
 char strBuf[8];
 
@@ -39,6 +40,17 @@ void gameplayLoop(){
             SYS_enableInts();
         break;
         case GAME:
+            //ONLY FOR COOPERATE
+            bonusCount = (bl_stats.bonus + gr_stats.bonus)/2;
+            if(bonusCount){
+                bl_stats.bonus--;
+                gr_stats.bonus--;
+                sprintf(bonusText, "%05d", bonusCount);
+                VDP_drawText(bonusText, X_BONUS, 0);
+            }else{
+                if(blue_player && blue_player->status != DEAD) kill(blue_player, 0, PL_JMP_BOOST);
+                if(green_player && green_player->status != DEAD) kill(green_player, 0, PL_JMP_BOOST);
+            }
             PHY_send_inputs(bl_ctrl, gr_ctrl);
             PHY_update();
             SPR_update();
@@ -97,7 +109,7 @@ void gameplayLoop(){
 }
 
 void GAM_gameInit(){
-    levelInd = 2;
+    levelInd = 0;
 }
 
 void GAM_levelInit(){
@@ -150,7 +162,9 @@ void GAM_levelInit(){
     load_board_palettes(&board);
     draw_board(&board);
     play_board_music(&board);
-    bonusCount = board.bonus;
+
+    bl_stats.bonus = board.bonus;
+    gr_stats.bonus = board.bonus;
 
     VDP_drawText("Score", 0, 0);
     //VDP_drawText("00000000", X_SCORE, 0);
@@ -204,5 +218,5 @@ void VDP_drawNumber(u16 number, u8 chars, u8 xpos, u8 ypos){
 }
 
 void GAM_setGametype(u8 game_type){
-    gameType = game_type;
+    GAM_gameType = game_type;
 }
