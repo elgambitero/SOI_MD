@@ -763,10 +763,6 @@ if(curr->frames--) {
             fx.timer = PX_TO_POS(norm) / sp_norm;
             ACT_add(&fx, &fx_buf);
 
-            u8 err[16];
-            sprintf(err, "dlx: %d", delta[X]);
-            VDP_drawText(err, 0, 0);
-
             break;
     }
 }

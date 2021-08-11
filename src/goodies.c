@@ -696,7 +696,7 @@ void GD_obtain(){
     fx.speed[Y] = -BRK_SPEED;
     Actor * result = ACT_add(&fx, &fx_buf);
     if(result){
-        if(gd_index >= GD_GET_INDEX( GDi_GOLDC ) ) gd_index -= GD_GET_INDEX( GDi_GOLDC );
+        if(gd_index >= GD_GET_INDEX( GDi_KNGOOD ) ) gd_index -= (GD_GET_INDEX( GDi_KNGOOD ) + 1);
         SPR_setFrame(result->sprite, gd_index);
     }
     set_block(env, 0, center_ind);

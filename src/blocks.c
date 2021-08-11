@@ -257,19 +257,19 @@ void drawBlock(u8 x, u8 y, u16 block){
         case GOODIE:
             //goodie index should translate into tile index, SYS0 and SYS1 goodies should be consecutive.
             good_ind = GD_GET_INDEX( block );
-            if(good_ind < 16){
+            if(good_ind < GD_GET_INDEX( GDi_KNGOOD )){
                 map_ind = (good_ind << 1);
                 tile_index[FG] = gd_sys0_ind;
                 fg_blk_map = gd_sys0.tilemap;
                 palette[FG] = PAL_SYS0;
             }else{
-                if(good_ind == 16){
+                if(good_ind == GD_GET_INDEX( GDi_KNGOOD )){
                     map_ind = 0;
                     tile_index[FG] = kn_good_ind;
                     fg_blk_map = kn_good.tilemap;
                     palette[FG] = PAL_SYS0;
                 }else{
-                    good_ind -= 16;
+                    good_ind -= (GD_GET_INDEX( GDi_KNGOOD ) + 1);
                     map_ind = (good_ind << 1);
                     tile_index[FG] = gd_sys1_ind;
                     fg_blk_map = gd_sys1.tilemap;

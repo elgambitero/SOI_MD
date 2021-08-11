@@ -26,6 +26,7 @@
 #define SHI (GOODIE | GDi_SHLD)
 #define X3  (GOODIE | GDi_3x )
 #define TUR (GOODIE | GDi_TURTL)
+#define UP1 (GOODIE | GDi_1UP)
 
 
 

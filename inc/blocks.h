@@ -127,7 +127,7 @@
 #define GDi_BLDOOR             (13 << GOOD_TYP_SHFT)
 #define GDi_RDDOOR_open        (14 << GOOD_TYP_SHFT)
 #define GDi_BLDOOR_open        (15 << GOOD_TYP_SHFT)
-#define GDi_KNGOOD             (16 << GOOD_TYP_SHFT)
+#define GDi_KNGOOD             (16 << GOOD_TYP_SHFT) //Separates PAL_SYS0 goodies from PAL_SYS1
 #define GDi_GOLDC              (17 << GOOD_TYP_SHFT)
 #define GDi_1UP                (18 << GOOD_TYP_SHFT)
 #define GDi_2x                 (19 << GOOD_TYP_SHFT)
@@ -192,7 +192,7 @@
 #define CNL ( SPECIAL_BLOCK | SP_CANNON | CANNON_L | SOLID )
 
 #define CHI (NORMAL_BLOCK | SOLID | BLK_CHISEL)
-#define QUE (NORMAL_BLOCK | SOLID | BLK_QUESTION)
+#define QUE (NORMAL_BLOCK | SOLID | BREAKABLE | BLK_QUESTION)
 #define KNI (GOODIE | GDi_KNGOOD)
 
 
