@@ -542,13 +542,14 @@ __attribute__((always_inline)) static inline u8 NST_calc_corner(u16 x, u16 y){
 }
 
 void NST_whR_loop(){
+    u8 corner_ind;
     switch(status & ANIM_MSK){
         case NST_R_RIGHT:
             calc_front(0);
             calc_front_block();
             if(crash_into()){
                 curr->speed[X] = 0;
-                curr->speed[Y] = -curr->role.nastie.speed;
+                curr->speed[Y] = -curr->character->role.nastie.speed;
                 status = NST_R_UP; //Cancel animation switch.
                 newstatus = NST_R_UP;
                 return;
@@ -557,7 +558,7 @@ void NST_whR_loop(){
             calc_back_floor();
             if(fall(back_floor_ind)){
                 curr->speed[X] = 0;
-                curr->speed[Y] = curr->role.nastie.speed;
+                curr->speed[Y] = curr->character->role.nastie.speed;
                 status = NST_R_DOWN; //Cancel animation switch.
                 newstatus = NST_R_DOWN;
                 return;
@@ -567,17 +568,17 @@ void NST_whR_loop(){
             calc_floor();
             if(land(floor_ind)) {
                 curr->speed[Y] = 0;
-                curr->speed[X] = curr->role.nastie.speed;
+                curr->speed[X] = curr->character->role.nastie.speed;
                 status = NST_R_RIGHT; //Cancel animation switch.
                 newstatus = NST_R_RIGHT;
                 return;
             }
             NST_calc_top();
             calc_front(1);
-            u8 corner_ind = NST_calc_corner(front, top);
+            corner_ind = NST_calc_corner(front, top);
             if(fall(corner_ind)){
                 curr->speed[Y] = 0;
-                curr->speed[X] = -curr->role.nastie.speed;
+                curr->speed[X] = -curr->character->role.nastie.speed;
                 status = NST_R_LEFT; //Cancel animation switch.
                 newstatus = NST_R_LEFT;
                 return;
@@ -588,17 +589,17 @@ void NST_whR_loop(){
             calc_front_block();
             if(crash_into()){
                 curr->speed[X] = 0;
-                curr->speed[Y] = curr->role.nastie.speed;
+                curr->speed[Y] = curr->character->role.nastie.speed;
                 status = NST_R_DOWN; //Cancel animation switch.
                 newstatus = NST_R_DOWN;
                 return;
             }
             NST_calc_top();
             calc_back(1);
-            u8 corner_ind = NST_calc_corner(back, top);
+            corner_ind = NST_calc_corner(back, top);
             if(fall(corner_ind)){
                 curr->speed[X] = 0;
-                curr->speed[Y] = -curr->role.nastie.speed;
+                curr->speed[Y] = -curr->character->role.nastie.speed;
                 status = NST_R_UP; //Cancel animation switch.
                 newstatus = NST_R_UP;
                 return;
@@ -608,16 +609,16 @@ void NST_whR_loop(){
             NST_calc_top();
             calc_top_block();
             if(top >= BOARD_Y_MAX || ( env->front_blocks[top_ind] & SOLID )){
-                curr->speed[X] = -curr->role.nastie.speed;
+                curr->speed[X] = -curr->character->role.nastie.speed;
                 curr->speed[Y] = 0;
                 status = NST_R_LEFT; //Cancel animation switch.
                 newstatus = NST_R_LEFT;
                 return;
             }
             calc_front(0);
-            u8 corner_ind = NST_calc_corner(front, POS_TO_PX(curr->pos[Y]);
+            corner_ind = NST_calc_corner(front, POS_TO_PX(curr->pos[Y]));
             if(fall(corner_ind)){
-                curr->speed[X] = curr->role.nastie.speed;
+                curr->speed[X] = curr->character->role.nastie.speed;
                 curr->speed[Y] = 0;
                 status = NST_R_RIGHT; //Cancel animation switch.
                 newstatus = NST_R_RIGHT;

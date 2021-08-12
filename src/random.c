@@ -33,5 +33,5 @@ u8 RNG_get(){
 
 void RNG_seed(u16 seed){
   rng_index = seed & 0x00FF;
-  rng_interval = ((seed & 0xFF00 ) >> 8) | 0x01;
+  rng_interval = ((seed & 0xFF00 ) >> 8) | 0x01;
 }
