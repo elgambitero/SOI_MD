@@ -651,7 +651,7 @@ void NST_whR_loop(){
             //Check right top corner, with margin to the right.
             NST_calc_top();
             NST_calc_front_margin(0);
-            if(PHY_crash_point(front, top)){
+            if(!PHY_crash_point(front, top)){
                 //Check right bottom corner, with margin to the right.
                 if( !PHY_crash_point(front, POS_TO_PX(curr->pos[Y]) ) ){
                     newstatus = NST_R_RIGHT;
