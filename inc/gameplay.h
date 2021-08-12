@@ -56,6 +56,7 @@ enum GameStates{
     ENDBOARD,
     AFTERBOARD,
     NEXTBOARD,
+    GAMEOVER,
     GAMEENDING,
     GAMEEXIT
 };

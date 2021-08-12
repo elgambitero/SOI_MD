@@ -34,8 +34,14 @@ __attribute__((always_inline)) static inline void GAM_updateBonus(){
             sprintf(bonusText, "%05d", bonusCount);
             VDP_drawText(bonusText, X_BONUS, 0);
         }else{
-            if(blue_player && blue_player->status != DEAD) kill(blue_player, 0, PL_JMP_BOOST);
-            if(green_player && green_player->status != DEAD) kill(green_player, 0, PL_JMP_BOOST);
+            if(blue_player && blue_player->status != DEAD) {
+                kill(blue_player, 0, PL_JMP_BOOST);
+                //blue_player = NULL;
+            }
+            if(green_player && green_player->status != DEAD) {
+                kill(green_player, 0, PL_JMP_BOOST);
+                //green_player = NULL;
+            }
         }
     }
 }
@@ -73,8 +79,15 @@ void gameplayLoop(){
         case ENDBOARD:
             PHY_end();
             unload_board(&board);
+            //FIXME: THIS IS TERRIBLE
             if(bl_stat->effect == KILLED && gr_stat->effect == KILLED){
-                gameState = TRYAGAIN;
+                if(GAM_gameType == COOPERATE){
+                    if(bl_stats.lives < 0){
+                        gameState = GAMEOVER;
+                    }else{
+                        gameState = TRYAGAIN;
+                    }
+                }
             }else{
                 gameState = AFTERBOARD;
             }
@@ -93,6 +106,15 @@ void gameplayLoop(){
             }
             gameState = INITBOARD;
         break;
+        case GAMEOVER:
+            SPR_end();
+            VDP_clearPlane(BG_A, TRUE);
+            VDP_clearPlane(BG_B, TRUE);
+            XGM_stopPlay();
+            PAL_setColor(15, 0x0FFF);
+            VDP_drawTextBG(BG_A,"GAME OVER", 10, 10);
+            gameState = GAMEEXIT;
+            break;
         case GAMEENDING:
             //VDP_resetScreen();
             SPR_end();

@@ -11,7 +11,7 @@ typedef struct PlayerStat{
     u16 bonus;
     u8 arrows;
     u8 balls;
-    u8 lives;
+    s8 lives;
     u8 speed;
     u8 effect;
 }PlayerStat;
