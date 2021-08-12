@@ -597,6 +597,32 @@ void NST_whR_loop(){
     }
 }
 
+void NST_whL_loop(){
+    u8 corner_ind;
+    switch(status & (ANIM_MSK | DIR_MSK)){ //dir is not used in this loop
+        case NST_L_LEFT:
+            //Check left lower corner, with margin to the left.
+            //Check left lower corner, with margin to the bottom.
+            //Check right lower corner, with margin to the bottom.
+            break;
+        case NST_L_DOWN:
+            //Check right lower corner, with margin to the bottom.
+            //Check right lower corner, with margin to the right.
+            //Check right top corner, with margin to the right.
+            break;
+        case NST_L_RIGHT:
+            //Check right top corner, with margin to the right.
+            //Check right top corner, with margin to the top.
+            //Check left top corner, with margin to the top.
+            break;
+        case NST_L_UP:
+            //Check left top corner, with margin to the top.
+            //Check left top corner, with margin to the left.
+            //Check left bottom corner, with margin to the left.
+            break;
+    }
+}
+
 void BS_gargoyle_loop(){
     if(curr->frames--) {
         return;

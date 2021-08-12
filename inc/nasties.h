@@ -24,6 +24,11 @@
 #define NST_R_LEFT      2
 #define NST_R_UP        3
 
+#define NST_L_LEFT      0
+#define NST_L_DOWN      1
+#define NST_L_RIGHT     2
+#define NST_L_UP        3
+
 //THESE NEED TO SUM 256!
 #define KN_PROB_GDi_SILVC       72
 #define KN_PROB_GDi_GOLDC       30
