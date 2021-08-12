@@ -255,7 +255,8 @@ void drawBlock(u8 x, u8 y, u16 block){
                     break;
                 case SP_SPAWNER:
                     palette[FG] = PAL_SYS0;
-                    fg_blk_map = spawners.tilemap;
+                    fg_blk_map = spawners_blk.tilemap;
+                    tile_index[FG] = spawners_ind;
                     map_ind = ((block & NASTIE_MSK) >> NASTIE_SHFT) * 2;
                     break;
             }
@@ -381,7 +382,7 @@ void load_blk_tiles(u16 ind){
     VDP_loadTileSet(kn_good.tileset, ind, DMA);
     kn_good_ind = ind;
     ind += kn_good.tileset->numTile;
-    VDP_loadTileSet(spawners.tileset, ind, DMA);
+    VDP_loadTileSet(spawners_blk.tileset, ind, DMA);
     spawners_ind = ind;
-    ind += spawners.tileset->numTile;
+    ind += spawners_blk.tileset->numTile;
 }
