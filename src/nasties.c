@@ -569,6 +569,20 @@ __attribute__((always_inline)) static inline void NST_calc_back_margin(u8 direct
 void NST_whR_loop(){
     switch(status & (ANIM_MSK | DIR_MSK)){ //dir is not used in this loop
         case NST_R_RIGHT:
+            //Check right lower corner, with margin to the bottom.
+            calc_front(0);
+            if(!PHY_crash_point(front, POS_TO_PX(curr->pos[Y]) + 1)){
+                //Check left lower corner, with margin to the bottom.
+                calc_front(1);
+                if(!PHY_crash_point(front, POS_TO_PX(curr->pos[Y]) + 1)){
+                    newstatus = NST_R_DOWN;
+                    status = NST_R_DOWN; //prevent animation change.
+                    curr->speed[X] = 0;
+                    curr->speed[Y] = curr->character->role.nastie.speed;
+                    return;
+                }
+            }
+
             //Check right lower corner.
             calc_front(0);
             if(PHY_crash_point(front, POS_TO_PX(curr->pos[Y]))){
@@ -578,23 +592,24 @@ void NST_whR_loop(){
                 curr->speed[Y] = -curr->character->role.nastie.speed;
                 return;
             }
-
-            //Check right lower corner, with margin to the bottom.
-            if(PHY_crash_point(front, POS_TO_PX(curr->pos[Y]) + 1))
-                return;
-
-            //Check left lower corner, with margin to the bottom.
-            calc_front(1);
-            if(!PHY_crash_point(front, POS_TO_PX(curr->pos[Y]) + 1)){
-                newstatus = NST_R_DOWN;
-                status = NST_R_DOWN; //prevent animation change.
-                curr->speed[X] = 0;
-                curr->speed[Y] = curr->character->role.nastie.speed;
-                return;
-            }
             break;
         case NST_R_DOWN:
-            //Check left lower corner, with margin to the bottom.
+            //Check left lower corner, with margin to the left.
+            NST_calc_front_margin(1);
+            if(!PHY_crash_point(front, POS_TO_PX(curr->pos[Y]))){
+                //Check left top corner, with margin to the left.
+                NST_calc_top();
+                if(!PHY_crash_point(front, top)){
+                    newstatus = NST_R_LEFT;
+                    status = NST_R_LEFT; //prevent animation change.
+                    curr->speed[X] = -curr->character->role.nastie.speed;
+                    curr->speed[Y] = 0;
+                    return;
+                }
+            }
+
+
+            //Check left lower corner.
             calc_front(1);
             if(PHY_crash_point(front, POS_TO_PX(curr->pos[Y]) )){
                 newstatus = NST_R_RIGHT;
@@ -603,24 +618,23 @@ void NST_whR_loop(){
                 curr->speed[Y] = 0;
                 return;
             }
-
-            //Check left lower corner, with margin to the left.
-            NST_calc_front_margin(1);
-            if(PHY_crash_point(front, POS_TO_PX(curr->pos[Y])))
-                return;
-
-            //Check left top corner, with margin to the left.
-            NST_calc_top();
-            if(!PHY_crash_point(front, top)){
-                newstatus = NST_R_LEFT;
-                status = NST_R_LEFT; //prevent animation change.
-                curr->speed[X] = -curr->character->role.nastie.speed;
-                curr->speed[Y] = 0;
-                return;
-            }
-
             break;
         case NST_R_LEFT:
+            //Check left top corner, with margin to the top.
+            calc_front(1);
+            NST_calc_top_margin();
+            if(!PHY_crash_point(front, top)){
+                //Check right top corner, with margin to the top.
+                calc_front(0);
+                if(!PHY_crash_point(front, top)){
+                    newstatus = NST_R_UP;
+                    status = NST_R_UP; //prevent animation change.
+                    curr->speed[X] = 0;
+                    curr->speed[Y] = -curr->character->role.nastie.speed;
+                    return;
+                }
+            }
+
             //Check left top corner.
             calc_front(1);
             NST_calc_top();
@@ -632,43 +646,29 @@ void NST_whR_loop(){
                 return;
             }
 
-            //Check left top corner, with margin to the top.
-            NST_calc_top_margin();
-            if(PHY_crash_point(front, top))
-                return;
-
-            //Check right top corner, with margin to the top.
-            calc_front(0);
-            if(!PHY_crash_point(front, top)){
-                newstatus = NST_R_UP;
-                status = NST_R_UP; //prevent animation change.
-                curr->speed[X] = 0;
-                curr->speed[Y] = -curr->character->role.nastie.speed;
-                return;
-            }
             break;
         case NST_R_UP:
-            //Check right top corner, with margin to the top.
+            //Check right top corner, with margin to the right.
+            NST_calc_top();
+            NST_calc_front_margin(0);
+            if(PHY_crash_point(front, top)){
+                //Check right bottom corner, with margin to the right.
+                if( !PHY_crash_point(front, POS_TO_PX(curr->pos[Y]) ) ){
+                    newstatus = NST_R_RIGHT;
+                    status = NST_R_RIGHT; //prevent animation change.
+                    curr->speed[X] = curr->character->role.nastie.speed;
+                    curr->speed[Y] = 0;
+                    return;
+                }
+            }
+
+            //Check right top corner.
             calc_front(0);
             NST_calc_top();
             if(PHY_crash_point(front, top)){
                 newstatus = NST_R_LEFT;
                 status = NST_R_LEFT; //prevent animation change.
                 curr->speed[X] = -curr->character->role.nastie.speed;
-                curr->speed[Y] = 0;
-                return;
-            }
-
-            //Check right top corner, with margin to the right.
-            NST_calc_front_margin(0);
-            if(PHY_crash_point(front, top))
-                return;
-            
-            //Check right bottom corner, with margin to the right.
-            if( !PHY_crash_point(front, POS_TO_PX(curr->pos[Y]) ) ){
-                newstatus = NST_R_RIGHT;
-                status = NST_R_RIGHT; //prevent animation change.
-                curr->speed[X] = curr->character->role.nastie.speed;
                 curr->speed[Y] = 0;
                 return;
             }
