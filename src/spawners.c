@@ -12,7 +12,7 @@ const Entity SPW_ant = {
     {8, 15},
     {7, 15},
     PAL_SYS0,
-    &ant_spawner_spr,
+    NULL,
     NULL,
     &SPW_update,
     NULL,

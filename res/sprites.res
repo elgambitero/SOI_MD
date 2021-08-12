@@ -4,8 +4,6 @@ SPRITE ant_spr "sprites/ant/ant.bmp" 2 1 FAST 2
 SPRITE piggy_spr "sprites/piggy/piggy.bmp" 2 2 FAST 2
 SPRITE teeth_spr "sprites/teeth/teeth.bmp" 2 2 FAST 2
 
-SPRITE ant_spawner_spr "sprites/spawners/ant.bmp" 2 2 FAST 2
-
 SPRITE smiley_spr "sprites/smiley/Smiley_test.png" 2 2 FAST 2
 
 SPRITE bp_spr "sprites/bp/bp.bmp" 2 2 AUTO 2
