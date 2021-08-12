@@ -47,7 +47,7 @@
 #define SPECIAL_BLOCK           0x0002
 
 #define SP_ACT_SHFT             2
-#define SP_ACTIVE              (1 << SP_ACT_SHFT) //1 bit
+#define SP_ACTIVE              (1 << SP_ACT_SHFT) //1 bit //what is this???
 
 #define SP_TYP_SHFT             5
 
@@ -58,6 +58,7 @@
 #define SP_FLOP                (3 << SP_TYP_SHFT)
 #define SP_CANNON              (4 << SP_TYP_SHFT)
 #define SP_GATE                (5 << SP_TYP_SHFT)
+#define SP_SPAWNER             (6 << SP_TYP_SHFT)
 
 #define TRANS_DIR_SHFT          11
 
@@ -93,6 +94,19 @@
 
 #define GATE_OPEN              (0 << GATE_SHFT)
 #define GATE_CLOSED            (1 << GATE_SHFT)
+
+#define NASTIE_SHFT            11
+
+#define NASTIE_MSK             (3 << NASTIE_SHFT) //3bit
+
+#define NASTIE_ANT             (0 << NASTIE_SHFT)
+#define NASTIE_HMR             (1 << NASTIE_SHFT)
+#define NASTIE_HPO             (2 << NASTIE_SHFT)
+#define NASTIE_OST             (3 << NASTIE_SHFT)
+#define NASTIE_PIG             (4 << NASTIE_SHFT)
+#define NASTIE_SMI             (5 << NASTIE_SHFT)
+#define NASTIE_TEH             (6 << NASTIE_SHFT)
+
 
 #define SP_COL_SHFT             8
 
@@ -195,6 +209,13 @@
 #define QUE (NORMAL_BLOCK | SOLID | BREAKABLE | BLK_QUESTION)
 #define KNI (GOODIE | GDi_KNGOOD)
 
+#define ANT (SP_SPAWNER | NASTIE_ANT)
+#define HMR (SP_SPAWNER | NASTIE_HMR)
+#define HPO (SP_SPAWNER | NASTIE_HPO)
+#define OST (SP_SPAWNER | NASTIE_OST)
+#define PIG (SP_SPAWNER | NASTIE_PIG)
+#define SMI (SP_SPAWNER | NASTIE_SMI)
+#define TEH (SP_SPAWNER | NASTIE_TEH)
 
 void drawBlock(u8 x, u8 y, u16 block);
 void eraseBlock(u8 x, u8 y);

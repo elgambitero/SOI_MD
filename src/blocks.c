@@ -253,6 +253,11 @@ void drawBlock(u8 x, u8 y, u16 block){
                             break;
                     }
                     break;
+                case SP_SPAWNER:
+                    palette[FG] = PAL_SYS0;
+                    fg_blk_map = spawners.tilemap;
+                    map_ind = ((block & NASTIE_MSK) >> NASTIE_SHFT) * 2;
+                    break;
             }
             break;
         case GOODIE:
