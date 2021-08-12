@@ -16,6 +16,11 @@
 #define KN_IDLE_FRAMES 16 * 4 * 3 //2 cycles
 #define KN_ATTK_FRAMES 48 * 4
 
+#define NST_R_RIGHT     0
+#define NST_R_DOWN      1
+#define NST_R_LEFT      2
+#define NST_R_UP        3
+
 //THESE NEED TO SUM 256!
 #define KN_PROB_GDi_SILVC       72
 #define KN_PROB_GDi_GOLDC       30
@@ -40,6 +45,7 @@ extern const Entity NST_robo;
 extern const Entity NST_ant;
 extern const Entity NST_piggy;
 extern const Entity NST_teeth;
+extern const Entity NST_whslowR;
 
 extern const Entity BS_gargoyle;
 extern const Entity BS_gargoyle1;

@@ -5,6 +5,7 @@
 
 
 #define NASTIE_SPEED WALKSPEED
+#define SLO_SPEED    WALKSPEED/2
 
 void NST_spinner_loop();
 const Entity NST_spinner = {
@@ -102,6 +103,26 @@ const Entity NST_teeth = {
             sizeof(snd_teeth),
             1500,
             NASTIE_SPEED,
+        }
+    }
+};
+
+void NST_whR_loop();
+const Entity NST_whslowR = {
+    NASTIE,
+    {8, 15},
+    {8, 15},
+    PAL_SYS1,
+    &whslowR_spr,
+    NULL,
+    &NST_whR_loop,
+    NULL,
+    {.nastie =
+        {
+            snd_wheelie,
+            sizeof(snd_wheelie),
+            300,
+            SLO_SPEED,
         }
     }
 };
@@ -509,6 +530,99 @@ void NST_teeth_loop(){
         case DEAD:
             NST_keep_dying();
         break;
+    }
+}
+
+__attribute__((always_inline)) static inline void NST_calc_top(dir){
+    top = POS_TO_PX(curr->pos[Y])  - curr->character->size[Y];
+}
+
+__attribute__((always_inline)) static inline u8 NST_calc_corner(u16 x, u16 y){
+    return XY_TO_IND( PX_TO_BLOCK( x ), PX_TO_BLOCK( y ) );
+}
+
+void NST_whR_loop(){
+    switch(status & ANIM_MSK){
+        case NST_R_RIGHT:
+            calc_front(0);
+            calc_front_block();
+            if(crash_into()){
+                curr->speed[X] = 0;
+                curr->speed[Y] = -curr->role.nastie.speed;
+                status = NST_R_UP; //Cancel animation switch.
+                newstatus = NST_R_UP;
+                return;
+            }
+            calc_back(0);
+            calc_back_floor();
+            if(fall(back_floor_ind)){
+                curr->speed[X] = 0;
+                curr->speed[Y] = curr->role.nastie.speed;
+                status = NST_R_DOWN; //Cancel animation switch.
+                newstatus = NST_R_DOWN;
+                return;
+            }
+            break;
+        case NST_R_DOWN:
+            calc_floor();
+            if(land(floor_ind)) {
+                curr->speed[Y] = 0;
+                curr->speed[X] = curr->role.nastie.speed;
+                status = NST_R_RIGHT; //Cancel animation switch.
+                newstatus = NST_R_RIGHT;
+                return;
+            }
+            NST_calc_top();
+            calc_front(1);
+            u8 corner_ind = NST_calc_corner(front, top);
+            if(fall(corner_ind)){
+                curr->speed[Y] = 0;
+                curr->speed[X] = -curr->role.nastie.speed;
+                status = NST_R_LEFT; //Cancel animation switch.
+                newstatus = NST_R_LEFT;
+                return;
+            }
+            break;
+        case NST_R_LEFT:
+            calc_front(1);
+            calc_front_block();
+            if(crash_into()){
+                curr->speed[X] = 0;
+                curr->speed[Y] = curr->role.nastie.speed;
+                status = NST_R_DOWN; //Cancel animation switch.
+                newstatus = NST_R_DOWN;
+                return;
+            }
+            NST_calc_top();
+            calc_back(1);
+            u8 corner_ind = NST_calc_corner(back, top);
+            if(fall(corner_ind)){
+                curr->speed[X] = 0;
+                curr->speed[Y] = -curr->role.nastie.speed;
+                status = NST_R_UP; //Cancel animation switch.
+                newstatus = NST_R_UP;
+                return;
+            }
+            break;
+        case NST_R_UP:
+            NST_calc_top();
+            calc_top_block();
+            if(top >= BOARD_Y_MAX || ( env->front_blocks[top_ind] & SOLID )){
+                curr->speed[X] = -curr->role.nastie.speed;
+                curr->speed[Y] = 0;
+                status = NST_R_LEFT; //Cancel animation switch.
+                newstatus = NST_R_LEFT;
+                return;
+            }
+            calc_front(0);
+            u8 corner_ind = NST_calc_corner(front, POS_TO_PX(curr->pos[Y]);
+            if(fall(corner_ind)){
+                curr->speed[X] = curr->role.nastie.speed;
+                curr->speed[Y] = 0;
+                status = NST_R_RIGHT; //Cancel animation switch.
+                newstatus = NST_R_RIGHT;
+            }
+            break;
     }
 }
 
