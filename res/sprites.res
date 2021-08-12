@@ -3,6 +3,10 @@ SPRITE robo_spr "sprites/robo/robo.bmp" 2 2 FAST 2
 SPRITE ant_spr "sprites/ant/ant.bmp" 2 1 FAST 2
 SPRITE piggy_spr "sprites/piggy/piggy.bmp" 2 2 FAST 2
 SPRITE teeth_spr "sprites/teeth/teeth.bmp" 2 2 FAST 2
+SPRITE whfastR_spr "sprites/wheelie/roll_right.bmp" 2 2 FAST 1
+SPRITE whfastL_spr "sprites/wheelie/roll_left.bmp" 2 2 FAST 1
+SPRITE whslowR_spr "sprites/wheelie/roll_right.bmp" 2 2 FAST 4
+SPRITE whslowL_spr "sprites/wheelie/roll_left.bmp" 2 2 FAST 4
 
 SPRITE smiley_spr "sprites/smiley/Smiley_test.png" 2 2 FAST 2
 
