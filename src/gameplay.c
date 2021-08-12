@@ -95,6 +95,9 @@ void gameplayLoop(){
             bl_stat->effect = 0;
         break;
         case AFTERBOARD:
+            if(GAM_gameType == COOPERATE){
+                bl_stats.score += bonusCount * bl_stats.mult;
+            }
             gameState = NEXTBOARD;
         break;
         case NEXTBOARD:
@@ -150,12 +153,14 @@ void GAM_gameInit(){
     bl_stats.lives = 3;
     bl_stats.balls = 3;
     bl_stats.arrows = 3;
+    bl_stats.mult = 1;
     bl_stats.score = 0;
     bl_stats.speed = PL_WALKSPEED;
     
     gr_stats.lives = 3;
     gr_stats.balls = 3;
     gr_stats.arrows = 3;
+    gr_stats.mult = 1;
     gr_stats.score = 0;
     gr_stats.speed = PL_WALKSPEED;
 }

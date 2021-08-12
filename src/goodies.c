@@ -382,6 +382,7 @@ const Entity GD_1UP = {
     }
 };
 
+void GD_give_2x();
 const Entity GD_2x = {
     GOODY,
     {7, 15},
@@ -397,11 +398,12 @@ const Entity GD_2x = {
             snd_multiplier,
             sizeof(snd_multiplier),
             &GD_obtain,
-            NULL
+            &GD_give_2x
         }
     }
 };
 
+void GD_give_3x();
 const Entity GD_3x = {
     GOODY,
     {7, 15},
@@ -417,11 +419,12 @@ const Entity GD_3x = {
             snd_multiplier,
             sizeof(snd_multiplier),
             &GD_obtain,
-            NULL
+            &GD_give_3x
         }
     }
 };
 
+void GD_give_4x();
 const Entity GD_4x = {
     GOODY,
     {7, 15},
@@ -437,11 +440,12 @@ const Entity GD_4x = {
             snd_multiplier,
             sizeof(snd_multiplier),
             &GD_obtain,
-            NULL
+            &GD_give_4x
         }
     }
 };
 
+void GD_give_5x();
 const Entity GD_5x = {
     GOODY,
     {7, 15},
@@ -457,7 +461,7 @@ const Entity GD_5x = {
             snd_multiplier,
             sizeof(snd_multiplier),
             &GD_obtain,
-            NULL
+            &GD_give_5x
         }
     }
 };
@@ -872,4 +876,28 @@ void GD_give_ball(){
 void GD_give_1UP(){
     bl_stats.lives++;
     GAM_updateLives();
+}
+
+void GD_give_2x(){
+    if(GAM_gameType == COOPERATE){
+        bl_stats.mult = 2;
+    }
+}
+
+void GD_give_3x(){
+    if(GAM_gameType == COOPERATE){
+        bl_stats.mult = 3;
+    }
+}
+
+void GD_give_4x(){
+    if(GAM_gameType == COOPERATE){
+        bl_stats.mult = 4;
+    }
+}
+
+void GD_give_5x(){
+    if(GAM_gameType == COOPERATE){
+        bl_stats.mult = 5;
+    }
 }
