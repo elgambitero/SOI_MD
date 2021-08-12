@@ -161,6 +161,10 @@ __attribute__((always_inline)) static inline void calc_center_block(){
     center_ind = XY_TO_IND( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ), (PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - (curr->character->size[Y] >> 1) ) ) ) ) ;
 }
 
+__attribute__((always_inline)) static inline u8 PHY_calc_index(u16 x, u16 y){
+    return XY_TO_IND( PX_TO_BLOCK( x ), PX_TO_BLOCK( y ) );
+}
+
 //Environment colision calculation.
 __attribute__((always_inline)) static inline u8 fall(u8 ind){
     return !( SOLID & env->front_blocks[ind] ) &&  ( POS_TO_PX(curr->pos[Y])  < BOARD_Y_PX );
@@ -180,13 +184,14 @@ __attribute__((always_inline)) static inline u8 crash_into(){
     return 0;
 }
 
-__attribute__((always_inline)) static inline u8 PHY_crash(u8 ind){
-    if( front >= BOARD_X_PX || top >= BOARD_Y_PX  || POS_TO_PX(curr->pos[Y]) >= BOARD_Y_PX)
+__attribute__((always_inline)) static inline u8 PHY_crash_point(u16 x, u16 y){
+    if( x >= BOARD_X_PX || y >= BOARD_Y_PX)
         return FRAME;
-    if(SOLID & env->front_blocks[ind])
+    if(SOLID & env->front_blocks[PHY_calc_index(x, y)])
         return BLOCK;
     return 0;
 }
+
 
 //Environment analysis checks.
 __attribute__((always_inline)) static inline u8 breakable(u8 ind){
