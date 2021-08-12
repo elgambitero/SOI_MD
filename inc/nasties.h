@@ -5,7 +5,7 @@
 #define BS_IDLE  1
 #define BS_ATTK  2
 
-#define SLO_SPEED    WALKSPEED/2
+#define SLO_SPEED    WALKSPEED/4
 #define FAST_SPEED    WALKSPEED * 4
 
 #define GL_BIRTH_FRAMES 16 * 4

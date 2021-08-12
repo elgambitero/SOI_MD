@@ -110,7 +110,7 @@ void NST_whR_loop();
 const Entity NST_whslowR = {
     NASTIE,
     {8, 15},
-    {8, 15},
+    {7, 14},
     PAL_SYS1,
     &whslowR_spr,
     NULL,
@@ -129,7 +129,7 @@ const Entity NST_whslowR = {
 const Entity NST_whfastR = {
     NASTIE,
     {8, 15},
-    {8, 15},
+    {7, 15},
     PAL_SYS1,
     &whfastR_spr,
     NULL,
@@ -571,8 +571,7 @@ void NST_whR_loop(){
         case NST_R_RIGHT:
             //Check right lower corner, with margin to the right.
             NST_calc_front_margin(0);
-            NST_calc_top();
-            if(PHY_crash_point(front, top)){
+            if(PHY_crash_point(front, POS_TO_PX(curr->pos[Y]))){
                 newstatus = NST_R_UP;
                 status = NST_R_UP; //prevent animation change.
                 curr->speed[X] = 0;
@@ -612,7 +611,8 @@ void NST_whR_loop(){
                 return;
 
             //Check left top corner, with margin to the left.
-            if(PHY_crash_point(front, top)){
+            NST_calc_top();
+            if(!PHY_crash_point(front, top)){
                 newstatus = NST_R_LEFT;
                 status = NST_R_LEFT; //prevent animation change.
                 curr->speed[X] = -curr->character->role.nastie.speed;
@@ -641,7 +641,7 @@ void NST_whR_loop(){
 
             //Check right top corner, with margin to the top.
             calc_front(0);
-            if(PHY_crash_point(front, top)){
+            if(!PHY_crash_point(front, top)){
                 newstatus = NST_R_UP;
                 status = NST_R_UP; //prevent animation change.
                 curr->speed[X] = 0;
@@ -654,9 +654,9 @@ void NST_whR_loop(){
             calc_front(0);
             NST_calc_top_margin();
             if(PHY_crash_point(front, top)){
-                newstatus = NST_R_RIGHT;
-                status = NST_R_RIGHT; //prevent animation change.
-                curr->speed[X] = curr->character->role.nastie.speed;
+                newstatus = NST_R_LEFT;
+                status = NST_R_LEFT; //prevent animation change.
+                curr->speed[X] = -curr->character->role.nastie.speed;
                 curr->speed[Y] = 0;
                 return;
             }
@@ -668,10 +668,10 @@ void NST_whR_loop(){
                 return;
             
             //Check right bottom corner, with margin to the right.
-            if(PHY_crash_point(front, POS_TO_PX(curr->pos[Y]) )){
-                newstatus = NST_R_LEFT;
-                status = NST_R_LEFT; //prevent animation change.
-                curr->speed[X] = -curr->character->role.nastie.speed;
+            if( !PHY_crash_point(front, POS_TO_PX(curr->pos[Y]) ) ){
+                newstatus = NST_R_RIGHT;
+                status = NST_R_RIGHT; //prevent animation change.
+                curr->speed[X] = curr->character->role.nastie.speed;
                 curr->speed[Y] = 0;
                 return;
             }
