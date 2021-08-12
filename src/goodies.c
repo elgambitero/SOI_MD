@@ -4,14 +4,6 @@
 #include "sprites.h"
 
 void GD_obtain();
-void GD_killAll();
-void GD_killSpawned();
-void GD_openRdDoor();
-void GD_enterRdDoor();
-void GD_reveal_hidden();
-void GD_speedUpPlayer();
-void GD_protectPlayer();
-void GD_slowDownMonsters();
 
 void GD_update();
 
@@ -36,6 +28,7 @@ const Entity GD_silvCoin = {
     }
 };
 
+void GD_give_arrow();
 const Entity GD_arrow = {
     GOODY,
     {7, 15},
@@ -51,7 +44,7 @@ const Entity GD_arrow = {
             snd_arrow,
             sizeof(snd_arrow),
             &GD_obtain,
-            NULL
+            &GD_give_arrow
         }
     }
 };
@@ -140,6 +133,7 @@ const Entity GD_clk12h = {
     }
 };
 
+void GD_reveal_hidden();
 const Entity GD_glass = {
     GOODY,
     {7, 15},
@@ -160,6 +154,7 @@ const Entity GD_glass = {
     }
 };
 
+void GD_protectPlayer();
 const Entity GD_shield = {
     GOODY,
     {7, 15},
@@ -180,6 +175,7 @@ const Entity GD_shield = {
     }
 };
 
+void GD_speedUpPlayer();
 const Entity GD_boot = {
     GOODY,
     {7, 15},
@@ -200,6 +196,8 @@ const Entity GD_boot = {
     }
 };
 
+void GD_killAll();
+void GD_killSpawned();
 const Entity GD_thnball = {
     GOODY,
     {7, 15},
@@ -220,6 +218,7 @@ const Entity GD_thnball = {
     }
 };
 
+void GD_openRdDoor();
 const Entity GD_rdkey = {
     GOODY,
     {7, 15},
@@ -300,6 +299,7 @@ const Entity GD_bldoor = {
     }
 };
 
+void GD_enterRdDoor();
 const Entity GD_rddoor_open = {
     GOODY,
     {7, 15},
@@ -361,6 +361,7 @@ const Entity GD_goldCoin = {
     }
 };
 
+void GD_give_1UP();
 const Entity GD_1UP = {
     GOODY,
     {7, 15},
@@ -461,6 +462,7 @@ const Entity GD_5x = {
     }
 };
 
+void GD_give_ball();
 const Entity GD_ball = {
     GOODY,
     {7, 15},
@@ -523,6 +525,7 @@ const Entity GD_gold = {
     }
 };
 
+void GD_slowDownMonsters();
 const Entity GD_turtl = {
     GOODY,
     {7, 15},
