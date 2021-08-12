@@ -575,102 +575,24 @@ void NST_whR_loop(){
     u8 corner_ind;
     switch(status & (ANIM_MSK | DIR_MSK)){ //dir is not used in this loop
         case NST_R_RIGHT:
-            calc_front(0);
-            calc_front_block();
-            if(crash_into()){
-                curr->speed[X] = 0;
-                curr->speed[Y] = -curr->character->role.nastie.speed;
-                status = NST_R_UP; //Cancel animation switch.
-                newstatus = NST_R_UP;
-                return;
-            }
-            calc_front_floor();
-            if(land(floor_ind)){
-                return;
-            }
-            calc_back(0);
-            calc_back_floor();
-            if(fall(back_floor_ind)){
-                curr->speed[X] = 0;
-                curr->speed[Y] = curr->character->role.nastie.speed;
-                status = NST_R_DOWN; //Cancel animation switch.
-                newstatus = NST_R_DOWN;
-                return;
-            }
+            //Check right lower corner, with margin to the right.
+            //Check right lower corner, with margin to the bottom.
+            //Check left lower corner, with margin to the bottom.
             break;
         case NST_R_DOWN:
-            calc_floor();
-            if(land(floor_ind)) {
-                curr->speed[Y] = 0;
-                curr->speed[X] = curr->character->role.nastie.speed;
-                status = NST_R_RIGHT; //Cancel animation switch.
-                newstatus = NST_R_RIGHT;
-                return;
-            }
-            NST_calc_back_margin(0);
-            corner_ind = NST_calc_point(back, POS_TO_PX(curr->pos[Y] + 1));
-            if(land(corner_ind)){
-                return;
-            }
-            NST_calc_top();
-            NST_calc_front_margin(1);
-            corner_ind = NST_calc_point(front, top);
-            if(fall(corner_ind)){
-                curr->speed[Y] = 0;
-                curr->speed[X] = -curr->character->role.nastie.speed;
-                status = NST_R_LEFT; //Cancel animation switch.
-                newstatus = NST_R_LEFT;
-                return;
-            }
+            //Check left lower corner, with margin to the bottom.
+            //Check left lower corner, with margin to the left.
+            //Check left top corner, with margin to the left.
             break;
         case NST_R_LEFT:
-            calc_front(1);
-            calc_front_block();
-            if(crash_into()){
-                curr->speed[X] = 0;
-                curr->speed[Y] = curr->character->role.nastie.speed;
-                status = NST_R_DOWN; //Cancel animation switch.
-                newstatus = NST_R_DOWN;
-                return;
-            }
-            NST_calc_top_margin();
-            NST_calc_front_margin(1);
-            corner_ind = NST_calc_point(front, top);
-            if(land(corner_ind))
-                return;
-            calc_back(1);
-            corner_ind = NST_calc_point(back, top);
-            if(fall(corner_ind)){
-                curr->speed[X] = 0;
-                curr->speed[Y] = -curr->character->role.nastie.speed;
-                status = NST_R_UP; //Cancel animation switch.
-                newstatus = NST_R_UP;
-                return;
-            }
+            //Check left top corner, with margin to the left.
+            //Check left top corner, with margin to the top.
+            //Check right top corner, with margin to the top.
             break;
         case NST_R_UP:
-            NST_calc_top();
-            calc_top_block();
-            if(top >= BOARD_Y_MAX || ( env->front_blocks[top_ind] & SOLID )){
-                curr->speed[X] = -curr->character->role.nastie.speed;
-                curr->speed[Y] = 0;
-                status = NST_R_LEFT; //Cancel animation switch.
-                newstatus = NST_R_LEFT;
-                return;
-            }
-            NST_calc_front_margin(0);
-            corner_ind = NST_calc_point(front, top);
-            if(land(corner_ind)){
-                return;
-            }
-            calc_front(0);
-            corner_ind = NST_calc_point(front, POS_TO_PX(curr->pos[Y]));
-            if(fall(corner_ind)){
-                curr->speed[X] = curr->character->role.nastie.speed;
-                curr->speed[Y] = 0;
-                status = NST_R_RIGHT; //Cancel animation switch.
-                newstatus = NST_R_RIGHT;
-            }
+            //Check right top corner, with margin to the top.
+            //Check right top corner, with margin to the right.
+            //Check right bottom corner, with margin to the right.
             break;
     }
 }

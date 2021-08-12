@@ -180,6 +180,14 @@ __attribute__((always_inline)) static inline u8 crash_into(){
     return 0;
 }
 
+__attribute__((always_inline)) static inline u8 PHY_crash(u8 ind){
+    if( front >= BOARD_X_PX || top >= BOARD_Y_PX  || POS_TO_PX(curr->pos[Y]) >= BOARD_Y_PX)
+        return FRAME;
+    if(SOLID & env->front_blocks[ind])
+        return BLOCK;
+    return 0;
+}
+
 //Environment analysis checks.
 __attribute__((always_inline)) static inline u8 breakable(u8 ind){
     return (BREAKABLE & env->front_blocks[ind]);
