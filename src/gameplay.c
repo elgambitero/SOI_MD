@@ -10,10 +10,12 @@ u16 ind;
 u16 frmInd;
 
 u16 bonusCount;
+u32 scoreCount;
 
 u16 levelInd;
 
 u8 bonusText[N_BONUS + 1];
+u8 scoreText[N_SCORE + 1];
 
 char strBuf[8];
 
@@ -41,15 +43,16 @@ void gameplayLoop(){
         break;
         case GAME:
             //ONLY FOR COOPERATE
-            bonusCount = (bl_stats.bonus + gr_stats.bonus)/2;
-            if(bonusCount){
-                bl_stats.bonus--;
-                gr_stats.bonus--;
-                sprintf(bonusText, "%05d", bonusCount);
-                VDP_drawText(bonusText, X_BONUS, 0);
-            }else{
-                if(blue_player && blue_player->status != DEAD) kill(blue_player, 0, PL_JMP_BOOST);
-                if(green_player && green_player->status != DEAD) kill(green_player, 0, PL_JMP_BOOST);
+            if(GAM_gameType == COOPERATE){
+                bonusCount = bl_stats.bonus;
+                if(bonusCount){
+                    bl_stats.bonus--;
+                    sprintf(bonusText, "%05d", bonusCount);
+                    VDP_drawText(bonusText, X_BONUS, 0);
+                }else{
+                    if(blue_player && blue_player->status != DEAD) kill(blue_player, 0, PL_JMP_BOOST);
+                    if(green_player && green_player->status != DEAD) kill(green_player, 0, PL_JMP_BOOST);
+                }
             }
             PHY_send_inputs(bl_ctrl, gr_ctrl);
             PHY_update();
@@ -110,17 +113,6 @@ void gameplayLoop(){
 
 void GAM_gameInit(){
     levelInd = 0;
-}
-
-void GAM_levelInit(){
-
-    current_level = levels[levelInd];
-
-    ind = TILE_USERINDEX;
-    blue_player = NULL;
-    green_player = NULL;
-    bl_ctrl = 0;
-    gr_ctrl = 0;
 
     bl_stats.lives = 3;
     bl_stats.balls = 3;
@@ -133,6 +125,17 @@ void GAM_levelInit(){
     gr_stats.arrows = 3;
     gr_stats.score = 0;
     gr_stats.speed = PL_WALKSPEED;
+}
+
+void GAM_levelInit(){
+
+    current_level = levels[levelInd];
+
+    ind = TILE_USERINDEX;
+    blue_player = NULL;
+    green_player = NULL;
+    bl_ctrl = 0;
+    gr_ctrl = 0;
     
     VDP_setPalette(PAL0, pal_sys0.data);
     VDP_setPalette(PAL1, pal_sys1.data);
@@ -174,6 +177,8 @@ void GAM_levelInit(){
     VDP_drawText("3", X_LIVES, 0);
     VDP_drawText("Lvl", 33, 0);
     //VDP_drawNumber(levelInd, N_LEVEL, X_LEVEL, 0);
+
+    GAM_updateScore();
 
 }
 
@@ -219,4 +224,12 @@ void VDP_drawNumber(u16 number, u8 chars, u8 xpos, u8 ypos){
 
 void GAM_setGametype(u8 game_type){
     GAM_gameType = game_type;
+}
+
+void GAM_updateScore(){
+    if(GAM_gameType == COOPERATE){
+        scoreCount = bl_stats.score;
+        sprintf(scoreText, "%08d", scoreCount);
+        VDP_drawText(scoreText, X_SCORE, 0);
+    }
 }
