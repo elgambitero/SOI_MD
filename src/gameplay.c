@@ -16,14 +16,28 @@ u16 levelInd;
 
 u8 bonusText[N_BONUS + 1];
 u8 scoreText[N_SCORE + 1];
+u8 livesText[N_LIVES + 1];
 
-char strBuf[8];
 
 void GAM_gameInit();
 void GAM_levelInit();
 void GAM_drawFrame();
 void VDP_drawNumber(u16 number, u8 chars, u8 xpos, u8 ypos);
 
+__attribute__((always_inline)) static inline void GAM_updateBonus(){
+    //ONLY FOR COOPERATE FOR NOW
+    if(GAM_gameType == COOPERATE){
+        bonusCount = bl_stats.bonus;
+        if(bonusCount){
+            bl_stats.bonus--;
+            sprintf(bonusText, "%05d", bonusCount);
+            VDP_drawText(bonusText, X_BONUS, 0);
+        }else{
+            if(blue_player && blue_player->status != DEAD) kill(blue_player, 0, PL_JMP_BOOST);
+            if(green_player && green_player->status != DEAD) kill(green_player, 0, PL_JMP_BOOST);
+        }
+    }
+}
 
 void gameplayLoop(){
     switch(gameState){
@@ -42,18 +56,7 @@ void gameplayLoop(){
             SYS_enableInts();
         break;
         case GAME:
-            //ONLY FOR COOPERATE
-            if(GAM_gameType == COOPERATE){
-                bonusCount = bl_stats.bonus;
-                if(bonusCount){
-                    bl_stats.bonus--;
-                    sprintf(bonusText, "%05d", bonusCount);
-                    VDP_drawText(bonusText, X_BONUS, 0);
-                }else{
-                    if(blue_player && blue_player->status != DEAD) kill(blue_player, 0, PL_JMP_BOOST);
-                    if(green_player && green_player->status != DEAD) kill(green_player, 0, PL_JMP_BOOST);
-                }
-            }
+            GAM_updateBonus();
             PHY_send_inputs(bl_ctrl, gr_ctrl);
             PHY_update();
             SPR_update();
@@ -179,6 +182,7 @@ void GAM_levelInit(){
     //VDP_drawNumber(levelInd, N_LEVEL, X_LEVEL, 0);
 
     GAM_updateScore();
+    GAM_updateLives();
 
 }
 
@@ -217,10 +221,6 @@ void GAM_drawFrame(){
 }
 
 
-void VDP_drawNumber(u16 number, u8 chars, u8 xpos, u8 ypos){
-    sprintf(strBuf,"%d", number);
-    VDP_drawText(strBuf, xpos, ypos);
-}
 
 void GAM_setGametype(u8 game_type){
     GAM_gameType = game_type;
@@ -231,5 +231,12 @@ void GAM_updateScore(){
         scoreCount = bl_stats.score;
         sprintf(scoreText, "%08d", scoreCount);
         VDP_drawText(scoreText, X_SCORE, 0);
+    }
+}
+
+void GAM_updateLives(){
+     if(GAM_gameType == COOPERATE){
+        sprintf(livesText, "%08d", bl_stats.lives);
+        VDP_drawText(livesText, X_LIVES, 0);
     }
 }

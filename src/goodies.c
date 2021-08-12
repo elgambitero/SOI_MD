@@ -16,7 +16,6 @@ void GD_slowDownMonsters();
 void GD_update();
 
 
-//TODO: Fix GOODY for something more specific.
 const Entity GD_silvCoin = {
     GOODY,
     {7, 15},
