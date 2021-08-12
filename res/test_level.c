@@ -142,6 +142,16 @@ static const Actor cannon_l = {&SPW_cannon,
    &cannon_r
    };
 
+static const Actor wheelie = {&NST_whfastR,
+      0,
+      0,
+   {168, 32},
+   {FAST_SPEED,    0},
+      0,
+      0,
+   &cannon_l
+   };
+
 const Board test_level = {
     {
      BFW, BOW, BDW, CHI, QUE, NET,   0,   0,   0,   0,   0, TRO,   0,   0, TGO, TBO, TNO, TYO, TWO,
@@ -178,6 +188,6 @@ const Board test_level = {
     MUS_HEAVY3,
     0,
     5000,
-    &cannon_l,
+    &wheelie,
     &glp
 };

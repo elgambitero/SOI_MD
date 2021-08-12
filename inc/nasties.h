@@ -5,6 +5,9 @@
 #define BS_IDLE  1
 #define BS_ATTK  2
 
+#define SLO_SPEED    WALKSPEED/2
+#define FAST_SPEED    WALKSPEED * 2
+
 #define GL_BIRTH_FRAMES 16 * 4
 #define GL_IDLE_FRAMES 16 * 4 * 3 //2 cycles
 #define GL_ATTK_FRAMES 41 * 4
@@ -46,6 +49,7 @@ extern const Entity NST_ant;
 extern const Entity NST_piggy;
 extern const Entity NST_teeth;
 extern const Entity NST_whslowR;
+extern const Entity NST_whfastR;
 
 extern const Entity BS_gargoyle;
 extern const Entity BS_gargoyle1;

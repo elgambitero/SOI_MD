@@ -5,7 +5,6 @@
 
 
 #define NASTIE_SPEED WALKSPEED
-#define SLO_SPEED    WALKSPEED/2
 
 void NST_spinner_loop();
 const Entity NST_spinner = {
@@ -123,6 +122,25 @@ const Entity NST_whslowR = {
             sizeof(snd_wheelie),
             300,
             SLO_SPEED,
+        }
+    }
+};
+
+const Entity NST_whfastR = {
+    NASTIE,
+    {8, 15},
+    {8, 15},
+    PAL_SYS1,
+    &whfastR_spr,
+    NULL,
+    &NST_whR_loop,
+    NULL,
+    {.nastie =
+        {
+            snd_wheelie,
+            sizeof(snd_wheelie),
+            300,
+            FAST_SPEED,
         }
     }
 };
@@ -533,7 +551,7 @@ void NST_teeth_loop(){
     }
 }
 
-__attribute__((always_inline)) static inline void NST_calc_top(dir){
+__attribute__((always_inline)) static inline void NST_calc_top(){
     top = POS_TO_PX(curr->pos[Y])  - curr->character->size[Y];
 }
 
