@@ -4,6 +4,7 @@
 #define PASSING  1
 #define SHIELDED 2
 #define SPEEDUP  3
+#define KILLED   4
 
 typedef struct PlayerStat{
     u32 score;

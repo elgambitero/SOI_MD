@@ -51,6 +51,7 @@ PlayerStat bl_stats, gr_stats;
 enum GameStates{
     GAMEINIT,
     INITBOARD,
+    TRYAGAIN,
     GAME,
     ENDBOARD,
     AFTERBOARD,

@@ -614,12 +614,13 @@ void BS_gargoyle_loop(){
             curr->frames = GL_IDLE_FRAMES;
             newstatus = BS_IDLE;
             //Decide which player to shoot
-            Actor * target;
-            if(green_player){
+            Actor * target = NULL;
+            if(green_player && blue_player){
                 target = (RNG_get() & 0x01) ? blue_player : green_player;
             }else{
-                target = blue_player;
+                target = blue_player ? blue_player : green_player;
             }
+            if(!target) return; //Return if for whatever reason there is no eligible target.
             s16 delta[2];
             delta[X] = target->pos[X] - curr->pos[X];
             delta[Y] = target->pos[Y] - (curr->pos[Y] - PX_TO_POS(GL_FIRE_HEIGHT) );
@@ -656,6 +657,7 @@ void BS_gargoyle_loop(){
     }
 }
 
+//Helper macros for the probability limits.
 #define GOLDC_LIMIT (KN_PROB_GDi_SILVC + KN_PROB_GDi_GOLDC)
 #define GOLD_LIMIT (GOLDC_LIMIT + KN_PROB_GDi_GOLD)
 #define GEM_LIMIT (GOLD_LIMIT + KN_PROB_GDi_GEM)

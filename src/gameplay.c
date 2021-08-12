@@ -61,18 +61,25 @@ void gameplayLoop(){
             PHY_send_inputs(bl_ctrl, gr_ctrl);
             PHY_update();
             SPR_update();
-            if((!blue_player || bl_stat->effect == PASSING) &&
-                (!green_player || gr_stat->effect == PASSING)){
-                gr_stat->effect = 0;
-                bl_stat->effect = 0;
+            if((!blue_player) && (!green_player)){
+                XGM_stopPlay();
                 PAL_fadeOut(0, 63, 60, FALSE);
                 gameState = ENDBOARD;
             }
         break;
+        case TRYAGAIN:
+            gameState = INITBOARD;
+        break;
         case ENDBOARD:
             PHY_end();
             unload_board(&board);
-            gameState = AFTERBOARD;
+            if(bl_stat->effect == KILLED && gr_stat->effect == KILLED){
+                gameState = TRYAGAIN;
+            }else{
+                gameState = AFTERBOARD;
+            }
+            gr_stat->effect = 0;
+            bl_stat->effect = 0;
         break;
         case AFTERBOARD:
             gameState = NEXTBOARD;

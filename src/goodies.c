@@ -742,6 +742,8 @@ void GD_openRdDoor(){
 
 void GD_enterRdDoor(){
     curr->character->role.player.statistics->effect = PASSING;
+    if(curr == blue_player) blue_player = NULL;
+    if(curr == green_player) green_player = NULL;
     result = ACT_DELETION;
     return;
 }
