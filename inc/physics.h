@@ -125,6 +125,9 @@ __attribute__((always_inline)) static inline void calc_next(u8 direction){
 __attribute__((always_inline)) static inline void calc_back(u8 direction){
     back = direction ? POS_TO_PX(curr->pos[X]) + curr->character->size[X] : POS_TO_PX(curr->pos[X]) - curr->character->size[X];
 }
+__attribute__((always_inline)) static inline void calc_back_margin(u8 direction){
+    back = direction ? POS_TO_PX(curr->pos[X]) + curr->character->size[X] + COLL_MARGIN: POS_TO_PX(curr->pos[X]) - curr->character->size[X] - COLL_MARGIN;
+}
 
 //Neighbouring block index calculations
 __attribute__((always_inline)) static inline void calc_front_block_hi(){
