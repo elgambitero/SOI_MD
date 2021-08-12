@@ -561,7 +561,7 @@ __attribute__((always_inline)) static inline u8 NST_calc_corner(u16 x, u16 y){
 
 void NST_whR_loop(){
     u8 corner_ind;
-    switch(status & ANIM_MSK){
+    switch(status & (ANIM_MSK | DIR_MSK)){ //dir is not used in this loop
         case NST_R_RIGHT:
             calc_front(0);
             calc_front_block();
@@ -592,7 +592,7 @@ void NST_whR_loop(){
                 return;
             }
             NST_calc_top();
-            calc_front(1);
+            calc_front_margin(1);
             corner_ind = NST_calc_corner(front, top);
             if(fall(corner_ind)){
                 curr->speed[Y] = 0;

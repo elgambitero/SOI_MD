@@ -166,7 +166,7 @@ __attribute__((always_inline)) static inline u8 fall(u8 ind){
     return !( SOLID & env->front_blocks[ind] ) &&  ( POS_TO_PX(curr->pos[Y])  < BOARD_Y_PX );
 }
 __attribute__((always_inline)) static inline u8 land(u8 ind){
-    return ( SOLID & env->front_blocks[ ind ] ) || (POS_TO_PX(curr->pos[Y]) >= BOARD_Y_PX);
+    return ( ( SOLID & env->front_blocks[ ind ] ) || (POS_TO_PX(curr->pos[Y]) >= BOARD_Y_PX ) );
 }
 __attribute__((always_inline)) static inline u8 cliff(){
     return (front_floor_ind < BOARD_BUFFER) && !( SOLID & env->front_blocks[front_floor_ind] );
