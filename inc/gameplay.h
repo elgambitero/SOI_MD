@@ -15,7 +15,7 @@
 #define X_SCORE 6
 #define X_BONUS 21
 #define X_LIVES 29
-#define X_LEVEL 37
+#define X_LEVEL 36
 
 #define MAX_PLAYERS 2
 

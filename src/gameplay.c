@@ -17,6 +17,7 @@ u16 levelInd;
 u8 bonusText[N_BONUS + 1];
 u8 scoreText[N_SCORE + 1];
 u8 livesText[N_LIVES + 1];
+u8 levelText[N_LEVEL + 1];
 
 
 void GAM_gameInit();
@@ -175,11 +176,11 @@ void GAM_levelInit(){
     VDP_drawText("Score", 0, 0);
     VDP_drawText("Bonus", 15, 0);
     VDP_drawText("L:", 27, 0);
-    VDP_drawText("3", X_LIVES, 0);
-    VDP_drawText("Lvl", 33, 0);
+    VDP_drawText("Lvl", 32, 0);
 
     GAM_updateScore();
     GAM_updateLives();
+    GAM_updateLevel();
 
 }
 
@@ -235,5 +236,12 @@ void GAM_updateLives(){
      if(GAM_gameType == COOPERATE){
         sprintf(livesText, "%d", bl_stats.lives);
         VDP_drawText(livesText, X_LIVES, 0);
+    }
+}
+
+void GAM_updateLevel(){
+    if(GAM_gameType == COOPERATE){
+        sprintf(levelText, "%03d", levelInd + 1);
+        VDP_drawText(levelText, X_LEVEL, 0);
     }
 }
