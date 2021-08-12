@@ -569,8 +569,8 @@ __attribute__((always_inline)) static inline void NST_calc_back_margin(u8 direct
 void NST_whR_loop(){
     switch(status & (ANIM_MSK | DIR_MSK)){ //dir is not used in this loop
         case NST_R_RIGHT:
-            //Check right lower corner, with margin to the right.
-            NST_calc_front_margin(0);
+            //Check right lower corner.
+            calc_front(0);
             if(PHY_crash_point(front, POS_TO_PX(curr->pos[Y]))){
                 newstatus = NST_R_UP;
                 status = NST_R_UP; //prevent animation change.
@@ -580,7 +580,6 @@ void NST_whR_loop(){
             }
 
             //Check right lower corner, with margin to the bottom.
-            calc_front(0);
             if(PHY_crash_point(front, POS_TO_PX(curr->pos[Y]) + 1))
                 return;
 
@@ -597,7 +596,7 @@ void NST_whR_loop(){
         case NST_R_DOWN:
             //Check left lower corner, with margin to the bottom.
             calc_front(1);
-            if(PHY_crash_point(front, POS_TO_PX(curr->pos[Y]) + 1)){
+            if(PHY_crash_point(front, POS_TO_PX(curr->pos[Y]) )){
                 newstatus = NST_R_RIGHT;
                 status = NST_R_RIGHT; //prevent animation change.
                 curr->speed[X] = curr->character->role.nastie.speed;
@@ -622,8 +621,8 @@ void NST_whR_loop(){
 
             break;
         case NST_R_LEFT:
-            //Check left top corner, with margin to the left.
-            NST_calc_front_margin(1);
+            //Check left top corner.
+            calc_front(1);
             NST_calc_top();
             if(PHY_crash_point(front, top)){
                 newstatus = NST_R_DOWN;
@@ -635,7 +634,6 @@ void NST_whR_loop(){
 
             //Check left top corner, with margin to the top.
             NST_calc_top_margin();
-            calc_front(1);
             if(PHY_crash_point(front, top))
                 return;
 
@@ -652,7 +650,7 @@ void NST_whR_loop(){
         case NST_R_UP:
             //Check right top corner, with margin to the top.
             calc_front(0);
-            NST_calc_top_margin();
+            NST_calc_top();
             if(PHY_crash_point(front, top)){
                 newstatus = NST_R_LEFT;
                 status = NST_R_LEFT; //prevent animation change.
@@ -663,7 +661,6 @@ void NST_whR_loop(){
 
             //Check right top corner, with margin to the right.
             NST_calc_front_margin(0);
-            NST_calc_top();
             if(PHY_crash_point(front, top))
                 return;
             
