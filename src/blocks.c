@@ -33,6 +33,7 @@ u16 gate_sl0_ind = TILE_USERINDEX;
 u16 gate_sl1_ind = TILE_USERINDEX;
 u16 gate_sl2_ind = TILE_USERINDEX;
 u16 kn_good_ind = TILE_USERINDEX;
+u16 spawners_ind = TILE_USERINDEX;
 
 void drawBlock(u8 x, u8 y, u16 block){
     u8 map_ind = 0;
@@ -375,4 +376,7 @@ void load_blk_tiles(u16 ind){
     VDP_loadTileSet(kn_good.tileset, ind, DMA);
     kn_good_ind = ind;
     ind += kn_good.tileset->numTile;
+    VDP_loadTileSet(spawners.tileset, ind, DMA);
+    spawners_ind = ind;
+    ind += spawners.tileset->numTile;
 }
