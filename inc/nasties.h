@@ -6,7 +6,7 @@
 #define BS_ATTK  2
 
 #define SLO_SPEED    WALKSPEED/2
-#define FAST_SPEED    WALKSPEED * 2
+#define FAST_SPEED    WALKSPEED * 4
 
 #define GL_BIRTH_FRAMES 16 * 4
 #define GL_IDLE_FRAMES 16 * 4 * 3 //2 cycles
