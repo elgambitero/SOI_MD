@@ -377,7 +377,7 @@ const Entity GD_1UP = {
             snd_1up,
             sizeof(snd_1up),
             &GD_obtain,
-            NULL
+            GD_give_1UP
         }
     }
 };
@@ -478,7 +478,7 @@ const Entity GD_ball = {
             snd_ball,
             sizeof(snd_ball),
             &GD_obtain,
-            NULL
+            &GD_give_ball
         }
     }
 };
@@ -856,4 +856,18 @@ void GD_points_GEM(){
         bl_stats.score += 5000;
         GAM_updateScore();
     }
+}
+
+
+void GD_give_arrow(){
+    bl_stats.arrows++;
+}
+
+void GD_give_ball(){
+    bl_stats.balls++;
+}
+
+void GD_give_1UP(){
+    bl_stats.lives++;
+    GAM_updateLives();
 }
