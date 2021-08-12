@@ -15,7 +15,7 @@ void GD_slowDownMonsters();
 
 void GD_update();
 
-
+void GD_points_SILV();
 const Entity GD_silvCoin = {
     GOODY,
     {7, 15},
@@ -31,7 +31,7 @@ const Entity GD_silvCoin = {
             snd_silver_coin,
             sizeof(snd_silver_coin),
             &GD_obtain,
-            NULL
+            &GD_points_SILV
         }
     }
 };
@@ -340,6 +340,7 @@ const Entity GD_bddoor_open = {
     }
 };
 
+void GD_points_GOLDC();
 const Entity GD_goldCoin = {
     GOODY,
     {7, 15},
@@ -355,7 +356,7 @@ const Entity GD_goldCoin = {
             snd_gold_coin,
             sizeof(snd_gold_coin),
             &GD_obtain,
-            NULL
+            &GD_points_GOLDC
         }
     }
 };
@@ -480,6 +481,7 @@ const Entity GD_ball = {
     }
 };
 
+void GD_points_GEM();
 const Entity GD_gem = {
     GOODY,
     {7, 15},
@@ -495,11 +497,12 @@ const Entity GD_gem = {
             snd_gem,
             sizeof(snd_gem),
             &GD_obtain,
-            NULL
+            &GD_points_GEM
         }
     }
 };
 
+void GD_points_GOLD();
 const Entity GD_gold = {
     GOODY,
     {7, 15},
@@ -515,7 +518,7 @@ const Entity GD_gold = {
             snd_goldbar,
             sizeof(snd_goldbar),
             &GD_obtain,
-            NULL
+            &GD_points_GOLD
         }
     }
 };
@@ -821,5 +824,33 @@ void GD_clk12h_pickup(){
         gr_stat->bonus += 4000;
     }else{
         //only current player
+    }
+}
+
+void GD_points_SILV(){
+    if(GAM_gameType == COOPERATE){
+        bl_stats.score += 500;
+        GAM_updateScore();
+    }
+}
+
+void GD_points_GOLDC(){
+    if(GAM_gameType == COOPERATE){
+        bl_stats.score += 1000;
+        GAM_updateScore();
+    }
+}
+
+void GD_points_GOLD(){
+    if(GAM_gameType == COOPERATE){
+        bl_stats.score += 2000;
+        GAM_updateScore();
+    }
+}
+
+void GD_points_GEM(){
+    if(GAM_gameType == COOPERATE){
+        bl_stats.score += 5000;
+        GAM_updateScore();
     }
 }

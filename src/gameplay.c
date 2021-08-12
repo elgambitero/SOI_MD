@@ -173,13 +173,10 @@ void GAM_levelInit(){
     gr_stats.bonus = board.bonus;
 
     VDP_drawText("Score", 0, 0);
-    //VDP_drawText("00000000", X_SCORE, 0);
     VDP_drawText("Bonus", 15, 0);
-    //VDP_drawNumber(5000, N_BONUS, X_BONUS, 0);
     VDP_drawText("L:", 27, 0);
     VDP_drawText("3", X_LIVES, 0);
     VDP_drawText("Lvl", 33, 0);
-    //VDP_drawNumber(levelInd, N_LEVEL, X_LEVEL, 0);
 
     GAM_updateScore();
     GAM_updateLives();
@@ -236,7 +233,7 @@ void GAM_updateScore(){
 
 void GAM_updateLives(){
      if(GAM_gameType == COOPERATE){
-        sprintf(livesText, "%08d", bl_stats.lives);
+        sprintf(livesText, "%d", bl_stats.lives);
         VDP_drawText(livesText, X_LIVES, 0);
     }
 }
