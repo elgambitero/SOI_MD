@@ -111,7 +111,7 @@ static const Actor ant = {&NST_ant,
    &piggy
    };
 
-static const Actor ant_spawn = {&SPW_ant,
+static const Actor ant_spawn = {&SPW_hippo,
       0,
       0,
    {247, 32},
@@ -140,16 +140,6 @@ static const Actor cannon_l = {&SPW_cannon,
       MAX_TIMER - (CANNON_TIME/2),
       0,
    &cannon_r
-   };
-
-static const Actor beanie = {&NST_whfastL,
-      WALK_RIGHT,
-      0,
-   {168, 64},
-   {NASTIE_SPEED, 0},
-   0,
-      0,
-   &cannon_l
    };
 
 const Board test_level = {
@@ -188,6 +178,6 @@ const Board test_level = {
     MUS_HEAVY3,
     0,
     5000,
-    &beanie,
+    &cannon_l,
     &glp
 };
