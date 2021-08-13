@@ -363,11 +363,6 @@ __attribute__((always_inline)) static inline void NST_attack(){
     curr->speed[X] = 0;
 }
 
-__attribute__((always_inline)) static inline void NST_attack_vert(){
-    newstatus = dir | ATTACK_DOWN_IN;
-    curr->frames = ATTK_FRAMES;
-    curr->speed[X] = 0;
-}
 
 __attribute__((always_inline)) static inline void NST_breaks(){
     calc_front(dir);
@@ -913,8 +908,31 @@ __attribute__((always_inline)) static inline void NST_beanie_deleteH(){
     NST_beanie_deletor(front_ind, dir);
     //summon_deletor(front_ind, TRUE);
 }
-__attribute__((always_inline)) static inline void NST_beanie_deleteV(){
-    
+__attribute__((always_inline)) static inline void NST_beanie_deleteV(u8 direction, u8 ind){
+    XGM_setPCM(SFX_IND, snd_beanie_fire, sizeof(snd_beanie_fire));
+    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    break_block_ind(env, ind);
+    fx.status = 2 + direction;
+    fx.character = &FX_beanie_atk;
+    fx.frames = BEAN_DELETE_FRAMES;
+    fx.pos[X] = BLOCK_TO_PX(IND_TO_X(ind)) + 7;
+    fx.pos[Y] = BLOCK_TO_PX( ( (IND_TO_Y(ind) + 1)) );
+    fx.timer = 0;
+    fx.speed[X] = 0;
+    fx.speed[Y] = 0;
+    ACT_add(&fx, &fx_buf);
+}
+
+__attribute__((always_inline)) static inline void NST_keep_walkingV(){
+    newstatus = WALK_DOWN | dir;
+    curr->speed[Y] = dir ? 
+        -curr->character->role.nastie.speed : curr->character->role.nastie.speed;
+}
+
+__attribute__((always_inline)) static inline void NST_attack_vert(){
+    newstatus = dir | ATTACK_DOWN_IN;
+    curr->frames = BEAN_ATTK_FRAMES;
+    curr->speed[Y] = 0;
 }
 
 void NST_beanie_loop(){
@@ -970,6 +988,7 @@ void NST_beanie_loop(){
                         calc_top_block();
                         if(breakable(top_ind)) {
                             NST_attack_vert();
+                            NST_beanie_deleteV(dir, top_ind);
                         }
                         else{
                             curr->pos[Y] &= FLOOR_CORR;
@@ -981,6 +1000,7 @@ void NST_beanie_loop(){
                         calc_floor();
                         if(breakable(floor_ind)) {
                             NST_attack_vert();
+                            NST_beanie_deleteV(dir, floor_ind);
                         }
                         else{
                             curr->pos[Y] &= FLOOR_CORR;
@@ -1008,8 +1028,7 @@ void NST_beanie_loop(){
             break;
         case ATTACK_DOWN_OUT:
             if(curr->frames--) return;
-            //NST_turn_up_fast();
-            //NST_keep_walkingV();
+            NST_keep_walkingV();
             break;
         case DEAD:
             NST_keep_dying();
