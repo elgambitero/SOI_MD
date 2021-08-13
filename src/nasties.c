@@ -188,7 +188,7 @@ const Entity NST_beanie = {
     NASTIE,
     {7, 15},
     {7, 15},
-    PAL_SYS1,
+    PAL_SYS0,
     &beanie_spr,
     NULL,
     &NST_beanie_loop,
@@ -877,6 +877,11 @@ void NST_whL_loop(){
             break;
     }
 }
+
+#define RIGHT 0
+#define LEFT  1
+#define DOWN  2
+#define UP    3
 
 __attribute__((always_inline)) static inline void NST_beanie_deleteH(){
 

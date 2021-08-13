@@ -187,6 +187,21 @@ const Entity FX_antibounce = {
     }
 };
 
+const Entity FX_beanie_atk = {
+    FX,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    &beanie_atk_spr,
+    NULL,
+    &FX_deletor,
+    NULL,
+    {.effect =
+        {
+        }
+    }
+};
+
 __attribute__((always_inline)) static inline void FX_despawn(){
     if(curr->timer){
         curr->timer++;
