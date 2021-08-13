@@ -730,8 +730,8 @@ void NST_whL_loop(){
             if(!PHY_crash_point(front, POS_TO_PX(curr->pos[Y]) + PX_MARGIN) && 
                !PHY_crash_point(back, POS_TO_PX(curr->pos[Y]) + PX_MARGIN) && 
                PHY_crash_point(back + PX_MARGIN, POS_TO_PX(curr->pos[Y]) + PX_MARGIN) ){
-                   newstatus = NST_L_UP;
-                   status = NST_L_UP; //animation change cancellation.
+                   newstatus = NST_L_DOWN;
+                   status = NST_L_DOWN; //animation change cancellation.
                    curr->pos[X] = PX_TO_POS( ( ( (back & ( BLOCK_TO_PX(0xFFFF) ) ) + 16) - curr->character->size[X] ) );
                    curr->speed[X] = 0;
                    curr->speed[Y] = curr->character->role.nastie.speed;
@@ -741,11 +741,11 @@ void NST_whL_loop(){
             //Climb condition
             if(PHY_crash_point( POS_TO_PX(curr->pos[X]) , POS_TO_PX(curr->pos[Y]) + PX_MARGIN) && 
                PHY_crash_point(front, NST_mid_height() ) ){
-                   newstatus = NST_L_DOWN;
-                   status = NST_L_DOWN; //animation change cancellation.
+                   newstatus = NST_L_UP;
+                   status = NST_L_UP; //animation change cancellation.
                    curr->pos[X] = PX_TO_POS( ( ( (front & ( BLOCK_TO_PX(0xFFFF) ) ) + 16) + curr->character->size[X]) );
                    curr->speed[X] = 0;
-                   curr->speed[Y] = curr->character->role.nastie.speed;
+                   curr->speed[Y] = -curr->character->role.nastie.speed;
                    return;
             }
             break;
@@ -753,12 +753,12 @@ void NST_whL_loop(){
             //Roll-off condition
             calc_front(0);
             NST_calc_top();
-            if(!PHY_crash_point(front + PX_MARGIN, POS_TO_PX(curr->pos[Y]) ) && 
-               !PHY_crash_point(front + PX_MARGIN, top) && 
+            if(!PHY_crash_point(front + PX_MARGIN, POS_TO_PX(curr->pos[Y]) ) &&
+               !PHY_crash_point(front + PX_MARGIN, top) &&
                PHY_crash_point(front + PX_MARGIN, top - PX_MARGIN)){
                    newstatus = NST_L_RIGHT;
                    status = NST_L_RIGHT; //animation change cancellation.
-                   curr->pos[Y] = PX_TO_POS(( (top & ( BLOCK_TO_PX(0xFFFF) ) ) + curr->character->size[Y] ));
+                   curr->pos[Y] = PX_TO_POS( ( (top & ( BLOCK_TO_PX(0xFFFF) ) ) + curr->character->size[Y] ) );
                    curr->speed[X] = curr->character->role.nastie.speed;;
                    curr->speed[Y] = 0;
                    return;
@@ -783,22 +783,22 @@ void NST_whL_loop(){
             if(!PHY_crash_point( front , top - PX_MARGIN) && 
                !PHY_crash_point( back , top - PX_MARGIN) && 
                PHY_crash_point( back - PX_MARGIN ,  top - PX_MARGIN)){
-                   newstatus = NST_L_DOWN;
-                   status = NST_L_DOWN; //animation change cancellation.
-                   curr->pos[X] = PX_TO_POS( ( ( ( back & ( BLOCK_TO_PX(0xFFFF) ) ) ) - curr->character->size[X] ));
+                   newstatus = NST_L_UP;
+                   status = NST_L_UP; //animation change cancellation.
+                   curr->pos[X] = PX_TO_POS( ( ( ( back & ( BLOCK_TO_PX(0xFFFF) ) ) ) + curr->character->size[X] ));
                    curr->speed[X] = 0;
-                   curr->speed[Y] = curr->character->role.nastie.speed;
+                   curr->speed[Y] = -curr->character->role.nastie.speed;
                    return;
             }
             
             //Climb condition
             if(PHY_crash_point( POS_TO_PX(curr->pos[X]) , top - PX_MARGIN) && 
                PHY_crash_point( front , NST_mid_height() ) ){
-                   newstatus = NST_L_UP;
-                   status = NST_L_UP; //animation change cancellation.
-                   curr->pos[X] = PX_TO_POS(( ((front & ( BLOCK_TO_PX(0xFFFF) ) ) ) - curr->character->size[X] ));
+                   newstatus = NST_L_DOWN;
+                   status = NST_L_DOWN; //animation change cancellation.
+                   curr->pos[X] = PX_TO_POS( ( ((front & ( BLOCK_TO_PX(0xFFFF) ) ) ) - curr->character->size[X] ));
                    curr->speed[X] = 0;
-                   curr->speed[Y] = -curr->character->role.nastie.speed;
+                   curr->speed[Y] = curr->character->role.nastie.speed;
                    return;
             }
             break;
