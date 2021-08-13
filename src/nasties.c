@@ -883,18 +883,27 @@ void NST_whL_loop(){
 #define DOWN  2
 #define UP    3
 
+#define BEAN_ATTK_FRAMES 64
+#define BEAN_DELETE_FRAMES 64
+
 void NST_beanie_deletor(u8 ind, u8 direction){
     XGM_setPCM(SFX_IND, snd_beanie_fire, sizeof(snd_beanie_fire));
     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
     fx.status = direction;
     fx.character = &FX_beanie_atk;
-    fx.frames = DELETOR_FRAMES;
+    fx.frames = BEAN_DELETE_FRAMES;
     fx.pos[X] = BLOCK_TO_PX(IND_TO_X(ind)) + 7;
     fx.pos[Y] = BLOCK_TO_PX( (IND_TO_Y(ind) + 1) );
     fx.timer = 0;
     fx.speed[X] = 0;
     fx.speed[Y] = 0;
     ACT_add(&fx, &fx_buf);
+}
+
+__attribute__((always_inline)) static inline void NST_beanie_attackH(){
+    newstatus = dir | ATTACK_RIGHT_IN;
+    curr->frames = BEAN_ATTK_FRAMES;
+    curr->speed[X] = 0;
 }
 
 __attribute__((always_inline)) static inline void NST_beanie_deleteH(){
@@ -920,7 +929,7 @@ void NST_beanie_loop(){
                     return;
                 case BLOCK:
                     if(breakable(front_ind)) {
-                        NST_attack();
+                        NST_beanie_attackH();
                         NST_beanie_deleteH();
                     }
                     else NST_turn_around();
