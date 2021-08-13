@@ -74,14 +74,13 @@ u8 weap_ctrl(u8 after){
         curr->speed[Y] = 0;
         if(*ctrl & CTRL_ALT){
             curr->frames = BP_ATTK_FRAMES;
-            newstatus = LOW_ATTK_RIGHT_IN | dir;/*
-            if(TRUE){ // ran out of magic balls. Deactivated for now.
+            newstatus = LOW_ATTK_RIGHT_IN | dir;
+            if(!pl_stat->balls){
                 *pl_act = NOTHING;
                 return TRUE;
             }
+            pl_stat->balls--;
             *pl_act = SHOOT;
-            return TRUE;*/
-            *pl_act = NOTHING;
             return TRUE;
         }else{
             curr->frames = BP_ATTK_FRAMES;
@@ -294,7 +293,7 @@ static inline void PL_fire_ball(u8 dir, ActorList * list){
     fx.pos[X] = POS_TO_PX(curr->pos[X]);
     fx.pos[Y] = POS_TO_PX(curr->pos[Y]);
     fx.speed[X] = dir ? -BALL_SPEED : BALL_SPEED;
-    fx.speed[X] = 0;
+    fx.speed[Y] = 0;
     ACT_add(&fx, list);
 }
 
