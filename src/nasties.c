@@ -344,9 +344,27 @@ __attribute__((always_inline)) static inline void NST_turn_around(){
     curr->frames = TURN_FRAMES;
     curr->speed[X] = 0;
 }
+__attribute__((always_inline)) static inline void NST_turn_around_fast(){
+    newstatus = WALK_RIGHT | !dir;
+}
+
+__attribute__((always_inline)) static inline void NST_turn_up(){
+    newstatus = dir | DOWN_TURN_UP;
+    curr->frames = TURN_FRAMES;
+    curr->speed[Y] = 0;
+}
+__attribute__((always_inline)) static inline void NST_turn_up_fast(){
+    newstatus = WALK_UP | !dir;
+}
 
 __attribute__((always_inline)) static inline void NST_attack(){
     newstatus = dir | ATTACK_RIGHT_IN;
+    curr->frames = ATTK_FRAMES;
+    curr->speed[X] = 0;
+}
+
+__attribute__((always_inline)) static inline void NST_attack_vert(){
+    newstatus = dir | ATTACK_DOWN_IN;
     curr->frames = ATTK_FRAMES;
     curr->speed[X] = 0;
 }
@@ -373,9 +391,6 @@ __attribute__((always_inline)) static inline void NST_keep_walking(){
         -curr->character->role.nastie.speed : curr->character->role.nastie.speed;
 }
 
-__attribute__((always_inline)) static inline void NST_turn_around_fast(){
-    newstatus = WALK_RIGHT | !dir;
-}
 
 __attribute__((always_inline)) static inline void NST_die(){
     kill(curr, WALKSPEED, -2*FALLSPEED);
@@ -863,6 +878,12 @@ void NST_whL_loop(){
     }
 }
 
+__attribute__((always_inline)) static inline void NST_beanie_deleteH(){
+
+}
+__attribute__((always_inline)) static inline void NST_beanie_deleteV(){
+    
+}
 
 void NST_beanie_loop(){
 
@@ -903,15 +924,38 @@ void NST_beanie_loop(){
             if(curr->frames--) return;
             NST_turn_around_fast();
         break;
-        case FALL_RIGHT:
+        case WALK_DOWN:
             calc_floor();
-            if(land(floor_ind)) {
-                curr->pos[Y] &= FLOOR_CORR;
-                curr->speed[Y] = 0;
-                NST_keep_walking();
-                break;
+            switch( PHY_crash_point(POS_TO_PX(curr->pos[X]), 
+                                    POS_TO_PX(curr->pos[Y]) - (dir ? curr->character->size[Y] : 0) ) ){
+                case FRAME:
+                    curr->pos[Y] &= FLOOR_CORR;
+                    curr->speed[Y] = 0;
+                    NST_turn_up();
+                    break;
+                case BLOCK:
+                    if(breakable(floor_ind)) NST_attack_vert();
+                    break;
             }
-        break;
+            break;
+        case DOWN_TURN_UP:
+            if(curr->frames--) return;
+            newstatus = WALK_DOWN | !dir;
+            curr->speed[Y] = dir ? 
+                -curr->character->role.nastie.speed : curr->character->role.nastie.speed;
+            curr->pos[Y] += dir ? COLL_CORR : -COLL_CORR;
+            break;
+        case ATTACK_DOWN_IN:
+            if(curr->frames--) return;
+            NST_deletes();
+            newstatus = dir | ATTACK_DOWN_OUT;
+            curr->frames = ATTK_FRAMES;
+            curr->speed[Y] = 0;
+            break;
+        case ATTACK_DOWN_OUT:
+            if(curr->frames--) return;
+            NST_turn_up_fast();
+            break;
         case DEAD:
             NST_keep_dying();
         break;
