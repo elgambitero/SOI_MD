@@ -892,14 +892,13 @@ __attribute__((always_inline)) static inline void NST_beanie_deleteV(){
 
 void NST_beanie_loop(){
 
-    calc_center_block();
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
             calc_front(dir);
             calc_front_block();
             switch(crash_into()){
                 case FRAME:
-                    NST_turn_around(); //why tho.
+                    NST_turn_around();
                     return;
                 case BLOCK:
                     if(breakable(front_ind)) NST_attack();
@@ -920,7 +919,7 @@ void NST_beanie_loop(){
         break;
         case ATTACK_RIGHT_IN: 
             if(curr->frames--) return;
-            NST_deletes();
+            //NST_deletes(); //rewrite for beanies
             newstatus = dir | ATTACK_RIGHT_OUT;
             curr->frames = ATTK_FRAMES;
             curr->speed[X] = 0;
@@ -952,7 +951,7 @@ void NST_beanie_loop(){
             break;
         case ATTACK_DOWN_IN:
             if(curr->frames--) return;
-            NST_deletes();
+            //NST_deletes(); //Rewrite for beanies
             newstatus = dir | ATTACK_DOWN_OUT;
             curr->frames = ATTK_FRAMES;
             curr->speed[Y] = 0;
