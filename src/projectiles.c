@@ -87,8 +87,8 @@ const Entity PR_packet = {
 void PR_R_ball_loop();
 const Entity PR_R_ball = {
     PROJECTILE,
-    {5, 10},
-    {7, 15},
+    {6, 12},
+    {8, 15},
     PAL_SYS0,
     &R_ball_spr,
     NULL,
@@ -103,8 +103,8 @@ const Entity PR_R_ball = {
 void PR_L_ball_loop();
 const Entity PR_L_ball = {
     PROJECTILE,
-    {5, 10},
-    {7, 15},
+    {6, 12},
+    {8, 15},
     PAL_SYS0,
     &L_ball_spr,
     NULL,
