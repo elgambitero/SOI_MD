@@ -695,7 +695,7 @@ void NST_whL_loop(){
                    status = NST_L_UP; //animation change cancellation.
                    curr->pos[X] = PX_TO_POS( (back & ( BLOCK_TO_PX(0xFFFF) ) ) + curr->character->size[X] );
                    curr->speed[X] = 0;
-                   curr->speed[Y] = curr->character->role.nastie.speed;
+                   curr->speed[Y] = -curr->character->role.nastie.speed;
                    return;
             }
             
@@ -706,7 +706,7 @@ void NST_whL_loop(){
                    status = NST_L_DOWN; //animation change cancellation.
                    curr->pos[X] = PX_TO_POS( (front & ( BLOCK_TO_PX(0xFFFF) ) ) - curr->character->size[X] );
                    curr->speed[X] = 0;
-                   curr->speed[Y] = -curr->character->role.nastie.speed;
+                   curr->speed[Y] = curr->character->role.nastie.speed;
                    return;
             }
             break;
@@ -720,7 +720,7 @@ void NST_whL_loop(){
                    newstatus = NST_L_RIGHT;
                    status = NST_L_RIGHT; //animation change cancellation.
                    curr->pos[Y] = PX_TO_POS( (top & ( BLOCK_TO_PX(0xFFFF) ) ) + curr->character->size[Y] );
-                   curr->speed[X] = -curr->character->role.nastie.speed;;
+                   curr->speed[X] = curr->character->role.nastie.speed;;
                    curr->speed[Y] = 0;
                    return;
             }
@@ -731,7 +731,7 @@ void NST_whL_loop(){
                    newstatus = NST_L_LEFT;
                    status = NST_L_LEFT; //animation change cancellation.
                    curr->pos[Y] = PX_TO_POS( ( POS_TO_PX(curr->pos[Y]) & ( BLOCK_TO_PX(0xFFFF) ) ) );
-                   curr->speed[X] = curr->character->role.nastie.speed;;
+                   curr->speed[X] = -curr->character->role.nastie.speed;;
                    curr->speed[Y] = 0;
                    return;
             }
@@ -748,7 +748,7 @@ void NST_whL_loop(){
                    status = NST_L_DOWN; //animation change cancellation.
                    curr->pos[X] = PX_TO_POS( ((back & ( BLOCK_TO_PX(0xFFFF) ) ) + 16 ) - curr->character->size[X] );
                    curr->speed[X] = 0;
-                   curr->speed[Y] = -curr->character->role.nastie.speed;
+                   curr->speed[Y] = curr->character->role.nastie.speed;
                    return;
             }
             
@@ -759,7 +759,7 @@ void NST_whL_loop(){
                    status = NST_L_UP; //animation change cancellation.
                    curr->pos[X] = PX_TO_POS( ((front & ( BLOCK_TO_PX(0xFFFF) ) ) + 16 ) + curr->character->size[X] );
                    curr->speed[X] = 0;
-                   curr->speed[Y] = curr->character->role.nastie.speed;
+                   curr->speed[Y] = -curr->character->role.nastie.speed;
                    return;
             }
             break;
@@ -773,7 +773,7 @@ void NST_whL_loop(){
                    newstatus = NST_R_LEFT;
                    status = NST_R_LEFT; //animation change cancellation.
                    curr->pos[Y] = PX_TO_POS( ( (POS_TO_PX(curr->pos[Y]) & ( BLOCK_TO_PX(0xFFFF) ) ) + 16) );
-                   curr->speed[X] = curr->character->role.nastie.speed;;
+                   curr->speed[X] = -curr->character->role.nastie.speed;;
                    curr->speed[Y] = 0;
                    return;
             }
@@ -784,7 +784,7 @@ void NST_whL_loop(){
                    newstatus = NST_R_RIGHT;
                    status = NST_R_RIGHT; //animation change cancellation.
                    curr->pos[Y] = PX_TO_POS( ( (top & ( BLOCK_TO_PX(0xFFFF) ) ) + 16) + curr->character->size[Y] );
-                   curr->speed[X] = -curr->character->role.nastie.speed;;
+                   curr->speed[X] = curr->character->role.nastie.speed;;
                    curr->speed[Y] = 0;
                    return;
             }
