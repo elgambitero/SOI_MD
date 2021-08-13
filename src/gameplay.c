@@ -275,7 +275,7 @@ void GAM_updateLives(){
 
 void GAM_updateLevel(){
     if(GAM_gameType == COOPERATE){
-        sprintf(levelText, "%03d", levelInd + 1);
+        sprintf(levelText, "%03d", levelInd);
         VDP_drawText(levelText, X_LEVEL, 0);
     }
 }
