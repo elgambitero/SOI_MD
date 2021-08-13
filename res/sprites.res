@@ -8,7 +8,7 @@ SPRITE whfastL_spr "sprites/wheelie/roll_left_fast.bmp" 2 2 FAST 1
 SPRITE whslowR_spr "sprites/wheelie/roll_right.bmp" 2 2 FAST 2
 SPRITE whslowL_spr "sprites/wheelie/roll_left.bmp" 2 2 FAST 2
 SPRITE beanie_spr "sprites/beenie/beenie.bmp" 2 2 FAST 2
-SPRITE ostrich_spr "sprites/ostrich/ostrick.bmp" 2 2 FAST 2
+SPRITE ostrich_spr "sprites/ostrich/ostrich.bmp" 2 2 FAST 2
 SPRITE hippo_spr "sprites/hippo/hippo.bmp" 2 2 FAST 2
 
 
