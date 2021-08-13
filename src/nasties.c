@@ -586,7 +586,7 @@ void NST_whR_loop(){
             }
             
             //Climb condition
-            if(PHY_crash_point( POS_TO_PX(curr->pos[X]) , POS_TO_PX(curr->pos[Y]) ) && 
+            if(PHY_crash_point( POS_TO_PX(curr->pos[X]) , POS_TO_PX(curr->pos[Y]) + 1) && 
                PHY_crash_point(front, NST_mid_height() ) ){
                    newstatus = NST_R_UP;
                    status = NST_R_UP; //animation change cancellation.
@@ -609,7 +609,6 @@ void NST_whR_loop(){
             }
             
             //Climb condition
-            calc_front(1);
             if(PHY_crash_point( front , NST_mid_height() ) && 
                PHY_crash_point( POS_TO_PX(curr->pos[X]) , POS_TO_PX(curr->pos[Y]) ) ){
                    newstatus = NST_R_RIGHT;
@@ -634,7 +633,6 @@ void NST_whR_loop(){
             }
             
             //Climb condition
-            NST_calc_top();
             if(PHY_crash_point( POS_TO_PX(curr->pos[X]) , top ) && 
                PHY_crash_point( front , NST_mid_height() ) ){
                    newstatus = NST_R_DOWN;
@@ -658,7 +656,6 @@ void NST_whR_loop(){
             }
             
             //Climb condition
-            calc_front(0);
             if(PHY_crash_point( front  , NST_mid_height()  ) && 
                PHY_crash_point( POS_TO_PX(curr->pos[X])  , top ) ){
                    newstatus = NST_R_LEFT;

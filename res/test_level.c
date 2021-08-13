@@ -155,10 +155,10 @@ static const Actor wheelie = {&NST_whslowR,
 const Board test_level = {
     {
      BFW, BOW, BDW, CHI, QUE, NET,   0,   0,   0,   0,   0, TRO,   0,   0, TGO, TBO, TNO, TYO, TWO,
-     BFG, BOG, BDG,   0,   0,   0,   0,   0, UP1, BOO,   0, RDD,   0, TUR,   0, ANT,   0,   0,   0,
+     BFG, BOG, BDG,   0,   0,   0,   0,   0, UP1, BOO,   0, RDD,   0,   0,   0, ANT,   0,   0,   0,
      BFR, BOR, BDR,   0,   0,   0, BOR, BOR, BOR, BOR, BOR, BOR, BOW, BOR, BOR, BOR,   0,   0,   0,
-     BFB, BOB, BDB,   0,   0,   0, BOB, NET, NET, NET, NET,   0,   0,   0,   0,   0, BOR,   0,   0,
-     GRI, GBI, GGI, GNI, GYI, GWI, BOB, NET, NET,   0, BOR,   0,   0,   0,   0,   0,   0,  GLC, BDB,
+     BFB, BOB, BDB,   0,   0,   0, BOB, NET, NET, NET, NET,   0,   0,   0,   0,   0, BOR,   0, TUR,
+     GRI, GBI, GGI, GNI, GYI, GWI, BOB, NET, NET,   0, BOR,   0,   0,   0,   0,   0,   0, GLC, BDB,
      RDK,   0,   0, GNI,   0,   0, BOB, NET,   0, BOR, BOR, BOR,   0,   0,   0,   0, BOG, BDR,   0,
       GP, THN,   0,   0,   0,   0, BOB, NET,   0,   0, BOR,   0,   0, BFG, GLC, GLC,   0,   0,   0,
        0,  BP,   0, ARR,   0,   0,   0, NET,   0,   0,   0,   0,   0,   0, BFW, BFW,   0,   0,   0,
