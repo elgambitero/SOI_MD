@@ -125,6 +125,12 @@ __attribute__((always_inline)) static inline void calc_next(u8 direction){
 __attribute__((always_inline)) static inline void calc_back(u8 direction){
     back = direction ? POS_TO_PX(curr->pos[X]) + curr->character->size[X] : POS_TO_PX(curr->pos[X]) - curr->character->size[X];
 }
+__attribute__((always_inline)) static inline void PHY_calc_top(){
+    top = POS_TO_PX(curr->pos[Y])  - curr->character->size[Y];
+}
+__attribute__((always_inline)) static inline u8 PHY_mid_height(){
+    return POS_TO_PX(curr->pos[Y]) - (curr->character->size[Y] >> 1);
+}
 
 //Neighbouring block index calculations
 __attribute__((always_inline)) static inline void calc_front_block_hi(){

@@ -84,6 +84,38 @@ const Entity PR_packet = {
     }
 };
 
+void PR_R_ball_loop();
+const Entity PR_R_ball = {
+    PROJECTILE,
+    {5, 10},
+    {7, 15},
+    PAL_SYS0,
+    &packet_spr,
+    NULL,
+    &PR_R_ball_loop,
+    NULL,
+    {.proj = 
+        {
+        }
+    }
+};
+
+void PR_L_ball_loop();
+const Entity PR_L_ball = {
+    PROJECTILE,
+    {5, 10},
+    {7, 15},
+    PAL_SYS0,
+    &packet_spr,
+    NULL,
+    &PR_L_ball_loop,
+    NULL,
+    {.proj = 
+        {
+        }
+    }
+};
+
 void PR_arrow_loop(){
     calc_front(dir);
     calc_front_block();
@@ -293,4 +325,12 @@ void PR_packet_land(){
         env->back_blocks[block_ind] = good_block;
         create_block_ind(env, QUE, block_ind);
     }
+}
+
+void PR_R_ball_loop(){
+
+}
+
+void PR_L_ball_loop(){
+    
 }
