@@ -1,6 +1,6 @@
 mkdir frames
 for x in {0..79}; do convert -extent 32x32 -gravity south $x.bmp frames/$x.bmp; done
-for x in {0..79}; do convert -flop frames/$x.bmp frames/$x.bmp; done
+for x in {0..31}; do convert -flop frames/$x.bmp frames/$x.bmp; done
 cd frames
 
 convert +append {0..7}.bmp attack_left_in.bmp
