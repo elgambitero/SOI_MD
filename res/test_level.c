@@ -147,7 +147,7 @@ static const Actor wheelie = {&PR_L_ball,
       0,
    {168, 64},
    {-BALL_SPEED, 0},
-      0,
+   MAX_TIMER - 600,
       0,
    &cannon_l
    };
@@ -157,7 +157,7 @@ static const Actor wheelie2 = {&PR_R_ball,
       0,
    {168, 64},
    {BALL_SPEED, 0},
-      0,
+   MAX_TIMER - 600,
       0,
    &wheelie
    };
