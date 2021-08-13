@@ -275,7 +275,7 @@ __attribute__((always_inline)) static inline void PL_checkspecials(){
     }
 }
 
-static inline void summon_arrow(u8 dir, ActorList * list){
+static inline void PL_fire_arrow(u8 dir, ActorList * list){
     fx.status = dir;
     fx.character = &PR_arrow;
     fx.frames = 0;
@@ -283,6 +283,18 @@ static inline void summon_arrow(u8 dir, ActorList * list){
     fx.pos[Y] = POS_TO_PX(curr->pos[Y]);
     fx.speed[X] = dir ? -2*WALKSPEED : 2*WALKSPEED;
     fx.speed[Y] = 0;
+    ACT_add(&fx, list);
+}
+
+static inline void PL_fire_ball(u8 dir, ActorList * list){
+    fx.status = 0;
+    fx.character = dir ? &PR_L_ball : &PR_R_ball;
+    fx.frames = 0;
+    fx.timer = MAX_TIMER - BALL_TIME;
+    fx.pos[X] = POS_TO_PX(curr->pos[X]);
+    fx.pos[Y] = POS_TO_PX(curr->pos[Y]);
+    fx.speed[X] = dir ? -BALL_SPEED : BALL_SPEED;
+    fx.speed[X] = 0;
     ACT_add(&fx, list);
 }
 
@@ -395,9 +407,9 @@ void PL_update(){
                     XGM_setPCM(SFX_IND, snd_arrow_fire, sizeof(snd_arrow_fire));
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                     if(pl_act == &bl_act)
-                        summon_arrow(dir, &bp_projectiles);
+                        PL_fire_arrow(dir, &bp_projectiles);
                     else
-                        summon_arrow(dir, &gp_projectiles);
+                        PL_fire_arrow(dir, &gp_projectiles);
                 break;
                 default:
                 break;
@@ -473,7 +485,14 @@ void PL_update(){
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                     summon_deletor(front_ind, TRUE);
                 break;
-
+                case SHOOT:
+                    XGM_setPCM(SFX_IND, snd_ball_fire, sizeof(snd_ball_fire));
+                    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+                    if(pl_act == &bl_act)
+                        PL_fire_ball(dir, &bp_projectiles);
+                    else
+                        PL_fire_ball(dir, &gp_projectiles);
+                break;
                 default:
                 break;
             }

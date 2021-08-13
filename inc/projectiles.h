@@ -12,6 +12,7 @@
 #define PR_L_UP        3
 
 #define BALL_SPEED     2 * WALKSPEED
+#define BALL_TIME      600
 
 extern const Entity PR_arrow;
 extern const Entity PR_cannonball;
