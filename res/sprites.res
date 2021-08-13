@@ -7,6 +7,7 @@ SPRITE whfastR_spr "sprites/wheelie/roll_right_fast.bmp" 2 2 FAST 1
 SPRITE whfastL_spr "sprites/wheelie/roll_left_fast.bmp" 2 2 FAST 1
 SPRITE whslowR_spr "sprites/wheelie/roll_right.bmp" 2 2 FAST 2
 SPRITE whslowL_spr "sprites/wheelie/roll_left.bmp" 2 2 FAST 2
+SPRITE beanie_spr "sprites/beanie/beanie.bmp" 2 2 FAST 2
 
 SPRITE smiley_spr "sprites/smiley/Smiley_test.png" 2 2 FAST 2
 
