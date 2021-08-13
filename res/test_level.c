@@ -142,11 +142,11 @@ static const Actor cannon_l = {&SPW_cannon,
    &cannon_r
    };
 
-static const Actor wheelie = {&NST_whslowR,
+static const Actor wheelie = {&NST_whfastR,
       NST_R_RIGHT,
       0,
    {168, 64},
-   {SLO_SPEED, 0},
+   {FAST_SPEED, 0},
       0,
       0,
    &cannon_l
