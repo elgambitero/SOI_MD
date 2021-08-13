@@ -662,6 +662,7 @@ void NST_whR_loop(){
                PHY_crash_point( front + PX_MARGIN, POS_TO_PX(curr->pos[Y]) + PX_MARGIN) ){
                    newstatus = NST_R_RIGHT;
                    status = NST_R_RIGHT; //animation change cancellation.
+                   curr->pos[Y] = PX_TO_POS( ( (POS_TO_PX(curr->pos[Y]) & ( BLOCK_TO_PX(0xFFFF) ) ) + 16) );
                    curr->speed[X] = curr->character->role.nastie.speed;;
                    curr->speed[Y] = 0;
                    return;
@@ -672,6 +673,7 @@ void NST_whR_loop(){
                PHY_crash_point( POS_TO_PX(curr->pos[X])  , top ) ){
                    newstatus = NST_R_LEFT;
                    status = NST_R_LEFT; //animation change cancellation.
+                   curr->pos[Y] = PX_TO_POS( ( (top & ( BLOCK_TO_PX(0xFFFF) ) ) + 16) + curr->character->size[Y] );
                    curr->speed[X] = -curr->character->role.nastie.speed;;
                    curr->speed[Y] = 0;
                    return;
