@@ -920,10 +920,135 @@ void NST_beanie_loop(){
 
 void NST_ostrich_loop(){
     
+    PHY_despawn();
+
+    calc_center_block();
+    switch(status & ANIM_MSK){
+        case WALK_RIGHT:
+            calc_back(dir);
+            calc_back_floor();
+            if(fall(back_floor_ind)){
+                NST_fall();
+                return;
+            }
+            calc_front(dir);
+            calc_front_block();
+            switch(crash_into()){
+                case BLOCK:
+                case FRAME:
+                    NST_turn_around();
+                    return;
+                default:
+                    NST_keep_walking();
+                    return;
+            }
+            curr->speed[X] = dir ? 
+                -curr->character->role.nastie.speed : curr->character->role.nastie.speed;
+        break;
+        case RIGHT_TURN_LEFT:
+            if(curr->frames--) return;
+            newstatus = WALK_RIGHT | !dir;
+            curr->speed[X] = dir ? 
+                curr->character->role.nastie.speed : -curr->character->role.nastie.speed;
+            curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
+        break;
+        case FALL_RIGHT:
+            calc_floor();
+            if(land(floor_ind)) {
+                curr->pos[Y] &= FLOOR_CORR;
+                curr->speed[Y] = 0;
+                
+                Actor * player = NULL;
+                if(blue_player && green_player){
+                    //randomly go after one of the players.
+                    if(RNG_get() & 0x01)
+                        player = blue_player;
+                    else
+                        player = green_player;
+                }     
+                player = blue_player ? blue_player : green_player;
+                if(!player){
+                    NST_keep_walking();
+                    return;
+                }
+                if(player->pos[X] > curr->pos[X]){
+                    if(dir)
+                        NST_turn_around();
+                    else
+                        NST_keep_walking();
+                }else{
+                    if(dir)
+                        NST_keep_walking();
+                    else
+                        NST_turn_around();
+                }
+            }
+        break;
+        case DEAD:
+            NST_keep_dying();
+        break;
+    }
 }
 
 void NST_hippo_loop(){
-    
+    PHY_despawn();
+
+    calc_center_block();
+    switch(status & ANIM_MSK){
+        case WALK_RIGHT:
+            calc_back(dir);
+            calc_back_floor();
+            if(fall(back_floor_ind)){
+                NST_fall();
+                return;
+            }
+            calc_front(dir);
+            calc_front_block();
+            switch(crash_into()){
+                case FRAME:
+                    NST_turn_around();
+                    return;
+                case BLOCK:
+                    if(breakable(front_ind)) NST_attack();
+                    else NST_turn_around();
+                    return;
+                default:
+                    break;
+            }
+            curr->speed[X] = dir ? 
+                -curr->character->role.nastie.speed : curr->character->role.nastie.speed;
+        break;
+        case RIGHT_TURN_LEFT:
+            if(curr->frames--) return;
+            newstatus = WALK_RIGHT | !dir;
+            curr->speed[X] = dir ? 
+                curr->character->role.nastie.speed : -curr->character->role.nastie.speed;
+            curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
+        break;
+        case ATTACK_RIGHT_IN: 
+            if(curr->frames--) return;
+            NST_deletes();
+            newstatus = dir | ATTACK_RIGHT_OUT;
+            curr->frames = ATTK_FRAMES;
+            curr->speed[X] = 0;
+        break;
+        case ATTACK_RIGHT_OUT: 
+            if(curr->frames--) return;
+            NST_keep_walking();
+        break;
+        case FALL_RIGHT:
+            calc_floor();
+            if(land(floor_ind)) {
+                curr->pos[Y] &= FLOOR_CORR;
+                curr->speed[Y] = 0;
+                NST_keep_walking();
+                break;
+            }
+        break;
+        case DEAD:
+            NST_keep_dying();
+        break;
+    }
 }
 
 
