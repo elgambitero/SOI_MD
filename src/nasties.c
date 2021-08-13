@@ -203,6 +203,46 @@ const Entity NST_beanie = {
     }
 };
 
+void NST_ostrich_loop();
+const Entity NST_ostrich = {
+    NASTIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    &ostrich_spr,
+    NULL,
+    &NST_ostrich_loop,
+    NULL,
+    {.nastie =
+        {
+            snd_ostrich,
+            sizeof(snd_ostrich),
+            250,
+            NASTIE_SPEED,
+        }
+    }
+};
+
+void NST_hippo_loop();
+const Entity NST_hippo = {
+    NASTIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS1,
+    &hippo_spr,
+    NULL,
+    &NST_hippo_loop,
+    NULL,
+    {.nastie =
+        {
+            snd_hippo,
+            sizeof(snd_hippo),
+            250,
+            NASTIE_SPEED,
+        }
+    }
+};
+
 void BS_gargoyle_loop();
 const Entity BS_gargoyle = {
     NASTIE,
@@ -878,6 +918,13 @@ void NST_beanie_loop(){
     }
 }
 
+void NST_ostrich_loop(){
+    
+}
+
+void NST_hippo_loop(){
+    
+}
 
 
 

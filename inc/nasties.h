@@ -60,6 +60,8 @@ extern const Entity NST_whfastR;
 extern const Entity NST_whslowL;
 extern const Entity NST_whfastL;
 extern const Entity NST_beanie;
+extern const Entity NST_ostrich;
+extern const Entity NST_hippo;
 
 extern const Entity BS_gargoyle;
 extern const Entity BS_gargoyle1;
