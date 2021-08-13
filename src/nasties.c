@@ -646,7 +646,27 @@ void NST_whR_loop(){
             break;
         case NST_R_UP:
             //Roll-off condition
+            calc_front_margin(0);
+            NST_calc_top();
+            if(!PHY_crash_point( front , top ) && 
+               !PHY_crash_point( front , POS_TO_PX(curr->pos[Y]) ) ){
+                   newstatus = NST_R_RIGHT;
+                   status = NST_R_RIGHT; //animation change cancellation.
+                   curr->speed[X] = curr->character->role.nastie.speed;;
+                   curr->speed[Y] = 0;
+                   return;
+            }
+            
             //Climb condition
+            calc_front(0);
+            if(PHY_crash_point( front  , NST_mid_height()  ) && 
+               PHY_crash_point( POS_TO_PX(curr->pos[X])  , top ) ){
+                   newstatus = NST_R_LEFT;
+                   status = NST_R_LEFT; //animation change cancellation.
+                   curr->speed[X] = -curr->character->role.nastie.speed;;
+                   curr->speed[Y] = 0;
+                   return;
+            }
             break;
     }
 }
