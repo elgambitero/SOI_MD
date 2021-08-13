@@ -90,7 +90,7 @@ const Entity PR_R_ball = {
     {5, 10},
     {7, 15},
     PAL_SYS0,
-    &packet_spr,
+    &R_ball_spr,
     NULL,
     &PR_R_ball_loop,
     NULL,
@@ -106,7 +106,7 @@ const Entity PR_L_ball = {
     {5, 10},
     {7, 15},
     PAL_SYS0,
-    &packet_spr,
+    &L_ball_spr,
     NULL,
     &PR_L_ball_loop,
     NULL,
@@ -342,7 +342,7 @@ void PR_R_ball_loop(){
                    status = PR_R_DOWN; //animation change cancellation.
                    curr->pos[X] = PX_TO_POS(( (back & ( BLOCK_TO_PX(0xFFFF) ) ) + curr->character->size[X] ));
                    curr->speed[X] = 0;
-                   curr->speed[Y] = curr->character->role.nastie.speed;
+                   curr->speed[Y] = BALL_SPEED;
                    return;
             }
             
@@ -353,7 +353,7 @@ void PR_R_ball_loop(){
                    status = PR_R_UP; //animation change cancellation.
                    curr->pos[X] = PX_TO_POS( ((front & ( BLOCK_TO_PX(0xFFFF) ) ) - curr->character->size[X] ));
                    curr->speed[X] = 0;
-                   curr->speed[Y] = -curr->character->role.nastie.speed;
+                   curr->speed[Y] = -BALL_SPEED;
                    return;
             }
             break;
@@ -367,7 +367,7 @@ void PR_R_ball_loop(){
                    newstatus = PR_R_LEFT;
                    status = PR_R_LEFT; //animation change cancellation.
                    curr->pos[Y] = PX_TO_POS(( (top & ( BLOCK_TO_PX(0xFFFF) ) ) + curr->character->size[Y] ));
-                   curr->speed[X] = -curr->character->role.nastie.speed;;
+                   curr->speed[X] = -BALL_SPEED;
                    curr->speed[Y] = 0;
                    return;
             }
@@ -378,7 +378,7 @@ void PR_R_ball_loop(){
                    newstatus = PR_R_RIGHT;
                    status = PR_R_RIGHT; //animation change cancellation.
                    curr->pos[Y] = PX_TO_POS( ( POS_TO_PX(curr->pos[Y]) & ( BLOCK_TO_PX(0xFFFF) ) ) );
-                   curr->speed[X] = curr->character->role.nastie.speed;;
+                   curr->speed[X] = BALL_SPEED;
                    curr->speed[Y] = 0;
                    return;
             }
@@ -395,7 +395,7 @@ void PR_R_ball_loop(){
                    status = PR_R_UP; //animation change cancellation.
                    curr->pos[X] = PX_TO_POS(( ((back & ( BLOCK_TO_PX(0xFFFF) ) ) + 16 ) - curr->character->size[X] ));
                    curr->speed[X] = 0;
-                   curr->speed[Y] = -curr->character->role.nastie.speed;
+                   curr->speed[Y] = -BALL_SPEED;
                    return;
             }
             
@@ -406,7 +406,7 @@ void PR_R_ball_loop(){
                    status = PR_R_DOWN; //animation change cancellation.
                    curr->pos[X] = PX_TO_POS( (((front & ( BLOCK_TO_PX(0xFFFF) ) ) + 16 ) + curr->character->size[X] ));
                    curr->speed[X] = 0;
-                   curr->speed[Y] = curr->character->role.nastie.speed;
+                   curr->speed[Y] = BALL_SPEED;
                    return;
             }
             break;
@@ -420,7 +420,7 @@ void PR_R_ball_loop(){
                    newstatus = PR_R_RIGHT;
                    status = PR_R_RIGHT; //animation change cancellation.
                    curr->pos[Y] = PX_TO_POS( ( (POS_TO_PX(curr->pos[Y]) & ( BLOCK_TO_PX(0xFFFF) ) ) + 16) );
-                   curr->speed[X] = curr->character->role.nastie.speed;;
+                   curr->speed[X] = BALL_SPEED;
                    curr->speed[Y] = 0;
                    return;
             }
@@ -431,7 +431,7 @@ void PR_R_ball_loop(){
                    newstatus = PR_R_LEFT;
                    status = PR_R_LEFT; //animation change cancellation.
                    curr->pos[Y] = PX_TO_POS(( ( (top & ( BLOCK_TO_PX(0xFFFF) ) ) + 16) + curr->character->size[Y] ));
-                   curr->speed[X] = -curr->character->role.nastie.speed;;
+                   curr->speed[X] = -BALL_SPEED;
                    curr->speed[Y] = 0;
                    return;
             }
@@ -452,7 +452,7 @@ void PR_L_ball_loop(){
                    status = PR_L_DOWN; //animation change cancellation.
                    curr->pos[X] = PX_TO_POS( ( ( (back & ( BLOCK_TO_PX(0xFFFF) ) ) + 16) - curr->character->size[X] ) );
                    curr->speed[X] = 0;
-                   curr->speed[Y] = curr->character->role.nastie.speed;
+                   curr->speed[Y] = BALL_SPEED;
                    return;
             }
             
@@ -463,7 +463,7 @@ void PR_L_ball_loop(){
                    status = PR_L_UP; //animation change cancellation.
                    curr->pos[X] = PX_TO_POS( ( ( (front & ( BLOCK_TO_PX(0xFFFF) ) ) + 16) + curr->character->size[X]) );
                    curr->speed[X] = 0;
-                   curr->speed[Y] = -curr->character->role.nastie.speed;
+                   curr->speed[Y] = -BALL_SPEED;
                    return;
             }
             break;
@@ -477,7 +477,7 @@ void PR_L_ball_loop(){
                    newstatus = PR_L_RIGHT;
                    status = PR_L_RIGHT; //animation change cancellation.
                    curr->pos[Y] = PX_TO_POS( ( (top & ( BLOCK_TO_PX(0xFFFF) ) ) + curr->character->size[Y] ) );
-                   curr->speed[X] = curr->character->role.nastie.speed;;
+                   curr->speed[X] = BALL_SPEED;
                    curr->speed[Y] = 0;
                    return;
             }
@@ -488,7 +488,7 @@ void PR_L_ball_loop(){
                    newstatus = PR_L_LEFT;
                    status = PR_L_LEFT; //animation change cancellation.
                    curr->pos[Y] = PX_TO_POS( ( POS_TO_PX(curr->pos[Y]) & ( BLOCK_TO_PX(0xFFFF) ) ) );
-                   curr->speed[X] = -curr->character->role.nastie.speed;;
+                   curr->speed[X] = -BALL_SPEED;
                    curr->speed[Y] = 0;
                    return;
             }
@@ -505,7 +505,7 @@ void PR_L_ball_loop(){
                    status = PR_L_UP; //animation change cancellation.
                    curr->pos[X] = PX_TO_POS( ( ( ( back & ( BLOCK_TO_PX(0xFFFF) ) ) ) + curr->character->size[X] ));
                    curr->speed[X] = 0;
-                   curr->speed[Y] = -curr->character->role.nastie.speed;
+                   curr->speed[Y] = -BALL_SPEED;
                    return;
             }
             
@@ -516,7 +516,7 @@ void PR_L_ball_loop(){
                    status = PR_L_DOWN; //animation change cancellation.
                    curr->pos[X] = PX_TO_POS( ( ((front & ( BLOCK_TO_PX(0xFFFF) ) ) ) - curr->character->size[X] ));
                    curr->speed[X] = 0;
-                   curr->speed[Y] = curr->character->role.nastie.speed;
+                   curr->speed[Y] = BALL_SPEED;
                    return;
             }
             break;
@@ -530,7 +530,7 @@ void PR_L_ball_loop(){
                    newstatus = PR_L_LEFT;
                    status = PR_L_LEFT; //animation change cancellation.
                    curr->pos[Y] = PX_TO_POS(( ( (POS_TO_PX(curr->pos[Y]) & ( BLOCK_TO_PX(0xFFFF) ) ) + 16) ));
-                   curr->speed[X] = -curr->character->role.nastie.speed;;
+                   curr->speed[X] = -BALL_SPEED;
                    curr->speed[Y] = 0;
                    return;
             }
@@ -541,7 +541,7 @@ void PR_L_ball_loop(){
                    newstatus = PR_L_RIGHT;
                    status = PR_L_RIGHT; //animation change cancellation.
                    curr->pos[Y] = PX_TO_POS(( ( (top & ( BLOCK_TO_PX(0xFFFF) ) ) + 16) + curr->character->size[Y] ));
-                   curr->speed[X] = curr->character->role.nastie.speed;;
+                   curr->speed[X] = BALL_SPEED;
                    curr->speed[Y] = 0;
                    return;
             }
