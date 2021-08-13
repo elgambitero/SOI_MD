@@ -3,10 +3,10 @@
 #include "sound.h"
 #include "sprites.h"
 
-void SPW_spawn_ant();
 
 void SPW_update();
 
+void SPW_spawn_ant();
 const Entity SPW_ant = {
     SPAWNER,
     {8, 15},
@@ -24,6 +24,59 @@ const Entity SPW_ant = {
     }
 };
 
+void SPW_spawn_piggy();
+const Entity SPW_piggy = {
+    SPAWNER,
+    {8, 15},
+    {7, 15},
+    PAL_SYS0,
+    NULL,
+    NULL,
+    &SPW_update,
+    NULL,
+    {.spawner =
+        {
+            STAY_TIME,
+            &SPW_spawn_piggy
+        }
+    }
+};
+
+void SPW_spawn_hippo();
+const Entity SPW_hippo = {
+    SPAWNER,
+    {8, 15},
+    {7, 15},
+    PAL_SYS0,
+    NULL,
+    NULL,
+    &SPW_update,
+    NULL,
+    {.spawner =
+        {
+            STAY_TIME,
+            &SPW_spawn_hippo
+        }
+    }
+};
+
+void SPW_spawn_ostrich();
+const Entity SPW_ostrich = {
+    SPAWNER,
+    {8, 15},
+    {7, 15},
+    PAL_SYS0,
+    NULL,
+    NULL,
+    &SPW_update,
+    NULL,
+    {.spawner =
+        {
+            STAY_TIME,
+            &SPW_spawn_ostrich
+        }
+    }
+};
 
 void SPW_cannon_loop();
 const Entity SPW_cannon = {
@@ -51,6 +104,54 @@ void SPW_spawn_ant(){
     fx.frames = 0;
     fx.timer = MAX_TIMER - STAY_TIME;
     fx.character = &NST_ant;
+    fx.speed[X] = dir ? 
+        -fx.character->role.nastie.speed : fx.character->role.nastie.speed;
+    fx.speed[Y] = 0;
+    ACT_add(&fx, &nasties);
+    //These times are supposed to go in the board.
+    curr->timer = MAX_TIMER - SPAWN_TIME;
+}
+
+void SPW_spawn_piggy(){
+    fx.status = curr->status;
+    u8 dir = fx.status & 0x01;
+    fx.pos[X] = POS_TO_PX(curr->pos[X]);
+    fx.pos[Y] = POS_TO_PX(curr->pos[Y]);
+    fx.frames = 0;
+    fx.timer = MAX_TIMER - STAY_TIME;
+    fx.character = &NST_piggy;
+    fx.speed[X] = dir ? 
+        -fx.character->role.nastie.speed : fx.character->role.nastie.speed;
+    fx.speed[Y] = 0;
+    ACT_add(&fx, &nasties);
+    //These times are supposed to go in the board.
+    curr->timer = MAX_TIMER - SPAWN_TIME;
+}
+
+void SPW_spawn_hippo(){
+    fx.status = curr->status;
+    u8 dir = fx.status & 0x01;
+    fx.pos[X] = POS_TO_PX(curr->pos[X]);
+    fx.pos[Y] = POS_TO_PX(curr->pos[Y]);
+    fx.frames = 0;
+    fx.timer = MAX_TIMER - STAY_TIME;
+    fx.character = &NST_hippo;
+    fx.speed[X] = dir ? 
+        -fx.character->role.nastie.speed : fx.character->role.nastie.speed;
+    fx.speed[Y] = 0;
+    ACT_add(&fx, &nasties);
+    //These times are supposed to go in the board.
+    curr->timer = MAX_TIMER - SPAWN_TIME;
+}
+
+void SPW_spawn_ostrich(){
+    fx.status = curr->status;
+    u8 dir = fx.status & 0x01;
+    fx.pos[X] = POS_TO_PX(curr->pos[X]);
+    fx.pos[Y] = POS_TO_PX(curr->pos[Y]);
+    fx.frames = 0;
+    fx.timer = MAX_TIMER - STAY_TIME;
+    fx.character = &NST_ostrich;
     fx.speed[X] = dir ? 
         -fx.character->role.nastie.speed : fx.character->role.nastie.speed;
     fx.speed[Y] = 0;
