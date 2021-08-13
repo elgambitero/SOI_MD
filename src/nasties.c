@@ -570,7 +570,7 @@ __attribute__((always_inline)) static inline u8 NST_mid_height(){
     return POS_TO_PX(curr->pos[Y]) - (curr->character->size[Y] >> 1);
 }
 
-#define PX_MARGIN 1
+#define PX_MARGIN 4
 
 void NST_whR_loop(){
     switch(status & (ANIM_MSK | DIR_MSK)){ //dir is not used in this loop
