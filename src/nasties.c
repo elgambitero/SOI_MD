@@ -883,8 +883,26 @@ void NST_whL_loop(){
 #define DOWN  2
 #define UP    3
 
-__attribute__((always_inline)) static inline void NST_beanie_deleteH(){
+void NST_beanie_deletor(u8 ind, u8 direction){
+    XGM_setPCM(SFX_IND, snd_beanie_fire, sizeof(snd_beanie_fire));
+    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    fx.status = direction;
+    fx.character = &FX_beanie_atk;
+    fx.frames = DELETOR_FRAMES;
+    fx.pos[X] = BLOCK_TO_PX(IND_TO_X(ind)) + 7;
+    fx.pos[Y] = BLOCK_TO_PX( (IND_TO_Y(ind) + 1) );
+    fx.timer = 0;
+    fx.speed[X] = 0;
+    fx.speed[Y] = 0;
+    ACT_add(&fx, &fx_buf);
+}
 
+__attribute__((always_inline)) static inline void NST_beanie_deleteH(){
+    calc_front(dir);
+    calc_front_block();
+    break_block_ind(env, front_ind);
+    NST_beanie_deletor(front_ind, dir);
+    //summon_deletor(front_ind, TRUE);
 }
 __attribute__((always_inline)) static inline void NST_beanie_deleteV(){
     
@@ -901,7 +919,10 @@ void NST_beanie_loop(){
                     NST_turn_around();
                     return;
                 case BLOCK:
-                    if(breakable(front_ind)) NST_attack();
+                    if(breakable(front_ind)) {
+                        NST_attack();
+                        NST_beanie_deleteH();
+                    }
                     else NST_turn_around();
                     return;
                 default:
@@ -919,14 +940,13 @@ void NST_beanie_loop(){
         break;
         case ATTACK_RIGHT_IN: 
             if(curr->frames--) return;
-            //NST_deletes(); //rewrite for beanies
             newstatus = dir | ATTACK_RIGHT_OUT;
             curr->frames = ATTK_FRAMES;
             curr->speed[X] = 0;
         break;
         case ATTACK_RIGHT_OUT: 
             if(curr->frames--) return;
-            NST_turn_around_fast();
+            NST_keep_walking();
         break;
         case WALK_DOWN:
             calc_floor();

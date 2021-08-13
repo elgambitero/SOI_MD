@@ -194,7 +194,7 @@ const Entity FX_beanie_atk = {
     PAL_SYS0,
     &beanie_atk_spr,
     NULL,
-    &FX_deletor,
+    &FX_deletor_loop,
     NULL,
     {.effect =
         {
