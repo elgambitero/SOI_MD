@@ -109,7 +109,7 @@ const Entity NST_teeth = {
 void NST_whR_loop();
 const Entity NST_whslowR = {
     NASTIE,
-    {8, 15},
+    {7, 14},
     {7, 14},
     PAL_SYS1,
     &whslowR_spr,
@@ -128,7 +128,7 @@ const Entity NST_whslowR = {
 
 const Entity NST_whfastR = {
     NASTIE,
-    {8, 15},
+    {7, 14},
     {7, 15},
     PAL_SYS1,
     &whfastR_spr,
