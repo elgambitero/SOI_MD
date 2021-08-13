@@ -48,6 +48,8 @@
 #define KN_PROB_GDi_BALL        8
 #define KN_PROB_GDi_ARROW       8
 
+#define NASTIE_SPEED WALKSPEED
+
 extern const Entity NST_spinner;
 extern const Entity NST_robo;
 extern const Entity NST_ant;
