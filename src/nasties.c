@@ -329,14 +329,6 @@ __attribute__((always_inline)) static inline void NST_deletes_and_keeps_going(){
     NST_keep_walking();
 }
 
-__attribute__((always_inline)) static inline void NST_despawn(){
-    curr->timer++;
-    if(curr->timer == MAX_TIMER){
-        result = ACT_DELETION;
-        return;
-    };
-}
-
 __attribute__((always_inline)) static inline void NST_keep_dying(){
     if(curr->pos[X] >= PX_TO_POS(BOARD_X_PX) || curr->pos[Y] >= PX_TO_POS(BOARD_Y_PX) ){
         result = ACT_DELETION;
@@ -431,7 +423,7 @@ void NST_robo_loop(){
 
 void NST_ant_loop(){
 
-    NST_despawn();
+    PHY_despawn();
 
     calc_center_block();
     switch(status & ANIM_MSK){
@@ -480,7 +472,7 @@ void NST_ant_loop(){
 
 void NST_piggy_loop(){
 
-    NST_despawn();
+    PHY_despawn();
 
     calc_center_block();
     switch(status & ANIM_MSK){
@@ -541,7 +533,7 @@ void NST_piggy_loop(){
 }
 
 void NST_teeth_loop(){
-    NST_despawn();
+    PHY_despawn();
 
     calc_center_block();
     switch(status & ANIM_MSK){

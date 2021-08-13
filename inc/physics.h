@@ -204,4 +204,12 @@ __attribute__((always_inline)) static inline u8 breakable(u8 ind){
     return (BREAKABLE & env->front_blocks[ind]);
 }
 
+__attribute__((always_inline)) static inline void PHY_despawn(){
+    curr->timer++;
+    if(curr->timer == MAX_TIMER){
+        result = ACT_DELETION;
+        return;
+    };
+}
+
 #endif

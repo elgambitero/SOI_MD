@@ -330,6 +330,8 @@ void PR_packet_land(){
 #define PX_MARGIN 2
 
 void PR_R_ball_loop(){
+    PHY_despawn();
+
     switch(status & (ANIM_MSK | DIR_MSK)){ //dir is not used in this loop
         case PR_R_RIGHT:
             //Roll-off condition
@@ -440,6 +442,8 @@ void PR_R_ball_loop(){
 }
 
 void PR_L_ball_loop(){
+    PHY_despawn();
+
     switch(status & (ANIM_MSK | DIR_MSK)){ //dir is not used in this loop
         case PR_L_LEFT:
             //Roll-off condition
