@@ -958,7 +958,6 @@ void NST_beanie_loop(){
             NST_keep_walking();
         break;
         case WALK_DOWN:
-            calc_floor();
             switch( PHY_crash_point(POS_TO_PX(curr->pos[X]), 
                                     POS_TO_PX(curr->pos[Y]) - (dir ? curr->character->size[Y] : 0) ) ){
                 case FRAME:
@@ -967,14 +966,36 @@ void NST_beanie_loop(){
                     NST_turn_up();
                     break;
                 case BLOCK:
-                    if(breakable(floor_ind)) NST_attack_vert();
+                    if(dir){
+                        calc_top_block();
+                        if(breakable(top_ind)) {
+                            NST_attack_vert();
+                        }
+                        else{
+                            curr->pos[Y] &= FLOOR_CORR;
+                            curr->pos[Y] += PX_TO_POS(16);
+                            curr->speed[Y] = 0;
+                            NST_turn_up();
+                        }
+                    }else{
+                        calc_floor();
+                        if(breakable(floor_ind)) {
+                            NST_attack_vert();
+                        }
+                        else{
+                            curr->pos[Y] &= FLOOR_CORR;
+                            curr->speed[Y] = 0;
+                            NST_turn_up();
+                        }
+                    }
+                    
                     break;
             }
             break;
         case DOWN_TURN_UP:
             if(curr->frames--) return;
             newstatus = WALK_DOWN | !dir;
-            curr->speed[Y] = dir ? 
+            curr->speed[Y] = !dir ? 
                 -curr->character->role.nastie.speed : curr->character->role.nastie.speed;
             curr->pos[Y] += dir ? COLL_CORR : -COLL_CORR;
             break;
@@ -987,7 +1008,8 @@ void NST_beanie_loop(){
             break;
         case ATTACK_DOWN_OUT:
             if(curr->frames--) return;
-            NST_turn_up_fast();
+            //NST_turn_up_fast();
+            //NST_keep_walkingV();
             break;
         case DEAD:
             NST_keep_dying();
