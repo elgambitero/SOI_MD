@@ -578,9 +578,9 @@ void NST_whR_loop(){
             //Roll-off condition
             calc_front(0);
             calc_back(0);
-            if(!PHY_crash_point(front, POS_TO_PX(curr->pos[Y]) + 1) && 
-               !PHY_crash_point(back, POS_TO_PX(curr->pos[Y]) + 1) && 
-               PHY_crash_point(back - 1, POS_TO_PX(curr->pos[Y]) + 1) ){
+            if(!PHY_crash_point(front, POS_TO_PX(curr->pos[Y]) + PX_MARGIN) && 
+               !PHY_crash_point(back, POS_TO_PX(curr->pos[Y]) + PX_MARGIN) && 
+               PHY_crash_point(back - PX_MARGIN, POS_TO_PX(curr->pos[Y]) + PX_MARGIN) ){
                    newstatus = NST_R_DOWN;
                    status = NST_R_DOWN; //animation change cancellation.
                    curr->speed[X] = 0;
@@ -589,7 +589,7 @@ void NST_whR_loop(){
             }
             
             //Climb condition
-            if(PHY_crash_point( POS_TO_PX(curr->pos[X]) , POS_TO_PX(curr->pos[Y]) + 1) && 
+            if(PHY_crash_point( POS_TO_PX(curr->pos[X]) , POS_TO_PX(curr->pos[Y]) + PX_MARGIN) && 
                PHY_crash_point(front, NST_mid_height() ) ){
                    newstatus = NST_R_UP;
                    status = NST_R_UP; //animation change cancellation.
@@ -602,9 +602,9 @@ void NST_whR_loop(){
             //Roll-off condition
             calc_front(1);
             NST_calc_top();
-            if(!PHY_crash_point(front - 1, POS_TO_PX(curr->pos[Y]) ) && 
-               !PHY_crash_point(front - 1, top) && 
-               PHY_crash_point(front - 1, top - 1)){
+            if(!PHY_crash_point(front - PX_MARGIN, POS_TO_PX(curr->pos[Y]) ) && 
+               !PHY_crash_point(front - PX_MARGIN, top) && 
+               PHY_crash_point(front - PX_MARGIN, top - PX_MARGIN)){
                    newstatus = NST_R_LEFT;
                    status = NST_R_LEFT; //animation change cancellation.
                    curr->speed[X] = -curr->character->role.nastie.speed;;
@@ -613,7 +613,7 @@ void NST_whR_loop(){
             }
             
             //Climb condition
-            if(PHY_crash_point( front - 1, NST_mid_height() ) && 
+            if(PHY_crash_point( front - PX_MARGIN, NST_mid_height() ) && 
                PHY_crash_point( POS_TO_PX(curr->pos[X]) , POS_TO_PX(curr->pos[Y]) ) ){
                    newstatus = NST_R_RIGHT;
                    status = NST_R_RIGHT; //animation change cancellation.
@@ -627,9 +627,9 @@ void NST_whR_loop(){
             calc_front(1);
             calc_back(1);
             NST_calc_top();
-            if(!PHY_crash_point( front , top - 1) && 
-               !PHY_crash_point( back , top - 1) && 
-               PHY_crash_point( back + 1 ,  top - 1)){
+            if(!PHY_crash_point( front , top - PX_MARGIN) && 
+               !PHY_crash_point( back , top - PX_MARGIN) && 
+               PHY_crash_point( back + PX_MARGIN ,  top - PX_MARGIN)){
                    newstatus = NST_R_UP;
                    status = NST_R_UP; //animation change cancellation.
                    curr->speed[X] = 0;
@@ -638,7 +638,7 @@ void NST_whR_loop(){
             }
             
             //Climb condition
-            if(PHY_crash_point( POS_TO_PX(curr->pos[X]) , top - 1) && 
+            if(PHY_crash_point( POS_TO_PX(curr->pos[X]) , top - PX_MARGIN) && 
                PHY_crash_point( front , NST_mid_height() ) ){
                    newstatus = NST_R_DOWN;
                    status = NST_R_DOWN; //animation change cancellation.
@@ -651,9 +651,9 @@ void NST_whR_loop(){
             //Roll-off condition
             calc_front(0);
             NST_calc_top();
-            if(!PHY_crash_point( front + 1, top ) && 
-               !PHY_crash_point( front + 1, POS_TO_PX(curr->pos[Y]) ) && 
-               PHY_crash_point( front + 1, POS_TO_PX(curr->pos[Y]) + 1) ){
+            if(!PHY_crash_point( front + PX_MARGIN, top ) && 
+               !PHY_crash_point( front + PX_MARGIN, POS_TO_PX(curr->pos[Y]) ) && 
+               PHY_crash_point( front + PX_MARGIN, POS_TO_PX(curr->pos[Y]) + PX_MARGIN) ){
                    newstatus = NST_R_RIGHT;
                    status = NST_R_RIGHT; //animation change cancellation.
                    curr->speed[X] = curr->character->role.nastie.speed;;
@@ -662,7 +662,7 @@ void NST_whR_loop(){
             }
             
             //Climb condition
-            if(PHY_crash_point( front + 1, NST_mid_height()  ) && 
+            if(PHY_crash_point( front + PX_MARGIN, NST_mid_height()  ) && 
                PHY_crash_point( POS_TO_PX(curr->pos[X])  , top ) ){
                    newstatus = NST_R_LEFT;
                    status = NST_R_LEFT; //animation change cancellation.
