@@ -7,7 +7,7 @@ SPRITE whfastR_spr "sprites/wheelie/roll_right_fast.bmp" 2 2 FAST 1
 SPRITE whfastL_spr "sprites/wheelie/roll_left_fast.bmp" 2 2 FAST 1
 SPRITE whslowR_spr "sprites/wheelie/roll_right.bmp" 2 2 FAST 2
 SPRITE whslowL_spr "sprites/wheelie/roll_left.bmp" 2 2 FAST 2
-SPRITE beanie_spr "sprites/beanie/beanie.bmp" 2 2 FAST 2
+SPRITE beanie_spr "sprites/beenie/beenie.bmp" 2 2 FAST 2
 
 SPRITE smiley_spr "sprites/smiley/Smiley_test.png" 2 2 FAST 2
 
@@ -21,6 +21,7 @@ SPRITE deletor_spr "sprites/fx/deletor.bmp" 2 2 AUTO 2
 SPRITE fx_hidden   "sprites/fx/fx_hidden.bmp" 2 2 AUTO 2
 SPRITE boot_ind_spr    "sprites/fx/boot_ind.bmp" 1 1 AUTO 2
 SPRITE shield_ind_spr  "sprites/fx/shield_ind.bmp" 1 1 AUTO 2
+SPRITE beanie_atk_spr "sprites/beenie/beenie_attack.bmp" 2 2 AUTO 2
 
 SPRITE gd_sys0_spr "sprites/goodies/gd_sys0.bmp" 2 2 AUTO 0
 SPRITE gd_sys1_spr "sprites/goodies/gd_sys1.bmp" 2 2 AUTO 0

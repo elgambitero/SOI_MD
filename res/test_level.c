@@ -142,24 +142,14 @@ static const Actor cannon_l = {&SPW_cannon,
    &cannon_r
    };
 
-static const Actor wheelie = {&NST_whfastL,
-      NST_L_LEFT,
+static const Actor beanie = {&NST_whfastL,
+      WALK_RIGHT,
       0,
    {168, 64},
-   {-FAST_SPEED, 0},
+   {NASTIE_SPEED, 0},
    0,
       0,
    &cannon_l
-   };
-
-static const Actor wheelie2 = {&NST_whfastR,
-      NST_R_RIGHT,
-      0,
-   {168, 64},
-   {FAST_SPEED, 0},
-   0,
-      0,
-   &wheelie
    };
 
 const Board test_level = {
@@ -198,6 +188,6 @@ const Board test_level = {
     MUS_HEAVY3,
     0,
     5000,
-    &wheelie2,
+    &beanie,
     &glp
 };
