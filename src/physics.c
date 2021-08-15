@@ -53,7 +53,8 @@ void summon_deletor(u8 front_ind, u8 deletes){
 
 //To be moved.
 void kill(Actor * act, u8 speed_x, u8 speed_y){
-    //u16 attrib = act->character->attr;
+    u16 attrib = act->character->attr;
+    if(attrib & INVINCIBLE) return;
     //switch(attrib & ENT_CHECK_BITMSK){
     //    case NASTIE:
     //This works as it is because nastie and player union members have the same byte alignment for death_sound and death_sound_size
@@ -135,6 +136,11 @@ void PHY_update(){
     ACT_update(&bp_projectiles);
     ACT_update(&gp_projectiles);
     ACT_update(&fx_buf);
-    ACT_collide_lists(&nasties, &players);
+    if(TRUE){
+        ACT_collide_lists(&nasties, &players);
+        ACT_collide_lists(&projectiles, &players);
+        ACT_collide_lists(&bp_projectiles, &nasties);
+        ACT_collide_lists(&gp_projectiles, &nasties);
+    }
     collided = FALSE;
 }

@@ -86,6 +86,8 @@ typedef struct Entity{
 
 #define NASTIE        1
 
+#define INVINCIBLE    0x0100
+
 #define PROJECTILE     2
 #define CREATES_NASTIE 0x0200 //B0000001000000000
 #define WHICH_NASTIE(attr) (attr >> 10)

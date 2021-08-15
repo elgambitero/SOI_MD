@@ -8,7 +8,7 @@ void SPW_update();
 
 void SPW_spawn_ant();
 const Entity SPW_ant = {
-    SPAWNER,
+    SPAWNER | INVINCIBLE,
     {8, 15},
     {7, 15},
     PAL_SYS0,
@@ -26,7 +26,7 @@ const Entity SPW_ant = {
 
 void SPW_spawn_piggy();
 const Entity SPW_piggy = {
-    SPAWNER,
+    SPAWNER | INVINCIBLE,
     {8, 15},
     {7, 15},
     PAL_SYS0,
@@ -44,7 +44,7 @@ const Entity SPW_piggy = {
 
 void SPW_spawn_hippo();
 const Entity SPW_hippo = {
-    SPAWNER,
+    SPAWNER | INVINCIBLE,
     {8, 15},
     {7, 15},
     PAL_SYS0,
@@ -62,7 +62,7 @@ const Entity SPW_hippo = {
 
 void SPW_spawn_ostrich();
 const Entity SPW_ostrich = {
-    SPAWNER,
+    SPAWNER | INVINCIBLE,
     {8, 15},
     {7, 15},
     PAL_SYS0,
@@ -80,7 +80,7 @@ const Entity SPW_ostrich = {
 
 void SPW_cannon_loop();
 const Entity SPW_cannon = {
-    FX,
+    SPAWNER | INVINCIBLE,
     {7, 15},
     {7, 15},
     PAL_SYS0,
