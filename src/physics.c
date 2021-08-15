@@ -136,7 +136,7 @@ void PHY_update(){
     ACT_update(&bp_projectiles);
     ACT_update(&gp_projectiles);
     ACT_update(&fx_buf);
-    if(TRUE){
+    if(collided){
         ACT_collide_lists(&nasties, &players);
         ACT_collide_lists(&projectiles, &players);
         ACT_collide_lists(&bp_projectiles, &nasties);

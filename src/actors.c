@@ -106,11 +106,11 @@ Actor * ACT_seek(const Entity * ent, ActorList * actors){
 u8 ACT_collision(Actor * act1, Actor * act2){
     if((act1->status & ANIM_MSK) == DEAD || (act2->status & ANIM_MSK) == DEAD)
         return FALSE;
-    if(act1->pos[Y] < act2->pos[Y] - act2->character->size[Y] ||
-        act2->pos[Y] < act1->pos[Y] - act1->character->size[Y])
+    if(act1->pos[Y] < act2->pos[Y] - PX_TO_POS(act2->character->size[Y]) ||
+        act2->pos[Y] < act1->pos[Y] - PX_TO_POS(act1->character->size[Y]))
         return FALSE;
-    if(act1->pos[X] + act1->character->size[X] < act2->pos[X] - act2->character->size[X] ||
-        act2->pos[X] + act2->character->size[X] < act1->pos[X] - act1->character->size[X])
+    if(act1->pos[X] + PX_TO_POS(act1->character->size[X]) < act2->pos[X] - PX_TO_POS(act2->character->size[X]) ||
+        act2->pos[X] + PX_TO_POS(act2->character->size[X]) < act1->pos[X] - PX_TO_POS(act1->character->size[X]))
         return FALSE;
     return TRUE;
 }
@@ -186,10 +186,8 @@ void ACT_collide_lists(ActorList * winning, ActorList * losing){
     while(act1){
         Actor * act2 = ACT_getFirst(losing);
         while(act2){
-            if(act2->status != DEAD) {
-                if(ACT_collision(act1, act2)){
-                    kill(act2, 0, -2 * WALKSPEED);
-                }
+            if(ACT_collision(act1, act2)){
+                kill(act2, 0, -2 * WALKSPEED);
             }
             act2 = act2->next;
         }
