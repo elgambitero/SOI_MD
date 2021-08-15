@@ -86,7 +86,9 @@ u16 floor_ind;
 u16 top_ind;
 u16 center_ind;
 
-//Index for calculating the index of the taken goodie (deprecated?)
+u8 collided;
+
+//Index for calculating the index of the taken goodie (deprecated?) (misplaced?)
 u8 gd_index;
 
 //Result of physics calculation.

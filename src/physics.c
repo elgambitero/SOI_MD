@@ -74,10 +74,17 @@ void kill(Actor * act, u8 speed_x, u8 speed_y){
     act->speed[X] = speed_x;
 }
 
+void spr_collision(){
+    if(GET_VDPSTATUS(VDP_SPRCOLLISION_FLAG)) {
+        collided = TRUE;
+    }
+}
+
 //PHY module lifecycle.
 u8 PHY_init(Board * board, PlayerStat * bl_stats, PlayerStat * gr_stats){
     env = board;
-    VDP_setHIntCounter(0);
+    SYS_setHIntCallback(&spr_collision); // set sprite collision checking as target callback.
+    VDP_setHIntCounter(1); //check every two lines.
     VDP_setHInterrupt(1);
     bl_stat = bl_stats;
     gr_stat = gr_stats;
@@ -97,6 +104,8 @@ void PHY_end(){
     ACT_end(&projectiles);
     ACT_end(&bp_projectiles);
     ACT_end(&gp_projectiles);
+    VDP_setHInterrupt(0);
+    SYS_setHIntCallback(0);
 }
 
 void PHY_send_inputs(u8 ctrl1, u8 ctrl2){
@@ -126,4 +135,5 @@ void PHY_update(){
     ACT_update(&bp_projectiles);
     ACT_update(&gp_projectiles);
     ACT_update(&fx_buf);
+    collided = FALSE;
 }
