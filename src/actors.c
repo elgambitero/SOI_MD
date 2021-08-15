@@ -179,3 +179,20 @@ void ACT_freeze(ActorList * actors){
 void ACT_unfreeze(ActorList * actors){
     actors->effects &= ~FROZEN_MSK;
 }
+
+
+void ACT_collide_lists(ActorList * winning, ActorList * losing){
+    Actor * act1 = ACT_getFirst(winning);
+    while(act1){
+        Actor * act2 = ACT_getFirst(losing);
+        while(act2){
+            if(act2->status != DEAD) {
+                if(ACT_collision(act1, act2)){
+                    kill(act2, 0, -2 * WALKSPEED);
+                }
+            }
+            act2 = act2->next;
+        }
+        act1 = act1->next;
+    }
+}

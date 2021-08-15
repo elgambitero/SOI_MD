@@ -62,6 +62,7 @@ void ACT_update(ActorList * actors);
 void ACT_end(ActorList * actors);
 void ACT_freeze(ActorList * actors);
 void ACT_unfreeze(ActorList * actors);
+void ACT_collide_lists(ActorList * winning, ActorList * losing);
 
 #define ANIM_MSK 0xFE
 #define DIR_MSK ~ANIM_MSK
