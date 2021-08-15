@@ -54,18 +54,20 @@ void summon_deletor(u8 front_ind, u8 deletes){
 //To be moved.
 void kill(Actor * act, u8 speed_x, u8 speed_y){
     u16 attrib = act->character->attr;
-    switch(attrib & ENT_CHECK_BITMSK){
-        case NASTIE:
+    //switch(attrib & ENT_CHECK_BITMSK){
+    //    case NASTIE:
+    //This works as it is because nastie and player union members have the same byte alignment for death_sound and death_sound_size
+    //Hopefully...
             XGM_setPCM(SFX_IND, act->character->role.nastie.death_sound,
                 act->character->role.nastie.death_sound_size);
             XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
-            break;
-        case PLAYER: //TODO: THIS VIOLATES THE CURRENT STUCTURE!!! FIX!!!
-            XGM_setPCM(SFX_IND, act->character->role.player.death_sound,
-                act->character->role.player.death_sound_size);
-            XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
-            break;
-    }
+    //        break;
+    //    case PLAYER: //TODO: THIS VIOLATES THE CURRENT STUCTURE!!! FIX!!!
+    //        XGM_setPCM(SFX_IND, act->character->role.player.death_sound,
+    //            act->character->role.player.death_sound_size);
+    //        XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    //        break;
+    //}
     act->status = DEAD;
     act->pos[Y] -= COLL_CORR;
     act->speed[Y] = speed_y;
