@@ -101,6 +101,9 @@ u8 PHY_computeStatus(Actor * actor);
 void PHY_send_inputs(u8 ctrl1, u8 ctrl2);
 void PHY_update();
 void PHY_end();
+void PHY_clean_presence();
+void PHY_set_presence(u8 ind);
+u8 PHY_is_occupied(u8 ind);
 
 void kill(Actor * act, u8 speed_x, u8 speed_y);
 

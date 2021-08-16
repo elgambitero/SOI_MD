@@ -16,6 +16,23 @@ void stop_time(u16 frames){
     }
 }
 
+//Presence and collision system.
+u32 board_presence[8];
+
+void PHY_clean_presence(){
+    memset(board_presence, 0x00000000, sizeof(board_presence));
+}
+void PHY_set_presence(u8 ind){
+    register u8 slot = (ind >> 5);
+    register u8 shift = (ind & 0x1F);
+    board_presence[slot] = (1 << shift);
+}
+u8 PHY_is_occupied(u8 ind){
+    register u8 slot = (ind >> 5);
+    register u8 shift = (ind & 0x1F);
+    return board_presence[slot] & (1 << shift);
+}
+
 //Special effects based on environment modification.
 void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
     fx.status = 0;
