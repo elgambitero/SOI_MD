@@ -2,6 +2,7 @@
 
 #include "palettes.h"
 #include "stage.h"
+#include "sound.h"
 
 Board board;
 
@@ -33,6 +34,11 @@ __attribute__((always_inline)) static inline void GAM_updateBonus(){
             bl_stats.bonus--;
             sprintf(bonusText, "%05d", bonusCount);
             VDP_drawText(bonusText, X_BONUS, 0);
+            if(bonusCount == 1000){
+                XGM_setPCM(SFX_IND, snd_hurry_up, sizeof(snd_hurry_up));
+                XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+                
+            }
         }else{
             if(blue_player && blue_player->status != DEAD) {
                 kill(blue_player, 0, PL_JMP_BOOST);
