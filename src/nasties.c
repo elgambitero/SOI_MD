@@ -432,6 +432,7 @@ void NST_spinner_loop(){
 
 void NST_robo_loop(){
     calc_center_block();
+    PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
             calc_back(dir);
@@ -497,6 +498,7 @@ void NST_ant_loop(){
     PHY_despawn();
 
     calc_center_block();
+    PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
             calc_back(dir);
@@ -546,7 +548,7 @@ void NST_piggy_loop(){
     PHY_despawn();
 
     calc_center_block();
-    //PHY_set_presence(center_ind);
+    PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
             calc_back(dir);
@@ -608,6 +610,7 @@ void NST_teeth_loop(){
     PHY_despawn();
 
     calc_center_block();
+    PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
             calc_back(dir);
@@ -657,6 +660,8 @@ void NST_teeth_loop(){
 #define PX_MARGIN 4
 
 void NST_whR_loop(){
+    calc_center_block();
+    PHY_set_presence(center_ind);
     switch(status & (ANIM_MSK | DIR_MSK)){ //dir is not used in this loop
         case NST_R_RIGHT:
             //Roll-off condition
@@ -767,6 +772,8 @@ void NST_whR_loop(){
 }
 
 void NST_whL_loop(){
+    calc_center_block();
+    PHY_set_presence(center_ind);
     switch(status & (ANIM_MSK | DIR_MSK)){ //dir is not used in this loop
         case NST_L_LEFT:
             //Roll-off condition
@@ -939,7 +946,8 @@ __attribute__((always_inline)) static inline void NST_attack_vert(){
 }
 
 void NST_beanie_loop(){
-
+    calc_center_block();
+    PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
             calc_front(dir);
@@ -1044,6 +1052,7 @@ void NST_ostrich_loop(){
     PHY_despawn();
 
     calc_center_block();
+    PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
             calc_back(dir);
@@ -1115,6 +1124,7 @@ void NST_hippo_loop(){
     PHY_despawn();
 
     calc_center_block();
+    PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
             calc_back(dir);
