@@ -15,7 +15,7 @@
 static const Actor blp = {&PL_blue,
        0,
        0,
-    {BLOCK_TO_PX(8) + 8, BLOCK_TO_PX(13)},
+    {BLOCK_TO_PX(8) - 8, BLOCK_TO_PX(13)},
     {   0,    0},
       0,
       0,
@@ -79,7 +79,7 @@ const Board level4 = {
     {PAL_R, PAL_GR, PAL_BL},
     MUS_HEAVY1, //music
     0,
-    5000, //bonus
+    6000, //bonus
     &wheel, //nasties
     &glp //players
 };
