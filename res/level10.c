@@ -1,18 +1,33 @@
 #include "SOI.h"
 
 #define BDR (NORMAL_BLOCK | SOLID | BLK_DONUT | COL_SLOT1)
-#define BOR (NORMAL_BLOCK | SOLID | BLK_DOT   | COL_SLOT1)
+#define BOK (NORMAL_BLOCK | SOLID | BLK_DOT   | COL_SLOT1)
 #define BDW (NORMAL_BLOCK | SOLID | BLK_DONUT | COL_WHITE)
 #define BOW (NORMAL_BLOCK | SOLID | BLK_DOT   | COL_WHITE)
 #define BFW (NORMAL_BLOCK | SOLID | BLK_FLAT  | COL_WHITE)
 #define BFR (NORMAL_BLOCK | SOLID | BLK_FLAT  | COL_SLOT1)
 #define RDK (GOODIE | GDi_RDKEY)
 #define RDD (GOODIE | GDi_RDDOOR)
+#define RDK (GOODIE | GDi_RDKEY)
+#define RDD (GOODIE | GDi_RDDOOR)
+#define SLC (GOODIE | GDi_SILVC)
+#define GLC (GOODIE | GDi_GOLDC)
+#define ARR (GOODIE | GDi_ARROW)
+#define C3H (GOODIE | GDi_CLK3h)
+#define GLS (GOODIE | GDi_GLASS)
+#define M2X (GOODIE | GDi_2x )
+#define M3X (GOODIE | GDi_3x )
+#define THN (GOODIE | GDi_THNBALL)
+#define GEM (GOODIE | GDi_GEM)
+#define TUR (GOODIE | GDi_TURTL)
+#define SHL (GOODIE | GDi_SHLD)
+#define BOO (GOODIE | GDi_BOOT)
+#define UP1 (GOODIE | GDi_1UP)
 
 static const Actor blp = {&PL_blue,
        0,
        0,
-    {120, 112},
+    {BLOCK_TO_PX(19) - 8, BLOCK_TO_PX(12)},
     {   0,    0},
       0,
       0,
@@ -22,45 +37,75 @@ static const Actor blp = {&PL_blue,
    static const Actor glp = {&PL_green,
       0,
       0,
-   {184, 112},
+   {BLOCK_TO_PX(18) - 8, BLOCK_TO_PX(11)},
    {   0,    0},
       0,
       0,
       &blp
    };
 
-static const Actor robo = {&NST_robo,
+
+static const Actor cannonR = {&SPW_cannon,
    WALK_RIGHT,
    0,
-   {40, 32},
+   {BLOCK_TO_PX(1) - 8, BLOCK_TO_PX(7)},
    {0, 0},
-      0,
+      MAX_TIMER - CANNON_TIME,
    0,
    0,
    };
 
+static const Actor cannonL = {&SPW_cannon,
+   WALK_LEFT,
+   0,
+   {BLOCK_TO_PX(19) - 8, BLOCK_TO_PX(7)},
+   {0, 0},
+      MAX_TIMER - (CANNON_TIME/2),
+   0,
+   &cannonR,
+   };
 
+
+static const Actor bean = {&NST_beanie,
+   WALK_DOWN,
+   0,
+   {BLOCK_TO_PX(13) - 8, BLOCK_TO_PX(7)},
+   {0, NASTIE_SPEED},
+      0,
+   0,
+   &cannonL,
+   };
+
+static const Actor bean1 = {&NST_beanie,
+   WALK_DOWN,
+   0,
+   {BLOCK_TO_PX(7) - 8, BLOCK_TO_PX(7)},
+   {0, NASTIE_SPEED},
+      0,
+   0,
+   &bean,
+   };
 
 const Board level10 = {
     {
-       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+     BOK, TGO,   0,   0,   0, TUR, BOK, GLC,   0, TYO,   0, GLC, BOK, GLS,   0,   0,   0, TBO, BOK,
+       0, BOK,   0,   0,   0,   0,   0, BOK,   0,   0,   0, BOK,   0,   0,   0,   0,   0, BOK,   0,
+       0,   0, BOK,   0,   0,   0,   0,   0, BOK, RDD, BOK,   0,   0,   0,   0,   0, BOK,   0,   0,
+       0,   0,   0, BOK,   0,   0,   0,   0, BOK, UP1, BOK,   0,   0,   0,   0, BOK,   0,   0,   0,
+       0,   0,   0,   0, BOK,   0,   0,   0, BOK,   0, BOK,   0,   0,   0, BOK,   0,   0,   0,   0,
+       0,   0,   0,   0,   0, BOK,   0, BOK,   0,   0,   0, BOK,   0, BOK,   0,   0,   0,   0,   0,
+     CNR,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, CNL,
+       0,   0,   0,   0,   0, BOK, SLC, BOK,   0,   0,   0, BOK, SLC, BOK,   0,   0,   0,   0,   0,
+       0,   0,   0,   0, BOK,   0,   0,   0, BOK, BOK, BOK,   0,   0,   0, BOK,   0,   0,   0,   0,
+       0,   0,   0, BOK,   0,   0,   0,   0, BOK,   0, BOK,   0,   0,   0,   0, BOK,   0,   0,   0,
+       0,   0, BOK,   0,   0,   0,   0,   0, BOK, TNO, BOK,   0,   0,   0,   0,   0, BOK,   0,   0,
+     TRO, BOK, TNI,   0,   0,   0, TBI, BOK,   0, RDK,   0, BOK, TRI,   0,   0,   0,   0, BOK,   0,
+     BOK,   0,   0,   0,   0,   0, BOK,   0,   0, TYI,   0,   0, BOK,   0,   0,   0,   0, TGI, BOK,
     },
 
     {
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+     M3X,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, M3X,
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
@@ -73,10 +118,10 @@ const Board level10 = {
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
     },
-    {PAL_R, PAL_GR, PAL_BL},
+    {PAL_BK, PAL_GR, PAL_BL},
     MUS_HEAVY1, //music
     0,
     5000, //bonus
-    NULL, //nasties
+    &bean1, //nasties
     &glp //players
 };
