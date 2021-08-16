@@ -128,6 +128,16 @@ u8 PHY_computeStatus(Actor * actor){
     return result;
 }
 
+void PHY_kill_mercilessly(Actor * a){
+    kill(a, 0, -2 * WALKSPEED);
+}
+
+void PHY_kill_player(Actor * a){
+    if(((a == blue_player) & !(bl_stat->effect & SHIELDED)) ||
+        ((a == green_player) & !(gr_stat->effect & SHIELDED))){
+        kill(a, 0, -2 * WALKSPEED);
+    }
+}
 
 void PHY_update(){
     ACT_update(&players);
@@ -137,10 +147,10 @@ void PHY_update(){
     ACT_update(&gp_projectiles);
     ACT_update(&fx_buf);
     if(collided){
-        ACT_collide_lists(&nasties, &players);
-        ACT_collide_lists(&projectiles, &players);
-        ACT_collide_lists(&bp_projectiles, &nasties);
-        ACT_collide_lists(&gp_projectiles, &nasties);
+        ACT_collide_lists(&nasties, &players, &PHY_kill_player);
+        ACT_collide_lists(&projectiles, &players, &PHY_kill_player);
+        ACT_collide_lists(&bp_projectiles, &nasties, &PHY_kill_mercilessly);
+        ACT_collide_lists(&gp_projectiles, &nasties, &PHY_kill_mercilessly);
     }
     collided = FALSE;
 }
