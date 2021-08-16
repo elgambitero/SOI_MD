@@ -167,11 +167,14 @@ void break_block_ind(Board * board, u8 ind){
 void play_board_music(Board * board){
     //This is ugly.
     switch(board->music){
-        case 0:
+        case MUS_HEAVY1:
             XGM_startPlay(heavy1);
             break;
-        case 2:
+        case MUS_HEAVY3:
             XGM_startPlay(heavy3);
+            break;
+        case MUS_BONUSHEAVY:
+            XGM_startPlay(bonusHeavy);
             break;
         default:
             XGM_startPlay(heavy1);

@@ -76,7 +76,7 @@ const Board level1 = {
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
     },
     {PAL_R, PAL_GR, PAL_BL},
-    0,
+    MUS_HEAVY1,
     0,
     5000,
     &robo,

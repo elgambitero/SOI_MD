@@ -86,7 +86,7 @@ const Board level6 = {
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, CHI,
     },
     {PAL_R, PAL_GR, PAL_BL},
-    MUS_HEAVY1,
+    MUS_BONUSHEAVY,
     0,
     5000,
     &knight,
