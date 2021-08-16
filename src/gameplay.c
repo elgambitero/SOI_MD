@@ -163,7 +163,7 @@ void gameplayLoop(){
 }
 
 void GAM_gameInit(){
-    levelInd = 0;
+    levelInd = 9;
 
     bl_stats.lives = 3;
     bl_stats.balls = 3;
