@@ -326,6 +326,8 @@ void PL_update(){
     after_status = curr->character->role.player.future;
     ctrl = curr->character->role.player.ctrl;
     after_speed = curr->character->role.player.future_speed;
+    calc_center_block();
+    PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
             calc_front_margin(dir);
