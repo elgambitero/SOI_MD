@@ -37,7 +37,7 @@ __attribute__((always_inline)) static inline void GAM_updateBonus(){
             if(bonusCount == 1000){
                 XGM_setPCM(SFX_IND, snd_hurry_up, sizeof(snd_hurry_up));
                 XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
-                
+                XGM_setMusicTempo(4 * XGM_getMusicTempo() / 3);
             }
         }else{
             if(blue_player && blue_player->status != DEAD) {
@@ -75,6 +75,9 @@ void gameplayLoop(){
             SPR_update();
             if((!blue_player) && (!green_player)){
                 XGM_stopPlay();
+                if(bonusCount < 1000){
+                    XGM_setMusicTempo(3 * XGM_getMusicTempo() / 4);
+                }
                 PAL_fadeOut(0, 63, 60, FALSE);
                 gameState = ENDBOARD;
             }
@@ -120,6 +123,9 @@ void gameplayLoop(){
             VDP_clearPlane(BG_A, TRUE);
             VDP_clearPlane(BG_B, TRUE);
             XGM_stopPlay();
+                if(bonusCount < 1000){
+                    XGM_setMusicTempo(3 * XGM_getMusicTempo() / 4);
+                }
             PAL_setColor(15, 0x0FFF);
             VDP_drawTextBG(BG_A,"GAME OVER", 10, 10);
             gameState = GAMEEXIT;
@@ -130,6 +136,9 @@ void gameplayLoop(){
             VDP_clearPlane(BG_A, TRUE);
             VDP_clearPlane(BG_B, TRUE);
             XGM_stopPlay();
+                if(bonusCount < 1000){
+                    XGM_setMusicTempo(3 * XGM_getMusicTempo() / 4);
+                }
             PAL_setColor(15, 0x0FFF);
             VDP_drawTextBG(BG_A,"Thank you for playing", 5, 10);
             gameState = GAMEEXIT;
