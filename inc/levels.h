@@ -8,6 +8,7 @@
 
 const Board test_level;
 const Board level1;
+const Board level2;
 const Board level6;
 
 extern const Board * levels[];
