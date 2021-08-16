@@ -150,8 +150,8 @@ void PHY_kill_mercilessly(Actor * a){
 }
 
 void PHY_kill_player(Actor * a){
-    if(((a == blue_player) & !(bl_stat->effect & SHIELDED)) ||
-        ((a == green_player) & !(gr_stat->effect & SHIELDED))){
+    if(((a == blue_player) && !(bl_stat->effect & SHIELDED)) ||
+        ((a == green_player) && !(gr_stat->effect & SHIELDED))){
         kill(a, 0, -2 * WALKSPEED);
     }
 }
