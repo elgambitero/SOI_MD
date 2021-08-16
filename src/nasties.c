@@ -410,6 +410,8 @@ __attribute__((always_inline)) static inline s16 ABS(s16 x){
 }
 
 void NST_spinner_loop(){
+    calc_center_block();
+    PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
             calc_back(dir);
@@ -544,6 +546,7 @@ void NST_piggy_loop(){
     PHY_despawn();
 
     calc_center_block();
+    //PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
             calc_back(dir);
