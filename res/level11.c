@@ -41,7 +41,7 @@ static const Actor robo = {&NST_robo,
 
 
 
-const Board level2 = {
+const Board level11 = {
     {
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
