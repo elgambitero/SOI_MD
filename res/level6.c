@@ -33,7 +33,7 @@ static const Actor glp = {&PL_green,
    &blp
 };
 
-static const Actor gargoyle = {&BS_gargoyle1,
+static const Actor gargoyle = {&BS_gargoyle,
    BS_BIRTH,
    GL_BIRTH_FRAMES,
    {280, 48},
