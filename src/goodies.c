@@ -802,15 +802,6 @@ void GD_update(){
 
 void GD_clk3h_pickup(){
     if(GAM_gameType == COOPERATE){
-        bl_stat->bonus += 1000;
-        gr_stat->bonus += 1000;
-    }else{
-        //only current player
-    }
-}
-
-void GD_clk6h_pickup(){
-    if(GAM_gameType == COOPERATE){
         bl_stat->bonus += 2000;
         gr_stat->bonus += 2000;
     }else{
@@ -818,10 +809,19 @@ void GD_clk6h_pickup(){
     }
 }
 
+void GD_clk6h_pickup(){
+    if(GAM_gameType == COOPERATE){
+        bl_stat->bonus += 4000;
+        gr_stat->bonus += 4000;
+    }else{
+        //only current player
+    }
+}
+
 void GD_clk9h_pickup(){
     if(GAM_gameType == COOPERATE){
-        bl_stat->bonus += 3000;
-        gr_stat->bonus += 3000;
+        bl_stat->bonus += 6000;
+        gr_stat->bonus += 6000;
     }else{
         //only current player
     }
@@ -829,8 +829,8 @@ void GD_clk9h_pickup(){
 
 void GD_clk12h_pickup(){
     if(GAM_gameType == COOPERATE){
-        bl_stat->bonus += 4000;
-        gr_stat->bonus += 4000;
+        bl_stat->bonus += 8000;
+        gr_stat->bonus += 8000;
     }else{
         //only current player
     }
