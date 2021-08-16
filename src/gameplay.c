@@ -4,12 +4,15 @@
 #include "stage.h"
 #include "sound.h"
 
+#define START_LEVEL 1
+
 Board board;
 
 u8 colors[4];
 u16 ind;
 u16 frmInd;
 
+u8 bonusClk;
 u16 bonusCount;
 u32 scoreCount;
 
@@ -31,6 +34,8 @@ __attribute__((always_inline)) static inline void GAM_updateBonus(){
     if(GAM_gameType == COOPERATE){
         bonusCount = bl_stats.bonus;
         if(bonusCount){
+            bonusClk = !bonusClk;
+            if(!bonusClk) return;
             bl_stats.bonus--;
             sprintf(bonusText, "%05d", bonusCount);
             VDP_drawText(bonusText, X_BONUS, 0);
@@ -163,7 +168,7 @@ void gameplayLoop(){
 }
 
 void GAM_gameInit(){
-    levelInd = 12;
+    levelInd = START_LEVEL;
 
     bl_stats.lives = 3;
     bl_stats.balls = 3;
