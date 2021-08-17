@@ -1209,7 +1209,10 @@ void BS_gargoyle_loop(){
             newstatus = BS_ATTK;
             break;
         case BS_ATTK:
-            curr->frames = GL_IDLE_FRAMES;
+            if(curr->actorData.spwData.interval){
+                curr->frames = curr->actorData.spwData.interval;
+            }else
+                curr->frames = GL_IDLE_FRAMES;
             newstatus = BS_IDLE;
             //Decide which player to shoot
             Actor * target = NULL;
@@ -1329,7 +1332,10 @@ if(curr->frames--) {
             newstatus = BS_ATTK;
             break;
         case BS_ATTK:
-            curr->frames = KN_IDLE_FRAMES;
+            if(curr->actorData.spwData.interval){
+                curr->frames = curr->actorData.spwData.interval;
+            }else
+                curr->frames = KN_IDLE_FRAMES;
             newstatus = BS_IDLE;
             u8 target_ind;
             u8 count = 6;
