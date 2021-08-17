@@ -101,7 +101,17 @@ __attribute__((always_inline)) static inline void NST_spawn(Entity * character){
             fx.status = curr->actorData.spwData.tick;
             curr->actorData.spwData.tick = !(curr->actorData.spwData.tick);
             break;
-        case SEEK_PLAYER:
+        case SEEK_PLAYER: ;
+            Actor * player = NULL;
+            if(blue_player && green_player){
+                //randomly go after one of the players.
+                if(RNG_get() & 0x01)
+                    player = blue_player;
+                else
+                    player = green_player;
+            }     
+            player = blue_player ? blue_player : green_player;
+            fx.status = (player->pos[X] < curr->pos[X]);
             break;
         default:
             fx.status = curr->status;
