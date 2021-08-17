@@ -190,14 +190,14 @@ void ACT_unfreeze(ActorList * actors){
 }
 
 
-void ACT_collide_lists(ActorList * winning, ActorList * losing, void (*action)(Actor * a)){
+void ACT_collide_lists(ActorList * winning, ActorList * losing, void (*action)(Actor * a, Actor * b)){
     Actor * act1 = ACT_getFirst(winning);
     while(act1){
         Actor * act2 = ACT_getFirst(losing);
         while(act2){
             if(ACT_collision(act1, act2)){
                 if(action){
-                    (*action)(act2);
+                    (*action)(act1, act2);
                 }
             }
             act2 = act2->next;
