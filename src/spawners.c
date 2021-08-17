@@ -121,16 +121,19 @@ __attribute__((always_inline)) static inline void NST_spawn(Entity * character){
     fx.pos[X] = POS_TO_PX(curr->pos[X]);
     fx.pos[Y] = POS_TO_PX(curr->pos[Y]);
     fx.frames = 0;
-    fx.timer = MAX_TIMER - STAY_TIME;
     fx.character = character;
     fx.speed[X] = dir ? 
         -fx.character->role.nastie.speed : fx.character->role.nastie.speed;
     fx.speed[Y] = 0;
-    ACT_add(&fx, &nasties);
-    if(curr->actorData.spwData.interval)
+    if(curr->actorData.spwData.interval){
         curr->timer = MAX_TIMER - curr->actorData.spwData.interval;
-    else
+        fx.timer = MAX_TIMER - 3*curr->actorData.spwData.interval;
+    }else{
         curr->timer = MAX_TIMER - SPAWN_TIME;
+        fx.timer = MAX_TIMER - STAY_TIME;
+    }
+
+    ACT_add(&fx, &nasties);
 }
 
 void SPW_spawn_ant(){
