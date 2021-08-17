@@ -239,6 +239,7 @@ const Entity GD_rdkey = {
     }
 };
 
+void GD_openBlDoor();
 const Entity GD_blkey = {
     GOODY,
     {7, 15},
@@ -254,7 +255,7 @@ const Entity GD_blkey = {
             snd_key,
             sizeof(snd_key),
             &GD_obtain,
-            NULL
+            &GD_openBlDoor
         }
     }
 };
@@ -320,6 +321,7 @@ const Entity GD_rddoor_open = {
     }
 };
 
+void GD_enterBlDoor();
 const Entity GD_bddoor_open = {
     GOODY,
     {7, 15},
@@ -334,7 +336,7 @@ const Entity GD_bddoor_open = {
             0,
             snd_door_exit,
             sizeof(snd_door_exit),
-            NULL,
+            &GD_enterBlDoor,
             NULL
         }
     }
@@ -570,6 +572,7 @@ const Entity GD_star = {
     }
 };
 
+void GD_openGrDoor();
 const Entity GD_grkey = {
     GOODY,
     {7, 15},
@@ -585,7 +588,7 @@ const Entity GD_grkey = {
             snd_key,
             sizeof(snd_key),
             &GD_obtain,
-            NULL
+            &GD_openGrDoor
         }
     }
 };
@@ -610,6 +613,7 @@ const Entity GD_grdoor = {
     }
 };
 
+void GD_enterGrDoor();
 const Entity GD_grdoor_open = {
     GOODY,
     {7, 15},
@@ -624,7 +628,7 @@ const Entity GD_grdoor_open = {
             0,
             snd_door_exit,
             sizeof(snd_door_exit),
-            NULL,
+            &GD_enterGrDoor,
             NULL
         }
     }
@@ -748,6 +752,44 @@ void GD_enterRdDoor(){
     curr->character->role.player.statistics->effect = PASSING;
     if(curr == blue_player) blue_player = NULL;
     if(curr == green_player) green_player = NULL;
+    result = ACT_DELETION;
+    return;
+}
+
+void GD_openBlDoor(){
+    if(curr == green_player) return;
+    u16 index = BRD_seek_block(env, (GOODIE | GDi_BLDOOR) );
+    if(index != BOARD_NOTFOUND){
+        BRD_set_block(env, (GOODIE | GDi_BLDOOR_open), index);
+    }else{
+        //this crashes the game on purpose
+        SYS_die("Blue Door not found");
+    }
+}
+
+void GD_enterBlDoor(){
+    if(curr == green_player) return;
+    curr->character->role.player.statistics->effect = PASSING;
+    if(curr == blue_player) blue_player = NULL;
+    result = ACT_DELETION;
+    return;
+}
+
+void GD_openGrDoor(){
+    if(curr == blue_player) return;
+    u16 index = BRD_seek_block(env, (GOODIE | GDi_GRDOOR) );
+    if(index != BOARD_NOTFOUND){
+        BRD_set_block(env, (GOODIE | GDi_GRDOOR_open), index);
+    }else{
+        //this crashes the game on purpose
+        SYS_die("Green Door not found");
+    }
+}
+
+void GD_enterGrDoor(){
+    if(curr == blue_player) return;
+    curr->character->role.player.statistics->effect = PASSING;
+    if(curr == blue_player) blue_player = NULL;
     result = ACT_DELETION;
     return;
 }
