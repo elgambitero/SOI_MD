@@ -26,6 +26,7 @@ typedef struct Player{
     u8 * const future;
     u8 * const ctrl;
     u8 * const future_speed;
+    u8 * const anti_bounce;
 }Player;
 
 

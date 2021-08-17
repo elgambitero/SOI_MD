@@ -87,9 +87,10 @@ static inline void controls_3(u8 * ctrl, u16 changed, u16 state){
         if(state & BUTTON_B) *ctrl |= CTRL_BLOCK;
         else *ctrl &= ~CTRL_BLOCK;
     }
-    if(changed & BUTTON_C){
-        if(state & BUTTON_C) *ctrl |= CTRL_JUMP;
-        else *ctrl &= ~CTRL_JUMP;
+    if(state & BUTTON_C){
+        *ctrl |= CTRL_JUMP;
+    }else if(changed & BUTTON_C){
+        *ctrl &= ~CTRL_JUMP;
     }
     if(changed & BUTTON_START){
 

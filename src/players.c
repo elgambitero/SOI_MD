@@ -17,6 +17,11 @@ u8 bl_after_status, gr_after_status;
 u8 * after_status;
 u8 bl_after_speed[2], gr_after_speed[2];
 u8 * after_speed;
+u8 bl_ab, gr_ab;
+
+#define JUMP_AB   (1 << 0)
+#define WEAP_AB   (1 << 1)
+#define BLOCK_AB  (1 << 2)
 
 __attribute__((always_inline)) static inline u8 blk_evaluate(u8 ind){
     return BLK_TYPE & env->front_blocks[ind];
@@ -39,7 +44,8 @@ const Entity PL_blue = {
             &bl_act,
             &bl_after_status,
             &bl_ctrl,
-            bl_after_speed
+            bl_after_speed,
+            &bl_ab
         }
     }
 };
@@ -61,13 +67,16 @@ const Entity PL_green = {
             &gr_act,
             &gr_after_status,
             &gr_ctrl,
-            gr_after_speed
+            gr_after_speed,
+            &gr_ab
         }
     }
 };
 
 u8 weap_ctrl(u8 after){
     if( *ctrl & CTRL_FIRE ){
+        if(*(curr->character->role.player.anti_bounce) & WEAP_AB) return FALSE;
+        *(curr->character->role.player.anti_bounce) |= WEAP_AB;
         *after_status = after;
         memcpy(after_speed, curr->speed, sizeof(curr->speed));
         curr->speed[X] = 0;
@@ -94,12 +103,16 @@ u8 weap_ctrl(u8 after){
             return TRUE;
         }
         return TRUE;
+    }else{
+        *(curr->character->role.player.anti_bounce) &= ~WEAP_AB;
     }
     return FALSE;
 }
 
 u8 block_ctrl(u8 after){
     if( *ctrl & CTRL_BLOCK ){
+        if(*(curr->character->role.player.anti_bounce) & BLOCK_AB) return FALSE;
+        *(curr->character->role.player.anti_bounce) |= BLOCK_AB;
         *after_status = after;
         memcpy(after_speed, curr->speed, sizeof(curr->speed));
         curr->speed[X] = 0;
@@ -128,12 +141,16 @@ u8 block_ctrl(u8 after){
             *pl_act = MK_BLOCK;
         }
         return TRUE;
+    }else{
+        *(curr->character->role.player.anti_bounce) &= ~BLOCK_AB;
     }
     return FALSE;
 }
 
 u8 jump_ctrl(u8 after){
     if( *ctrl & CTRL_JUMP ){
+        if(*(curr->character->role.player.anti_bounce) & JUMP_AB) return FALSE;
+        *(curr->character->role.player.anti_bounce) |= JUMP_AB;
         calc_top();
         calc_top_block_left();
         if(top >= BOARD_Y_MAX || ( env->front_blocks[top_ind] & SOLID )){
@@ -154,6 +171,8 @@ u8 jump_ctrl(u8 after){
         newstatus = JUMP_RIGHT | dir;
         curr->speed[Y] = PL_JMP_BOOST;
         return TRUE;
+    }else{
+        *(curr->character->role.player.anti_bounce) &= ~JUMP_AB;
     }
     return FALSE;
 }
