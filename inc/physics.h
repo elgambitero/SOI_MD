@@ -17,7 +17,7 @@
 #define COLL_CORR (2 * DECIMALS)
 #define COLL_MARGIN (1 << (DECIMALS - 2))
 #define FLOOR_CORR ( 0xFFFF << (DECIMALS + 4) )
-#define WALKSPEED (1 << (DECIMALS - 1) )
+#define WALKSPEED (3 << (DECIMALS - 2) )
 #define FALLSPEED 2 * WALKSPEED
 #define PL_WALKSPEED WALKSPEED
 #define PL_FASTSPEED 2 * PL_WALKSPEED
