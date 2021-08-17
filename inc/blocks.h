@@ -97,7 +97,7 @@
 
 #define NASTIE_SHFT            11
 
-#define NASTIE_MSK             (3 << NASTIE_SHFT) //3bit
+#define NASTIE_MSK             (7 << NASTIE_SHFT) //3bit
 
 #define NASTIE_ANT             (0 << NASTIE_SHFT)
 #define NASTIE_HMR             (1 << NASTIE_SHFT)
