@@ -57,7 +57,7 @@ __attribute__((always_inline)) static inline void GAM_updateBonus(){
     }
 }
 
-void gameplayLoop(){
+void GAM_loop(){
     switch(gameState){
         case GAMEINIT:
             SYS_disableInts();

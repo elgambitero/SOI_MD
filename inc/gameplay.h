@@ -112,7 +112,7 @@ static inline void game_controls(u16 joy, u16 changed, u16 state){
     }
 }
 
-void gameplayLoop();
+void GAM_loop();
 void GAM_setGametype(u8 game_type);
 void GAM_updateScore();
 void GAM_updateLives();
