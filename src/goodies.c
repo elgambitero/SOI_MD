@@ -685,7 +685,7 @@ void GD_reveal_hidden(){
         }
     }
     SPR_update();
-    stop_time(REVEAL_TIME);
+    PHY_stop_time(REVEAL_TIME);
     act = ACT_getFirst(&fx_buf);
     if(act){
         Actor * next;
@@ -719,7 +719,7 @@ void GD_obtain(){
 void GD_killAll(){
     Actor * nastie = ACT_getFirst(&nasties);
     while(nastie){
-        kill(nastie, 0, -2*FALLSPEED);
+        PHY_kill(nastie, 0, -2*FALLSPEED);
         nastie = nastie->next;
     }
 }
@@ -728,7 +728,7 @@ void GD_killSpawned(){
     Actor * nastie = ACT_getFirst(&nasties);
     while(nastie){
         if((nastie->character->attr & ENT_CHECK_BITMSK) == NASTIE){ //Why check this???
-            if(nastie->timer) kill(nastie, 0, -2*FALLSPEED);
+            if(nastie->timer) PHY_kill(nastie, 0, -2*FALLSPEED);
         }
         nastie = nastie->next;
     }

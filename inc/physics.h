@@ -105,29 +105,29 @@ void PHY_clean_presence();
 void PHY_set_presence(u8 ind);
 u16 PHY_is_occupied(u8 ind);
 
-void kill(Actor * act, u8 speed_x, u8 speed_y);
+void PHY_kill(Actor * act, u8 speed_x, u8 speed_y);
 
 //Time manipulation
-void stop_time(u16 frames);
+void PHY_stop_time(u16 frames);
 
 //Special effects
-void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y);
-void summon_deletor(u8 front_ind, u8 deletes);
+void PHY_brk_debris(u8 front_ind, u8 sp_x, u8 sp_y);
+void PHY_summon_deletor(u8 front_ind, u8 deletes);
 
 //Actor boundary coordinate calculations.
-__attribute__((always_inline)) static inline void calc_top(){
+__attribute__((always_inline)) static inline void PHY_calc_top_bad(){
     top = POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1; //THIS IS REALLY BAD.
 }
-__attribute__((always_inline)) static inline void calc_front(u8 direction){
+__attribute__((always_inline)) static inline void PHY_calc_front(u8 direction){
     front = direction ? POS_TO_PX(curr->pos[X]) - curr->character->size[X] : POS_TO_PX(curr->pos[X]) + curr->character->size[X];
 }
-__attribute__((always_inline)) static inline void calc_front_margin(u8 direction){
+__attribute__((always_inline)) static inline void PHY_calc_front_margin(u8 direction){
     front = direction ? POS_TO_PX(curr->pos[X]) - curr->character->size[X] - COLL_MARGIN : POS_TO_PX(curr->pos[X]) + curr->character->size[X] + COLL_MARGIN;
 }
-__attribute__((always_inline)) static inline void calc_next(u8 direction){
+__attribute__((always_inline)) static inline void PHY_calc_next(u8 direction){
     front = direction ? POS_TO_PX(curr->pos[X]) - BLOCK_SIZE_PX : POS_TO_PX(curr->pos[X]) + BLOCK_SIZE_PX;
 }
-__attribute__((always_inline)) static inline void calc_back(u8 direction){
+__attribute__((always_inline)) static inline void PHY_calc_back(u8 direction){
     back = direction ? POS_TO_PX(curr->pos[X]) + curr->character->size[X] : POS_TO_PX(curr->pos[X]) - curr->character->size[X];
 }
 __attribute__((always_inline)) static inline void PHY_calc_top(){
@@ -138,37 +138,37 @@ __attribute__((always_inline)) static inline u8 PHY_mid_height(){
 }
 
 //Neighbouring block index calculations
-__attribute__((always_inline)) static inline void calc_front_block_hi(){
+__attribute__((always_inline)) static inline void PHY_calc_front_block_hi(){
     front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 12 ) ) ) );
 }
-__attribute__((always_inline)) static inline void calc_front_block(){
+__attribute__((always_inline)) static inline void PHY_calc_front_block(){
     front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 8 ) ) ) );
 }
-__attribute__((always_inline)) static inline void calc_front_block_lo(){
+__attribute__((always_inline)) static inline void PHY_calc_front_block_lo(){
     front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) - 4 ) ) ) );
 }
-__attribute__((always_inline)) static inline void calc_next_floor(){
+__attribute__((always_inline)) static inline void PHY_calc_next_floor(){
     front_ind = XY_TO_IND( PX_TO_BLOCK( front ), ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[Y] ) + 8 ) ) ) );
 }
-__attribute__((always_inline)) static inline void calc_front_floor(){
+__attribute__((always_inline)) static inline void PHY_calc_front_floor(){
     front_floor_ind = XY_TO_IND( PX_TO_BLOCK( front ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y]) ) ) );
 }
-__attribute__((always_inline)) static inline void calc_back_floor(){
+__attribute__((always_inline)) static inline void PHY_calc_back_floor(){
     back_floor_ind = XY_TO_IND( PX_TO_BLOCK( back ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y])  ) ) ) ;
 }
-__attribute__((always_inline)) static inline void calc_floor(){
+__attribute__((always_inline)) static inline void PHY_calc_floor(){
     floor_ind = XY_TO_IND( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ), (PX_TO_BLOCK( POS_TO_PX(curr->pos[Y])  ) ) ) ;
 }
-__attribute__((always_inline)) static inline void calc_top_block(){
+__attribute__((always_inline)) static inline void PHY_calc_top_block(){
     top_ind =  XY_TO_IND( ( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
 }
-__attribute__((always_inline)) static inline void calc_top_block_left(){
+__attribute__((always_inline)) static inline void PHY_calc_top_block_left(){
     top_ind =  XY_TO_IND( ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[X] ) - curr->character->size[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
 }
-__attribute__((always_inline)) static inline void calc_top_block_right(){
+__attribute__((always_inline)) static inline void PHY_calc_top_block_right(){
     top_ind =  XY_TO_IND( ( PX_TO_BLOCK( ( POS_TO_PX( curr->pos[X] ) + curr->character->size[X] ) ) ), (  PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - BLOCK_SIZE_PX - 1 ) )  ) ) ;
 }
-__attribute__((always_inline)) static inline void calc_center_block(){
+__attribute__((always_inline)) static inline void PHY_calc_center_block(){
     center_ind = XY_TO_IND( PX_TO_BLOCK( POS_TO_PX( curr->pos[X] ) ), (PX_TO_BLOCK( ( POS_TO_PX(curr->pos[Y]) - (curr->character->size[Y] >> 1) ) ) ) ) ;
 }
 
@@ -177,17 +177,17 @@ __attribute__((always_inline)) static inline u8 PHY_calc_index(u16 x, u16 y){
 }
 
 //Environment colision calculation.
-__attribute__((always_inline)) static inline u8 fall(u8 ind){
+__attribute__((always_inline)) static inline u8 PHY_fall(u8 ind){
     return !( SOLID & env->front_blocks[ind] ) &&  ( POS_TO_PX(curr->pos[Y])  < BOARD_Y_PX );
 }
-__attribute__((always_inline)) static inline u8 land(u8 ind){
+__attribute__((always_inline)) static inline u8 PHY_land(u8 ind){
     return ( ( SOLID & env->front_blocks[ ind ] ) || (POS_TO_PX(curr->pos[Y]) >= BOARD_Y_PX ) );
 }
-__attribute__((always_inline)) static inline u8 cliff(){
+__attribute__((always_inline)) static inline u8 PHY_cliff(){
     return (front_floor_ind < BOARD_BUFFER) && !( SOLID & env->front_blocks[front_floor_ind] );
 }
 //this is starting to get kind of terrible.
-__attribute__((always_inline)) static inline u8 crash_into(){
+__attribute__((always_inline)) static inline u8 PHY_crash_into(){
     if( front >= BOARD_X_PX )
         return FRAME;
     if(SOLID & env->front_blocks[front_ind])
@@ -205,7 +205,7 @@ __attribute__((always_inline)) static inline u8 PHY_crash_point(u16 x, u16 y){
 
 
 //Environment analysis checks.
-__attribute__((always_inline)) static inline u8 breakable(u8 ind){
+__attribute__((always_inline)) static inline u8 PHY_breakable(u8 ind){
     return (BREAKABLE & env->front_blocks[ind]);
 }
 

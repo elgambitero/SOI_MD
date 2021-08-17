@@ -8,7 +8,7 @@ u8 gr_ctrl;
 
 
 //Time modification methods.
-void stop_time(u16 frames){
+void PHY_stop_time(u16 frames){
     u16 time = frames;
     while(time){
         time--;
@@ -42,7 +42,7 @@ u16 PHY_is_occupied(u8 ind){
 
 
 //Special effects based on environment modification.
-void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
+void PHY_brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
     fx.status = 0;
     fx.pos[X] = BLOCK_TO_PX(IND_TO_X(front_ind));
     fx.pos[Y] = BLOCK_TO_PX(IND_TO_Y(front_ind));
@@ -65,7 +65,7 @@ void brk_debris(u8 front_ind, u8 sp_x, u8 sp_y){
     ACT_add(&fx, &fx_buf);
 }
 
-void summon_deletor(u8 front_ind, u8 deletes){
+void PHY_summon_deletor(u8 front_ind, u8 deletes){
     fx.status = deletes ? 1 : 0;
     fx.character = &FX_deletor;
     fx.frames = DELETOR_FRAMES;
@@ -77,7 +77,7 @@ void summon_deletor(u8 front_ind, u8 deletes){
 }
 
 //To be moved.
-void kill(Actor * act, u8 speed_x, u8 speed_y){
+void PHY_kill(Actor * act, u8 speed_x, u8 speed_y){
     u16 attrib = act->character->attr;
     if(attrib & INVINCIBLE) return;
     //switch(attrib & ENT_CHECK_BITMSK){
@@ -154,13 +154,13 @@ u8 PHY_computeStatus(Actor * actor){
 }
 
 void PHY_kill_mercilessly(Actor * a){
-    kill(a, 0, -2 * WALKSPEED);
+    PHY_kill(a, 0, -2 * WALKSPEED);
 }
 
 void PHY_kill_player(Actor * a){
     if(((a == blue_player) && (bl_stat->effect != SHIELDED)) ||
         ((a == green_player) && (gr_stat->effect != SHIELDED))){
-        kill(a, 0, -2 * WALKSPEED);
+        PHY_kill(a, 0, -2 * WALKSPEED);
     }
 }
 

@@ -46,11 +46,11 @@ __attribute__((always_inline)) static inline void GAM_updateBonus(){
             }
         }else{
             if(blue_player && blue_player->status != DEAD) {
-                kill(blue_player, 0, PL_JMP_BOOST);
+                PHY_kill(blue_player, 0, PL_JMP_BOOST);
                 //blue_player = NULL;
             }
             if(green_player && green_player->status != DEAD) {
-                kill(green_player, 0, PL_JMP_BOOST);
+                PHY_kill(green_player, 0, PL_JMP_BOOST);
                 //green_player = NULL;
             }
         }

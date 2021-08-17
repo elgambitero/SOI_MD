@@ -365,19 +365,19 @@ __attribute__((always_inline)) static inline void NST_attack(){
 
 
 __attribute__((always_inline)) static inline void NST_breaks(){
-    calc_front(dir);
-    calc_front_block();
+    PHY_calc_front(dir);
+    PHY_calc_front_block();
     BRD_break_block_ind(env, front_ind);
-    brk_debris(front_ind, BRK_SPEED, 0);
+    PHY_brk_debris(front_ind, BRK_SPEED, 0);
     XGM_setPCM(SFX_IND, snd_metal_bonk, sizeof(snd_metal_bonk));
     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
 }
 
 __attribute__((always_inline)) static inline void NST_deletes(){
-    calc_front(dir);
-    calc_front_block();
+    PHY_calc_front(dir);
+    PHY_calc_front_block();
     BRD_break_block_ind(env, front_ind);
-    summon_deletor(front_ind, TRUE);
+    PHY_summon_deletor(front_ind, TRUE);
 }
 
 __attribute__((always_inline)) static inline void NST_keep_walking(){
@@ -388,7 +388,7 @@ __attribute__((always_inline)) static inline void NST_keep_walking(){
 
 
 __attribute__((always_inline)) static inline void NST_die(){
-    kill(curr, WALKSPEED, -2*FALLSPEED);
+    PHY_kill(curr, WALKSPEED, -2*FALLSPEED);
     newstatus = DEAD;
     status = DEAD;
 }
@@ -410,20 +410,20 @@ __attribute__((always_inline)) static inline s16 ABS(s16 x){
 }
 
 void NST_spinner_loop(){
-    calc_center_block();
+    PHY_calc_center_block();
     PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
-            calc_back(dir);
-            calc_back_floor();
-            if(fall(back_floor_ind)){
+            PHY_calc_back(dir);
+            PHY_calc_back_floor();
+            if(PHY_fall(back_floor_ind)){
                 NST_still_fall();
                 return;
             }
         break;
         case FALL_RIGHT:
-            calc_floor();
-            if(land(floor_ind)) {
+            PHY_calc_floor();
+            if(PHY_land(floor_ind)) {
                 NST_still_land();
             }
         break;
@@ -431,31 +431,31 @@ void NST_spinner_loop(){
 }
 
 void NST_robo_loop(){
-    calc_center_block();
+    PHY_calc_center_block();
     PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
-            calc_back(dir);
-            calc_back_floor();
-            if(fall(back_floor_ind)){
+            PHY_calc_back(dir);
+            PHY_calc_back_floor();
+            if(PHY_fall(back_floor_ind)){
                 NST_fall();
                 return;
             }
-            calc_front(dir);
-            calc_front_block();
-            switch(crash_into()){
+            PHY_calc_front(dir);
+            PHY_calc_front_block();
+            switch(PHY_crash_into()){
                 case FRAME:
                     NST_turn_around();
                     return;
                 case BLOCK:
-                    if(breakable(front_ind)) NST_attack();
+                    if(PHY_breakable(front_ind)) NST_attack();
                     else NST_turn_around();
                     return;
                 default:
                     break;
             }
-            calc_front_floor();
-            if(cliff()){
+            PHY_calc_front_floor();
+            if(PHY_cliff()){
                 NST_turn_around();
                 return;
             }
@@ -481,8 +481,8 @@ void NST_robo_loop(){
             NST_keep_walking();
         break;
         case FALL_RIGHT:
-            calc_floor();
-            if(land(floor_ind)) {
+            PHY_calc_floor();
+            if(PHY_land(floor_ind)) {
                 NST_die();
                 break;
             }
@@ -497,19 +497,19 @@ void NST_ant_loop(){
 
     PHY_despawn();
 
-    calc_center_block();
+    PHY_calc_center_block();
     PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
-            calc_back(dir);
-            calc_back_floor();
-            if(fall(back_floor_ind)){
+            PHY_calc_back(dir);
+            PHY_calc_back_floor();
+            if(PHY_fall(back_floor_ind)){
                 NST_fall();
                 return;
             }
-            calc_front(dir);
-            calc_front_block();
-            switch(crash_into()){
+            PHY_calc_front(dir);
+            PHY_calc_front_block();
+            switch(PHY_crash_into()){
                 case BLOCK:
                 case FRAME:
                     NST_turn_around();
@@ -529,8 +529,8 @@ void NST_ant_loop(){
             curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
         break;
         case FALL_RIGHT:
-            calc_floor();
-            if(land(floor_ind)) {
+            PHY_calc_floor();
+            if(PHY_land(floor_ind)) {
                 curr->pos[Y] &= FLOOR_CORR;
                 curr->speed[Y] = 0;
                 NST_keep_walking();
@@ -547,24 +547,24 @@ void NST_piggy_loop(){
 
     PHY_despawn();
 
-    calc_center_block();
+    PHY_calc_center_block();
     PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
-            calc_back(dir);
-            calc_back_floor();
-            if(fall(back_floor_ind)){
+            PHY_calc_back(dir);
+            PHY_calc_back_floor();
+            if(PHY_fall(back_floor_ind)){
                 NST_fall();
                 return;
             }
-            calc_front(dir);
-            calc_front_block();
-            switch(crash_into()){
+            PHY_calc_front(dir);
+            PHY_calc_front_block();
+            switch(PHY_crash_into()){
                 case FRAME:
                     NST_turn_around(); //why tho.
                     return;
                 case BLOCK:
-                    if(breakable(front_ind)) NST_attack();
+                    if(PHY_breakable(front_ind)) NST_attack();
                     else NST_turn_around();
                     return;
                 default:
@@ -592,8 +592,8 @@ void NST_piggy_loop(){
             NST_turn_around_fast();
         break;
         case FALL_RIGHT:
-            calc_floor();
-            if(land(floor_ind)) {
+            PHY_calc_floor();
+            if(PHY_land(floor_ind)) {
                 curr->pos[Y] &= FLOOR_CORR;
                 curr->speed[Y] = 0;
                 NST_keep_walking();
@@ -609,24 +609,24 @@ void NST_piggy_loop(){
 void NST_teeth_loop(){
     PHY_despawn();
 
-    calc_center_block();
+    PHY_calc_center_block();
     PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
-            calc_back(dir);
-            calc_back_floor();
-            if(fall(back_floor_ind)){
+            PHY_calc_back(dir);
+            PHY_calc_back_floor();
+            if(PHY_fall(back_floor_ind)){
                 NST_fall();
                 return;
             }
-            calc_front(dir);
-            calc_front_block();
-            switch(crash_into()){
+            PHY_calc_front(dir);
+            PHY_calc_front_block();
+            switch(PHY_crash_into()){
                 case FRAME:
                     NST_turn_around();
                     return;
                 case BLOCK:
-                    if(breakable(front_ind)) NST_deletes_and_keeps_going();
+                    if(PHY_breakable(front_ind)) NST_deletes_and_keeps_going();
                     else NST_turn_around();
                     return;
                 default:
@@ -643,8 +643,8 @@ void NST_teeth_loop(){
             curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
         break;
         case FALL_RIGHT:
-            calc_floor();
-            if(land(floor_ind)) {
+            PHY_calc_floor();
+            if(PHY_land(floor_ind)) {
                 curr->pos[Y] &= FLOOR_CORR;
                 curr->speed[Y] = 0;
                 NST_keep_walking();
@@ -660,13 +660,13 @@ void NST_teeth_loop(){
 #define PX_MARGIN 4
 
 void NST_whR_loop(){
-    calc_center_block();
+    PHY_calc_center_block();
     PHY_set_presence(center_ind);
     switch(status & (ANIM_MSK | DIR_MSK)){ //dir is not used in this loop
         case NST_R_RIGHT:
             //Roll-off condition
-            calc_front(0);
-            calc_back(0);
+            PHY_calc_front(0);
+            PHY_calc_back(0);
             if(!PHY_crash_point(front, POS_TO_PX(curr->pos[Y]) + PX_MARGIN) && 
                !PHY_crash_point(back, POS_TO_PX(curr->pos[Y]) + PX_MARGIN) && 
                PHY_crash_point(back - PX_MARGIN, POS_TO_PX(curr->pos[Y]) + PX_MARGIN) ){
@@ -691,7 +691,7 @@ void NST_whR_loop(){
             break;
         case NST_R_DOWN:
             //Roll-off condition
-            calc_front(1);
+            PHY_calc_front(1);
             PHY_calc_top();
             if(!PHY_crash_point(front - PX_MARGIN, POS_TO_PX(curr->pos[Y]) ) && 
                !PHY_crash_point(front - PX_MARGIN, top) && 
@@ -717,8 +717,8 @@ void NST_whR_loop(){
             break;
         case NST_R_LEFT:
             //Roll-off condition
-            calc_front(1);
-            calc_back(1);
+            PHY_calc_front(1);
+            PHY_calc_back(1);
             PHY_calc_top();
             if(!PHY_crash_point( front , top - PX_MARGIN) && 
                !PHY_crash_point( back , top - PX_MARGIN) && 
@@ -744,7 +744,7 @@ void NST_whR_loop(){
             break;
         case NST_R_UP:
             //Roll-off condition
-            calc_front(0);
+            PHY_calc_front(0);
             PHY_calc_top();
             if(!PHY_crash_point( front + PX_MARGIN, top ) && 
                !PHY_crash_point( front + PX_MARGIN, POS_TO_PX(curr->pos[Y]) ) && 
@@ -772,13 +772,13 @@ void NST_whR_loop(){
 }
 
 void NST_whL_loop(){
-    calc_center_block();
+    PHY_calc_center_block();
     PHY_set_presence(center_ind);
     switch(status & (ANIM_MSK | DIR_MSK)){ //dir is not used in this loop
         case NST_L_LEFT:
             //Roll-off condition
-            calc_front(1);
-            calc_back(1);
+            PHY_calc_front(1);
+            PHY_calc_back(1);
             if(!PHY_crash_point(front, POS_TO_PX(curr->pos[Y]) + PX_MARGIN) && 
                !PHY_crash_point(back, POS_TO_PX(curr->pos[Y]) + PX_MARGIN) && 
                PHY_crash_point(back + PX_MARGIN, POS_TO_PX(curr->pos[Y]) + PX_MARGIN) ){
@@ -803,7 +803,7 @@ void NST_whL_loop(){
             break;
         case NST_L_DOWN:
             //Roll-off condition
-            calc_front(0);
+            PHY_calc_front(0);
             PHY_calc_top();
             if(!PHY_crash_point(front + PX_MARGIN, POS_TO_PX(curr->pos[Y]) ) &&
                !PHY_crash_point(front + PX_MARGIN, top) &&
@@ -829,8 +829,8 @@ void NST_whL_loop(){
             break;
         case NST_L_RIGHT:
             //Roll-off condition
-            calc_front(0);
-            calc_back(0);
+            PHY_calc_front(0);
+            PHY_calc_back(0);
             PHY_calc_top();
             if(!PHY_crash_point( front , top - PX_MARGIN) && 
                !PHY_crash_point( back , top - PX_MARGIN) && 
@@ -856,7 +856,7 @@ void NST_whL_loop(){
             break;
         case NST_L_UP:
             //Roll-off condition
-            calc_front(1);
+            PHY_calc_front(1);
             PHY_calc_top();
             if(!PHY_crash_point( front - PX_MARGIN, top ) && 
                !PHY_crash_point( front - PX_MARGIN, POS_TO_PX(curr->pos[Y]) ) && 
@@ -912,11 +912,11 @@ __attribute__((always_inline)) static inline void NST_beanie_attackH(){
 }
 
 __attribute__((always_inline)) static inline void NST_beanie_deleteH(){
-    calc_front(dir);
-    calc_front_block();
+    PHY_calc_front(dir);
+    PHY_calc_front_block();
     BRD_break_block_ind(env, front_ind);
     NST_beanie_deletor(front_ind, dir);
-    //summon_deletor(front_ind, TRUE);
+    //PHY_summon_deletor(front_ind, TRUE);
 }
 __attribute__((always_inline)) static inline void NST_beanie_deleteV(u8 direction, u8 ind){
     XGM_setPCM(SFX_IND, snd_beanie_fire, sizeof(snd_beanie_fire));
@@ -946,18 +946,18 @@ __attribute__((always_inline)) static inline void NST_attack_vert(){
 }
 
 void NST_beanie_loop(){
-    calc_center_block();
+    PHY_calc_center_block();
     PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
-            calc_front(dir);
-            calc_front_block();
-            switch(crash_into()){
+            PHY_calc_front(dir);
+            PHY_calc_front_block();
+            switch(PHY_crash_into()){
                 case FRAME:
                     NST_turn_around();
                     return;
                 case BLOCK:
-                    if(breakable(front_ind)) {
+                    if(PHY_breakable(front_ind)) {
                         NST_beanie_attackH();
                         NST_beanie_deleteH();
                     }
@@ -1004,8 +1004,8 @@ void NST_beanie_loop(){
                     break;
                 case BLOCK:
                     if(dir){
-                        calc_top_block();
-                        if(breakable(top_ind)) {
+                        PHY_calc_top_block();
+                        if(PHY_breakable(top_ind)) {
                             NST_attack_vert();
                             NST_beanie_deleteV(dir, top_ind);
                         }
@@ -1016,8 +1016,8 @@ void NST_beanie_loop(){
                             NST_turn_up();
                         }
                     }else{
-                        calc_floor();
-                        if(breakable(floor_ind)) {
+                        PHY_calc_floor();
+                        if(PHY_breakable(floor_ind)) {
                             NST_attack_vert();
                             NST_beanie_deleteV(dir, floor_ind);
                         }
@@ -1059,19 +1059,19 @@ void NST_ostrich_loop(){
     
     PHY_despawn();
 
-    calc_center_block();
+    PHY_calc_center_block();
     PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
-            calc_back(dir);
-            calc_back_floor();
-            if(fall(back_floor_ind)){
+            PHY_calc_back(dir);
+            PHY_calc_back_floor();
+            if(PHY_fall(back_floor_ind)){
                 NST_fall();
                 return;
             }
-            calc_front(dir);
-            calc_front_block();
-            switch(crash_into()){
+            PHY_calc_front(dir);
+            PHY_calc_front_block();
+            switch(PHY_crash_into()){
                 case BLOCK:
                 case FRAME:
                     NST_turn_around();
@@ -1091,8 +1091,8 @@ void NST_ostrich_loop(){
             curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
         break;
         case FALL_RIGHT:
-            calc_floor();
-            if(land(floor_ind)) {
+            PHY_calc_floor();
+            if(PHY_land(floor_ind)) {
                 curr->pos[Y] &= FLOOR_CORR;
                 curr->speed[Y] = 0;
                 
@@ -1131,24 +1131,24 @@ void NST_ostrich_loop(){
 void NST_hippo_loop(){
     PHY_despawn();
 
-    calc_center_block();
+    PHY_calc_center_block();
     PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
-            calc_back(dir);
-            calc_back_floor();
-            if(fall(back_floor_ind)){
+            PHY_calc_back(dir);
+            PHY_calc_back_floor();
+            if(PHY_fall(back_floor_ind)){
                 NST_fall();
                 return;
             }
-            calc_front(dir);
-            calc_front_block();
-            switch(crash_into()){
+            PHY_calc_front(dir);
+            PHY_calc_front_block();
+            switch(PHY_crash_into()){
                 case FRAME:
                     NST_turn_around();
                     return;
                 case BLOCK:
-                    if(breakable(front_ind)) NST_attack();
+                    if(PHY_breakable(front_ind)) NST_attack();
                     else NST_turn_around();
                     return;
                 default:
@@ -1176,8 +1176,8 @@ void NST_hippo_loop(){
             NST_keep_walking();
         break;
         case FALL_RIGHT:
-            calc_floor();
-            if(land(floor_ind)) {
+            PHY_calc_floor();
+            if(PHY_land(floor_ind)) {
                 curr->pos[Y] &= FLOOR_CORR;
                 curr->speed[Y] = 0;
                 NST_keep_walking();

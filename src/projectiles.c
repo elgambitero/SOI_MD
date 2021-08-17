@@ -117,9 +117,9 @@ const Entity PR_L_ball = {
 };
 
 void PR_arrow_loop(){
-    calc_front(dir);
-    calc_front_block();
-    switch(crash_into()){
+    PHY_calc_front(dir);
+    PHY_calc_front_block();
+    switch(PHY_crash_into()){
         case BLOCK:
         case FRAME:
             result = ACT_DELETION;
@@ -128,16 +128,16 @@ void PR_arrow_loop(){
 }
 
 void PR_canb_loop(){
-    calc_front(dir);
-    calc_front_block();
-    if(crash_into()){
+    PHY_calc_front(dir);
+    PHY_calc_front_block();
+    if(PHY_crash_into()){
         result = ACT_DELETION;
-        if(breakable(front_ind)){
+        if(PHY_breakable(front_ind)){
             BRD_break_block_ind(env, front_ind);
             if(dir)
-                brk_debris(front_ind, -CANBALL_SPEED, 0);
+                PHY_brk_debris(front_ind, -CANBALL_SPEED, 0);
             else
-                brk_debris(front_ind,  CANBALL_SPEED, 0);
+                PHY_brk_debris(front_ind,  CANBALL_SPEED, 0);
         }
     }
 }
@@ -164,9 +164,9 @@ __attribute__((always_inline)) static inline u8 crashing(u8 ind){
 
 void PR_simp_loop(){
     u8 crashed = 0;
-    calc_front(dir);
-    calc_back(dir);
-    calc_front_floor();
+    PHY_calc_front(dir);
+    PHY_calc_back(dir);
+    PHY_calc_front_floor();
     switch(crashing(front_floor_ind)){
         case FRAME:
             crashed = 1;
@@ -175,9 +175,9 @@ void PR_simp_loop(){
             if(env->front_blocks[front_floor_ind] != CHI){
                 //Checking for chisels everywhere is pathetic.
                 crashed = 1;
-                if(breakable(front_floor_ind)){
+                if(PHY_breakable(front_floor_ind)){
                     BRD_break_block_ind(env, front_floor_ind);
-                    brk_debris(front_floor_ind, curr->speed[X], curr->speed[Y]);
+                    PHY_brk_debris(front_floor_ind, curr->speed[X], curr->speed[Y]);
                 }
             }
             break;
@@ -191,15 +191,15 @@ void PR_simp_loop(){
         case BLOCK:
             if(env->front_blocks[front_top_ind] != CHI){
                 crashed = 1;
-                if(breakable(front_top_ind)){
+                if(PHY_breakable(front_top_ind)){
                     BRD_break_block_ind(env, front_top_ind);
-                    brk_debris(front_top_ind, curr->speed[X], curr->speed[Y]);
+                    PHY_brk_debris(front_top_ind, curr->speed[X], curr->speed[Y]);
                 }
             }
             break;
     }
     if(curr->speed[Y] > 0){
-        calc_back_floor();
+        PHY_calc_back_floor();
         switch(crashing(back_floor_ind)){
             case FRAME:
                 crashed = 1;
@@ -207,9 +207,9 @@ void PR_simp_loop(){
             case BLOCK:
                 if(env->front_blocks[back_floor_ind] != CHI){
                     crashed = 1;
-                    if(breakable(back_floor_ind)){
+                    if(PHY_breakable(back_floor_ind)){
                         BRD_break_block_ind(env, back_floor_ind);
-                        brk_debris(back_floor_ind, curr->speed[X], curr->speed[Y]);
+                        PHY_brk_debris(back_floor_ind, curr->speed[X], curr->speed[Y]);
                     }
                 }
                 break;
@@ -223,9 +223,9 @@ void PR_simp_loop(){
             case BLOCK:
                 if(env->front_blocks[back_top_ind] != CHI){
                     crashed = 1;
-                    if(breakable(back_top_ind)){
+                    if(PHY_breakable(back_top_ind)){
                         BRD_break_block_ind(env, back_top_ind);
-                        brk_debris(back_top_ind, curr->speed[X], curr->speed[Y]);
+                        PHY_brk_debris(back_top_ind, curr->speed[X], curr->speed[Y]);
                     }
                 }
                 break;
@@ -236,9 +236,9 @@ void PR_simp_loop(){
 
 void PR_ub_loop(){
     u8 crashed = 0;
-    calc_front(dir);
-    calc_back(dir);
-    calc_front_floor();
+    PHY_calc_front(dir);
+    PHY_calc_back(dir);
+    PHY_calc_front_floor();
     switch(crashing(front_floor_ind)){
         case FRAME:
             crashed = 1;
@@ -246,9 +246,9 @@ void PR_ub_loop(){
         case BLOCK:
             if(env->front_blocks[front_floor_ind] != CHI){
                 //Checking for chisels everywhere is pathetic.
-                if(breakable(front_floor_ind)){
+                if(PHY_breakable(front_floor_ind)){
                     BRD_break_block_ind(env, front_floor_ind);
-                    brk_debris(front_floor_ind, curr->speed[X], curr->speed[Y]);
+                    PHY_brk_debris(front_floor_ind, curr->speed[X], curr->speed[Y]);
                 }
             }
             break;
@@ -261,24 +261,24 @@ void PR_ub_loop(){
             break;
         case BLOCK:
             if(env->front_blocks[front_top_ind] != CHI){
-                if(breakable(front_top_ind)){
+                if(PHY_breakable(front_top_ind)){
                     BRD_break_block_ind(env, front_top_ind);
-                    brk_debris(front_top_ind, curr->speed[X], curr->speed[Y]);
+                    PHY_brk_debris(front_top_ind, curr->speed[X], curr->speed[Y]);
                 }
             }
             break;
     }
     if(curr->speed[Y] > 0){
-        calc_back_floor();
+        PHY_calc_back_floor();
         switch(crashing(back_floor_ind)){
             case FRAME:
                 crashed = 1;
                 break;
             case BLOCK:
                 if(env->front_blocks[back_floor_ind] != CHI){
-                    if(breakable(back_floor_ind)){
+                    if(PHY_breakable(back_floor_ind)){
                         BRD_break_block_ind(env, back_floor_ind);
-                        brk_debris(back_floor_ind, curr->speed[X], curr->speed[Y]);
+                        PHY_brk_debris(back_floor_ind, curr->speed[X], curr->speed[Y]);
                     }
                 }
                 break;
@@ -291,9 +291,9 @@ void PR_ub_loop(){
                 break;
             case BLOCK:
                 if(env->front_blocks[back_top_ind] != CHI){
-                    if(breakable(back_top_ind)){
+                    if(PHY_breakable(back_top_ind)){
                         BRD_break_block_ind(env, back_top_ind);
-                        brk_debris(back_top_ind, curr->speed[X], curr->speed[Y]);
+                        PHY_brk_debris(back_top_ind, curr->speed[X], curr->speed[Y]);
                     }
                 }
                 break;
@@ -304,7 +304,7 @@ void PR_ub_loop(){
 
 void PR_packet_loop(){
     /*
-    calc_center_block();
+    PHY_calc_center_block();
     if(center_ind == curr->actorData.packData.block){
         result = ACT_DELETION;
     }
@@ -335,8 +335,8 @@ void PR_R_ball_loop(){
     switch(status & (ANIM_MSK | DIR_MSK)){ //dir is not used in this loop
         case PR_R_RIGHT:
             //Roll-off condition
-            calc_front(0);
-            calc_back(0);
+            PHY_calc_front(0);
+            PHY_calc_back(0);
             if(!PHY_crash_point(front, POS_TO_PX(curr->pos[Y]) + PX_MARGIN) && 
                !PHY_crash_point(back, POS_TO_PX(curr->pos[Y]) + PX_MARGIN) && 
                PHY_crash_point(back - PX_MARGIN, POS_TO_PX(curr->pos[Y]) + PX_MARGIN) ){
@@ -361,7 +361,7 @@ void PR_R_ball_loop(){
             break;
         case PR_R_DOWN:
             //Roll-off condition
-            calc_front(1);
+            PHY_calc_front(1);
             PHY_calc_top();
             if(!PHY_crash_point(front - PX_MARGIN, POS_TO_PX(curr->pos[Y]) ) && 
                !PHY_crash_point(front - PX_MARGIN, top) && 
@@ -387,8 +387,8 @@ void PR_R_ball_loop(){
             break;
         case PR_R_LEFT:
             //Roll-off condition
-            calc_front(1);
-            calc_back(1);
+            PHY_calc_front(1);
+            PHY_calc_back(1);
             PHY_calc_top();
             if(!PHY_crash_point( front , top - PX_MARGIN) && 
                !PHY_crash_point( back , top - PX_MARGIN) && 
@@ -414,7 +414,7 @@ void PR_R_ball_loop(){
             break;
         case PR_R_UP:
             //Roll-off condition
-            calc_front(0);
+            PHY_calc_front(0);
             PHY_calc_top();
             if(!PHY_crash_point( front + PX_MARGIN, top ) && 
                !PHY_crash_point( front + PX_MARGIN, POS_TO_PX(curr->pos[Y]) ) && 
@@ -447,8 +447,8 @@ void PR_L_ball_loop(){
     switch(status & (ANIM_MSK | DIR_MSK)){ //dir is not used in this loop
         case PR_L_LEFT:
             //Roll-off condition
-            calc_front(1);
-            calc_back(1);
+            PHY_calc_front(1);
+            PHY_calc_back(1);
             if(!PHY_crash_point(front, POS_TO_PX(curr->pos[Y]) + PX_MARGIN) && 
                !PHY_crash_point(back, POS_TO_PX(curr->pos[Y]) + PX_MARGIN) && 
                PHY_crash_point(back + PX_MARGIN, POS_TO_PX(curr->pos[Y]) + PX_MARGIN) ){
@@ -473,7 +473,7 @@ void PR_L_ball_loop(){
             break;
         case PR_L_DOWN:
             //Roll-off condition
-            calc_front(0);
+            PHY_calc_front(0);
             PHY_calc_top();
             if(!PHY_crash_point(front + PX_MARGIN, POS_TO_PX(curr->pos[Y]) ) &&
                !PHY_crash_point(front + PX_MARGIN, top) &&
@@ -499,8 +499,8 @@ void PR_L_ball_loop(){
             break;
         case PR_L_RIGHT:
             //Roll-off condition
-            calc_front(0);
-            calc_back(0);
+            PHY_calc_front(0);
+            PHY_calc_back(0);
             PHY_calc_top();
             if(!PHY_crash_point( front , top - PX_MARGIN) && 
                !PHY_crash_point( back , top - PX_MARGIN) && 
@@ -526,7 +526,7 @@ void PR_L_ball_loop(){
             break;
         case PR_L_UP:
             //Roll-off condition
-            calc_front(1);
+            PHY_calc_front(1);
             PHY_calc_top();
             if(!PHY_crash_point( front - PX_MARGIN, top ) && 
                !PHY_crash_point( front - PX_MARGIN, POS_TO_PX(curr->pos[Y]) ) && 

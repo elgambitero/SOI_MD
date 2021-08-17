@@ -117,13 +117,13 @@ u8 block_ctrl(u8 after){
         memcpy(after_speed, curr->speed, sizeof(curr->speed));
         curr->speed[X] = 0;
         curr->speed[Y] = 0;
-        calc_next(dir);
+        PHY_calc_next(dir);
         if(*ctrl & CTRL_ALT){
-            calc_next_floor();
+            PHY_calc_next_floor();
             curr->frames = BP_ATTK_FRAMES;
             newstatus = LOW_ATTK_RIGHT_IN | dir;
         }else{
-            calc_front_block();
+            PHY_calc_front_block();
             curr->frames = BP_ATTK_FRAMES;
             newstatus = ATTACK_RIGHT_IN | dir;
         }
@@ -132,7 +132,7 @@ u8 block_ctrl(u8 after){
             return TRUE;
         }
         if(env->front_blocks[front_ind]){
-            if(breakable(front_ind)){
+            if(PHY_breakable(front_ind)){
                 *pl_act = DEL_BLOCK;
             }else{
                 *pl_act = NOTHING;
@@ -151,8 +151,8 @@ u8 jump_ctrl(u8 after){
     if( *ctrl & CTRL_JUMP ){
         if(*(curr->character->role.player.anti_bounce) & JUMP_AB) return FALSE;
         *(curr->character->role.player.anti_bounce) |= JUMP_AB;
-        calc_top();
-        calc_top_block_left();
+        PHY_calc_top_bad();
+        PHY_calc_top_block_left();
         if(top >= BOARD_Y_MAX || ( env->front_blocks[top_ind] & SOLID )){
             *after_status = after;
             curr->speed[X] = 0;
@@ -160,7 +160,7 @@ u8 jump_ctrl(u8 after){
             newstatus = JUMP_ATTK_RIGHT_IN | dir;
             return TRUE;
         }
-        calc_top_block_right();
+        PHY_calc_top_block_right();
         if(top >= BOARD_Y_MAX || ( env->front_blocks[top_ind] & SOLID )){
             *after_status = after;
             curr->speed[X] = 0;
@@ -270,7 +270,7 @@ static inline void PL_flipflop(){
 }
 
 __attribute__((always_inline)) static inline void PL_checkspecials(){
-    calc_center_block();
+    PHY_calc_center_block();
     switch(blk_evaluate(center_ind)){
         case SPECIAL_BLOCK:
             switch(SP_TYP_MSK & env->front_blocks[center_ind]){
@@ -345,13 +345,13 @@ void PL_update(){
     after_status = curr->character->role.player.future;
     ctrl = curr->character->role.player.ctrl;
     after_speed = curr->character->role.player.future_speed;
-    calc_center_block();
+    PHY_calc_center_block();
     PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
-            calc_front_margin(dir);
-            calc_front_block();
-            switch(crash_into()){
+            PHY_calc_front_margin(dir);
+            PHY_calc_front_block();
+            switch(PHY_crash_into()){
                 //onWalkInto
                 case FRAME:
                 case BLOCK:
@@ -362,11 +362,11 @@ void PL_update(){
                     curr->speed[X] = dir ? -pl_stat->speed : pl_stat->speed;
                     break;
             }
-            calc_front(dir);
-            calc_back(dir);
-            calc_front_floor();
-            calc_back_floor();
-            if(fall(front_floor_ind) && fall(back_floor_ind)){
+            PHY_calc_front(dir);
+            PHY_calc_back(dir);
+            PHY_calc_front_floor();
+            PHY_calc_back_floor();
+            if(PHY_fall(front_floor_ind) && PHY_fall(back_floor_ind)){
                 //onFall
                 newstatus = FALL_RIGHT | dir;
                 curr->speed[Y] = FALLSPEED;
@@ -405,23 +405,23 @@ void PL_update(){
             if(curr->frames--) return;
             switch(*pl_act){
                 case MK_BLOCK:
-                    calc_next(dir);
-                    calc_front_block();
+                    PHY_calc_next(dir);
+                    PHY_calc_front_block();
                     if(pl_act == &bl_act)
                         BRD_create_block_ind(env, BP, front_ind);
                     else
                         BRD_create_block_ind(env, GP, front_ind);
                     XGM_setPCM(SFX_IND, snd_block_create, sizeof(snd_block_create));
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
-                    summon_deletor(front_ind, FALSE);
+                    PHY_summon_deletor(front_ind, FALSE);
                 break;
                 case DEL_BLOCK:
-                    calc_next(dir);
-                    calc_front_block();
+                    PHY_calc_next(dir);
+                    PHY_calc_front_block();
                     BRD_break_block_ind(env, front_ind);
                     XGM_setPCM(SFX_IND, snd_block_delete, sizeof(snd_block_delete));
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
-                    summon_deletor(front_ind, TRUE);
+                    PHY_summon_deletor(front_ind, TRUE);
                 break;
                 case SHOOT:
                     XGM_setPCM(SFX_IND, snd_arrow_fire, sizeof(snd_arrow_fire));
@@ -443,8 +443,8 @@ void PL_update(){
             memcpy(curr->speed, after_speed, sizeof(curr->speed));
         break;
         case FALL_RIGHT:
-            calc_floor();
-            if(land(floor_ind)) {
+            PHY_calc_floor();
+            if(PHY_land(floor_ind)) {
                 //onLand
                 curr->pos[Y] &= FLOOR_CORR;
                 newstatus = dir | STILL_RIGHT;
@@ -458,11 +458,11 @@ void PL_update(){
         break;
         case STILL_RIGHT:
             curr->speed[X] = 0;
-            calc_front(dir);
-            calc_back(dir);
-            calc_front_floor();
-            calc_back_floor();
-            if(fall(front_floor_ind) && fall(back_floor_ind)){
+            PHY_calc_front(dir);
+            PHY_calc_back(dir);
+            PHY_calc_front_floor();
+            PHY_calc_back_floor();
+            if(PHY_fall(front_floor_ind) && PHY_fall(back_floor_ind)){
                 //onFall
                 newstatus = FALL_RIGHT | dir;
                 curr->speed[Y] = FALLSPEED;
@@ -487,23 +487,23 @@ void PL_update(){
             if(curr->frames--) return;
             switch(*pl_act){
                 case MK_BLOCK:
-                    calc_next(dir);
-                    calc_next_floor();
+                    PHY_calc_next(dir);
+                    PHY_calc_next_floor();
                     if(pl_act == &bl_act)
                         BRD_create_block_ind(env, BP, front_ind);
                     else
                         BRD_create_block_ind(env, GP, front_ind);
                     XGM_setPCM(SFX_IND, snd_block_create, sizeof(snd_block_create));
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
-                    summon_deletor(front_ind, FALSE);
+                    PHY_summon_deletor(front_ind, FALSE);
                 break;
                 case DEL_BLOCK:
-                    calc_next(dir);
-                    calc_next_floor();
+                    PHY_calc_next(dir);
+                    PHY_calc_next_floor();
                     BRD_break_block_ind(env, front_ind);
                     XGM_setPCM(SFX_IND, snd_block_delete, sizeof(snd_block_delete));
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
-                    summon_deletor(front_ind, TRUE);
+                    PHY_summon_deletor(front_ind, TRUE);
                 break;
                 case SHOOT:
                     XGM_setPCM(SFX_IND, snd_ball_fire, sizeof(snd_ball_fire));
@@ -531,9 +531,9 @@ void PL_update(){
         case STL_RIGHT_TO_LEFT:
             if(curr->frames--) return;
             newstatus = WALK_RIGHT | !dir ;
-            calc_front_margin(!dir);
-            calc_front_block();
-            if(crash_into()){
+            PHY_calc_front_margin(!dir);
+            PHY_calc_front_block();
+            if(PHY_crash_into()){
                 curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
             }
         break;
@@ -549,14 +549,14 @@ void PL_update(){
             if( *ctrl & CTRL_MOV){
                 register u8 push = *ctrl & CTRL_LEFT;
                 curr->speed[X] = push ? -PL_WALKSPEED : PL_WALKSPEED;
-                calc_front_margin( push );
-                calc_front_block_hi();
-                if(crash_into()){
+                PHY_calc_front_margin( push );
+                PHY_calc_front_block_hi();
+                if(PHY_crash_into()){
                     curr->pos[X] += push ? COLL_CORR : -COLL_CORR;
                     curr->speed[X] = 0;
                 }
-                calc_front_block_lo();
-                if(crash_into()){
+                PHY_calc_front_block_lo();
+                if(PHY_crash_into()){
                     curr->pos[X] += push ? COLL_CORR : -COLL_CORR;
                     curr->speed[X] = 0;
                 }
@@ -566,11 +566,11 @@ void PL_update(){
             block_ctrl(JUMP_RIGHT | dir);
             weap_ctrl(JUMP_RIGHT | dir);
             if(curr->speed[Y] > 0){
-                calc_front(dir);
-                calc_back(dir);
-                calc_front_floor();
-                calc_back_floor();
-                if(land(back_floor_ind) || land(front_floor_ind)) {
+                PHY_calc_front(dir);
+                PHY_calc_back(dir);
+                PHY_calc_front_floor();
+                PHY_calc_back_floor();
+                if(PHY_land(back_floor_ind) || PHY_land(front_floor_ind)) {
                     //onJumpLands
                     curr->pos[Y] &= FLOOR_CORR;
                     curr->speed[Y] = 0;
@@ -596,8 +596,8 @@ void PL_update(){
             if(curr->frames--) return;
             curr->frames = BP_ATTK_FRAMES;
             newstatus = JUMP_ATTK_RIGHT_OUT | dir;
-            calc_top();
-            calc_top_block();
+            PHY_calc_top_bad();
+            PHY_calc_top_block();
             if(top < BOARD_X_PX && ( env->front_blocks[top_ind] & BREAKABLE )){
                 if(env->front_blocks[top_ind] & BROKEN){
                     XGM_setPCM(SFX_IND, snd_block_break, sizeof(snd_block_break));
