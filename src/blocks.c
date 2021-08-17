@@ -254,9 +254,9 @@ void drawBlock(u8 x, u8 y, u16 block){
                     }
                     break;
                 case SP_SPAWNER:
-                    palette[FG] = PAL_SYS0;
-                    fg_blk_map = spawners_blk.tilemap;
-                    tile_index[FG] = spawners_ind;
+                    palette[BG] = PAL_SYS0;
+                    bg_blk_map = spawners_blk.tilemap;
+                    tile_index[BG] = spawners_ind;
                     map_ind = ((block & NASTIE_MSK) >> NASTIE_SHFT) * 2;
                     break;
             }
