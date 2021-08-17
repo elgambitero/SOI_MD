@@ -44,9 +44,16 @@ static const Actor spawn = {&SPW_piggy,
    0,
    {BLOCK_TO_PX(1) - 8, BLOCK_TO_PX(2)},
    {0, 0},
-   MAX_TIMER - SPAWN_TIME,
+   MAX_TIMER - 100,
    0,
    0,
+   {.spwData =
+      {
+         400,
+         0,
+         0
+      }
+   }
    };
 
 

@@ -42,13 +42,20 @@ static const Actor blp = {&PL_blue,
    };
 
 static const Actor spawn = {&SPW_ostrich,
-   WALK_RIGHT,
+   WALK_LEFT,
    0,
    {BLOCK_TO_PX(18) - 8, BLOCK_TO_PX(3)},
    {0, 0},
-      MAX_TIMER - SPAWN_TIME,
+      MAX_TIMER - 250,
    0,
    0,
+   {.spwData =
+      {
+         400,
+         0,
+         0
+      }
+   }
    };
 
 static const Actor spawn1 = {&SPW_ant,
@@ -56,9 +63,16 @@ static const Actor spawn1 = {&SPW_ant,
    0,
    {BLOCK_TO_PX(8) - 8, BLOCK_TO_PX(3)},
    {0, 0},
-      MAX_TIMER - SPAWN_TIME,
+      MAX_TIMER - 250,
    0,
    &spawn,
+   {.spwData =
+      {
+         400,
+         0,
+         0
+      }
+   }
    };
 
 const Board level8 = {

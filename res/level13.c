@@ -81,12 +81,12 @@ static const Actor spawn = {&SPW_hippo,
    0,
    {BLOCK_TO_PX(10) - 8 , BLOCK_TO_PX(1)},
    {0, 0},
-   MAX_TIMER - SPAWN_TIME,
+   MAX_TIMER - 100,
    0,
    &spin1,
    {.spwData =
       {
-         STAY_TIME,
+         5000,
          ALTERNATE,
          0
       }
