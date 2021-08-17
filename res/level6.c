@@ -40,7 +40,14 @@ static const Actor gargoyle = {&BS_gargoyle,
    {0, 0},
    0,
    0,
-   NULL
+   NULL,
+   {.spwData =
+      {
+         400,
+         0,
+         0
+      }
+   }
 };
 
 static const Actor knight = {&BS_knight,
@@ -50,7 +57,14 @@ static const Actor knight = {&BS_knight,
    {0, 0},
    0,
    0,
-   &gargoyle
+   &gargoyle,
+   {.spwData =
+      {
+         200,
+         0,
+         0
+      }
+   }
 };
 
 const Board level6 = {

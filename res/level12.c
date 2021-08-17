@@ -37,7 +37,14 @@ static const Actor gargoyle = {&BS_gargoyle1,
    {0, 0},
    0,
    0,
-   NULL
+   NULL,
+   {.spwData =
+      {
+         300,
+         0,
+         0
+      }
+   }
 };
 
 static const Actor knight = {&BS_knight,
@@ -47,7 +54,14 @@ static const Actor knight = {&BS_knight,
    {0, 0},
    0,
    0,
-   &gargoyle
+   &gargoyle,
+   {.spwData =
+      {
+         200,
+         0,
+         0
+      }
+   }
 };
 
 
