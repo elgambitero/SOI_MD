@@ -115,5 +115,6 @@ void gameplayLoop();
 void GAM_setGametype(u8 game_type);
 void GAM_updateScore();
 void GAM_updateLives();
+void GAM_setStartingBoard(u8 lvl);
 
 #endif

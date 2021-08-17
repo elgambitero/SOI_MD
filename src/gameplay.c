@@ -16,7 +16,7 @@ u8 bonusClk;
 u16 bonusCount;
 u32 scoreCount;
 
-u16 levelInd;
+u16 levelInd = START_LEVEL;
 
 u8 bonusText[N_BONUS + 1];
 u8 scoreText[N_SCORE + 1];
@@ -167,8 +167,11 @@ void gameplayLoop(){
     }
 }
 
+void GAM_setStartingBoard(u8 lvl){
+    levelInd = lvl;
+}
+
 void GAM_gameInit(){
-    levelInd = START_LEVEL;
 
     bl_stats.lives = 3;
     bl_stats.balls = 3;
