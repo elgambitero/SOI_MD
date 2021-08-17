@@ -194,22 +194,22 @@ static inline void PL_teleport(u8 from_ind, u16 block){
     u8 exit_ind = 0;
     switch(block){
         case TRI:
-            exit_ind = seek_block(env, TRO);
+            exit_ind = BRD_seek_block(env, TRO);
             break;
         case TGI:
-            exit_ind = seek_block(env, TGO);
+            exit_ind = BRD_seek_block(env, TGO);
             break;
         case TBI:
-            exit_ind = seek_block(env, TBO);
+            exit_ind = BRD_seek_block(env, TBO);
             break;
         case TNI:
-            exit_ind = seek_block(env, TNO);
+            exit_ind = BRD_seek_block(env, TNO);
             break;
         case TYI:
-            exit_ind = seek_block(env, TYO);
+            exit_ind = BRD_seek_block(env, TYO);
             break;
         case TWI:
-            exit_ind = seek_block(env, TWO);
+            exit_ind = BRD_seek_block(env, TWO);
             break;
     }
     if(exit_ind == 0) SYS_die("No teleport output");
@@ -249,12 +249,12 @@ static inline void PL_flipflop(){
     u16 gate = (SPECIAL_BLOCK | SP_GATE |
         (env->front_blocks[center_ind] & SP_COL_MSK));
     u16 msk = (BLK_TYPE | SP_TYP_MSK | SP_COL_MSK);
-    u8 index = seek_block_front_msk(env, gate, 0, msk);
+    u8 index = BRD_seek_block_front_msk(env, gate, 0, msk);
     while(index != BOARD_NOTFOUND){
         env->front_blocks[index] ^= GATE_MSK; //Toggle gate.
         env->front_blocks[index] ^= SOLID; //Toggle solid flag.
         BLK_drawBlock(IND_TO_X(index), IND_TO_Y(index), env->front_blocks[index]);
-        index = seek_block_front_msk(env, gate, index + 1, msk);
+        index = BRD_seek_block_front_msk(env, gate, index + 1, msk);
     }
     fx.status = 0;
     fx.character = &FX_antibounce;
@@ -408,9 +408,9 @@ void PL_update(){
                     calc_next(dir);
                     calc_front_block();
                     if(pl_act == &bl_act)
-                        create_block_ind(env, BP, front_ind);
+                        BRD_create_block_ind(env, BP, front_ind);
                     else
-                        create_block_ind(env, GP, front_ind);
+                        BRD_create_block_ind(env, GP, front_ind);
                     XGM_setPCM(SFX_IND, snd_block_create, sizeof(snd_block_create));
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                     summon_deletor(front_ind, FALSE);
@@ -418,7 +418,7 @@ void PL_update(){
                 case DEL_BLOCK:
                     calc_next(dir);
                     calc_front_block();
-                    break_block_ind(env, front_ind);
+                    BRD_break_block_ind(env, front_ind);
                     XGM_setPCM(SFX_IND, snd_block_delete, sizeof(snd_block_delete));
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                     summon_deletor(front_ind, TRUE);
@@ -490,9 +490,9 @@ void PL_update(){
                     calc_next(dir);
                     calc_next_floor();
                     if(pl_act == &bl_act)
-                        create_block_ind(env, BP, front_ind);
+                        BRD_create_block_ind(env, BP, front_ind);
                     else
-                        create_block_ind(env, GP, front_ind);
+                        BRD_create_block_ind(env, GP, front_ind);
                     XGM_setPCM(SFX_IND, snd_block_create, sizeof(snd_block_create));
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                     summon_deletor(front_ind, FALSE);
@@ -500,7 +500,7 @@ void PL_update(){
                 case DEL_BLOCK:
                     calc_next(dir);
                     calc_next_floor();
-                    break_block_ind(env, front_ind);
+                    BRD_break_block_ind(env, front_ind);
                     XGM_setPCM(SFX_IND, snd_block_delete, sizeof(snd_block_delete));
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                     summon_deletor(front_ind, TRUE);
@@ -603,12 +603,12 @@ void PL_update(){
                     XGM_setPCM(SFX_IND, snd_block_break, sizeof(snd_block_break));
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
                     //play snap sound
-                    break_block_ind(env, top_ind);
+                    BRD_break_block_ind(env, top_ind);
                     jmp_brk_debris(top_ind, 0, -BRK_SPEED);
                 }else{
                     XGM_setPCM(SFX_IND, snd_block_crack, sizeof(snd_block_crack));
                     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
-                    create_block_ind(env, env->front_blocks[top_ind] | BROKEN, top_ind);
+                    BRD_create_block_ind(env, env->front_blocks[top_ind] | BROKEN, top_ind);
                 }
             }
         break;

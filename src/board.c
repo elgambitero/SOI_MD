@@ -6,7 +6,7 @@
 #define XOFF 1
 #define YOFF 1
 
-u8 load_board(Board * board, const Board * level){
+u8 BRD_load(Board * board, const Board * level){
     memcpy(board, level, sizeof(Board));
     Actor * actor = board->actors;
     while(actor){
@@ -23,14 +23,14 @@ u8 load_board(Board * board, const Board * level){
     return 1;
 }
 
-void unload_board(Board * board){
+void BRD_unload(Board * board){
     memset(board, 0, sizeof(board));
     for(u8 i = 0; i<BOARD_BUFFER; i++){
         BLK_eraseBlock_ind(i);
     }
 }
 
-void load_board_palettes(Board * board){
+void BRD_load_palettes(Board * board){
     u16 white[8];
     u16 slot0[8];
     u16 slot1[8];
@@ -105,17 +105,17 @@ void load_board_palettes(Board * board){
     VDP_setPaletteColors(56, slot2, 8);
 }
 
-void draw_board(Board * board){
+void BRD_draw(Board * board){
     for(u8 i = 0; i < BOARD_BUFFER; i++){
         BLK_drawBlock(IND_TO_X(i), IND_TO_Y(i), *(board->front_blocks + i));
     }
 }
 
-u16 getBlock(Board * board, u8 x, u8 y){
+u16 BRD_get_block(Board * board, u8 x, u8 y){
     return board->front_blocks[XY_TO_IND(x, y)];
 }
 
-void set_block(Board * board, u16 block, u16 ind){
+void BRD_set_block(Board * board, u16 block, u16 ind){
     if(ind < BOARD_BUFFER){
         board->front_blocks[ind] = block;
         BLK_drawBlock(IND_TO_X(ind), IND_TO_Y(ind), block);
@@ -124,18 +124,18 @@ void set_block(Board * board, u16 block, u16 ind){
     }
 }
 
-void create_block(Board * board, u16 block, u8 x, u8 y){
+void BRD_create_block(Board * board, u16 block, u8 x, u8 y){
     u8 ind = XY_TO_IND(x, y);
     board->front_blocks[ind] = block;
     BLK_drawBlock(x, y, block);
 }
 
-void create_block_ind(Board * board, u16 block, u8 ind){
+void BRD_create_block_ind(Board * board, u16 block, u8 ind){
     board->front_blocks[ind] = block;
     BLK_drawBlock(IND_TO_X(ind), IND_TO_Y(ind), block);
 }
 
-void break_block(Board * board, u8 x, u8 y){
+void BRD_break_block(Board * board, u8 x, u8 y){
     u8 ind = XY_TO_IND(x, y);
     BLK_eraseBlock(x, y);
     board->front_blocks[ind] = 0;
@@ -148,7 +148,7 @@ void break_block(Board * board, u8 x, u8 y){
     return;
 }
 
-void break_block_ind(Board * board, u8 ind){
+void BRD_break_block_ind(Board * board, u8 ind){
     board->front_blocks[ind] = 0;
     BLK_eraseBlock(IND_TO_X(ind), IND_TO_Y(ind));
     if(board->back_blocks[ind]){
@@ -160,7 +160,7 @@ void break_block_ind(Board * board, u8 ind){
     return;
 }
 
-void play_board_music(Board * board){
+void BRD_play_music(Board * board){
     //This is ugly.
     switch(board->music){
         case MUS_HEAVY1:
@@ -178,7 +178,7 @@ void play_board_music(Board * board){
     }
 }
 
-u16 seek_block(Board * board, u16 block){
+u16 BRD_seek_block(Board * board, u16 block){
     
     for(u8 i = 0; i<BOARD_BUFFER; i++){
         if(board->front_blocks[i] == block){
@@ -195,7 +195,7 @@ u16 seek_block(Board * board, u16 block){
     return BOARD_NOTFOUND;;
 }
 
-u8 seek_block_front_msk(Board * board, u16 block, u8 from, u16 msk){
+u8 BRD_seek_block_front_msk(Board * board, u16 block, u8 from, u16 msk){
     for(u8 i = from; i<BOARD_BUFFER; i++ ){
         if((board->front_blocks[i] & msk) == (block & msk)){
             return i;

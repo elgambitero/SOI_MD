@@ -92,7 +92,7 @@ void gameplayLoop(){
         break;
         case ENDBOARD:
             PHY_end();
-            unload_board(&board);
+            BRD_unload(&board);
             //FIXME: THIS IS TERRIBLE
             if(bl_stat->effect == KILLED && gr_stat->effect == KILLED){
                 if(GAM_gameType == COOPERATE){
@@ -211,7 +211,7 @@ void GAM_levelInit(){
         SYS_die("Error when initializing Physics");
     }
     
-    if(!load_board(&board, current_level)) {
+    if(!BRD_load(&board, current_level)) {
         SYS_die("Error when loading the Board");
     }
 
@@ -223,9 +223,9 @@ void GAM_levelInit(){
         green_player = 0;
     }
 
-    load_board_palettes(&board);
-    draw_board(&board);
-    play_board_music(&board);
+    BRD_load_palettes(&board);
+    BRD_draw(&board);
+    BRD_play_music(&board);
 
     bl_stats.bonus = board.bonus;
     gr_stats.bonus = board.bonus;

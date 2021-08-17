@@ -712,7 +712,7 @@ void GD_obtain(){
         if(gd_index >= GD_GET_INDEX( GDi_KNGOOD ) ) gd_index -= (GD_GET_INDEX( GDi_KNGOOD ) + 1);
         SPR_setFrame(result->sprite, gd_index);
     }
-    set_block(env, 0, center_ind);
+    BRD_set_block(env, 0, center_ind);
     BLK_eraseBlock_ind(center_ind);
 }
 
@@ -735,9 +735,9 @@ void GD_killSpawned(){
 }
 
 void GD_openRdDoor(){
-    u16 index = seek_block(env, (GOODIE | GDi_RDDOOR) );
+    u16 index = BRD_seek_block(env, (GOODIE | GDi_RDDOOR) );
     if(index != BOARD_NOTFOUND){
-        set_block(env, (GOODIE | GDi_RDDOOR_open), index);
+        BRD_set_block(env, (GOODIE | GDi_RDDOOR_open), index);
     }else{
         //this crashes the game on purpose
         SYS_die("Red Door not found");

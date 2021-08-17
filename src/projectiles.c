@@ -133,7 +133,7 @@ void PR_canb_loop(){
     if(crash_into()){
         result = ACT_DELETION;
         if(breakable(front_ind)){
-            break_block_ind(env, front_ind);
+            BRD_break_block_ind(env, front_ind);
             if(dir)
                 brk_debris(front_ind, -CANBALL_SPEED, 0);
             else
@@ -176,7 +176,7 @@ void PR_simp_loop(){
                 //Checking for chisels everywhere is pathetic.
                 crashed = 1;
                 if(breakable(front_floor_ind)){
-                    break_block_ind(env, front_floor_ind);
+                    BRD_break_block_ind(env, front_floor_ind);
                     brk_debris(front_floor_ind, curr->speed[X], curr->speed[Y]);
                 }
             }
@@ -192,7 +192,7 @@ void PR_simp_loop(){
             if(env->front_blocks[front_top_ind] != CHI){
                 crashed = 1;
                 if(breakable(front_top_ind)){
-                    break_block_ind(env, front_top_ind);
+                    BRD_break_block_ind(env, front_top_ind);
                     brk_debris(front_top_ind, curr->speed[X], curr->speed[Y]);
                 }
             }
@@ -208,7 +208,7 @@ void PR_simp_loop(){
                 if(env->front_blocks[back_floor_ind] != CHI){
                     crashed = 1;
                     if(breakable(back_floor_ind)){
-                        break_block_ind(env, back_floor_ind);
+                        BRD_break_block_ind(env, back_floor_ind);
                         brk_debris(back_floor_ind, curr->speed[X], curr->speed[Y]);
                     }
                 }
@@ -224,7 +224,7 @@ void PR_simp_loop(){
                 if(env->front_blocks[back_top_ind] != CHI){
                     crashed = 1;
                     if(breakable(back_top_ind)){
-                        break_block_ind(env, back_top_ind);
+                        BRD_break_block_ind(env, back_top_ind);
                         brk_debris(back_top_ind, curr->speed[X], curr->speed[Y]);
                     }
                 }
@@ -247,7 +247,7 @@ void PR_ub_loop(){
             if(env->front_blocks[front_floor_ind] != CHI){
                 //Checking for chisels everywhere is pathetic.
                 if(breakable(front_floor_ind)){
-                    break_block_ind(env, front_floor_ind);
+                    BRD_break_block_ind(env, front_floor_ind);
                     brk_debris(front_floor_ind, curr->speed[X], curr->speed[Y]);
                 }
             }
@@ -262,7 +262,7 @@ void PR_ub_loop(){
         case BLOCK:
             if(env->front_blocks[front_top_ind] != CHI){
                 if(breakable(front_top_ind)){
-                    break_block_ind(env, front_top_ind);
+                    BRD_break_block_ind(env, front_top_ind);
                     brk_debris(front_top_ind, curr->speed[X], curr->speed[Y]);
                 }
             }
@@ -277,7 +277,7 @@ void PR_ub_loop(){
             case BLOCK:
                 if(env->front_blocks[back_floor_ind] != CHI){
                     if(breakable(back_floor_ind)){
-                        break_block_ind(env, back_floor_ind);
+                        BRD_break_block_ind(env, back_floor_ind);
                         brk_debris(back_floor_ind, curr->speed[X], curr->speed[Y]);
                     }
                 }
@@ -292,7 +292,7 @@ void PR_ub_loop(){
             case BLOCK:
                 if(env->front_blocks[back_top_ind] != CHI){
                     if(breakable(back_top_ind)){
-                        break_block_ind(env, back_top_ind);
+                        BRD_break_block_ind(env, back_top_ind);
                         brk_debris(back_top_ind, curr->speed[X], curr->speed[Y]);
                     }
                 }
@@ -323,7 +323,7 @@ void PR_packet_land(){
         BLK_drawBlock(IND_TO_X(block_ind), IND_TO_Y(block_ind), KNI);
     }else{
         env->back_blocks[block_ind] = good_block;
-        create_block_ind(env, QUE, block_ind);
+        BRD_create_block_ind(env, QUE, block_ind);
     }
 }
 

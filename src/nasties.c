@@ -367,7 +367,7 @@ __attribute__((always_inline)) static inline void NST_attack(){
 __attribute__((always_inline)) static inline void NST_breaks(){
     calc_front(dir);
     calc_front_block();
-    break_block_ind(env, front_ind);
+    BRD_break_block_ind(env, front_ind);
     brk_debris(front_ind, BRK_SPEED, 0);
     XGM_setPCM(SFX_IND, snd_metal_bonk, sizeof(snd_metal_bonk));
     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
@@ -376,7 +376,7 @@ __attribute__((always_inline)) static inline void NST_breaks(){
 __attribute__((always_inline)) static inline void NST_deletes(){
     calc_front(dir);
     calc_front_block();
-    break_block_ind(env, front_ind);
+    BRD_break_block_ind(env, front_ind);
     summon_deletor(front_ind, TRUE);
 }
 
@@ -914,14 +914,14 @@ __attribute__((always_inline)) static inline void NST_beanie_attackH(){
 __attribute__((always_inline)) static inline void NST_beanie_deleteH(){
     calc_front(dir);
     calc_front_block();
-    break_block_ind(env, front_ind);
+    BRD_break_block_ind(env, front_ind);
     NST_beanie_deletor(front_ind, dir);
     //summon_deletor(front_ind, TRUE);
 }
 __attribute__((always_inline)) static inline void NST_beanie_deleteV(u8 direction, u8 ind){
     XGM_setPCM(SFX_IND, snd_beanie_fire, sizeof(snd_beanie_fire));
     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
-    break_block_ind(env, ind);
+    BRD_break_block_ind(env, ind);
     fx.status = 2 + direction;
     fx.character = &FX_beanie_atk;
     fx.frames = BEAN_DELETE_FRAMES;

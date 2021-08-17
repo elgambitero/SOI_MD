@@ -31,18 +31,18 @@ typedef struct Board{
     Actor * players;
 } Board;
 
-u8 load_board(Board * board, const Board * level);
-void unload_board(Board * board);
-void load_board_palettes(Board * board);
-void draw_board(Board * board);
-void play_board_music(Board * board);
-u16 getBlock(Board * board, u8 x, u8 y);
-void set_block(Board * board, u16 block, u16 ind);
-void create_block(Board * board, u16 block, u8 x, u8 y);
-void create_block_ind(Board * board, u16 block, u8 ind);
-void break_block(Board * board, u8 x, u8 y);
-void break_block_ind(Board * board, u8 ind);
-u16 seek_block(Board * board, u16 block);
-u8 seek_block_front_msk(Board * board, u16 block, u8 from, u16 msk);
+u8 BRD_load(Board * board, const Board * level);
+void BRD_unload(Board * board);
+void BRD_load_palettes(Board * board);
+void BRD_draw(Board * board);
+void BRD_play_music(Board * board);
+u16 BRD_get_block(Board * board, u8 x, u8 y);
+void BRD_set_block(Board * board, u16 block, u16 ind);
+void BRD_create_block(Board * board, u16 block, u8 x, u8 y);
+void BRD_create_block_ind(Board * board, u16 block, u8 ind);
+void BRD_break_block(Board * board, u8 x, u8 y);
+void BRD_break_block_ind(Board * board, u8 ind);
+u16 BRD_seek_block(Board * board, u16 block);
+u8 BRD_seek_block_front_msk(Board * board, u16 block, u8 from, u16 msk);
 
 #endif
