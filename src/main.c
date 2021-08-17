@@ -20,7 +20,7 @@ void myJoyHandler(u16 joy, u16 changed, u16 state)
 
         break;
         case MAIN_MENU:
-
+            MEN_controls(changed, state);
         break;
         case GAMEPLAY:
             game_controls(joy, changed, state);
