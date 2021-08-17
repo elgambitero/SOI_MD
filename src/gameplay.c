@@ -5,6 +5,7 @@
 #include "sound.h"
 
 #define START_LEVEL 1
+#define DEF_PLAYERS 0
 
 Board board;
 
@@ -17,6 +18,7 @@ u16 bonusCount;
 u32 scoreCount;
 
 u16 levelInd = START_LEVEL;
+u8 numPlayer = DEF_PLAYERS;
 
 u8 bonusText[N_BONUS + 1];
 u8 scoreText[N_SCORE + 1];
@@ -171,6 +173,10 @@ void GAM_setStartingBoard(u8 lvl){
     levelInd = lvl;
 }
 
+void GAM_setPlayers(u8 pl){
+    numPlayer = pl;
+}
+
 void GAM_gameInit(){
 
     bl_stats.lives = 3;
@@ -218,7 +224,7 @@ void GAM_levelInit(){
     blue_player = ACT_seek(&PL_blue, &players);
     green_player = ACT_seek(&PL_green, &players);
 
-    if(JOY_getPortType(PORT_2) == PORT_TYPE_UNKNOWN){
+    if(!numPlayer){
         ACT_remove(green_player, &players);
         green_player = 0;
     }
