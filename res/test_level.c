@@ -174,7 +174,7 @@ const Board test_level = {
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
     },
-    {PAL_GR, PAL_R, PAL_BL},
+    {PAL_PI, PAL_R, PAL_BL},
     MUS_HEAVY3,
     0,
     1500,
