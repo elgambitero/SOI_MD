@@ -245,7 +245,7 @@ static inline void PL_teleport(u8 from_ind, u16 block){
 static inline void PL_flipflop(){
     env->front_blocks[center_ind] &= ~FLOP_ACT_ON; //Deactivate switch
     env->front_blocks[center_ind] ^= FLOP_TOG_ON; //Toggle the switch
-    drawBlock(IND_TO_X(center_ind), IND_TO_Y(center_ind), env->front_blocks[center_ind]);
+    BLK_drawBlock(IND_TO_X(center_ind), IND_TO_Y(center_ind), env->front_blocks[center_ind]);
     u16 gate = (SPECIAL_BLOCK | SP_GATE |
         (env->front_blocks[center_ind] & SP_COL_MSK));
     u16 msk = (BLK_TYPE | SP_TYP_MSK | SP_COL_MSK);
@@ -253,7 +253,7 @@ static inline void PL_flipflop(){
     while(index != BOARD_NOTFOUND){
         env->front_blocks[index] ^= GATE_MSK; //Toggle gate.
         env->front_blocks[index] ^= SOLID; //Toggle solid flag.
-        drawBlock(IND_TO_X(index), IND_TO_Y(index), env->front_blocks[index]);
+        BLK_drawBlock(IND_TO_X(index), IND_TO_Y(index), env->front_blocks[index]);
         index = seek_block_front_msk(env, gate, index + 1, msk);
     }
     fx.status = 0;

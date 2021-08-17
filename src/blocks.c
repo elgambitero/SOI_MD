@@ -8,7 +8,7 @@
 
 
 //These could be too many bytes.
-//Predictable as load_blk_tiles() is, these could be macros.
+//Predictable as BLK_load_tiles() is, these could be macros.
 u16 clr_blk_bg_ind = TILE_USERINDEX;
 u16 clr_blk_sl0_ind = TILE_USERINDEX;
 u16 clr_blk_sl1_ind = TILE_USERINDEX;
@@ -35,7 +35,7 @@ u16 gate_sl2_ind = TILE_USERINDEX;
 u16 kn_good_ind = TILE_USERINDEX;
 u16 spawners_ind = TILE_USERINDEX;
 
-void drawBlock(u8 x, u8 y, u16 block){
+void BLK_drawBlock(u8 x, u8 y, u16 block){
     u8 map_ind = 0;
     u8 good_ind;
     u16 tile_index[2] = {0, 0};
@@ -299,17 +299,17 @@ void drawBlock(u8 x, u8 y, u16 block){
                 BLK_TO_TILE(x), BLK_TO_TILE(y), map_ind, 0, 2, 2);
 }
 
-void eraseBlock(u8 x, u8 y){
+void BLK_eraseBlock(u8 x, u8 y){
     VDP_clearTileMapRect(BG_A, BLK_TO_TILE(x), BLK_TO_TILE(y), 2, 2);
     VDP_clearTileMapRect(BG_B, BLK_TO_TILE(x), BLK_TO_TILE(y), 2, 2);
 }
 
-void eraseBlock_ind(u8 ind){
+void BLK_eraseBlock_ind(u8 ind){
     VDP_clearTileMapRect(BG_A, BLK_TO_TILE(IND_TO_X(ind)), BLK_TO_TILE(IND_TO_Y(ind)), 2, 2);
     VDP_clearTileMapRect(BG_B, BLK_TO_TILE(IND_TO_X(ind)), BLK_TO_TILE(IND_TO_Y(ind)), 2, 2);
 }
 
-void load_blk_tiles(u16 ind){
+void BLK_load_tiles(u16 ind){
     VDP_loadTileSet(clr_blk_bg.tileset, ind, DMA);
     clr_blk_bg_ind = ind;
     ind += clr_blk_bg.tileset->numTile;

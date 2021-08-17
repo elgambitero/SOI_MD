@@ -320,7 +320,7 @@ void PR_packet_land(){
     u16 good_block = (GOODIE | ( curr->actorData.packData.good << GOOD_TYP_SHFT));
     if(!env->front_blocks[block_ind]){
         env->front_blocks[block_ind] = good_block;
-        drawBlock(IND_TO_X(block_ind), IND_TO_Y(block_ind), KNI);
+        BLK_drawBlock(IND_TO_X(block_ind), IND_TO_Y(block_ind), KNI);
     }else{
         env->back_blocks[block_ind] = good_block;
         create_block_ind(env, QUE, block_ind);

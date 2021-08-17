@@ -217,9 +217,9 @@
 #define SMI (SPECIAL_BLOCK | SP_SPAWNER | NASTIE_SMI)
 #define TEH (SPECIAL_BLOCK | SP_SPAWNER | NASTIE_TEH)
 
-void drawBlock(u8 x, u8 y, u16 block);
-void eraseBlock(u8 x, u8 y);
-void eraseBlock_ind(u8 ind);
-void load_blk_tiles(u16 ind);
+void BLK_drawBlock(u8 x, u8 y, u16 block);
+void BLK_eraseBlock(u8 x, u8 y);
+void BLK_eraseBlock_ind(u8 ind);
+void BLK_load_tiles(u16 ind);
 
 #endif

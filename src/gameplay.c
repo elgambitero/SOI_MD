@@ -203,7 +203,7 @@ void GAM_levelInit(){
 
     GAM_drawFrame();
 
-    load_blk_tiles(ind);
+    BLK_load_tiles(ind);
 
     SPR_init();
     

@@ -26,7 +26,7 @@ u8 load_board(Board * board, const Board * level){
 void unload_board(Board * board){
     memset(board, 0, sizeof(board));
     for(u8 i = 0; i<BOARD_BUFFER; i++){
-        eraseBlock_ind(i);
+        BLK_eraseBlock_ind(i);
     }
 }
 
@@ -107,7 +107,7 @@ void load_board_palettes(Board * board){
 
 void draw_board(Board * board){
     for(u8 i = 0; i < BOARD_BUFFER; i++){
-        drawBlock(IND_TO_X(i), IND_TO_Y(i), *(board->front_blocks + i));
+        BLK_drawBlock(IND_TO_X(i), IND_TO_Y(i), *(board->front_blocks + i));
     }
 }
 
@@ -118,7 +118,7 @@ u16 getBlock(Board * board, u8 x, u8 y){
 void set_block(Board * board, u16 block, u16 ind){
     if(ind < BOARD_BUFFER){
         board->front_blocks[ind] = block;
-        drawBlock(IND_TO_X(ind), IND_TO_Y(ind), block);
+        BLK_drawBlock(IND_TO_X(ind), IND_TO_Y(ind), block);
     }else{
         board->back_blocks[ind - BOARD_BUFFER] = block;
     }
@@ -127,22 +127,22 @@ void set_block(Board * board, u16 block, u16 ind){
 void create_block(Board * board, u16 block, u8 x, u8 y){
     u8 ind = XY_TO_IND(x, y);
     board->front_blocks[ind] = block;
-    drawBlock(x, y, block);
+    BLK_drawBlock(x, y, block);
 }
 
 void create_block_ind(Board * board, u16 block, u8 ind){
     board->front_blocks[ind] = block;
-    drawBlock(IND_TO_X(ind), IND_TO_Y(ind), block);
+    BLK_drawBlock(IND_TO_X(ind), IND_TO_Y(ind), block);
 }
 
 void break_block(Board * board, u8 x, u8 y){
     u8 ind = XY_TO_IND(x, y);
-    eraseBlock(x, y);
+    BLK_eraseBlock(x, y);
     board->front_blocks[ind] = 0;
     if(board->back_blocks[ind]){
         board->front_blocks[ind] = board->back_blocks[ind];
         board->back_blocks[ind] = 0;
-        drawBlock(x, y, (*(board->front_blocks + ind)));
+        BLK_drawBlock(x, y, (*(board->front_blocks + ind)));
         return;
     }
     return;
@@ -150,11 +150,11 @@ void break_block(Board * board, u8 x, u8 y){
 
 void break_block_ind(Board * board, u8 ind){
     board->front_blocks[ind] = 0;
-    eraseBlock(IND_TO_X(ind), IND_TO_Y(ind));
+    BLK_eraseBlock(IND_TO_X(ind), IND_TO_Y(ind));
     if(board->back_blocks[ind]){
         board->front_blocks[ind] = board->back_blocks[ind];
         board->back_blocks[ind] = 0;
-        drawBlock(IND_TO_X(ind), IND_TO_Y(ind), (*(board->front_blocks + ind)));
+        BLK_drawBlock(IND_TO_X(ind), IND_TO_Y(ind), (*(board->front_blocks + ind)));
         return;
     }
     return;

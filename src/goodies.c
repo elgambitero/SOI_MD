@@ -713,7 +713,7 @@ void GD_obtain(){
         SPR_setFrame(result->sprite, gd_index);
     }
     set_block(env, 0, center_ind);
-    eraseBlock_ind(center_ind);
+    BLK_eraseBlock_ind(center_ind);
 }
 
 void GD_killAll(){
