@@ -17,10 +17,16 @@ void PHY_stop_time(u16 frames){
 }
 
 //Presence and collision system.
+u8 pres_frame = 0;
 u16 board_presence[19];
+u16 board_presence1[19];
 
 void PHY_clean_presence(){
-    memset(board_presence, 0x0000, sizeof(board_presence));
+    if(pres_frame)
+        memset(board_presence1, 0x0000, sizeof(board_presence));
+    else
+        memset(board_presence, 0x0000, sizeof(board_presence1));
+    pres_frame = !pres_frame;
 }
 void PHY_set_presence(u8 ind){
     register u8 slot = IND_TO_X(ind);
@@ -28,12 +34,19 @@ void PHY_set_presence(u8 ind){
     //u8 err[16];
     //sprintf(err, "%d, %d", slot, shift);
     //VDP_drawText(err, 20, 27);
-    board_presence[slot] |= (1 << shift);
+    if(pres_frame)
+        board_presence[slot] |= (1 << shift);
+    else
+        board_presence1[slot] |= (1 << shift);
 }
 u16 PHY_is_occupied(u8 ind){
     register u8 slot = IND_TO_X(ind);
     register u8 shift = IND_TO_Y(ind);
-    u16 result = (board_presence[slot] & (1 << shift));
+    u16 result;
+    if(pres_frame)
+        result = (board_presence1[slot] & (1 << shift));
+    else
+        result = (board_presence[slot] & (1 << shift));
     //u8 err[16];
     //sprintf(err, "%d, %d, %d", slot, shift, board_presence[slot]);
     //VDP_drawText(err, 0, 27);
@@ -166,8 +179,8 @@ void PHY_kill_player(Actor * a, Actor * b){
 }
 
 void PHY_update(){
-    ACT_update(&players);
     PHY_clean_presence(); //clears the presence from last frame after players have been evaluated.
+    ACT_update(&players);
     ACT_update(&nasties);
     ACT_update(&projectiles);
     ACT_update(&bp_projectiles);
