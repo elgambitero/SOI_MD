@@ -284,7 +284,7 @@ void GAM_setGametype(u8 game_type){
 void GAM_updateScore(){
     if(GAM_gameType == COOPERATE){
         scoreCount = bl_stats.score;
-        sprintf(scoreText, "%08d", scoreCount);
+        sprintf(scoreText, "%08lu", scoreCount);
         VDP_drawText(scoreText, X_SCORE, 0);
     }
 }
