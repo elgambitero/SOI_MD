@@ -52,11 +52,10 @@ void load_board_palettes(Board * board){
         case PAL_YL:
             memcpy(slot0, pal_src_yp.data, 8 * sizeof(u16));
             break;
-            /*
         case PAL_BK:
             memcpy(slot0, pal_src_bl.data, 8 * sizeof(u16));
             break;
-            */
+            
     }
     switch(board->colors[1]){
         case PAL_GR:
