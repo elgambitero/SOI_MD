@@ -329,6 +329,8 @@ __attribute__((always_inline)) static inline void NST_still_fall(){
 }
 
 __attribute__((always_inline)) static inline void NST_still_land(){
+    status = WALK_RIGHT;
+    newstatus = WALK_RIGHT;
     curr->speed[Y] = 0;
     curr->speed[X] = 0;
 }
