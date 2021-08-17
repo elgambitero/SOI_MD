@@ -990,9 +990,17 @@ void NST_beanie_loop(){
             switch( PHY_crash_point(POS_TO_PX(curr->pos[X]), 
                                     POS_TO_PX(curr->pos[Y]) - (dir ? curr->character->size[Y] : 0) ) ){
                 case FRAME:
-                    curr->pos[Y] &= FLOOR_CORR;
-                    curr->speed[Y] = 0;
-                    NST_turn_up();
+                    if(dir){
+                        curr->pos[Y] &= FLOOR_CORR;
+                        curr->pos[Y] += PX_TO_POS(16);
+                        curr->speed[Y] = 0;
+                        NST_turn_up();
+                    }else{
+                        curr->pos[Y] &= FLOOR_CORR;
+                        curr->speed[Y] = 0;
+                        NST_turn_up();
+
+                    }
                     break;
                 case BLOCK:
                     if(dir){
