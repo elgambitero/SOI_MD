@@ -67,17 +67,15 @@ void load_board_palettes(Board * board){
         case PAL_BL:
             memcpy(slot1, pal_src_rb.data + 8, 8 * sizeof(u16));
             break;
-            /*
         case PAL_PI:
-            memcpy(slot1, pal_src_py.data, 8 * sizeof(u16));
+            memcpy(slot1, pal_src_yp.data + 8, 8 * sizeof(u16));
             break;
         case PAL_YL:
-            memcpy(slot1, pal_src_py.data + 8, 8 * sizeof(u16));
+            memcpy(slot1, pal_src_yp.data, 8 * sizeof(u16));
             break;
         case PAL_BK:
             memcpy(slot1, pal_src_bl.data, 8 * sizeof(u16));
             break;
-            */
     }
     switch(board->colors[2]){
         case PAL_GR:
@@ -89,17 +87,16 @@ void load_board_palettes(Board * board){
         case PAL_BL:
             memcpy(slot2, pal_src_rb.data + 8, 8 * sizeof(u16));
             break;
-            /*
         case PAL_PI:
-            memcpy(slot2, pal_src_py.data, 8 * sizeof(u16));
+            memcpy(slot2, pal_src_yp.data + 8, 8 * sizeof(u16));
             break;
         case PAL_YL:
-            memcpy(slot2, pal_src_py.data + 8, 8 * sizeof(u16));
+            memcpy(slot2, pal_src_yp.data, 8 * sizeof(u16));
             break;
         case PAL_BK:
             memcpy(slot2, pal_src_bl.data, 8 * sizeof(u16));
             break;
-            */
+            
     }
 
     VDP_setPaletteColors(32, white, 8);
