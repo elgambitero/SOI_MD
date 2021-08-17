@@ -167,14 +167,14 @@ u8 PHY_computeStatus(Actor * actor){
 }
 
 void PHY_kill_mercilessly(Actor * a, Actor * b){
-    PHY_kill(a, 0, -2 * WALKSPEED);
+    PHY_kill(b, 0, -2 * WALKSPEED);
 }
 
 void PHY_kill_player(Actor * a, Actor * b){
-    if(((a == blue_player) && (bl_stat->effect != SHIELDED)) ||
-        ((a == green_player) && (gr_stat->effect != SHIELDED))){
-        if((b->character->attr & ENT_CHECK_BITMSK) == SPAWNER) return;
-        PHY_kill(a, 0, -2 * WALKSPEED);
+    if(((b == blue_player) && (bl_stat->effect != SHIELDED)) ||
+        ((b == green_player) && (gr_stat->effect != SHIELDED))){
+        if((a->character->attr & ENT_CHECK_BITMSK) == SPAWNER) return;
+        PHY_kill(b, 0, -2 * WALKSPEED);
     }
 }
 

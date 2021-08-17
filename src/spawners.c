@@ -127,7 +127,7 @@ __attribute__((always_inline)) static inline void NST_spawn(Entity * character){
     fx.speed[Y] = 0;
     if(curr->actorData.spwData.interval){
         curr->timer = MAX_TIMER - curr->actorData.spwData.interval;
-        fx.timer = MAX_TIMER - 3*curr->actorData.spwData.interval;
+        fx.timer = MAX_TIMER - 3 * curr->actorData.spwData.interval;
     }else{
         curr->timer = MAX_TIMER - SPAWN_TIME;
         fx.timer = MAX_TIMER - STAY_TIME;
