@@ -103,6 +103,15 @@ Actor * ACT_seek(const Entity * ent, ActorList * actors){
     return result;
 }
 
+Actor * ACT_seek_from(const Entity * ent, Actor * act){
+    Actor * result = act;
+    while(result){
+        if(result->character == ent) break;
+        result = result->next;
+    }
+    return result;
+}
+
 u8 ACT_collision(Actor * act1, Actor * act2){
     if((act1->status & ANIM_MSK) == DEAD || (act2->status & ANIM_MSK) == DEAD)
         return FALSE;

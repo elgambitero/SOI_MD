@@ -753,6 +753,18 @@ void GD_enterRdDoor(){
 }
 
 void GD_speedUpPlayer(){
+    if(pl_stat->effect == SPEEDUP){
+        //Seeks for the player's indicator and restarts it's timer.
+        Actor * prev = ACT_seek(&FX_shield_ind, &fx_buf);
+        while(prev){
+            if(prev->actorData.fxData.following == curr){
+                prev->timer = (MAX_FRAMES - SHIELD_FRAMES);
+                return;
+            }
+            prev = ACT_seek_from(&FX_shield_ind, prev);
+        }
+        return;
+    }
     pl_stat->speed = PL_FASTSPEED;
     pl_stat->effect = SPEEDUP;
     fx.status = 0;
@@ -767,6 +779,18 @@ void GD_speedUpPlayer(){
 }
 
 void GD_protectPlayer(){
+    if(pl_stat->effect == SHIELDED){
+        //Seeks for the player's indicator and restarts it's timer.
+        Actor * prev = ACT_seek(&FX_shield_ind, &fx_buf);
+        while(prev){
+            if(prev->actorData.fxData.following == curr){
+                prev->timer = (MAX_FRAMES - SHIELD_FRAMES);
+                return;
+            }
+            prev = ACT_seek_from(&FX_shield_ind, prev);
+        }
+        return;
+    }
     pl_stat->effect = SHIELDED;
     fx.status = 0;
     fx.pos[X] = POS_TO_PX(curr->pos[X]);
