@@ -28,14 +28,11 @@ typedef struct PackData{
     u8 good;
 }PackData;
 
-#define ALTERNATE   1
-#define SEEK_PLAYER 2
-
-typedef struct spwData{
+typedef struct SpwData{
     u16 interval;
     u8 mode;
     u8 tick;
-}spwData;
+}SpwData;
 
 typedef struct Actor{
     const Entity * character;
@@ -49,6 +46,7 @@ typedef struct Actor{
     union ActorData{
         FXData fxData;
         PackData packData;
+        SpwData spwData;
     }actorData;
 }Actor;
 

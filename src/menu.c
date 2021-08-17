@@ -43,6 +43,7 @@ enum MainStates MEN_loop(){
             return GAMEPLAY;
         break;
     }
+    return MAIN_MENU;
 }
 
 void MEN_controls(u16 changed, u16 state){

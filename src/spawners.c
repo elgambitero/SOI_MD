@@ -3,7 +3,6 @@
 #include "sound.h"
 #include "sprites.h"
 
-
 void SPW_update();
 
 void SPW_spawn_ant();
@@ -97,7 +96,15 @@ const Entity SPW_cannon = {
 };
 
 __attribute__((always_inline)) static inline void NST_spawn(Entity * character){
-    fx.status = curr->status;
+    switch(curr->actorData.spwData.mode){
+        case ALTERNATE:
+            break;
+        case SEEK_PLAYER:
+            break;
+        default:
+            fx.status = curr->status;
+            break;
+    }
     u8 dir = fx.status & 0x01;
     fx.pos[X] = POS_TO_PX(curr->pos[X]);
     fx.pos[Y] = POS_TO_PX(curr->pos[Y]);
@@ -108,7 +115,10 @@ __attribute__((always_inline)) static inline void NST_spawn(Entity * character){
         -fx.character->role.nastie.speed : fx.character->role.nastie.speed;
     fx.speed[Y] = 0;
     ACT_add(&fx, &nasties);
-    curr->timer = MAX_TIMER - SPAWN_TIME;
+    if(curr->actorData.spwData.interval)
+        curr->timer = MAX_TIMER - curr->actorData.spwData.interval;
+    else
+        curr->timer = MAX_TIMER - SPAWN_TIME;
 }
 
 void SPW_spawn_ant(){
