@@ -6,6 +6,7 @@
 #include "states.h"
 #include "random.h"
 #include "globals.h"
+#include "menu.h"
 #include "entities.h"
 #include "spawners.h"
 #include "effects.h"

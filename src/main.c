@@ -8,10 +8,6 @@
     #define FRAMES 50
 #endif
 
-enum MainStates{INTRO,
-    MAIN_MENU,
-    GAMEPLAY
-    };
 
 enum MainStates mainState;
 
@@ -58,9 +54,7 @@ int main()
 
             break;
             case MAIN_MENU:
-                gameState = GAMEINIT;
-                mainState = GAMEPLAY;
-                GAM_setGametype(COOPERATE);
+                mainState = MEN_loop();
             break;
             case GAMEPLAY:
                 gameplayLoop(ind);

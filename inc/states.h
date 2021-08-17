@@ -6,6 +6,11 @@
 #define SPEEDUP  3
 #define KILLED   4
 
+enum MainStates{INTRO,
+    MAIN_MENU,
+    GAMEPLAY
+    };
+    
 typedef struct PlayerStat{
     u32 score;
     u16 bonus;
