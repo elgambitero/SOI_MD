@@ -84,6 +84,13 @@ static const Actor spawn = {&SPW_hippo,
    MAX_TIMER - SPAWN_TIME,
    0,
    &spin1,
+   {.spwData =
+      {
+         STAY_TIME,
+         ALTERNATE,
+         0
+      }
+   }
 };
 
 

@@ -98,6 +98,8 @@ const Entity SPW_cannon = {
 __attribute__((always_inline)) static inline void NST_spawn(Entity * character){
     switch(curr->actorData.spwData.mode){
         case ALTERNATE:
+            fx.status = curr->actorData.spwData.tick;
+            curr->actorData.spwData.tick = !(curr->actorData.spwData.tick);
             break;
         case SEEK_PLAYER:
             break;
