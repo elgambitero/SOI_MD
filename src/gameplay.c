@@ -227,6 +227,7 @@ void GAM_levelInit(){
     if(!numPlayer){
         ACT_remove(green_player, &players);
         green_player = 0;
+        gr_stat->effect = KILLED;
     }
 
     BRD_load_palettes(&board);
