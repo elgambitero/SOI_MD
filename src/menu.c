@@ -18,7 +18,7 @@ enum MainStates MEN_loop(){
     switch(menuState){
         case MENU_IN:
             menuState = MENU_LOOP;
-            VDP_drawText("STEP ON IT MD alpha3", 10, 3);
+            VDP_drawText("STEP ON IT MD alpha4", 10, 3);
             VDP_drawText("Set starting board: ", 10, 14);
             return MAIN_MENU;
         break;
