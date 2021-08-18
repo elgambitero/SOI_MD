@@ -86,7 +86,7 @@ static const Actor spawn = {&SPW_hippo,
    &spin1,
    {.spwData =
       {
-         5000,
+         500,
          ALTERNATE,
          0
       }
