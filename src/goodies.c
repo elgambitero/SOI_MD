@@ -691,13 +691,11 @@ void GD_reveal_hidden(){
     SPR_update();
     PHY_stop_time(REVEAL_TIME);
     act = ACT_getFirst(&fx_buf);
-    if(act){
-        Actor * next;
-        do{
-            next = act->next;
+    while(act){
+        if(act->character == &FX_hidden){
             if(!ACT_remove(act, &fx_buf)) SYS_die("NOT EMPTYING LIST");
-            act = next;
-        }while(next);
+        }
+        act = act->next;
     }
 }
 
