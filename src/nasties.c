@@ -8,7 +8,7 @@
 void NST_spinner_loop();
 const Entity NST_spinner = {
     NASTIE | INVINCIBLE,
-    {6, 15},
+    {5, 15},
     {7, 15},
     PAL_SYS0,
     &spinner_spr,
