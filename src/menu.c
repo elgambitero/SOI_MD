@@ -1,5 +1,10 @@
 #include "SOI.h"
 
+#define TITLE_Y 3
+#define SUBTITLE_Y 5
+#define START_BOARD_Y 14
+#define PLAYERS_Y    20
+
 enum MenuStates{
     MENU_IN,
     MENU_LOOP,
@@ -19,22 +24,23 @@ enum MainStates MEN_loop(){
     switch(menuState){
         case MENU_IN:
             menuState = MENU_LOOP;
-            VDP_drawText("STEP ON IT MD alpha6", 10, 3);
-            VDP_drawText("Set starting board: ", 10, 14);
+            VDP_drawText("STEP ON IT MD", 13, 3);
+            VDP_drawText("Playable technical demo", 8, SUBTITLE_Y);
+            VDP_drawText("Set starting board: ", 8, START_BOARD_Y);
             seed[0] = 0xFF;
             seed[1] = 0xFF;
             return MAIN_MENU;
         break;
         case MENU_LOOP:
             sprintf(numText, "%03d", firstLevel);
-            VDP_drawText(numText, 30, 14);
+            VDP_drawText(numText, 28, START_BOARD_Y);
             seed[0] -= 3;
             seed[1] -= 5;
             //JOY_getPortType(PORT_2) == PORT_TYPE_UNKNOWN
             if(numPlayers){
-                VDP_drawText("Two Players", 15, 20);
+                VDP_drawText("Two Players", 15,PLAYERS_Y);
             }else{
-                VDP_drawText("One Player ", 15, 20);
+                VDP_drawText("One Player ", 15,PLAYERS_Y);
             }
             return MAIN_MENU;
         break;
