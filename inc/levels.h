@@ -3,6 +3,7 @@
 #define LEVELS_H
 
 #define MUS_HEAVY1 0
+#define MUS_HEAVY2 1
 #define MUS_HEAVY3 2
 #define MUS_BONUSHEAVY 3
 

@@ -208,7 +208,7 @@ const Board level11 = {
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
     },
     {PAL_R, PAL_GR, PAL_BL},
-    MUS_HEAVY1, //music
+    MUS_HEAVY2, //music
     0,
     6000, //bonus
     &spinner11, //nasties

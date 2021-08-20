@@ -166,6 +166,9 @@ void BRD_play_music(Board * board){
         case MUS_HEAVY1:
             XGM_startPlay(heavy1);
             break;
+        case MUS_HEAVY2:
+            XGM_startPlay(heavy2);
+            break;
         case MUS_HEAVY3:
             XGM_startPlay(heavy3);
             break;
