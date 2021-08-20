@@ -13,6 +13,7 @@ enum MenuStates menuState = MENU_IN;
 u8 firstLevel = 1;
 u8 numPlayers = 0;
 u8 pressed = 0;
+u8 seed[2];
 
 enum MainStates MEN_loop(){
     switch(menuState){
@@ -20,11 +21,15 @@ enum MainStates MEN_loop(){
             menuState = MENU_LOOP;
             VDP_drawText("STEP ON IT MD alpha6", 10, 3);
             VDP_drawText("Set starting board: ", 10, 14);
+            seed[0] = 0xFF;
+            seed[1] = 0xFF;
             return MAIN_MENU;
         break;
         case MENU_LOOP:
             sprintf(numText, "%03d", firstLevel);
             VDP_drawText(numText, 30, 14);
+            seed[0] -= 3;
+            seed[1] -= 5;
             //JOY_getPortType(PORT_2) == PORT_TYPE_UNKNOWN
             if(numPlayers){
                 VDP_drawText("Two Players", 15, 20);
@@ -95,6 +100,8 @@ void MEN_controls(u16 changed, u16 state){
     }
     if(changed & BUTTON_START){
         if(state & BUTTON_START){
+            u16 seed_in = (seed[1] << 8) | seed[0] ;
+            RNG_seed( seed_in );
             menuState = MENU_OUT;
         }
     }
