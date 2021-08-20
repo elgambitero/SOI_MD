@@ -2,8 +2,12 @@
 
 #define TITLE_Y 3
 #define SUBTITLE_Y 5
-#define START_BOARD_Y 14
+#define CONTROLS_Y_ARROWS  10
+#define CONTROLS_Y_BUTTONS 8
+#define CONTROLS_Y_DOWN    12
+#define START_BOARD_Y 18
 #define PLAYERS_Y    20
+#define PRESS_START_Y 24
 
 enum MenuStates{
     MENU_IN,
@@ -24,16 +28,21 @@ enum MainStates MEN_loop(){
     switch(menuState){
         case MENU_IN:
             menuState = MENU_LOOP;
-            VDP_drawText("STEP ON IT MD", 13, 3);
+            VDP_drawText("STEP ON IT MD", 13, TITLE_Y);
+            VDP_drawText("A -> Weapon, B -> Block, C -> Jump", 3, CONTROLS_Y_BUTTONS);
+            VDP_drawText("Left/Right -> Move", 10, CONTROLS_Y_ARROWS);
+            VDP_drawText("Down -> Alt. action", 10, CONTROLS_Y_DOWN);
             VDP_drawText("Playable technical demo", 8, SUBTITLE_Y);
-            VDP_drawText("Set starting board: ", 8, START_BOARD_Y);
+            VDP_drawText("< > Set starting board: ", 6, START_BOARD_Y);
+            VDP_drawText("Press start button", 11, PRESS_START_Y);
+            VDP_drawText("^ v ", 11, PLAYERS_Y);
             seed[0] = 0xFF;
             seed[1] = 0xFF;
             return MAIN_MENU;
         break;
         case MENU_LOOP:
             sprintf(numText, "%03d", firstLevel);
-            VDP_drawText(numText, 28, START_BOARD_Y);
+            VDP_drawText(numText, 30, START_BOARD_Y);
             seed[0] -= 3;
             seed[1] -= 5;
             //JOY_getPortType(PORT_2) == PORT_TYPE_UNKNOWN
