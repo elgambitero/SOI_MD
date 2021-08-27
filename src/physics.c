@@ -122,9 +122,9 @@ void spr_collision(){
 //PHY module lifecycle.
 u8 PHY_init(Board * board, PlayerStat * bl_stats, PlayerStat * gr_stats){
     env = board;
-    SYS_setHIntCallback(&spr_collision); // set sprite collision checking as target callback.
-    VDP_setHIntCounter(1); //check every two lines.
-    VDP_setHInterrupt(1);
+    //SYS_setHIntCallback(&spr_collision); // set sprite collision checking as target callback.
+    //VDP_setHIntCounter(1); //check every two lines.
+    //VDP_setHInterrupt(1);
     bl_stat = bl_stats;
     gr_stat = gr_stats;
     if(!ACT_init(&nasties, MAX_NASTIES)) return FALSE;
@@ -143,8 +143,8 @@ void PHY_end(){
     ACT_end(&projectiles);
     ACT_end(&bp_projectiles);
     ACT_end(&gp_projectiles);
-    VDP_setHInterrupt(0);
-    SYS_setHIntCallback(0);
+    //VDP_setHInterrupt(0);
+    //SYS_setHIntCallback(0);
 }
 
 void PHY_send_inputs(u8 ctrl1, u8 ctrl2){
@@ -186,11 +186,11 @@ void PHY_update(){
     ACT_update(&bp_projectiles);
     ACT_update(&gp_projectiles);
     ACT_update(&fx_buf);
-    if(collided){
+    //if(collided){
         ACT_collide_lists(&nasties, &players, &PHY_kill_player);
         ACT_collide_lists(&projectiles, &players, &PHY_kill_player);
         ACT_collide_lists(&bp_projectiles, &nasties, &PHY_kill_mercilessly);
         ACT_collide_lists(&gp_projectiles, &nasties, &PHY_kill_mercilessly);
-    }
+    //}
     collided = FALSE;
 }
