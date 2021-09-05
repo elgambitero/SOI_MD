@@ -1,5 +1,7 @@
 #include "SOI.h"
 
+#include "images.h"
+
 #define TITLE_Y 3
 #define SUBTITLE_Y 5
 #define CONTROLS_Y_ARROWS  10
@@ -38,19 +40,23 @@ enum MainStates MEN_loop(){
             VDP_drawText("^ v ", 11, PLAYERS_Y);
             seed[0] = 0xFF;
             seed[1] = 0xFF;
+            VDP_clearPlane(BG_A, TRUE);
+            VDP_clearPlane(BG_B, TRUE);
+            VDP_drawImageEx(BG_A, &title_1_img, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX), 0, 0, TRUE, TRUE);
+            VDP_drawImageEx(BG_B, &title_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + title_1_img.tileset->numTile )), 0, 0, TRUE, TRUE);
             return MAIN_MENU;
         break;
         case MENU_LOOP:
-            sprintf(numText, "%03d", firstLevel);
-            VDP_drawText(numText, 30, START_BOARD_Y);
-            seed[0] -= 3;
-            seed[1] -= 5;
+            //sprintf(numText, "%03d", firstLevel);
+            //VDP_drawText(numText, 30, START_BOARD_Y);
+            //seed[0] -= 3;
+            //seed[1] -= 5;
             //JOY_getPortType(PORT_2) == PORT_TYPE_UNKNOWN
-            if(numPlayers){
-                VDP_drawText("Two Players", 15,PLAYERS_Y);
-            }else{
-                VDP_drawText("One Player ", 15,PLAYERS_Y);
-            }
+            //if(numPlayers){
+            //    VDP_drawText("Two Players", 15,PLAYERS_Y);
+            //}else{
+            //    VDP_drawText("One Player ", 15,PLAYERS_Y);
+            //}
             return MAIN_MENU;
         break;
         case MENU_OUT:
