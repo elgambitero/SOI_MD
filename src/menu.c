@@ -1,6 +1,8 @@
 #include "SOI.h"
 
 #include "images.h"
+#include "music.h"
+#include "palettes.h"
 
 #define TITLE_Y 3
 #define SUBTITLE_Y 5
@@ -12,6 +14,8 @@
 #define PRESS_START_Y 24
 
 enum MenuStates{
+    TITLE_SCREEN_IN,
+    TITLE_SCREEN,
     MENU_IN,
     MENU_LOOP,
     MENU_OUT
@@ -19,7 +23,7 @@ enum MenuStates{
 
 
 u8 numText[6];
-enum MenuStates menuState = MENU_IN;
+enum MenuStates menuState = TITLE_SCREEN_IN;
 
 u8 firstLevel = 1;
 u8 numPlayers = 0;
@@ -28,8 +32,22 @@ u8 seed[2];
 
 enum MainStates MEN_loop(){
     switch(menuState){
+        case TITLE_SCREEN_IN:
+            XGM_startPlay(heavy3);
+            VDP_clearPlane(BG_A, TRUE);
+            VDP_clearPlane(BG_B, TRUE);
+            VDP_drawImageEx(BG_A, &title_1_img, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX), 0, 0, TRUE, TRUE);
+            VDP_drawImageEx(BG_B, &title_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + title_1_img.tileset->numTile )), 0, 0, TRUE, TRUE);
+            menuState = TITLE_SCREEN;
+            return MAIN_MENU;
+        case TITLE_SCREEN:
+
+            return MAIN_MENU;
         case MENU_IN:
+            VDP_setPalette(PAL0, palette_grey);
             menuState = MENU_LOOP;
+            VDP_clearPlane(BG_A, TRUE);
+            VDP_clearPlane(BG_B, TRUE);
             VDP_drawText("STEP ON IT MD", 13, TITLE_Y);
             VDP_drawText("A -> Weapon, B -> Block, C -> Jump", 3, CONTROLS_Y_BUTTONS);
             VDP_drawText("Left/Right -> Move", 10, CONTROLS_Y_ARROWS);
@@ -40,23 +58,18 @@ enum MainStates MEN_loop(){
             VDP_drawText("^ v ", 11, PLAYERS_Y);
             seed[0] = 0xFF;
             seed[1] = 0xFF;
-            VDP_clearPlane(BG_A, TRUE);
-            VDP_clearPlane(BG_B, TRUE);
-            VDP_drawImageEx(BG_A, &title_1_img, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX), 0, 0, TRUE, TRUE);
-            VDP_drawImageEx(BG_B, &title_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + title_1_img.tileset->numTile )), 0, 0, TRUE, TRUE);
             return MAIN_MENU;
         break;
         case MENU_LOOP:
-            //sprintf(numText, "%03d", firstLevel);
-            //VDP_drawText(numText, 30, START_BOARD_Y);
-            //seed[0] -= 3;
-            //seed[1] -= 5;
-            //JOY_getPortType(PORT_2) == PORT_TYPE_UNKNOWN
-            //if(numPlayers){
-            //    VDP_drawText("Two Players", 15,PLAYERS_Y);
-            //}else{
-            //    VDP_drawText("One Player ", 15,PLAYERS_Y);
-            //}
+            sprintf(numText, "%03d", firstLevel);
+            VDP_drawText(numText, 30, START_BOARD_Y);
+            seed[0] -= 3;
+            seed[1] -= 5;
+            if(numPlayers){
+                VDP_drawText("Two Players", 15,PLAYERS_Y);
+            }else{
+                VDP_drawText("One Player ", 15,PLAYERS_Y);
+            }
             return MAIN_MENU;
         break;
         case MENU_OUT:
@@ -73,57 +86,69 @@ enum MainStates MEN_loop(){
 }
 
 void MEN_controls(u16 changed, u16 state){
-    if(changed & BUTTON_RIGHT){
-        if(state & BUTTON_RIGHT){
-            if(!pressed){
-                pressed = 1;
-                if(firstLevel >= 0 && firstLevel < max_levels - 1){
-                    firstLevel++;
+    switch(menuState){
+        case TITLE_SCREEN:
+            if(changed & BUTTON_START){
+                if(state & BUTTON_START){
+                    menuState = MENU_IN;
                 }
             }
-        }else{
-            pressed = 0;
-        }
-    }
-    if(changed & BUTTON_LEFT){
-        if(state & BUTTON_LEFT){
-            if(!pressed){
-                pressed = 1;
-                if(firstLevel > 0 && firstLevel <= max_levels - 1){
-                    firstLevel--;
+            break;
+        case MENU_LOOP:
+            if(changed & BUTTON_RIGHT){
+                if(state & BUTTON_RIGHT){
+                    if(!pressed){
+                        pressed = 1;
+                        if(firstLevel >= 0 && firstLevel < max_levels - 1){
+                            firstLevel++;
+                        }
+                    }
+                }else{
+                    pressed = 0;
                 }
             }
-        }else{
-            pressed = 0;
-        }
-    }
-    if(JOY_getPortType(PORT_2) != PORT_TYPE_UNKNOWN){
-        if(changed & BUTTON_UP){
-            if(state & BUTTON_UP){
-                if(!pressed){
-                    pressed = 1;
-                    numPlayers = !numPlayers;
+            if(changed & BUTTON_LEFT){
+                if(state & BUTTON_LEFT){
+                    if(!pressed){
+                        pressed = 1;
+                        if(firstLevel > 0 && firstLevel <= max_levels - 1){
+                            firstLevel--;
+                        }
+                    }
+                }else{
+                    pressed = 0;
                 }
-            }else{
-                pressed = 0;
             }
-        }
-        if(changed & BUTTON_DOWN){
-            if(state & BUTTON_DOWN){
-                if(!pressed){
-                    pressed = 1;
-                    numPlayers = !numPlayers;
+            if(JOY_getPortType(PORT_2) != PORT_TYPE_UNKNOWN){
+                if(changed & BUTTON_UP){
+                    if(state & BUTTON_UP){
+                        if(!pressed){
+                            pressed = 1;
+                            numPlayers = !numPlayers;
+                        }
+                    }else{
+                        pressed = 0;
+                    }
                 }
-            }else{
-                pressed = 0;
+                if(changed & BUTTON_DOWN){
+                    if(state & BUTTON_DOWN){
+                        if(!pressed){
+                            pressed = 1;
+                            numPlayers = !numPlayers;
+                        }
+                    }else{
+                        pressed = 0;
+                    }
+                }
             }
-        }
+            if(changed & BUTTON_START){
+                if(state & BUTTON_START){
+                    u16 seed_in = (seed[1] << 8) | seed[0] ;
+                    RNG_seed( seed_in );
+                    menuState = MENU_OUT;
+                }
+            }
+            break;
     }
-    if(changed & BUTTON_START){
-        if(state & BUTTON_START){
-            u16 seed_in = (seed[1] << 8) | seed[0] ;
-            RNG_seed( seed_in );
-            menuState = MENU_OUT;
-        }
-    }
+    
 }
