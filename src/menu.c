@@ -33,6 +33,7 @@ u8 seed[2];
 enum MainStates MEN_loop(){
     switch(menuState){
         case TITLE_SCREEN_IN:
+            JOY_setEventHandler( &MEN_controls );
             VDP_setPaletteColors(32, (u16*) palette_black, 32);
             u16 palette[32];
             memcpy(&palette[0], title_1_img.palette->data, 16 * 2);
@@ -91,7 +92,7 @@ enum MainStates MEN_loop(){
     return MAIN_MENU;
 }
 
-void MEN_controls(u16 changed, u16 state){
+void MEN_controls(u16 joy, u16 changed, u16 state){
     switch(menuState){
         case TITLE_SCREEN:
             if(changed & BUTTON_START){

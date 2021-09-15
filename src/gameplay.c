@@ -59,6 +59,21 @@ __attribute__((always_inline)) static inline void GAM_updateBonus(){
     }
 }
 
+void GAM_controls(u16 joy, u16 changed, u16 state){
+    switch(joy){
+        case JOY_1:
+            if(blue_player){
+                controls_3(&bl_ctrl, changed, state);
+            }
+        break;
+        case JOY_2:
+            if(green_player){
+                controls_3(&gr_ctrl, changed, state);
+            }
+        break;
+    }
+}
+
 enum MainStates GAM_loop(){
     switch(gameState){
         case GAMEINIT:
@@ -245,6 +260,8 @@ void GAM_levelInit(){
     GAM_updateScore();
     GAM_updateLives();
     GAM_updateLevel();
+
+    JOY_setEventHandler( &GAM_controls );
 
 }
 

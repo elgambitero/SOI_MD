@@ -98,20 +98,7 @@ static inline void controls_3(u8 * ctrl, u16 changed, u16 state){
     }
 }
 
-static inline void game_controls(u16 joy, u16 changed, u16 state){
-    switch(joy){
-        case JOY_1:
-            if(blue_player){
-                controls_3(&bl_ctrl, changed, state);
-            }
-        break;
-        case JOY_2:
-            if(green_player){
-                controls_3(&gr_ctrl, changed, state);
-            }
-        break;
-    }
-}
+void GAM_controls(u16 joy, u16 changed, u16 state);
 
 enum MainStates GAM_loop();
 void GAM_setGametype(u8 game_type);
