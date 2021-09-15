@@ -3,6 +3,7 @@
 #include "palettes.h"
 #include "stage.h"
 #include "sound.h"
+#include "images.h"
 
 #define START_LEVEL 1
 #define DEF_PLAYERS 0
@@ -74,6 +75,14 @@ void GAM_controls(u16 joy, u16 changed, u16 state){
     }
 }
 
+void GAM_interControls(u16 joy, u16 changed, u16 state){
+    if(changed & BUTTON_START){
+        if(state & BUTTON_START){
+            gameState = AFTERBOARD_OUT;
+        }
+    }
+}
+
 enum MainStates GAM_loop(){
     switch(gameState){
         case GAMEINIT:
@@ -109,6 +118,7 @@ enum MainStates GAM_loop(){
             return GAMEPLAY;
         case ENDBOARD:
             PHY_end();
+            SPR_end();
             BRD_unload(&board);
             //FIXME: THIS IS TERRIBLE
             if(bl_stat->effect == KILLED && gr_stat->effect == KILLED){
@@ -120,15 +130,37 @@ enum MainStates GAM_loop(){
                     }
                 }
             }else{
-                gameState = AFTERBOARD;
+                //Transitions to intermission.
+                if(GAM_gameType == COOPERATE){
+                    bl_stats.score += bonusCount * bl_stats.mult;
+                }
+                VDP_clearPlane(BG_A, TRUE);
+                VDP_clearPlane(BG_B, TRUE);
+                gameState = AFTERBOARD_IN;
             }
             gr_stat->effect = 0;
             bl_stat->effect = 0;
             return GAMEPLAY;
+        case AFTERBOARD_IN:
+            VDP_setPaletteColors(32, (u16*) palette_black, 32);
+            u16 palette[32];
+            memcpy(&palette[0], brd_end_1_img.palette->data, 16 * 2);
+            memcpy(&palette[16], brd_end_2_img.palette->data, 16 * 2);
+            VDP_clearPlane(BG_A, TRUE);
+            VDP_clearPlane(BG_B, TRUE);
+            VDP_drawImageEx(BG_B, &brd_end_1_img, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX), 0, 0, FALSE, TRUE);
+            VDP_drawImageEx(BG_A, &brd_end_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + brd_end_1_img.tileset->numTile )), 0, 0, FALSE, TRUE);
+            // fade in
+            VDP_fadeIn(32, 63 , palette, 20, FALSE);
+            JOY_setEventHandler( &GAM_interControls );
+            gameState = AFTERBOARD;
+            return GAMEPLAY;
         case AFTERBOARD:
-            if(GAM_gameType == COOPERATE){
-                bl_stats.score += bonusCount * bl_stats.mult;
-            }
+            return GAMEPLAY;
+        case AFTERBOARD_OUT:
+            VDP_fadeOut(32, 63, 20, FALSE);
+            VDP_clearPlane(BG_A, TRUE);
+            VDP_clearPlane(BG_B, TRUE);
             gameState = NEXTBOARD;
             return GAMEPLAY;
         case NEXTBOARD:
@@ -136,12 +168,11 @@ enum MainStates GAM_loop(){
             if(levelInd == max_levels)
             {
                 gameState = GAMEENDING;
-                break;
+                return GAMEPLAY;
             }
             gameState = INITBOARD;
             return GAMEPLAY;
         case GAMEOVER:
-            SPR_end();
             VDP_clearPlane(BG_A, TRUE);
             VDP_clearPlane(BG_B, TRUE);
             XGM_stopPlay();
@@ -154,7 +185,6 @@ enum MainStates GAM_loop(){
             return GAMEPLAY;
         case GAMEENDING:
             //VDP_resetScreen();
-            SPR_end();
             VDP_clearPlane(BG_A, TRUE);
             VDP_clearPlane(BG_B, TRUE);
             XGM_stopPlay();
