@@ -9,6 +9,7 @@
 enum MainStates{INTRO,
     TITLE_SCREEN_IN,
     TITLE_SCREEN,
+    TITLE_SCREEN_OUT,
     MAIN_MENU,
     GAMEPLAY
     };

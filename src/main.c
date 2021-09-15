@@ -19,7 +19,7 @@ u16 ind;
 void MAIN_titleControl(u16 joy, u16 changed, u16 state){
     if(changed & BUTTON_START){
         if(state & BUTTON_START){
-            mainState = MEN_init();
+            mainState = TITLE_SCREEN_OUT;
         }
     }
 }
@@ -65,6 +65,10 @@ int main()
                 break;
             case TITLE_SCREEN:
 
+                break;
+            case TITLE_SCREEN_OUT:
+                VDP_fadeOut(32, 63, 20, FALSE);
+                mainState = MEN_init();
                 break;
             case MAIN_MENU:
                 mainState = MEN_loop();
