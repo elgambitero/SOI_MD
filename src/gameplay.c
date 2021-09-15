@@ -59,7 +59,7 @@ __attribute__((always_inline)) static inline void GAM_updateBonus(){
     }
 }
 
-void GAM_loop(){
+enum MainStates GAM_loop(){
     switch(gameState){
         case GAMEINIT:
             SYS_disableInts();
@@ -67,14 +67,14 @@ void GAM_loop(){
 
             gameState = INITBOARD;
             SYS_enableInts();
-        break;
+            return GAMEPLAY;
         case INITBOARD:
             SYS_disableInts();
             GAM_levelInit();
 
             gameState = GAME;
             SYS_enableInts();
-        break;
+            return GAMEPLAY;
         case GAME:
             GAM_updateBonus();
             PHY_send_inputs(bl_ctrl, gr_ctrl);
@@ -88,10 +88,10 @@ void GAM_loop(){
                 PAL_fadeOut(0, 63, 60, FALSE);
                 gameState = ENDBOARD;
             }
-        break;
+            return GAMEPLAY;
         case TRYAGAIN:
             gameState = INITBOARD;
-        break;
+            return GAMEPLAY;
         case ENDBOARD:
             PHY_end();
             BRD_unload(&board);
@@ -109,13 +109,13 @@ void GAM_loop(){
             }
             gr_stat->effect = 0;
             bl_stat->effect = 0;
-        break;
+            return GAMEPLAY;
         case AFTERBOARD:
             if(GAM_gameType == COOPERATE){
                 bl_stats.score += bonusCount * bl_stats.mult;
             }
             gameState = NEXTBOARD;
-        break;
+            return GAMEPLAY;
         case NEXTBOARD:
             levelInd++;
             if(levelInd == max_levels)
@@ -124,7 +124,7 @@ void GAM_loop(){
                 break;
             }
             gameState = INITBOARD;
-        break;
+            return GAMEPLAY;
         case GAMEOVER:
             SPR_end();
             VDP_clearPlane(BG_A, TRUE);
@@ -136,7 +136,7 @@ void GAM_loop(){
             PAL_setColor(15, 0x0FFF);
             VDP_drawTextBG(BG_A,"GAME OVER", 10, 10);
             gameState = GAMEEXIT;
-            break;
+            return GAMEPLAY;
         case GAMEENDING:
             //VDP_resetScreen();
             SPR_end();
@@ -149,7 +149,7 @@ void GAM_loop(){
             PAL_setColor(15, 0x0FFF);
             VDP_drawTextBG(BG_A,"Thank you for playing", 5, 10);
             gameState = GAMEEXIT;
-        break;
+            return GAMEPLAY;
         case GAMEEXIT:
             /*
             VDP_clearPlane(BG_A, TRUE);
@@ -165,7 +165,7 @@ void GAM_loop(){
             gameState = GAMEINIT;
             mainState = MAIN_MENU;
             */
-        break;
+            return GAMEPLAY;
     }
 }
 

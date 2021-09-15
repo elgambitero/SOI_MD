@@ -57,7 +57,7 @@ int main()
                 mainState = MEN_loop();
             break;
             case GAMEPLAY:
-                GAM_loop(ind);
+                mainState = GAM_loop(ind);
             break;
         }
 

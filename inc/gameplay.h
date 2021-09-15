@@ -1,6 +1,7 @@
 #ifndef GAMEPLAY_H
 #define GAMEPLAY_H
 
+#include "SOI.h"
 
 #define SCREEN_WIDTH 40
 #define SCREEN_HEIGHT 30
@@ -112,7 +113,7 @@ static inline void game_controls(u16 joy, u16 changed, u16 state){
     }
 }
 
-void GAM_loop();
+enum MainStates GAM_loop();
 void GAM_setGametype(u8 game_type);
 void GAM_updateScore();
 void GAM_updateLives();
