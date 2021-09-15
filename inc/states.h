@@ -7,6 +7,8 @@
 #define KILLED   4
 
 enum MainStates{INTRO,
+    TITLE_SCREEN_IN,
+    TITLE_SCREEN,
     MAIN_MENU,
     GAMEPLAY
     };

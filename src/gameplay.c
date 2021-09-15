@@ -166,20 +166,6 @@ enum MainStates GAM_loop(){
             gameState = GAMEEXIT;
             return GAMEPLAY;
         case GAMEEXIT:
-            /*
-            VDP_clearPlane(BG_A, TRUE);
-            VDP_clearPlane(BG_B, TRUE);
-            VDP_clearPlane(PLAN_WINDOW, TRUE);
-
-            VDP_setHorizontalScroll(BG_A, 0);
-            VDP_setHorizontalScroll(BG_B, 0);
-            VDP_setVerticalScroll(BG_A, 0);
-            VDP_setVerticalScroll(BG_B, 0);
-            VDP_setBackgroundColor(0);
-
-            gameState = GAMEINIT;
-            mainState = MAIN_MENU;
-            */
             return GAMEPLAY;
     }
 }

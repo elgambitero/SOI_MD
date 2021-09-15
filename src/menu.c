@@ -14,8 +14,6 @@
 #define PRESS_START_Y 24
 
 enum MenuStates{
-    TITLE_SCREEN_IN,
-    TITLE_SCREEN,
     MENU_IN,
     MENU_LOOP,
     MENU_OUT
@@ -23,34 +21,27 @@ enum MenuStates{
 
 
 u8 numText[6];
-enum MenuStates menuState = TITLE_SCREEN_IN;
+enum MenuStates menuState = MENU_IN;
 
-u8 firstLevel = 1;
-u8 numPlayers = 0;
-u8 pressed = 0;
+u8 firstLevel;
+u8 numPlayers;
+u8 pressed;
 u8 seed[2];
+
+enum MainStates MEN_init(){
+    firstLevel = 1;
+    numPlayers = 0;
+    pressed = 0;
+    seed[0] = 0;
+    seed[1] = 1;
+    menuState = MENU_IN;
+    return MAIN_MENU;
+}
 
 enum MainStates MEN_loop(){
     switch(menuState){
-        case TITLE_SCREEN_IN:
-            JOY_setEventHandler( &MEN_controls );
-            VDP_setPaletteColors(32, (u16*) palette_black, 32);
-            u16 palette[32];
-            memcpy(&palette[0], title_1_img.palette->data, 16 * 2);
-            memcpy(&palette[16], title_2_img.palette->data, 16 * 2);
-            XGM_startPlay(heavy3);
-            VDP_clearPlane(BG_A, TRUE);
-            VDP_clearPlane(BG_B, TRUE);
-            VDP_drawImageEx(BG_A, &title_1_img, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX), 0, 0, FALSE, TRUE);
-            VDP_drawImageEx(BG_B, &title_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + title_1_img.tileset->numTile )), 0, 0, FALSE, TRUE);
-            // fade in
-            VDP_fadeIn(32, 63 , palette, 20, FALSE);
-            menuState = TITLE_SCREEN;
-            return MAIN_MENU;
-        case TITLE_SCREEN:
-
-            return MAIN_MENU;
         case MENU_IN:
+            JOY_setEventHandler( &MEN_controls );
             VDP_setPalette(PAL0, palette_grey);
             menuState = MENU_LOOP;
             VDP_clearPlane(BG_A, TRUE);
@@ -94,13 +85,6 @@ enum MainStates MEN_loop(){
 
 void MEN_controls(u16 joy, u16 changed, u16 state){
     switch(menuState){
-        case TITLE_SCREEN:
-            if(changed & BUTTON_START){
-                if(state & BUTTON_START){
-                    menuState = MENU_IN;
-                }
-            }
-            break;
         case MENU_LOOP:
             if(changed & BUTTON_RIGHT){
                 if(state & BUTTON_RIGHT){
