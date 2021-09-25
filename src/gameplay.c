@@ -17,6 +17,7 @@ u16 frmInd;
 u8 bonusClk;
 u16 bonusCount;
 u32 scoreCount;
+u8 * bonusGather;
 
 u16 levelInd = START_LEVEL;
 u8 numPlayer = DEF_PLAYERS;
@@ -128,7 +129,14 @@ enum MainStates GAM_loop(){
                     if(bl_stats.lives < 0){
                         gameState = GAMEOVER;
                     }else{
-                        gameState = TRYAGAIN;
+                        if(current_level->attributes & BONUS_FLAG){
+                            gameState = AFTERBOARD_IN;
+                            bonusGather = 0;
+                            VDP_clearPlane(BG_A, TRUE);
+                            VDP_clearPlane(BG_B, TRUE);
+                        }else{
+                            gameState = TRYAGAIN;
+                        }
                     }
                 }
             }else{
@@ -145,7 +153,7 @@ enum MainStates GAM_loop(){
             return GAMEPLAY;
         case AFTERBOARD_IN:
             if(current_level->attributes & BONUS_FLAG){
-                GAM_bonusInter();
+                GAM_bonusInter(bonusGather);
             }else{
                 GAM_normalInter();
             }
@@ -230,6 +238,8 @@ void GAM_levelInit(){
     green_player = NULL;
     bl_ctrl = 0;
     gr_ctrl = 0;
+    if(current_level->attributes & BONUS_FLAG)
+        bonusGather = 1;
     
     VDP_setPalette(PAL0, pal_sys0.data);
     VDP_setPalette(PAL1, pal_sys1.data);
@@ -353,7 +363,7 @@ void GAM_normalInter(){
     JOY_setEventHandler( &GAM_interControls );
 }
 
-void GAM_bonusInter(){
+void GAM_bonusInter(u8 * stack){
     VDP_setPaletteColors(32, (u16*) palette_black, 32);
     u16 palette[32];
     memcpy(&palette[0], bns_end_1_img.palette->data, 16 * 2);
@@ -364,5 +374,9 @@ void GAM_bonusInter(){
     VDP_drawImageEx(BG_B, &bns_end_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + bns_end_1_img.tileset->numTile )), 0, 0, FALSE, TRUE);
     // fade in
     VDP_fadeIn(32, 63 , palette, 20, FALSE);
+    if(!stack) {
+        XGM_setPCM(SFX_IND, snd_bonus_nothing, sizeof(snd_bonus_nothing));
+        XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    }
     JOY_setEventHandler( &GAM_interControls );
 }
