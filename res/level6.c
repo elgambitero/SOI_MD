@@ -101,7 +101,7 @@ const Board level6 = {
     },
     {PAL_R, PAL_GR, PAL_BL},
     MUS_BONUSHEAVY,
-    0,
+    BONUS_FLAG,
     5000,
     &knight,
     &glp

@@ -18,7 +18,8 @@
 #define IND_TO_Y(ind)   (ind / BOARD_X)
 #define XY_TO_IND(x ,y) ((y * BOARD_X) + x)
 
-#define IS_COMPETITIVE   0x01
+#define COMP_FLAG                      0x01
+#define BONUS_FLAG                     0x02
 
 typedef struct Board{
     u16 front_blocks[BOARD_BUFFER];

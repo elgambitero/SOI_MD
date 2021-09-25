@@ -99,7 +99,7 @@ const Board level12 = {
     },
     {PAL_R, PAL_GR, PAL_BL},
     MUS_BONUSHEAVY, //music
-    0,
+    BONUS_FLAG,
     6000, //bonus
     &knight, //nasties
     &glp //players
