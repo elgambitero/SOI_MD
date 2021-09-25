@@ -30,6 +30,8 @@ u8 levelText[N_LEVEL + 1];
 void GAM_gameInit();
 void GAM_levelInit();
 void GAM_drawFrame();
+void GAM_normalInter();
+void GAM_bonusInter();
 void VDP_drawNumber(u16 number, u8 chars, u8 xpos, u8 ypos);
 
 __attribute__((always_inline)) static inline void GAM_updateBonus(){
@@ -142,17 +144,11 @@ enum MainStates GAM_loop(){
             bl_stat->effect = 0;
             return GAMEPLAY;
         case AFTERBOARD_IN:
-            VDP_setPaletteColors(32, (u16*) palette_black, 32);
-            u16 palette[32];
-            memcpy(&palette[0], brd_end_1_img.palette->data, 16 * 2);
-            memcpy(&palette[16], brd_end_2_img.palette->data, 16 * 2);
-            VDP_clearPlane(BG_A, TRUE);
-            VDP_clearPlane(BG_B, TRUE);
-            VDP_drawImageEx(BG_A, &brd_end_1_img, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX), 0, 0, FALSE, TRUE);
-            VDP_drawImageEx(BG_B, &brd_end_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + brd_end_1_img.tileset->numTile )), 0, 0, FALSE, TRUE);
-            // fade in
-            VDP_fadeIn(32, 63 , palette, 20, FALSE);
-            JOY_setEventHandler( &GAM_interControls );
+            if(current_level->attributes & BONUS_FLAG){
+                GAM_bonusInter();
+            }else{
+                GAM_normalInter();
+            }
             gameState = AFTERBOARD;
             return GAMEPLAY;
         case AFTERBOARD:
@@ -341,4 +337,32 @@ void GAM_updateLevel(){
         sprintf(levelText, "%03d", levelInd);
         VDP_drawText(levelText, X_LEVEL, 0);
     }
+}
+
+void GAM_normalInter(){
+    VDP_setPaletteColors(32, (u16*) palette_black, 32);
+    u16 palette[32];
+    memcpy(&palette[0], brd_end_1_img.palette->data, 16 * 2);
+    memcpy(&palette[16], brd_end_2_img.palette->data, 16 * 2);
+    VDP_clearPlane(BG_A, TRUE);
+    VDP_clearPlane(BG_B, TRUE);
+    VDP_drawImageEx(BG_A, &brd_end_1_img, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX), 0, 0, FALSE, TRUE);
+    VDP_drawImageEx(BG_B, &brd_end_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + brd_end_1_img.tileset->numTile )), 0, 0, FALSE, TRUE);
+    // fade in
+    VDP_fadeIn(32, 63 , palette, 20, FALSE);
+    JOY_setEventHandler( &GAM_interControls );
+}
+
+void GAM_bonusInter(){
+    VDP_setPaletteColors(32, (u16*) palette_black, 32);
+    u16 palette[32];
+    memcpy(&palette[0], bns_end_1_img.palette->data, 16 * 2);
+    memcpy(&palette[16], bns_end_2_img.palette->data, 16 * 2);
+    VDP_clearPlane(BG_A, TRUE);
+    VDP_clearPlane(BG_B, TRUE);
+    VDP_drawImageEx(BG_A, &bns_end_1_img, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX), 0, 0, FALSE, TRUE);
+    VDP_drawImageEx(BG_B, &bns_end_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + bns_end_1_img.tileset->numTile )), 0, 0, FALSE, TRUE);
+    // fade in
+    VDP_fadeIn(32, 63 , palette, 20, FALSE);
+    JOY_setEventHandler( &GAM_interControls );
 }
