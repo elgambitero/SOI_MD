@@ -917,36 +917,37 @@ void GD_clk12h_pickup(){
 }
 
 void GD_points_SILV(){
-    curr->character->role.player.statistics->score += 500;
-    curr->character->role.player.pickups->silv++;
-    GAM_updateScore();
+    if(current_level->attributes & BONUS_FLAG){
+        curr->character->role.player.pickups->silv++;
+    }else{
+        curr->character->role.player.statistics->score += SILVCPOINTS;
+        GAM_updateScore();
+    }
 }
 
 void GD_points_GOLDC(){
     if(current_level->attributes & BONUS_FLAG){
         curr->character->role.player.pickups->goldc++;
     }else{
-        curr->character->role.player.statistics->score += 1000;
+        curr->character->role.player.statistics->score += GOLDCPOINTS;
         GAM_updateScore();
     }
 }
 
 void GD_points_GOLD(){
     if(current_level->attributes & BONUS_FLAG){
-        
+        curr->character->role.player.pickups->gold++;
     }else{
-
+        curr->character->role.player.statistics->score += GOLDPOINTS;
+        GAM_updateScore();
     }
-    curr->character->role.player.pickups->gold++;
-    curr->character->role.player.statistics->score += 2000;
-    GAM_updateScore();
 }
 
 void GD_points_GEM(){
     if(current_level->attributes & BONUS_FLAG){
         curr->character->role.player.pickups->gem++;
     }else{
-        curr->character->role.player.statistics->score += 5000;
+        curr->character->role.player.statistics->score += GEMPOINTS;
         GAM_updateScore();
     }
 }

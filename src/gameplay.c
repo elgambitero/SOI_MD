@@ -142,7 +142,6 @@ enum MainStates GAM_loop(){
                     }else{
                         if(current_level->attributes & BONUS_FLAG){
                             gameState = AFTERBOARD_IN;
-                            bonusGather = 0;
                             VDP_clearPlane(BG_A, TRUE);
                             VDP_clearPlane(BG_B, TRUE);
                         }else{
@@ -250,7 +249,9 @@ void GAM_levelInit(){
     bl_ctrl = 0;
     gr_ctrl = 0;
     if(current_level->attributes & BONUS_FLAG)
-        bonusGather = 1;
+        bonusGather = &bonusData;
+    else
+        bonusGather = NULL
     
     VDP_setPalette(PAL0, pal_sys0.data);
     VDP_setPalette(PAL1, pal_sys1.data);
