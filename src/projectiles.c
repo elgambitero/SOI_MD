@@ -1,7 +1,6 @@
 #include "SOI.h"
 
 #include "sprites.h"
-#include "sound.h"
 
 void PR_arrow_loop();
 const Entity PR_arrow = {

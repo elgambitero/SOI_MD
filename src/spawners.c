@@ -1,6 +1,5 @@
 #include "SOI.h"
 
-#include "sound.h"
 #include "sprites.h"
 
 void SPW_update();
@@ -178,8 +177,7 @@ void SPW_cannon_loop(){
                 fx.speed[X] = CANBALL_SPEED;
             }
             ACT_add(&fx, &projectiles);
-            XGM_setPCM(SFX_IND, snd_cannon_fire, sizeof(snd_cannon_fire));
-            XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+            SFX_playSound(snd_cannon_fire);
             curr->timer = MAX_TIMER - CANNON_TIME;
             return;
         };

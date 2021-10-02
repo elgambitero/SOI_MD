@@ -1,6 +1,5 @@
 #include "SOI.h"
 
-#include "sound.h"
 #include "sprites.h"
 
 void GD_obtain();
@@ -20,8 +19,7 @@ const Entity GD_silvCoin = {
     {.goodie =
         {
             500,
-            snd_silver_coin,
-            sizeof(snd_silver_coin),
+            snd_silver_coin_ID,
             &GD_obtain,
             &GD_points_SILV
         }
@@ -41,8 +39,7 @@ const Entity GD_arrow = {
     {.goodie =
         {
             0,
-            snd_arrow,
-            sizeof(snd_arrow),
+            snd_arrow_ID,
             &GD_obtain,
             &GD_give_arrow
         }
@@ -62,8 +59,7 @@ const Entity GD_clk3h = {
     {.goodie =
         {
             0,
-            snd_clock,
-            sizeof(snd_clock),
+            snd_clock_ID,
             &GD_obtain,
             &GD_clk3h_pickup
         }
@@ -83,8 +79,7 @@ const Entity GD_clk6h = {
     {.goodie =
         {
             0,
-            snd_clock,
-            sizeof(snd_clock),
+            snd_clock_ID,
             &GD_obtain,
             &GD_clk6h_pickup
         }
@@ -104,8 +99,7 @@ const Entity GD_clk9h = {
     {.goodie =
         {
             0,
-            snd_clock,
-            sizeof(snd_clock),
+            snd_clock_ID,
             &GD_obtain,
             &GD_clk9h_pickup
         }
@@ -125,8 +119,7 @@ const Entity GD_clk12h = {
     {.goodie =
         {
             0,
-            snd_clock,
-            sizeof(snd_clock),
+            snd_clock_ID,
             &GD_obtain,
             &GD_clk12h_pickup
         }
@@ -146,8 +139,7 @@ const Entity GD_glass = {
     {.goodie =
         {
             0,
-            snd_glass,
-            sizeof(snd_glass),
+            snd_glass_ID,
             &GD_obtain,
             &GD_reveal_hidden
         }
@@ -167,8 +159,7 @@ const Entity GD_shield = {
     {.goodie =
         {
             0,
-            snd_shield,
-            sizeof(snd_shield),
+            snd_shield_ID,
             &GD_obtain,
             &GD_protectPlayer
         }
@@ -188,8 +179,7 @@ const Entity GD_boot = {
     {.goodie =
         {
             0,
-            snd_boot,
-            sizeof(snd_boot),
+            snd_boot_ID,
             &GD_obtain,
             &GD_speedUpPlayer
         }
@@ -210,8 +200,7 @@ const Entity GD_thnball = {
     {.goodie =
         {
             0,
-            snd_thunderball,
-            sizeof(snd_thunderball),
+            snd_thunderball_ID,
             &GD_obtain,
             &GD_killSpawned
         }
@@ -231,8 +220,7 @@ const Entity GD_rdkey = {
     {.goodie =
         {
             0,
-            snd_key,
-            sizeof(snd_key),
+            snd_key_ID,
             &GD_obtain,
             &GD_openRdDoor
         }
@@ -252,8 +240,7 @@ const Entity GD_blkey = {
     {.goodie =
         {
             0,
-            snd_key,
-            sizeof(snd_key),
+            snd_key_ID,
             &GD_obtain,
             &GD_openBlDoor
         }
@@ -271,7 +258,6 @@ const Entity GD_rddoor = {
     NULL,
     {.goodie =
         {
-            0,
             0,
             0,
             NULL,
@@ -293,7 +279,6 @@ const Entity GD_bldoor = {
         {
             0,
             0,
-            0,
             NULL,
             NULL
         }
@@ -313,8 +298,7 @@ const Entity GD_rddoor_open = {
     {.goodie =
         {
             0,
-            snd_door_exit,
-            sizeof(snd_door_exit),
+            snd_door_exit_ID,
             &GD_enterRdDoor,
             NULL
         }
@@ -334,8 +318,7 @@ const Entity GD_bddoor_open = {
     {.goodie =
         {
             0,
-            snd_door_exit,
-            sizeof(snd_door_exit),
+            snd_door_exit_ID,
             &GD_enterBlDoor,
             NULL
         }
@@ -355,8 +338,7 @@ const Entity GD_goldCoin = {
     {.goodie =
         {
             0,
-            snd_gold_coin,
-            sizeof(snd_gold_coin),
+            snd_gold_coin_ID,
             &GD_obtain,
             &GD_points_GOLDC
         }
@@ -376,8 +358,7 @@ const Entity GD_1UP = {
     {.goodie =
         {
             0,
-            snd_1up,
-            sizeof(snd_1up),
+            snd_1up_ID,
             &GD_obtain,
             GD_give_1UP
         }
@@ -397,8 +378,7 @@ const Entity GD_2x = {
     {.goodie =
         {
             0,
-            snd_multiplier,
-            sizeof(snd_multiplier),
+            snd_multiplier_ID,
             &GD_obtain,
             &GD_give_2x
         }
@@ -418,8 +398,7 @@ const Entity GD_3x = {
     {.goodie =
         {
             0,
-            snd_multiplier,
-            sizeof(snd_multiplier),
+            snd_multiplier_ID,
             &GD_obtain,
             &GD_give_3x
         }
@@ -439,8 +418,7 @@ const Entity GD_4x = {
     {.goodie =
         {
             0,
-            snd_multiplier,
-            sizeof(snd_multiplier),
+            snd_multiplier_ID,
             &GD_obtain,
             &GD_give_4x
         }
@@ -460,8 +438,7 @@ const Entity GD_5x = {
     {.goodie =
         {
             0,
-            snd_multiplier,
-            sizeof(snd_multiplier),
+            snd_multiplier_ID,
             &GD_obtain,
             &GD_give_5x
         }
@@ -481,8 +458,7 @@ const Entity GD_ball = {
     {.goodie =
         {
             0,
-            snd_ball,
-            sizeof(snd_ball),
+            snd_ball_ID,
             &GD_obtain,
             &GD_give_ball
         }
@@ -502,8 +478,7 @@ const Entity GD_gem = {
     {.goodie =
         {
             0,
-            snd_gem,
-            sizeof(snd_gem),
+            snd_gem_ID,
             &GD_obtain,
             &GD_points_GEM
         }
@@ -523,8 +498,7 @@ const Entity GD_gold = {
     {.goodie =
         {
             0,
-            snd_goldbar,
-            sizeof(snd_goldbar),
+            snd_goldbar_ID,
             &GD_obtain,
             &GD_points_GOLD
         }
@@ -544,8 +518,7 @@ const Entity GD_turtl = {
     {.goodie =
         {
             0,
-            snd_turtle,
-            sizeof(snd_turtle),
+            snd_turtle_ID,
             &GD_obtain,
             &GD_slowDownMonsters
         }
@@ -563,7 +536,6 @@ const Entity GD_star = {
     NULL,
     {.goodie =
         {
-            0,
             0,
             0,
             &GD_obtain,
@@ -585,8 +557,7 @@ const Entity GD_grkey = {
     {.goodie =
         {
             0,
-            snd_key,
-            sizeof(snd_key),
+            snd_key_ID,
             &GD_obtain,
             &GD_openGrDoor
         }
@@ -604,7 +575,6 @@ const Entity GD_grdoor = {
     NULL,
     {.goodie =
         {
-            0,
             0,
             0,
             NULL,
@@ -626,8 +596,7 @@ const Entity GD_grdoor_open = {
     {.goodie =
         {
             0,
-            snd_door_exit,
-            sizeof(snd_door_exit),
+            snd_door_exit_ID,
             &GD_enterGrDoor,
             NULL
         }

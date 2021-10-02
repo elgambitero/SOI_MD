@@ -38,8 +38,7 @@ const Entity PL_blue = {
     NULL,
     {.player =
         {
-            snd_player_death,
-            sizeof(snd_player_death),
+            snd_player_death_ID,
             &bl_stats,
             &bl_act,
             &bl_after_status,
@@ -62,8 +61,7 @@ const Entity PL_green = {
     NULL,
     {.player =
         {
-            snd_player_death,
-            sizeof(snd_player_death),
+            snd_player_death_ID,
             &gr_stats,
             &gr_act,
             &gr_after_status,
@@ -184,9 +182,7 @@ static inline void gd_process(u8 ind){
     gd_index = GD_GET_INDEX( env->front_blocks[ind] );
     const Entity * character = goodies_vector[gd_index];
     if(character->role.goodie.pickup_sound){
-        XGM_setPCM(SFX_IND, character->role.goodie.pickup_sound, 
-            character->role.goodie.pickup_sound_size);
-        XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+        SFX_playSound(character->role.goodie.pickup_sound);
     }
     if(character->role.goodie.onCrash) character->role.goodie.onCrash();
     if(character->role.goodie.onPickUp) character->role.goodie.onPickUp();
@@ -236,8 +232,7 @@ static inline void PL_teleport(u8 from_ind, u16 block){
     ACT_freeze(&nasties);
     ACT_freeze(&bp_projectiles);
     ACT_freeze(&gp_projectiles);
-    XGM_setPCM(SFX_IND, snd_teleport, sizeof(snd_teleport));
-    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    SFX_playSound(snd_teleport_ID);
     curr->pos[X] += delta[X];
     curr->pos[Y] += delta[Y];
 }
@@ -265,8 +260,7 @@ static inline void PL_flipflop(){
     fx.actorData.fxData.following = curr;
     fx.actorData.fxData.info = center_ind;
     ACT_add(&fx, &fx_buf);
-    XGM_setPCM(SFX_IND, snd_switch, sizeof(snd_switch));
-    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    SFX_playSound(snd_switch_ID);
 }
 
 __attribute__((always_inline)) static inline void PL_checkspecials(){
@@ -411,21 +405,18 @@ void PL_update(){
                         BRD_create_block_ind(env, BP, front_ind);
                     else
                         BRD_create_block_ind(env, GP, front_ind);
-                    XGM_setPCM(SFX_IND, snd_block_create, sizeof(snd_block_create));
-                    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+                    SFX_playSound(snd_block_create_ID);
                     PHY_summon_deletor(front_ind, FALSE);
                 break;
                 case DEL_BLOCK:
                     PHY_calc_next(dir);
                     PHY_calc_front_block();
                     BRD_break_block_ind(env, front_ind);
-                    XGM_setPCM(SFX_IND, snd_block_delete, sizeof(snd_block_delete));
-                    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+                    SFX_playSound(snd_block_delete_ID);
                     PHY_summon_deletor(front_ind, TRUE);
                 break;
                 case SHOOT:
-                    XGM_setPCM(SFX_IND, snd_arrow_fire, sizeof(snd_arrow_fire));
-                    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+                    SFX_playSound(snd_arrow_fire_ID);
                     if(pl_act == &bl_act)
                         PL_fire_arrow(dir, &bp_projectiles);
                     else
@@ -493,21 +484,18 @@ void PL_update(){
                         BRD_create_block_ind(env, BP, front_ind);
                     else
                         BRD_create_block_ind(env, GP, front_ind);
-                    XGM_setPCM(SFX_IND, snd_block_create, sizeof(snd_block_create));
-                    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+                    SFX_playSound(snd_block_create_ID);
                     PHY_summon_deletor(front_ind, FALSE);
                 break;
                 case DEL_BLOCK:
                     PHY_calc_next(dir);
                     PHY_calc_next_floor();
                     BRD_break_block_ind(env, front_ind);
-                    XGM_setPCM(SFX_IND, snd_block_delete, sizeof(snd_block_delete));
-                    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+                    SFX_playSound(snd_block_delete_ID);
                     PHY_summon_deletor(front_ind, TRUE);
                 break;
                 case SHOOT:
-                    XGM_setPCM(SFX_IND, snd_ball_fire, sizeof(snd_ball_fire));
-                    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+                    SFX_playSound(snd_ball_fire_ID);
                     if(pl_act == &bl_act)
                         PL_fire_ball(dir, &bp_projectiles);
                     else
@@ -600,14 +588,12 @@ void PL_update(){
             PHY_calc_top_block();
             if(top < BOARD_X_PX && ( env->front_blocks[top_ind] & BREAKABLE )){
                 if(env->front_blocks[top_ind] & BROKEN){
-                    XGM_setPCM(SFX_IND, snd_block_break, sizeof(snd_block_break));
-                    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+                    SFX_playSound(snd_block_break_ID);
                     //play snap sound
                     BRD_break_block_ind(env, top_ind);
                     jmp_brk_debris(top_ind, 0, -BRK_SPEED);
                 }else{
-                    XGM_setPCM(SFX_IND, snd_block_crack, sizeof(snd_block_crack));
-                    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+                    SFX_playSound(snd_block_crack_ID);
                     BRD_create_block_ind(env, env->front_blocks[top_ind] | BROKEN, top_ind);
                 }
             }

@@ -68,8 +68,7 @@ __attribute__((always_inline)) static inline void GAM_updateBonus(){
             sprintf(bonusText, "%05d", bonusCount);
             VDP_drawText(bonusText, X_BONUS, 0);
             if(bonusCount == 1000){
-                XGM_setPCM(SFX_IND, snd_hurry_up, sizeof(snd_hurry_up));
-                XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+                SFX_playSound(snd_hurry_up_ID);
                 XGM_setMusicTempo(4 * XGM_getMusicTempo() / 3);
             }
         }else{
@@ -407,8 +406,7 @@ void GAM_bonusInter(BonusGather * stack){
     // fade in
     VDP_fadeIn(32, 63 , palette, 20, FALSE);
     if(!stack) {
-        XGM_setPCM(SFX_IND, snd_bonus_nothing, sizeof(snd_bonus_nothing));
-        XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+        SFX_playSound(snd_bonus_nothing_ID);
     }else{
         bl_stat->score += SILVCPOINTS * stack->bl_pick->silv;
         bl_stat->score += GOLDCPOINTS * stack->bl_pick->goldc;
@@ -508,6 +506,7 @@ void GAM_ballsPaint(){
         BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSLOT,
                         BNS_YSTART + paintSlots / BNS_XSLOT,
                         BAL);
+                        
         paintSlots++;
     }
 }

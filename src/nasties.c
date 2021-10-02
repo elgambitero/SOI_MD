@@ -1,7 +1,6 @@
 #include "SOI.h"
 
 #include "sprites.h"
-#include "sound.h"
 
 
 
@@ -18,7 +17,6 @@ const Entity NST_spinner = {
     {.nastie =
         {
             NULL,
-            0,
             0,
             0
         }
@@ -37,8 +35,7 @@ const Entity NST_robo = {
     NULL,
     {.nastie =
         {
-            snd_robo,
-            sizeof(snd_robo),
+            snd_robo_ID,
             1000,
             NASTIE_SPEED,
         }
@@ -57,8 +54,7 @@ const Entity NST_ant = {
     NULL,
     {.nastie =
         {
-            snd_ant,
-            sizeof(snd_ant),
+            snd_ant_ID,
             50,
             NASTIE_SPEED,
         }
@@ -77,8 +73,7 @@ const Entity NST_piggy = {
     NULL,
     {.nastie =
         {
-            snd_piggy,
-            sizeof(snd_piggy),
+            snd_piggy_ID,
             250,
             NASTIE_SPEED,
         }
@@ -97,8 +92,7 @@ const Entity NST_teeth = {
     NULL,
     {.nastie =
         {
-            snd_teeth,
-            sizeof(snd_teeth),
+            snd_teeth_ID,
             1500,
             NASTIE_SPEED,
         }
@@ -117,8 +111,7 @@ const Entity NST_whslowR = {
     NULL,
     {.nastie =
         {
-            snd_wheelie,
-            sizeof(snd_wheelie),
+            snd_wheelie_ID,
             300,
             SLO_SPEED,
         }
@@ -136,8 +129,7 @@ const Entity NST_whfastR = {
     NULL,
     {.nastie =
         {
-            snd_wheelie,
-            sizeof(snd_wheelie),
+            snd_wheelie_ID,
             300,
             FAST_SPEED,
         }
@@ -156,8 +148,7 @@ const Entity NST_whslowL = {
     NULL,
     {.nastie =
         {
-            snd_wheelie,
-            sizeof(snd_wheelie),
+            snd_wheelie_ID,
             300,
             SLO_SPEED,
         }
@@ -175,8 +166,7 @@ const Entity NST_whfastL = {
     NULL,
     {.nastie =
         {
-            snd_wheelie,
-            sizeof(snd_wheelie),
+            snd_wheelie_ID,
             300,
             FAST_SPEED,
         }
@@ -195,8 +185,7 @@ const Entity NST_beanie = {
     NULL,
     {.nastie =
         {
-            snd_beanie,
-            sizeof(snd_beanie),
+            snd_beanie_ID,
             250,
             NASTIE_SPEED,
         }
@@ -215,8 +204,7 @@ const Entity NST_ostrich = {
     NULL,
     {.nastie =
         {
-            snd_ostrich,
-            sizeof(snd_ostrich),
+            snd_ostrich_ID,
             250,
             NASTIE_SPEED,
         }
@@ -235,8 +223,7 @@ const Entity NST_hippo = {
     NULL,
     {.nastie =
         {
-            snd_hippo,
-            sizeof(snd_hippo),
+            snd_hippo_ID,
             250,
             NASTIE_SPEED,
         }
@@ -257,7 +244,6 @@ const Entity BS_gargoyle = {
         {
             NULL,
             NULL,
-            NULL,
             0,
         }
     }
@@ -274,7 +260,6 @@ const Entity BS_gargoyle1 = {
     NULL,
     {.nastie =
         {
-            NULL,
             NULL,
             NULL,
             1,
@@ -295,7 +280,6 @@ const Entity BS_gargoyle2 = {
         {
             NULL,
             NULL,
-            NULL,
             2,
         }
     }
@@ -313,7 +297,6 @@ const Entity BS_knight = {
     NULL,
     {.nastie =
         {
-            NULL,
             NULL,
             NULL,
             NULL,
@@ -371,8 +354,7 @@ __attribute__((always_inline)) static inline void NST_breaks(){
     PHY_calc_front_block();
     BRD_break_block_ind(env, front_ind);
     PHY_brk_debris(front_ind, BRK_SPEED, 0);
-    XGM_setPCM(SFX_IND, snd_metal_bonk, sizeof(snd_metal_bonk));
-    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    SFX_playSound(snd_metal_bonk_ID);
 }
 
 __attribute__((always_inline)) static inline void NST_deletes(){
@@ -894,8 +876,7 @@ void NST_whL_loop(){
 #define BEAN_DELETE_FRAMES 64
 
 void NST_beanie_deletor(u8 ind, u8 direction){
-    XGM_setPCM(SFX_IND, snd_beanie_fire, sizeof(snd_beanie_fire));
-    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    SFX_playSound(snd_beanie_fire_ID);
     fx.status = direction;
     fx.character = &FX_beanie_atk;
     fx.frames = BEAN_DELETE_FRAMES;
@@ -921,8 +902,7 @@ __attribute__((always_inline)) static inline void NST_beanie_deleteH(){
     //PHY_summon_deletor(front_ind, TRUE);
 }
 __attribute__((always_inline)) static inline void NST_beanie_deleteV(u8 direction, u8 ind){
-    XGM_setPCM(SFX_IND, snd_beanie_fire, sizeof(snd_beanie_fire));
-    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    SFX_playSound(snd_beanie_fire_ID;)
     BRD_break_block_ind(env, ind);
     fx.status = 2 + direction;
     fx.character = &FX_beanie_atk;
@@ -1252,8 +1232,7 @@ void BS_gargoyle_loop(){
             fx.pos[Y] = POS_TO_PX(curr->pos[Y]) - GL_FIRE_HEIGHT;
             ACT_add(&fx, &projectiles);
 
-            XGM_setPCM(SFX_IND, snd_gargoyle_fire, sizeof(snd_gargoyle_fire));
-            XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+            SFX_playSound(snd_gargoyle_fire_ID);
             break;
     }
 }

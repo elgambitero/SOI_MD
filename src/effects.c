@@ -1,7 +1,6 @@
 #include "SOI.h"
 
 #include "sprites.h"
-#include "sound.h"
 
 
 void FX_update();
@@ -318,19 +317,3 @@ void FX_antibounce_loop(){
         result = ACT_DELETION;
     }
 }
-
-/*
-void FX_update(){
-    if(curr->timer){
-        curr->timer++;
-        if(curr->timer == MAX_TIMER){
-            result = ACT_DELETION;
-            return;
-        };
-    }
-    if(curr->character->role.effect.onProcess){
-        curr->character->role.effect.onProcess();
-        return;
-    }
-}
-*/

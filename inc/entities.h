@@ -3,8 +3,7 @@
 #define ENTITIES_H
 
 typedef struct Nastie{
-    const u8 * death_sound;
-    const u16 death_sound_size;
+    const u8 death_sound;
     
     u16 points;
 
@@ -18,8 +17,7 @@ typedef struct FX{
 
 
 typedef struct Player{
-    const u8 * death_sound;
-    const u16 death_sound_size;
+    const u8 death_sound; //Do not change alignment.
     PlayerStat * const statistics;
     u8 * const intent;
     u8 * const future;
@@ -37,8 +35,7 @@ typedef struct Projectile{
 
 typedef struct Goodie{
     u16 points;
-    const u8 * pickup_sound;
-    const u16 pickup_sound_size;
+    const u8 pickup_sound;
 
     void (*const onCrash)();
     void (*const onPickUp)();
