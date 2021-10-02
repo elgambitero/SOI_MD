@@ -301,7 +301,8 @@ void GAM_levelInit(){
     blue_player = ACT_seek(&PL_blue, &players);
     green_player = ACT_seek(&PL_green, &players);
 
-    if(!numPlayer){
+    if(!numPlayer || !(bl_stats.lives + gr_stats.lives)){
+        //Why does it have to be the green one?
         ACT_remove(green_player, &players);
         green_player = 0;
         gr_stat->effect = KILLED;
