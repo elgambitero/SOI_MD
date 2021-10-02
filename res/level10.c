@@ -6,23 +6,6 @@
 #define BOW (NORMAL_BLOCK | SOLID | BLK_DOT   | COL_WHITE)
 #define BFW (NORMAL_BLOCK | SOLID | BLK_FLAT  | COL_WHITE)
 #define BFR (NORMAL_BLOCK | SOLID | BLK_FLAT  | COL_SLOT1)
-#define RDK (GOODIE | GDi_RDKEY)
-#define RDD (GOODIE | GDi_RDDOOR)
-#define RDK (GOODIE | GDi_RDKEY)
-#define RDD (GOODIE | GDi_RDDOOR)
-#define SLC (GOODIE | GDi_SILVC)
-#define GLC (GOODIE | GDi_GOLDC)
-#define ARR (GOODIE | GDi_ARROW)
-#define C3H (GOODIE | GDi_CLK3h)
-#define GLS (GOODIE | GDi_GLASS)
-#define M2X (GOODIE | GDi_2x )
-#define M3X (GOODIE | GDi_3x )
-#define THN (GOODIE | GDi_THNBALL)
-#define GEM (GOODIE | GDi_GEM)
-#define TUR (GOODIE | GDi_TURTL)
-#define SHL (GOODIE | GDi_SHLD)
-#define BOO (GOODIE | GDi_BOOT)
-#define UP1 (GOODIE | GDi_1UP)
 
 static const Actor blp = {&PL_blue,
        0,

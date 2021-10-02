@@ -6,8 +6,6 @@
 #define BOW (NORMAL_BLOCK | SOLID | BLK_DOT   | COL_WHITE)
 #define BFW (NORMAL_BLOCK | SOLID | BLK_FLAT  | COL_WHITE)
 #define BFR (NORMAL_BLOCK | SOLID | BLK_FLAT  | COL_SLOT1)
-#define RDK (GOODIE | GDi_RDKEY)
-#define RDD (GOODIE | GDi_RDDOOR)
 
 static const Actor blp = {&PL_blue,
        0,

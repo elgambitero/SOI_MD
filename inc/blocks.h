@@ -217,6 +217,24 @@
 #define SMI (SPECIAL_BLOCK | SP_SPAWNER | NASTIE_SMI)
 #define TEH (SPECIAL_BLOCK | SP_SPAWNER | NASTIE_TEH)
 
+#define RDK (GOODIE | GDi_RDKEY)
+#define RDD (GOODIE | GDi_RDDOOR)
+#define SLC (GOODIE | GDi_SILVC)
+#define GLC (GOODIE | GDi_GOLDC)
+#define GLD (GOODIE | GDi_GOLD)
+#define GEM (GOODIE | GDi_GEM)
+#define UP1 (GOODIE | GDi_1UP)
+#define ARR (GOODIE | GDi_ARROW)
+#define BAL (GOODIE | GDi_BALL)
+#define C3H (GOODIE | GDi_CLK3h)
+#define M2X (GOODIE | GDi_2x )
+#define M3X (GOODIE | GDi_3x )
+#define GLS (GOODIE | GDi_GLASS)
+#define THN (GOODIE | GDi_THNBALL)
+#define TUR (GOODIE | GDi_TURTL)
+#define SHL (GOODIE | GDi_SHLD)
+#define BOO (GOODIE | GDi_BOOT)
+
 void BLK_drawBlock(u8 x, u8 y, u16 block);
 void BLK_eraseBlock(u8 x, u8 y);
 void BLK_eraseBlock_ind(u8 ind);
