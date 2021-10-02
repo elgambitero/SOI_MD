@@ -182,7 +182,7 @@ enum MainStates GAM_loop(){
             }
             return GAMEPLAY;
         case AFTERBOARD_OUT:
-            VDP_fadeOut(32, 63, 20, FALSE);
+            VDP_fadeOut(0, 63, 20, FALSE);
             VDP_clearPlane(BG_A, TRUE);
             VDP_clearPlane(BG_B, TRUE);
             gameState = NEXTBOARD;
