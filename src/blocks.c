@@ -9,6 +9,8 @@
 
 //These could be too many bytes.
 //Predictable as BLK_load_tiles() is, these could be macros.
+u16 gd_sys0_ind = TILE_USERINDEX;
+u16 gd_sys1_ind = TILE_USERINDEX;
 u16 clr_blk_bg_ind = TILE_USERINDEX;
 u16 clr_blk_sl0_ind = TILE_USERINDEX;
 u16 clr_blk_sl1_ind = TILE_USERINDEX;
@@ -16,8 +18,6 @@ u16 sp_blk_ind = TILE_USERINDEX;
 u16 wt_blk_ind = TILE_USERINDEX;
 u16 pl_blk_fg_ind = TILE_USERINDEX;
 u16 pl_blk_bg_ind = TILE_USERINDEX;
-u16 gd_sys0_ind = TILE_USERINDEX;
-u16 gd_sys1_ind = TILE_USERINDEX;
 u16 tele_bg_ind = TILE_USERINDEX;
 u16 tele_sl0_ind = TILE_USERINDEX;
 u16 tele_sl1_ind = TILE_USERINDEX;
@@ -310,6 +310,12 @@ void BLK_eraseBlock_ind(u8 ind){
 }
 
 void BLK_load_tiles(u16 ind){
+    VDP_loadTileSet(gd_sys0.tileset, ind, DMA);
+    gd_sys0_ind = ind;
+    ind += gd_sys0.tileset->numTile;
+    VDP_loadTileSet(gd_sys1.tileset, ind, DMA);
+    gd_sys1_ind = ind;
+    ind += gd_sys1.tileset->numTile;
     VDP_loadTileSet(clr_blk_bg.tileset, ind, DMA);
     clr_blk_bg_ind = ind;
     ind += clr_blk_bg.tileset->numTile;
@@ -331,12 +337,6 @@ void BLK_load_tiles(u16 ind){
     VDP_loadTileSet(pl_blk_fg.tileset, ind, DMA);
     pl_blk_fg_ind = ind;
     ind += pl_blk_fg.tileset->numTile;
-    VDP_loadTileSet(gd_sys0.tileset, ind, DMA);
-    gd_sys0_ind = ind;
-    ind += gd_sys0.tileset->numTile;
-    VDP_loadTileSet(gd_sys1.tileset, ind, DMA);
-    gd_sys1_ind = ind;
-    ind += gd_sys1.tileset->numTile;
     VDP_loadTileSet(tele_bg.tileset, ind, DMA);
     tele_bg_ind = ind;
     ind += tele_bg.tileset->numTile;
