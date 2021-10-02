@@ -390,7 +390,22 @@ void GAM_bonusInter(BonusGather * stack){
         XGM_setPCM(SFX_IND, snd_bonus_nothing, sizeof(snd_bonus_nothing));
         XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
     }else{
+        bl_stat->score += SILVCPOINTS * stack->bl_pick->silv;
+        bl_stat->score += GOLDCPOINTS * stack->bl_pick->goldc;
+        bl_stat->score += GOLDPOINTS * stack->bl_pick->gold;
+        bl_stat->score += GEMPOINTS * stack->bl_pick->gem;
+        bl_stat->lives += stack->bl_pick->lives;
+        bl_stat->balls += stack->bl_pick->balls;
+        bl_stat->arrows += stack->bl_pick->arrows;
 
+        gr_stat->score += SILVCPOINTS * stack->gr_pick->silv;
+        gr_stat->score += GOLDCPOINTS * stack->gr_pick->goldc;
+        gr_stat->score += GOLDPOINTS * stack->gr_pick->gold;
+        gr_stat->score += GEMPOINTS * stack->gr_pick->gem;
+        gr_stat->lives += stack->gr_pick->lives;
+        gr_stat->balls += stack->gr_pick->balls;
+        gr_stat->arrows += stack->gr_pick->arrows;
+        
     }
     JOY_setEventHandler( &GAM_interControls );
 }
