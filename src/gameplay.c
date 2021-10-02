@@ -430,9 +430,7 @@ void GAM_bonusInter(BonusGather * stack){
         soundSlot = 0;
 
         paintSlots = 0;
-
-        //FIXME: DELET THIS
-        stack->bl_pick->goldc = 50;
+        
     }
     JOY_setEventHandler( &GAM_interControls );
 }
