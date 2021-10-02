@@ -4,6 +4,7 @@
 //This does NOT include the inclusions derived from RESCOMP, so they must be included in 
 //the .c files that need them.
 #include "states.h"
+#include "sfx.h"
 #include "random.h"
 #include "globals.h"
 #include "menu.h"

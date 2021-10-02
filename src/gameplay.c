@@ -453,10 +453,7 @@ void GAM_waitFrames(u16 frames){
 }
 
 void GAM_silvcPaint(){
-    XGM_setPCM(SFX_IND, snd_silver_coin, sizeof(snd_silver_coin));
-    XGM_startPlayPCM(SFX_IND, 0, channels[soundSlot]);
-    soundSlot++;
-    soundSlot = soundSlot % 3;
+    SFX_playSound(snd_silver_coin_ID);
     if(paintSlots < BNS_XSLOT * BNS_YSLOT){
         BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSLOT,
                         BNS_YSTART + paintSlots / BNS_XSLOT,
@@ -466,11 +463,7 @@ void GAM_silvcPaint(){
 }
 
 void GAM_goldcPaint(){
-    XGM_setPCM(SFX_IND, snd_gold_coin, sizeof(snd_gold_coin));
-    XGM_startPlayPCM(SFX_IND, 0, channels[soundSlot]);
-    soundSlot++;
-    soundSlot = soundSlot % 3;
-    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    SFX_playSound(snd_gold_coin_ID);
     if(paintSlots < BNS_XSLOT * BNS_YSLOT){
         BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSLOT,
                         BNS_YSTART + paintSlots / BNS_XSLOT,
@@ -480,8 +473,7 @@ void GAM_goldcPaint(){
 }
 
 void GAM_goldPaint(){
-    XGM_setPCM(SFX_IND, snd_goldbar, sizeof(snd_goldbar));
-    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    SFX_playSound(snd_goldbar_ID);
     if(paintSlots < BNS_XSLOT * BNS_YSLOT){
         BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSLOT,
                         BNS_YSTART + paintSlots / BNS_XSLOT,
@@ -491,8 +483,7 @@ void GAM_goldPaint(){
 }
 
 void GAM_gemPaint(){
-    XGM_setPCM(SFX_IND, snd_gem, sizeof(snd_gem));
-    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    SFX_playSound(snd_gem_ID);
     if(paintSlots < BNS_XSLOT * BNS_YSLOT){
         BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSLOT,
                         BNS_YSTART + paintSlots / BNS_XSLOT,
@@ -502,8 +493,7 @@ void GAM_gemPaint(){
 }
 
 void GAM_livesPaint(){
-    XGM_setPCM(SFX_IND, snd_1up, sizeof(snd_1up));
-    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    SFX_playSound(snd_1up_ID);
     if(paintSlots < BNS_XSLOT * BNS_YSLOT){
         BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSLOT,
                         BNS_YSTART + paintSlots / BNS_XSLOT,
@@ -513,8 +503,7 @@ void GAM_livesPaint(){
 }
 
 void GAM_ballsPaint(){
-    XGM_setPCM(SFX_IND, snd_ball, sizeof(snd_ball));
-    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    SFX_playSound(snd_ball_ID);
     if(paintSlots < BNS_XSLOT * BNS_YSLOT){
         BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSLOT,
                         BNS_YSTART + paintSlots / BNS_XSLOT,
@@ -524,8 +513,7 @@ void GAM_ballsPaint(){
 }
 
 void GAM_arrowsPaint(){
-    XGM_setPCM(SFX_IND, snd_arrow, sizeof(snd_arrow));
-    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    SFX_playSound(snd_arrow_ID);
     if(paintSlots < BNS_XSLOT * BNS_YSLOT){
         BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSLOT,
                         BNS_YSTART + paintSlots / BNS_XSLOT,
