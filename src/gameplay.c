@@ -30,7 +30,14 @@ BonusGather bonusData = {
 
 BonusGather * bonusGather;
 
+const u16 channels[] = {
+    SOUND_PCM_CH2,
+    SOUND_PCM_CH3,
+    SOUND_PCM_CH4
+};
+
 u16 paintSlots;
+u8 soundSlot;
 
 u16 levelInd = START_LEVEL;
 u8 numPlayer = DEF_PLAYERS;
@@ -422,7 +429,12 @@ void GAM_bonusInter(BonusGather * stack){
         VDP_setPalette(PAL0, pal_sys0.data);
         VDP_setPalette(PAL1, pal_sys1.data);
 
+        soundSlot = 0;
+
         paintSlots = 0;
+
+        //FIXME: DELET THIS
+        stack->bl_pick->goldc = 50;
     }
     JOY_setEventHandler( &GAM_interControls );
 }
@@ -442,7 +454,9 @@ void GAM_waitFrames(u16 frames){
 
 void GAM_silvcPaint(){
     XGM_setPCM(SFX_IND, snd_silver_coin, sizeof(snd_silver_coin));
-    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    XGM_startPlayPCM(SFX_IND, 0, channels[soundSlot]);
+    soundSlot++;
+    soundSlot = soundSlot % 3;
     if(paintSlots < BNS_XSLOT * BNS_YSLOT){
         BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSLOT,
                         BNS_YSTART + paintSlots / BNS_XSLOT,
@@ -453,6 +467,9 @@ void GAM_silvcPaint(){
 
 void GAM_goldcPaint(){
     XGM_setPCM(SFX_IND, snd_gold_coin, sizeof(snd_gold_coin));
+    XGM_startPlayPCM(SFX_IND, 0, channels[soundSlot]);
+    soundSlot++;
+    soundSlot = soundSlot % 3;
     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
     if(paintSlots < BNS_XSLOT * BNS_YSLOT){
         BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSLOT,
