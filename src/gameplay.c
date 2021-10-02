@@ -30,6 +30,8 @@ BonusGather bonusData = {
 
 BonusGather * bonusGather;
 
+u16 paintSlots;
+
 u16 levelInd = START_LEVEL;
 u8 numPlayer = DEF_PLAYERS;
 
@@ -44,6 +46,8 @@ void GAM_levelInit();
 void GAM_drawFrame();
 void GAM_normalInter();
 void GAM_bonusInter();
+void GAM_normalInter_loop();
+void GAM_bonusInter_loop(BonusGather * gather);
 void VDP_drawNumber(u16 number, u8 chars, u8 xpos, u8 ypos);
 
 __attribute__((always_inline)) static inline void GAM_updateBonus(){
@@ -170,6 +174,11 @@ enum MainStates GAM_loop(){
             gameState = AFTERBOARD;
             return GAMEPLAY;
         case AFTERBOARD:
+            if(current_level->attributes & BONUS_FLAG){
+                GAM_bonusInter_loop(bonusGather);
+            }else{
+                GAM_normalInter_loop();
+            }
             return GAMEPLAY;
         case AFTERBOARD_OUT:
             VDP_fadeOut(32, 63, 20, FALSE);
@@ -212,6 +221,7 @@ enum MainStates GAM_loop(){
         case GAMEEXIT:
             return GAMEPLAY;
     }
+    return GAMEPLAY;
 }
 
 void GAM_setStartingBoard(u8 lvl){
@@ -410,4 +420,112 @@ void GAM_bonusInter(BonusGather * stack){
         
     }
     JOY_setEventHandler( &GAM_interControls );
+}
+
+
+void GAM_normalInter_loop(){
+
+}
+
+
+//This part of this code is horrible, but will work.
+
+void GAM_waitFrames(u16 frames){
+    for(u16 j = 0; j < frames; j++)
+        VDP_waitVSync();
+}
+
+void GAM_silvcPaint(){
+    XGM_setPCM(SFX_IND, snd_silver_coin, sizeof(snd_silver_coin));
+    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    if(paintSlots < BNS_XSLOT * BNS_YSLOT){
+        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSTART,
+                        BNS_YSTART + paintSlots / BNS_XSTART,
+                        SLC);
+        paintSlots++;
+    }
+}
+
+void GAM_goldcPaint(){
+    XGM_setPCM(SFX_IND, snd_gold_coin, sizeof(snd_gold_coin));
+    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    if(paintSlots < BNS_XSLOT * BNS_YSLOT){
+        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSTART,
+                        BNS_YSTART + paintSlots / BNS_XSTART,
+                        GLC);
+        paintSlots++;
+    }
+}
+
+void GAM_goldPaint(){
+    XGM_setPCM(SFX_IND, snd_goldbar, sizeof(snd_goldbar));
+    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    if(paintSlots < BNS_XSLOT * BNS_YSLOT){
+        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSTART,
+                        BNS_YSTART + paintSlots / BNS_XSTART,
+                        GLD);
+        paintSlots++;
+    }
+}
+
+void GAM_gemPaint(){
+    XGM_setPCM(SFX_IND, snd_gem, sizeof(snd_gem));
+    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    if(paintSlots < BNS_XSLOT * BNS_YSLOT){
+        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSTART,
+                        BNS_YSTART + paintSlots / BNS_XSTART,
+                        GEM);
+        paintSlots++;
+    }
+}
+
+void GAM_livePaint(){
+    XGM_setPCM(SFX_IND, snd_1up, sizeof(snd_1up));
+    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    if(paintSlots < BNS_XSLOT * BNS_YSLOT){
+        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSTART,
+                        BNS_YSTART + paintSlots / BNS_XSTART,
+                        UP1);
+        paintSlots++;
+    }
+}
+
+void GAM_ballPaint(){
+    XGM_setPCM(SFX_IND, snd_ball, sizeof(snd_ball));
+    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    if(paintSlots < BNS_XSLOT * BNS_YSLOT){
+        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSTART,
+                        BNS_YSTART + paintSlots / BNS_XSTART,
+                        BAL);
+        paintSlots++;
+    }
+}
+
+void GAM_arrowPaint(){
+    XGM_setPCM(SFX_IND, snd_arrow, sizeof(snd_arrow));
+    XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    if(paintSlots < BNS_XSLOT * BNS_YSLOT){
+        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSTART,
+                        BNS_YSTART + paintSlots / BNS_XSTART,
+                        ARR);
+        paintSlots++;
+    }
+}
+
+void GAM_bonusInter_loop(BonusGather * gather){
+
+    if(gather->bl_pick->silv){
+        GAM_silvcPaint();
+        gather->bl_pick->silv--;
+        GAM_waitFrames(25); //ew
+        return;
+    }
+
+    if(gather->gr_pick->silv){
+        GAM_silvcPaint();
+        gather->gr_pick->silv--;
+        GAM_waitFrames(25); //ew
+        return;
+    }
+
 }
