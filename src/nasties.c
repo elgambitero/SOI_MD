@@ -902,7 +902,7 @@ __attribute__((always_inline)) static inline void NST_beanie_deleteH(){
     //PHY_summon_deletor(front_ind, TRUE);
 }
 __attribute__((always_inline)) static inline void NST_beanie_deleteV(u8 direction, u8 ind){
-    SFX_playSound(snd_beanie_fire_ID;)
+    SFX_playSound(snd_beanie_fire_ID);
     BRD_break_block_ind(env, ind);
     fx.status = 2 + direction;
     fx.character = &FX_beanie_atk;

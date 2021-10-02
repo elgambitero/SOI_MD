@@ -177,7 +177,7 @@ void SPW_cannon_loop(){
                 fx.speed[X] = CANBALL_SPEED;
             }
             ACT_add(&fx, &projectiles);
-            SFX_playSound(snd_cannon_fire);
+            SFX_playSound(snd_cannon_fire_ID);
             curr->timer = MAX_TIMER - CANNON_TIME;
             return;
         };
