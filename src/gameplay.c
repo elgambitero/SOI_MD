@@ -406,18 +406,26 @@ void GAM_normalInter(){
 
 void GAM_bonusInter(BonusGather * stack){
     VDP_setPaletteColors(32, (u16*) palette_black, 32);
-    u16 palette[32];
-    memcpy(&palette[0], bns_end_1_img.palette->data, 16 * 2);
-    memcpy(&palette[16], bns_end_2_img.palette->data, 16 * 2);
     VDP_clearPlane(BG_A, TRUE);
     VDP_clearPlane(BG_B, TRUE);
     VDP_drawImageEx(BG_A, &bns_end_1_img, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX + IMAGE_OFFSET), 0, 0, FALSE, TRUE);
     VDP_drawImageEx(BG_B, &bns_end_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + IMAGE_OFFSET + bns_end_1_img.tileset->numTile )), 0, 0, FALSE, TRUE);
-    // fade in
-    VDP_fadeIn(32, 63 , palette, 20, FALSE);
+
     if(!stack) {
+        VDP_drawImageEx(BG_A, &nothing_img, 
+            TILE_ATTR_FULL(PAL1, FALSE, FALSE, FALSE, (TILE_USERINDEX + IMAGE_OFFSET + bns_end_1_img.tileset->numTile + bns_end_2_img.tileset->numTile)),
+            11, 14, FALSE, TRUE);
+        u16 palette[48];
+        memcpy(&palette[0], nothing_img.palette->data, 16 * 2);
+        memcpy(&palette[16], bns_end_1_img.palette->data, 16 * 2);
+        memcpy(&palette[32], bns_end_2_img.palette->data, 16 * 2);
+        VDP_fadeIn(16, 63 , palette, 20, FALSE);
         SFX_playSound(snd_bonus_nothing_ID);
     }else{
+        u16 palette[32];
+        memcpy(&palette[0], bns_end_1_img.palette->data, 16 * 2);
+        memcpy(&palette[16], bns_end_2_img.palette->data, 16 * 2);
+        VDP_fadeIn(32, 63 , palette, 20, FALSE);
         bl_stat->score += SILVCPOINTS * stack->bl_pick->silv;
         bl_stat->score += GOLDCPOINTS * stack->bl_pick->goldc;
         bl_stat->score += GOLDPOINTS * stack->bl_pick->gold;
@@ -440,7 +448,6 @@ void GAM_bonusInter(BonusGather * stack){
         soundSlot = 0;
 
         paintSlots = 0;
-        
     }
     JOY_setEventHandler( &GAM_interControls );
 }
