@@ -248,9 +248,11 @@ void GAM_levelInit(){
     green_player = NULL;
     bl_ctrl = 0;
     gr_ctrl = 0;
-    if(current_level->attributes & BONUS_FLAG)
+    if(current_level->attributes & BONUS_FLAG){
         bonusGather = &bonusData;
-    else
+        memset(&bl_pick, 0, sizeof(Pickups));
+        memset(&gr_pick, 0, sizeof(Pickups));
+    }else
         bonusGather = NULL;
     
     VDP_setPalette(PAL0, pal_sys0.data);
