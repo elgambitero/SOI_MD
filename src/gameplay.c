@@ -147,7 +147,7 @@ enum MainStates GAM_loop(){
             //FIXME: THIS IS TERRIBLE
             if(bl_stat->effect == KILLED && gr_stat->effect == KILLED){
                 if(GAM_gameType == COOPERATE){
-                    if(bl_stats.lives < 0 && gr_stats.lives < 0){
+                    if(bl_stats.lives + gr_stats.lives < 0){
                         gameState = GAMEOVER;
                     }else{
                         if(current_level->attributes & BONUS_FLAG){
@@ -241,14 +241,14 @@ void GAM_setPlayers(u8 pl){
 
 void GAM_gameInit(){
 
-    bl_stats.lives = 3;
+    bl_stats.lives = 2;
     bl_stats.balls = 3;
     bl_stats.arrows = 3;
     bl_stats.mult = 1;
     bl_stats.score = 0;
     bl_stats.speed = PL_WALKSPEED;
     
-    gr_stats.lives = 3;
+    gr_stats.lives = 2;
     gr_stats.balls = 3;
     gr_stats.arrows = 3;
     gr_stats.mult = 1;
@@ -368,7 +368,7 @@ void GAM_updateScore(){
 
 void GAM_updateLives(){
      if(GAM_gameType == COOPERATE){
-        sprintf(livesText, "%d", bl_stats.lives);
+        sprintf(livesText, "%d", bl_stats.lives + gr_stats.lives);
         VDP_drawText(livesText, X_LIVES, 0);
     }
 }

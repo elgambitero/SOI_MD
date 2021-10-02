@@ -607,18 +607,13 @@ void PL_update(){
             if(curr->pos[X] >= PX_TO_POS(BOARD_X_PX) || curr->pos[Y] >= PX_TO_POS(BOARD_Y_PX) ){
                 if(curr == blue_player) {
                     blue_player = NULL;
-                    bl_stats.effect = KILLED;
-                    bl_stats.lives--;
                 }
                 if(curr == green_player) {
                     green_player = NULL;
-                    gr_stats.effect = KILLED;
-                    if(GAM_gameType == COOPERATE){
-                        bl_stats.lives--;
-                    }else{
-                        gr_stats.lives--;
-                    }
                 }
+                curr->character->role.player.statistics->effect = KILLED;
+                if(!(current_level->attributes & BONUS_FLAG))
+                    curr->character->role.player.statistics->lives--;
                 result = ACT_DELETION;
             }
             curr->speed[Y] += GRAVITY;
