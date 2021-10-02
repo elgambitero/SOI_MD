@@ -8,6 +8,17 @@
 #define TURTLE_FRAMES 3000
 #define MAX_FRAMES 65535U
 
+#define CLK3HBONUS 2000
+#define CLK6HBONUS 4000
+#define CLK9HBONUS 6000
+#define CLK12HBONUS 8000
+
+#define SILVCPOINTS 500
+#define GOLDCPOINTS 1000
+#define GOLDPOINTS 2000
+#define GEMPOINTS 5000
+
+
 extern const Entity GD_silvCoin;
 extern const Entity GD_arrow;
 extern const Entity GD_clk3h;

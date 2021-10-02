@@ -251,7 +251,7 @@ void GAM_levelInit(){
     if(current_level->attributes & BONUS_FLAG)
         bonusGather = &bonusData;
     else
-        bonusGather = NULL
+        bonusGather = NULL;
     
     VDP_setPalette(PAL0, pal_sys0.data);
     VDP_setPalette(PAL1, pal_sys1.data);
@@ -389,6 +389,8 @@ void GAM_bonusInter(BonusGather * stack){
     if(!stack) {
         XGM_setPCM(SFX_IND, snd_bonus_nothing, sizeof(snd_bonus_nothing));
         XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
+    }else{
+
     }
     JOY_setEventHandler( &GAM_interControls );
 }
