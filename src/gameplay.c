@@ -419,6 +419,10 @@ void GAM_bonusInter(BonusGather * stack){
         gr_stat->balls += stack->gr_pick->balls;
         gr_stat->arrows += stack->gr_pick->arrows;
         
+        VDP_setPalette(PAL0, pal_sys0.data);
+        VDP_setPalette(PAL1, pal_sys1.data);
+
+        paintSlots = 0;
     }
     JOY_setEventHandler( &GAM_interControls );
 }
@@ -592,6 +596,19 @@ void GAM_bonusInter_loop(BonusGather * gather){
         return;
     }
 
+    if(gather->bl_pick->arrows){
+        GAM_arrowsPaint();
+        gather->bl_pick->arrows--;
+        GAM_waitFrames(COUNT_FRAMES); //ew
+        return;
+    }
+
+    if(gather->gr_pick->arrows){
+        GAM_arrowsPaint();
+        gather->gr_pick->arrows--;
+        GAM_waitFrames(COUNT_FRAMES); //ew
+        return;
+    }
 
 
     if(gather->bl_pick->balls){
@@ -604,22 +621,6 @@ void GAM_bonusInter_loop(BonusGather * gather){
     if(gather->gr_pick->balls){
         GAM_ballsPaint();
         gather->gr_pick->balls--;
-        GAM_waitFrames(COUNT_FRAMES); //ew
-        return;
-    }
-
-
-
-    if(gather->bl_pick->arrows){
-        GAM_arrowsPaint();
-        gather->bl_pick->arrows--;
-        GAM_waitFrames(COUNT_FRAMES); //ew
-        return;
-    }
-
-    if(gather->gr_pick->arrows){
-        GAM_arrowsPaint();
-        gather->gr_pick->arrows--;
         GAM_waitFrames(COUNT_FRAMES); //ew
         return;
     }

@@ -54,8 +54,8 @@ Pickups bl_pick, gr_pick;
 
 #define BNS_XSTART   2
 #define BNS_YSTART   4
-#define BNS_XSLOT    17
-#define BNS_YSLOT    10
+#define BNS_XSLOT    15
+#define BNS_YSLOT    8
 
 #define COUNT_FRAMES 15
 
