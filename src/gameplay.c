@@ -137,7 +137,7 @@ enum MainStates GAM_loop(){
             //FIXME: THIS IS TERRIBLE
             if(bl_stat->effect == KILLED && gr_stat->effect == KILLED){
                 if(GAM_gameType == COOPERATE){
-                    if(bl_stats.lives < 0){
+                    if(bl_stats.lives < 0 && gr_stats.lives < 0){
                         gameState = GAMEOVER;
                     }else{
                         if(current_level->attributes & BONUS_FLAG){
