@@ -248,12 +248,21 @@ void GAM_gameInit(){
     bl_stats.score = 0;
     bl_stats.speed = PL_WALKSPEED;
     
-    gr_stats.lives = 2;
-    gr_stats.balls = 3;
-    gr_stats.arrows = 3;
-    gr_stats.mult = 1;
-    gr_stats.score = 0;
-    gr_stats.speed = PL_WALKSPEED;
+    if(numPlayer){
+        gr_stats.lives = 2;
+        gr_stats.balls = 3;
+        gr_stats.arrows = 3;
+        gr_stats.mult = 1;
+        gr_stats.score = 0;
+        gr_stats.speed = PL_WALKSPEED;
+    }else{
+        gr_stats.lives = 0;
+        gr_stats.balls = 0;
+        gr_stats.arrows = 0;
+        gr_stats.mult = 0;
+        gr_stats.score = 0;
+        gr_stats.speed = 0;
+    }
 }
 
 void GAM_levelInit(){
