@@ -33,6 +33,7 @@ Actor * green_player;
 
 u8 bl_ctrl, gr_ctrl;
 PlayerStat bl_stats, gr_stats;
+Pickups bl_pick, gr_pick;
 
 #define CTRL_DIR_MSK 0x03
 
@@ -48,6 +49,7 @@ PlayerStat bl_stats, gr_stats;
 
 #define COOPERATE    0
 #define COMPETE      1
+
 
 enum GameStates{
     GAMEINIT,

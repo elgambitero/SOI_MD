@@ -45,7 +45,8 @@ const Entity PL_blue = {
             &bl_after_status,
             &bl_ctrl,
             bl_after_speed,
-            &bl_ab
+            &bl_ab,
+            &bl_pick
         }
     }
 };
@@ -68,7 +69,8 @@ const Entity PL_green = {
             &gr_after_status,
             &gr_ctrl,
             gr_after_speed,
-            &gr_ab
+            &gr_ab,
+            &gr_pick
         }
     }
 };

@@ -873,6 +873,7 @@ void GD_clk3h_pickup(){
         gr_stat->bonus += 2000;
     }else{
         //only current player
+        curr->character->role.player.statistics->bonus += 2000;
     }
 }
 
@@ -885,6 +886,7 @@ void GD_clk6h_pickup(){
         gr_stat->bonus += 4000;
     }else{
         //only current player
+        curr->character->role.player.statistics->bonus += 4000;
     }
 }
 
@@ -897,6 +899,7 @@ void GD_clk9h_pickup(){
         gr_stat->bonus += 6000;
     }else{
         //only current player
+        curr->character->role.player.statistics->bonus += 6000;
     }
 }
 
@@ -909,71 +912,60 @@ void GD_clk12h_pickup(){
         gr_stat->bonus += 8000;
     }else{
         //only current player
+        curr->character->role.player.statistics->bonus += 8000;
     }
 }
 
 void GD_points_SILV(){
-    if(GAM_gameType == COOPERATE){
-        bl_stats.score += 500;
-        GAM_updateScore();
-    }
+    curr->character->role.player.statistics->score += 500;
+    curr->character->role.player.pickups->silv++;
+    GAM_updateScore();
 }
 
 void GD_points_GOLDC(){
-    if(GAM_gameType == COOPERATE){
-        bl_stats.score += 1000;
-        GAM_updateScore();
-    }
+    curr->character->role.player.statistics->score += 1000;
+    curr->character->role.player.pickups->goldc++;
+    GAM_updateScore();
 }
 
 void GD_points_GOLD(){
-    if(GAM_gameType == COOPERATE){
-        bl_stats.score += 2000;
-        GAM_updateScore();
-    }
+    curr->character->role.player.statistics->score += 2000;
+    curr->character->role.player.pickups->gold++;
+    GAM_updateScore();
 }
 
 void GD_points_GEM(){
-    if(GAM_gameType == COOPERATE){
-        bl_stats.score += 5000;
-        GAM_updateScore();
-    }
+    curr->character->role.player.statistics->score += 5000;
+    GAM_updateScore();
+    curr->character->role.player.pickups->gem++;
 }
 
 
 void GD_give_arrow(){
-    bl_stats.arrows++;
+    curr->character->role.player.statistics->arrows++;
 }
 
 void GD_give_ball(){
-    bl_stats.balls++;
+    curr->character->role.player.statistics->balls++;
 }
 
 void GD_give_1UP(){
-    bl_stats.lives++;
+    curr->character->role.player.statistics->lives++;
     GAM_updateLives();
 }
 
 void GD_give_2x(){
-    if(GAM_gameType == COOPERATE){
-        bl_stats.mult = 2;
-    }
+    curr->character->role.player.statistics->mult = 2;
 }
 
 void GD_give_3x(){
-    if(GAM_gameType == COOPERATE){
-        bl_stats.mult = 3;
-    }
+    curr->character->role.player.statistics->mult = 3;
 }
 
 void GD_give_4x(){
-    if(GAM_gameType == COOPERATE){
-        bl_stats.mult = 4;
-    }
+    curr->character->role.player.statistics->mult = 4;
 }
 
 void GD_give_5x(){
-    if(GAM_gameType == COOPERATE){
-        bl_stats.mult = 5;
-    }
+    curr->character->role.player.statistics->mult = 5;
 }

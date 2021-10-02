@@ -2,7 +2,6 @@
 
 #define ENTITIES_H
 
-
 typedef struct Nastie{
     const u8 * death_sound;
     const u16 death_sound_size;
@@ -27,6 +26,7 @@ typedef struct Player{
     u8 * const ctrl;
     u8 * const future_speed;
     u8 * const anti_bounce;
+    Pickups * pickups;
 }Player;
 
 
@@ -72,7 +72,6 @@ typedef struct Entity{
     }role;
 }Entity;
 
-#include "globals.h"
 
 #define ENT_CHECK_BITMSK 0x0007
 
