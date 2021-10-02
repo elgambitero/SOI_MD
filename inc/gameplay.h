@@ -50,11 +50,14 @@ Pickups bl_pick, gr_pick;
 #define COOPERATE    0
 #define COMPETE      1
 
-#define BNS_XSTART   3
-#define BNS_YSTART   4
-#define BNS_XSLOT    7
-#define BNS_YSLOT    7
+#define IMAGE_OFFSET 128
 
+#define BNS_XSTART   2
+#define BNS_YSTART   4
+#define BNS_XSLOT    17
+#define BNS_YSLOT    10
+
+#define COUNT_FRAMES 15
 
 enum GameStates{
     GAMEINIT,

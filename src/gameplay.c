@@ -146,6 +146,7 @@ enum MainStates GAM_loop(){
                     }else{
                         if(current_level->attributes & BONUS_FLAG){
                             gameState = AFTERBOARD_IN;
+                            bonusGather = NULL;
                             VDP_clearPlane(BG_A, TRUE);
                             VDP_clearPlane(BG_B, TRUE);
                         }else{
@@ -394,8 +395,8 @@ void GAM_bonusInter(BonusGather * stack){
     memcpy(&palette[16], bns_end_2_img.palette->data, 16 * 2);
     VDP_clearPlane(BG_A, TRUE);
     VDP_clearPlane(BG_B, TRUE);
-    VDP_drawImageEx(BG_A, &bns_end_1_img, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX), 0, 0, FALSE, TRUE);
-    VDP_drawImageEx(BG_B, &bns_end_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + bns_end_1_img.tileset->numTile )), 0, 0, FALSE, TRUE);
+    VDP_drawImageEx(BG_A, &bns_end_1_img, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX + IMAGE_OFFSET), 0, 0, FALSE, TRUE);
+    VDP_drawImageEx(BG_B, &bns_end_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + IMAGE_OFFSET + bns_end_1_img.tileset->numTile )), 0, 0, FALSE, TRUE);
     // fade in
     VDP_fadeIn(32, 63 , palette, 20, FALSE);
     if(!stack) {
@@ -439,8 +440,8 @@ void GAM_silvcPaint(){
     XGM_setPCM(SFX_IND, snd_silver_coin, sizeof(snd_silver_coin));
     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
     if(paintSlots < BNS_XSLOT * BNS_YSLOT){
-        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSTART,
-                        BNS_YSTART + paintSlots / BNS_XSTART,
+        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSLOT,
+                        BNS_YSTART + paintSlots / BNS_XSLOT,
                         SLC);
         paintSlots++;
     }
@@ -450,8 +451,8 @@ void GAM_goldcPaint(){
     XGM_setPCM(SFX_IND, snd_gold_coin, sizeof(snd_gold_coin));
     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
     if(paintSlots < BNS_XSLOT * BNS_YSLOT){
-        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSTART,
-                        BNS_YSTART + paintSlots / BNS_XSTART,
+        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSLOT,
+                        BNS_YSTART + paintSlots / BNS_XSLOT,
                         GLC);
         paintSlots++;
     }
@@ -461,8 +462,8 @@ void GAM_goldPaint(){
     XGM_setPCM(SFX_IND, snd_goldbar, sizeof(snd_goldbar));
     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
     if(paintSlots < BNS_XSLOT * BNS_YSLOT){
-        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSTART,
-                        BNS_YSTART + paintSlots / BNS_XSTART,
+        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSLOT,
+                        BNS_YSTART + paintSlots / BNS_XSLOT,
                         GLD);
         paintSlots++;
     }
@@ -472,60 +473,154 @@ void GAM_gemPaint(){
     XGM_setPCM(SFX_IND, snd_gem, sizeof(snd_gem));
     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
     if(paintSlots < BNS_XSLOT * BNS_YSLOT){
-        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSTART,
-                        BNS_YSTART + paintSlots / BNS_XSTART,
+        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSLOT,
+                        BNS_YSTART + paintSlots / BNS_XSLOT,
                         GEM);
         paintSlots++;
     }
 }
 
-void GAM_livePaint(){
+void GAM_livesPaint(){
     XGM_setPCM(SFX_IND, snd_1up, sizeof(snd_1up));
     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
     if(paintSlots < BNS_XSLOT * BNS_YSLOT){
-        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSTART,
-                        BNS_YSTART + paintSlots / BNS_XSTART,
+        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSLOT,
+                        BNS_YSTART + paintSlots / BNS_XSLOT,
                         UP1);
         paintSlots++;
     }
 }
 
-void GAM_ballPaint(){
+void GAM_ballsPaint(){
     XGM_setPCM(SFX_IND, snd_ball, sizeof(snd_ball));
     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
     if(paintSlots < BNS_XSLOT * BNS_YSLOT){
-        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSTART,
-                        BNS_YSTART + paintSlots / BNS_XSTART,
+        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSLOT,
+                        BNS_YSTART + paintSlots / BNS_XSLOT,
                         BAL);
         paintSlots++;
     }
 }
 
-void GAM_arrowPaint(){
+void GAM_arrowsPaint(){
     XGM_setPCM(SFX_IND, snd_arrow, sizeof(snd_arrow));
     XGM_startPlayPCM(SFX_IND, 0, SOUND_PCM_CH2);
     if(paintSlots < BNS_XSLOT * BNS_YSLOT){
-        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSTART,
-                        BNS_YSTART + paintSlots / BNS_XSTART,
+        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSLOT,
+                        BNS_YSTART + paintSlots / BNS_XSLOT,
                         ARR);
         paintSlots++;
     }
 }
 
 void GAM_bonusInter_loop(BonusGather * gather){
+    if(!gather)
+        return;
 
     if(gather->bl_pick->silv){
         GAM_silvcPaint();
         gather->bl_pick->silv--;
-        GAM_waitFrames(25); //ew
+        GAM_waitFrames(COUNT_FRAMES); //ew
         return;
     }
 
     if(gather->gr_pick->silv){
         GAM_silvcPaint();
         gather->gr_pick->silv--;
-        GAM_waitFrames(25); //ew
+        GAM_waitFrames(COUNT_FRAMES); //ew
         return;
     }
 
+    if(gather->bl_pick->goldc){
+        GAM_goldcPaint();
+        gather->bl_pick->goldc--;
+        GAM_waitFrames(COUNT_FRAMES); //ew
+        return;
+    }
+
+    if(gather->gr_pick->goldc){
+        GAM_goldcPaint();
+        gather->gr_pick->goldc--;
+        GAM_waitFrames(COUNT_FRAMES); //ew
+        return;
+    }
+
+
+    if(gather->bl_pick->gold){
+        GAM_goldPaint();
+        gather->bl_pick->gold--;
+        GAM_waitFrames(COUNT_FRAMES); //ew
+        return;
+    }
+
+    if(gather->gr_pick->gold){
+        GAM_goldPaint();
+        gather->gr_pick->gold--;
+        GAM_waitFrames(COUNT_FRAMES); //ew
+        return;
+    }
+
+
+
+    if(gather->bl_pick->gem){
+        GAM_gemPaint();
+        gather->bl_pick->gem--;
+        GAM_waitFrames(COUNT_FRAMES); //ew
+        return;
+    }
+
+    if(gather->gr_pick->gem){
+        GAM_gemPaint();
+        gather->gr_pick->gem--;
+        GAM_waitFrames(COUNT_FRAMES); //ew
+        return;
+    }
+
+
+
+    if(gather->bl_pick->lives){
+        GAM_livesPaint();
+        gather->bl_pick->lives--;
+        GAM_waitFrames(COUNT_FRAMES); //ew
+        return;
+    }
+
+    if(gather->gr_pick->lives){
+        GAM_livesPaint();
+        gather->gr_pick->lives--;
+        GAM_waitFrames(COUNT_FRAMES); //ew
+        return;
+    }
+
+
+
+    if(gather->bl_pick->balls){
+        GAM_ballsPaint();
+        gather->bl_pick->balls--;
+        GAM_waitFrames(COUNT_FRAMES); //ew
+        return;
+    }
+
+    if(gather->gr_pick->balls){
+        GAM_ballsPaint();
+        gather->gr_pick->balls--;
+        GAM_waitFrames(COUNT_FRAMES); //ew
+        return;
+    }
+
+
+
+    if(gather->bl_pick->arrows){
+        GAM_arrowsPaint();
+        gather->bl_pick->arrows--;
+        GAM_waitFrames(COUNT_FRAMES); //ew
+        return;
+    }
+
+    if(gather->gr_pick->arrows){
+        GAM_arrowsPaint();
+        gather->gr_pick->arrows--;
+        GAM_waitFrames(COUNT_FRAMES); //ew
+        return;
+    }
 }
