@@ -312,5 +312,7 @@ void SFX_playSound(u8 id){
             channel++;
             channel = channel % 3;
             break;
+        default:
+            break;
     }
 }
