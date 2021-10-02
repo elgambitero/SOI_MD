@@ -30,9 +30,9 @@ typedef struct Pickups{
     u8 goldc;
     u8 gold;
     u8 gem;
-    u8 up1;
-    u8 ball;
-    u8 arrow;
+    u8 lives;
+    u8 balls;
+    u8 arrows;
 }Pickups;
 
 

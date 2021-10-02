@@ -17,7 +17,18 @@ u16 frmInd;
 u8 bonusClk;
 u16 bonusCount;
 u32 scoreCount;
-u8 * bonusGather;
+
+typedef struct BonusGather{
+    Pickups * bl_pick;
+    Pickups * gr_pick;
+}BonusGather;
+
+BonusGather bonusData = {
+    &bl_pick,
+    &gr_pick
+};
+
+BonusGather * bonusGather;
 
 u16 levelInd = START_LEVEL;
 u8 numPlayer = DEF_PLAYERS;
@@ -363,7 +374,7 @@ void GAM_normalInter(){
     JOY_setEventHandler( &GAM_interControls );
 }
 
-void GAM_bonusInter(u8 * stack){
+void GAM_bonusInter(BonusGather * stack){
     VDP_setPaletteColors(32, (u16*) palette_black, 32);
     u16 palette[32];
     memcpy(&palette[0], bns_end_1_img.palette->data, 16 * 2);

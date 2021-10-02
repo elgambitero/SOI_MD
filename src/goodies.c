@@ -923,35 +923,58 @@ void GD_points_SILV(){
 }
 
 void GD_points_GOLDC(){
-    curr->character->role.player.statistics->score += 1000;
-    curr->character->role.player.pickups->goldc++;
-    GAM_updateScore();
+    if(current_level->attributes & BONUS_FLAG){
+        curr->character->role.player.pickups->goldc++;
+    }else{
+        curr->character->role.player.statistics->score += 1000;
+        GAM_updateScore();
+    }
 }
 
 void GD_points_GOLD(){
-    curr->character->role.player.statistics->score += 2000;
+    if(current_level->attributes & BONUS_FLAG){
+        
+    }else{
+
+    }
     curr->character->role.player.pickups->gold++;
+    curr->character->role.player.statistics->score += 2000;
     GAM_updateScore();
 }
 
 void GD_points_GEM(){
-    curr->character->role.player.statistics->score += 5000;
-    GAM_updateScore();
-    curr->character->role.player.pickups->gem++;
+    if(current_level->attributes & BONUS_FLAG){
+        curr->character->role.player.pickups->gem++;
+    }else{
+        curr->character->role.player.statistics->score += 5000;
+        GAM_updateScore();
+    }
 }
 
 
 void GD_give_arrow(){
-    curr->character->role.player.statistics->arrows++;
+    if(current_level->attributes & BONUS_FLAG){
+        curr->character->role.player.pickups->arrows++;
+    }else{
+        curr->character->role.player.statistics->arrows++;
+    }
 }
 
 void GD_give_ball(){
-    curr->character->role.player.statistics->balls++;
+    if(current_level->attributes & BONUS_FLAG){
+        curr->character->role.player.pickups->balls++;
+    }else{
+        curr->character->role.player.statistics->balls++;
+    }
 }
 
 void GD_give_1UP(){
-    curr->character->role.player.statistics->lives++;
-    GAM_updateLives();
+    if(current_level->attributes & BONUS_FLAG){
+        curr->character->role.player.pickups->lives++;
+    }else{
+        curr->character->role.player.statistics->lives++;
+        GAM_updateLives();
+    }
 }
 
 void GD_give_2x(){
