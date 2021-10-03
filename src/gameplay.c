@@ -667,6 +667,7 @@ void GAM_bonusInter(BonusGather * stack){
         bl_stat->lives += stack->bl_pick->lives;
         bl_stat->balls += stack->bl_pick->balls;
         bl_stat->arrows += stack->bl_pick->arrows;
+        bl_stat->score += bl_stat->mult * bl_stat->bonus;
 
         gr_stat->score += SILVCPOINTS * stack->gr_pick->silv;
         gr_stat->score += GOLDCPOINTS * stack->gr_pick->goldc;
@@ -675,6 +676,7 @@ void GAM_bonusInter(BonusGather * stack){
         gr_stat->lives += stack->gr_pick->lives;
         gr_stat->balls += stack->gr_pick->balls;
         gr_stat->arrows += stack->gr_pick->arrows;
+        gr_stat->score += gr_stat->mult * gr_stat->bonus;
         
         VDP_setPalette(PAL0, pal_sys0.data);
         VDP_setPalette(PAL1, pal_sys1.data);
