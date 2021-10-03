@@ -62,29 +62,43 @@ void GAM_bonusInter_loop(BonusGather * gather);
 void VDP_drawNumber(u16 number, u8 chars, u8 xpos, u8 ypos);
 
 __attribute__((always_inline)) static inline void GAM_updateBonus(){
+    //Check every 2 frames.
+    bonusClk = !bonusClk;
+    if(!bonusClk) return;
+
+    if(bl_stats.bonus){
+            bl_stats.bonus--;
+    }else{
+        if(blue_player && blue_player->status != DEAD) {
+            PHY_kill(blue_player, 0, PL_JMP_BOOST);
+        }
+    }
+
+    if(gr_stats.bonus){
+        gr_stats.bonus--;
+    }else{
+        if(green_player && green_player->status != DEAD) {
+            PHY_kill(green_player, 0, PL_JMP_BOOST);
+            //green_player = NULL;
+        }
+    }
+
     //ONLY FOR COOPERATE FOR NOW
     if(GAM_gameType == COOPERATE){
-        bonusCount = bl_stats.bonus;
-        if(bonusCount){
-            bonusClk = !bonusClk;
-            if(!bonusClk) return;
-            bl_stats.bonus--;
-            sprintf(bonusText, "%05d", bonusCount);
-            VDP_drawText(bonusText, X_BONUS, 0);
-            if(bonusCount == 1000){
-                SFX_playSound(snd_hurry_up_ID);
-                XGM_setMusicTempo(4 * XGM_getMusicTempo() / 3);
-            }
-        }else{
-            if(blue_player && blue_player->status != DEAD) {
-                PHY_kill(blue_player, 0, PL_JMP_BOOST);
-                //blue_player = NULL;
-            }
-            if(green_player && green_player->status != DEAD) {
-                PHY_kill(green_player, 0, PL_JMP_BOOST);
-                //green_player = NULL;
-            }
-        }
+        bonusCount = (bl_stats.bonus + gr_stats.bonus) / 2;
+        sprintf(bonusText, "%05d", bonusCount);
+        VDP_drawText(bonusText, X_BONUS, 0);
+    }
+
+    if( (bl_stats.bonus < 1000 || gr_stats.bonus < 1000) && !fastMusic){
+        SFX_playSound(snd_hurry_up_ID);
+        XGM_setMusicTempo(4 * XGM_getMusicTempo() / 3);
+        fastMusic = 1;
+    }
+
+    if( (bl_stats.bonus > 1000 && gr_stats.bonus > 1000) && fastMusic){
+        XGM_setMusicTempo(3 * XGM_getMusicTempo() / 4);
+        fastMusic = 0;
     }
 }
 
@@ -206,10 +220,6 @@ enum MainStates GAM_loop(){
                     }
                 }
             }else{
-                //Transitions to intermission.
-                if(GAM_gameType == COOPERATE){
-                    bl_stats.score += bonusCount * bl_stats.mult;
-                }
                 VDP_clearPlane(BG_A, TRUE);
                 VDP_clearPlane(BG_B, TRUE);
                 gameState = AFTERBOARD_IN;
@@ -315,6 +325,8 @@ void GAM_gameInit(){
 void GAM_levelInit(){
 
     current_level = levels[levelInd];
+
+    fastMusic = 0;
 
     ind = TILE_USERINDEX;
     blue_player = NULL;
@@ -443,6 +455,7 @@ void GAM_waitFrames(u16 frames){
         VDP_waitVSync();
 }
 
+//TODO: Non diversified for compete mode.
 void GAM_normalInter(){
     VDP_setPaletteColors(32, (u16*) palette_black, 32);
     u16 palette[64];
@@ -461,9 +474,12 @@ void GAM_normalInter(){
     VDP_drawText("Bonus", SINGCOUNT_X, SINGCOUNT_Y + BONUSY);
     VDP_drawText("No Weapons Reward", SINGCOUNT_X, SINGCOUNT_Y + WEAPONSY);
     VDP_drawText("Score", SINGCOUNT_X, SINGCOUNT_Y + SCOREY);
+    scoreCount = bl_stats.score + gr_stats.score;
+    sprintf(scoreText, "%08lu", scoreCount);
+    VDP_drawText(scoreText, SINGCOUNT_X + SCORE_SPACE, SINGCOUNT_Y + SCOREY);
+
 
     SPR_init();
-
 
     if(numPlayer){
         Sprite * bp = SPR_addSprite(&bp_spr, BP_POSX, PL_POSY,
@@ -487,7 +503,6 @@ void GAM_normalInter(){
 
 void GAM_normalInter_loop(){
     SPR_update();
-
 
     if(interFrames){
         interFrames--;

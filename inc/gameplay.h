@@ -27,6 +27,8 @@
 
 u8 GAM_gameType;
 
+u8 fastMusic;
+
 const Board * current_level;
 Actor * blue_player;
 Actor * green_player;
@@ -71,9 +73,11 @@ Pickups bl_pick, gr_pick;
 #define BONUSY   0
 #define WEAPONSY 2
 
-#define SCORE_SPACE   13
-#define BONUS_SPACE   13
-#define WEAPONS_SPACE 1
+#define BONUSMULT 7
+
+#define SCORE_SPACE   18
+#define BONUS_SPACE   21
+#define WEAPONS_SPACE 22
       
 
 //Bonus booty count positions.

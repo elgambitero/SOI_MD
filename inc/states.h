@@ -16,7 +16,7 @@ enum MainStates{INTRO,
     
 typedef struct PlayerStat{
     u32 score;
-    u16 bonus;
+    u32 bonus;
     u8 mult;
     u8 arrows;
     u8 balls;
