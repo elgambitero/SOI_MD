@@ -22,6 +22,9 @@ u32 scoreCount;
 u16 interFrames;
 u8  interTurn;
 
+u32 blscore;
+u32 grscore;
+
 typedef struct BonusGather{
     Pickups * bl_pick;
     Pickups * gr_pick;
@@ -203,13 +206,10 @@ enum MainStates GAM_loop(){
             PHY_end();
             SPR_end();
             BRD_unload(&board);
-            //FIXME: THIS IS TERRIBLE
+            //Find out the reason the board ended.
             if(bl_stat->effect == KILLED && gr_stat->effect == KILLED){
+                //Both died
                 if(GAM_gameType == COOPERATE){
-                    u8 multi = bl_stats.mult > gr_stats.mult ? bl_stats.mult : gr_stats.mult;
-                    bl_stats.mult = multi;
-                    gr_stats.mult = multi;
-
                     if(bl_stats.lives + gr_stats.lives < 0){
                         gameState = GAMEOVER;
                     }else{
@@ -224,6 +224,21 @@ enum MainStates GAM_loop(){
                     }
                 }
             }else{
+
+                //At least one survived
+                if(GAM_gameType == COOPERATE){
+                    //Get the best multiplier for both players on cooperate.
+                    u8 multi = bl_stats.mult > gr_stats.mult ? bl_stats.mult : gr_stats.mult;
+                    bl_stats.mult = multi;
+                    gr_stats.mult = multi;
+                }
+
+                blscore = bl_stats.score;
+                grscore = gr_stats.score;
+
+                bl_stats.score += ( (bl_stats.bonus * bl_stats.mult) + (bl_stats.noweap ? 5000 : 0) );
+                gr_stats.score += ( (gr_stats.bonus * gr_stats.mult) + (gr_stats.noweap ? 5000 : 0) );
+
                 VDP_clearPlane(BG_A, TRUE);
                 VDP_clearPlane(BG_B, TRUE);
                 gameState = AFTERBOARD_IN;
@@ -483,7 +498,7 @@ void GAM_normalInter(){
     VDP_drawText("Bonus", SINGCOUNT_X, SINGCOUNT_Y + BONUSY);
     VDP_drawText("No Weapons Reward", SINGCOUNT_X, SINGCOUNT_Y + WEAPONSY);
     VDP_drawText("Score", SINGCOUNT_X, SINGCOUNT_Y + SCOREY);
-    scoreCount = (bl_stats.score + gr_stats.score) / 2;
+    scoreCount = (blscore + grscore) / 2;
     sprintf(scoreText, "%08lu", scoreCount);
     VDP_drawText(scoreText, SINGCOUNT_X + SCORE_SPACE, SINGCOUNT_Y + SCOREY);
 
@@ -511,10 +526,10 @@ void GAM_normalInter(){
 
 void GAM_advanceBonuscount(){
 
-    bl_stats.score += bl_stats.mult ? bl_stats.bonus : 0;
-    gr_stats.score += gr_stats.mult ? gr_stats.bonus : 0;
+    blscore += bl_stats.mult ? bl_stats.bonus : 0;
+    grscore += gr_stats.mult ? gr_stats.bonus : 0;
 
-    scoreCount = (bl_stats.score + gr_stats.score)/2;
+    scoreCount = (blscore + grscore)/2;
     sprintf(scoreText, "%08lu", scoreCount);
     VDP_drawText(scoreText, SINGCOUNT_X + SCORE_SPACE, SINGCOUNT_Y + SCOREY);
 
@@ -617,11 +632,11 @@ void GAM_normalInter_loop(){
 
             if(bl_stats.noweap){
                 bl_stats.noweap = 0; //prevent fastforward calculations.
-                bl_stats.score += 5000;
+                blscore += 5000;
             }
             if(gr_stats.noweap){
                 gr_stats.noweap = 0; //prevent fastforward calculations.
-                gr_stats.score += 5000;
+                grscore += 5000;
             }
 
             scoreCount = (bl_stats.score + gr_stats.score)/2;
