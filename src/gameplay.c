@@ -133,8 +133,9 @@ enum MainStates GAM_loop(){
                 VDP_setPaletteColors(32, (u16*) palette_black, 32);
                 VDP_clearPlane(BG_A, TRUE);
                 VDP_clearPlane(BG_B, TRUE);
-                VDP_drawImageEx(BG_A, &bns_begin_1_img, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX + IMAGE_OFFSET), 0, 0, FALSE, TRUE);
-                VDP_drawImageEx(BG_B, &bns_begin_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + IMAGE_OFFSET + bns_begin_1_img.tileset->numTile )), 0, 0, FALSE, TRUE);
+                //Dangerous underflow.
+                VDP_drawImageEx(BG_A, &bns_begin_1_img, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX + IMAGE_OFFSET), 0, -1, FALSE, TRUE);
+                VDP_drawImageEx(BG_B, &bns_begin_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + IMAGE_OFFSET + bns_begin_1_img.tileset->numTile )), 0, -1, FALSE, TRUE);
 
                 u16 palette[32];
                 memcpy(&palette[0], bns_begin_1_img.palette->data, 16 * 2);
