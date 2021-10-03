@@ -434,6 +434,12 @@ void GAM_updateLevel(){
     }
 }
 
+//This part of the code governs intermission screens and it is really ugly.
+void GAM_waitFrames(u16 frames){
+    for(u16 j = 0; j < frames; j++)
+        VDP_waitVSync();
+}
+
 void GAM_normalInter(){
     VDP_setPaletteColors(32, (u16*) palette_black, 32);
     u16 palette[64];
@@ -448,6 +454,10 @@ void GAM_normalInter(){
     VDP_clearPlane(BG_B, TRUE);
     VDP_drawImageEx(BG_A, &brd_end_1_img, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX), 0, 0, FALSE, TRUE);
     VDP_drawImageEx(BG_B, &brd_end_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + brd_end_1_img.tileset->numTile )), 0, 0, FALSE, TRUE);
+
+    VDP_drawText("Bonus", SINGCOUNT_X, SINGCOUNT_Y + BONUSY);
+    VDP_drawText("No Weapons Reward", SINGCOUNT_X, SINGCOUNT_Y + WEAPONSY);
+    VDP_drawText("Score", SINGCOUNT_X, SINGCOUNT_Y + SCOREY);
 
     SPR_init();
 
@@ -526,10 +536,6 @@ void GAM_normalInter_loop(){
 
 //This part of this code is horrible, but will work.
 
-void GAM_waitFrames(u16 frames){
-    for(u16 j = 0; j < frames; j++)
-        VDP_waitVSync();
-}
 
 void GAM_silvcPaint(){
     SFX_playSound(snd_silver_coin_ID);

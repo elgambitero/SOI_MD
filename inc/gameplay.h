@@ -50,18 +50,38 @@ Pickups bl_pick, gr_pick;
 #define COOPERATE    0
 #define COMPETE      1
 
+//Intermissions
+
+//VRAM offsets
 #define IMAGE_OFFSET 128
 
+//Player signs
 #define BP_POSX     128
 #define PL_POSY     80
 #define GP_POSX     176
 
+//Score positions
+#define SINGCOUNT_X  7
+#define SINGCOUNT_Y  13
+
+//Lettering
+#define SCOREY   4
+#define BONUSY   0
+#define WEAPONSY 2
+
+#define SCORE_SPACE   13
+#define BONUS_SPACE   13
+#define WEAPONS_SPACE 1
+      
+
+//Bonus booty count positions.
 #define BNS_XSTART   2
 #define BNS_YSTART   4
 #define BNS_XSLOT    15
 #define BNS_YSLOT    8
 
 #define COUNT_FRAMES 15
+#define HUAH_FRAMES 60
 
 enum GameStates{
     GAMEINIT,
