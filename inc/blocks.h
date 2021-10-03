@@ -229,6 +229,8 @@
 #define C3H (GOODIE | GDi_CLK3h)
 #define M2X (GOODIE | GDi_2x )
 #define M3X (GOODIE | GDi_3x )
+#define M4X (GOODIE | GDi_4x )
+#define M5X (GOODIE | GDi_5x )
 #define GLS (GOODIE | GDi_GLASS)
 #define THN (GOODIE | GDi_THNBALL)
 #define TUR (GOODIE | GDi_TURTL)

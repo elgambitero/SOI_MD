@@ -877,7 +877,11 @@ void GD_points_SILV(){
     if(current_level->attributes & BONUS_FLAG){
         curr->character->role.player.pickups->silv++;
     }else{
-        curr->character->role.player.statistics->score += SILVCPOINTS;
+        if(GAM_gameType == COOPERATE){
+            bl_stats.score += SILVCPOINTS;
+            gr_stats.score += SILVCPOINTS;
+        }else
+            curr->character->role.player.statistics->score += SILVCPOINTS;
         GAM_updateScore();
     }
 }
@@ -886,7 +890,11 @@ void GD_points_GOLDC(){
     if(current_level->attributes & BONUS_FLAG){
         curr->character->role.player.pickups->goldc++;
     }else{
-        curr->character->role.player.statistics->score += GOLDCPOINTS;
+        if(GAM_gameType == COOPERATE){
+            bl_stats.score += GOLDCPOINTS;
+            gr_stats.score += GOLDCPOINTS;
+        }else
+            curr->character->role.player.statistics->score += GOLDCPOINTS;
         GAM_updateScore();
     }
 }
@@ -895,7 +903,11 @@ void GD_points_GOLD(){
     if(current_level->attributes & BONUS_FLAG){
         curr->character->role.player.pickups->gold++;
     }else{
-        curr->character->role.player.statistics->score += GOLDPOINTS;
+        if(GAM_gameType == COOPERATE){
+            bl_stats.score += GOLDPOINTS;
+            gr_stats.score += GOLDPOINTS;
+        }else
+            curr->character->role.player.statistics->score += GOLDPOINTS;
         GAM_updateScore();
     }
 }
@@ -904,7 +916,11 @@ void GD_points_GEM(){
     if(current_level->attributes & BONUS_FLAG){
         curr->character->role.player.pickups->gem++;
     }else{
-        curr->character->role.player.statistics->score += GEMPOINTS;
+        if(GAM_gameType == COOPERATE){
+            bl_stats.score += GEMPOINTS;
+            gr_stats.score += GEMPOINTS;
+        }else
+            curr->character->role.player.statistics->score += GEMPOINTS;
         GAM_updateScore();
     }
 }
