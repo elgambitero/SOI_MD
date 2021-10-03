@@ -450,18 +450,20 @@ void GAM_normalInter(){
     VDP_drawImageEx(BG_B, &brd_end_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + brd_end_1_img.tileset->numTile )), 0, 0, FALSE, TRUE);
 
     SPR_init();
-    if(bl_stats.lives >= 0){
-        Sprite * bp = SPR_addSprite(&bp_spr, BP_POSX, PL_POSY,
-            TILE_ATTR_FULL(PAL_SYS0,TRUE, FALSE, FALSE,TILE_USERINDEX));
-        SPR_setAnim(bp, WALK_RIGHT);
-    }
 
-    if(gr_stats.lives >= 0){
+
+    if(numPlayer){
+        Sprite * bp = SPR_addSprite(&bp_spr, BP_POSX, PL_POSY,
+        TILE_ATTR_FULL(PAL_SYS0,TRUE, FALSE, FALSE,TILE_USERINDEX));
+        SPR_setAnim(bp, WALK_RIGHT);
         Sprite * gp = SPR_addSprite(&bp_spr, GP_POSX, PL_POSY,
             TILE_ATTR_FULL(PAL_SYS1,TRUE, FALSE, FALSE,TILE_USERINDEX));
         SPR_setAnim(gp, WALK_RIGHT);
+    }else{
+        Sprite * bp = SPR_addSprite(&bp_spr, ((BP_POSX + GP_POSX)/2) , PL_POSY,
+        TILE_ATTR_FULL(PAL_SYS0,TRUE, FALSE, FALSE,TILE_USERINDEX));
+        SPR_setAnim(bp, WALK_RIGHT);
     }
-
     // fade in
     VDP_fadeIn(0, 63 , palette, 20, FALSE);
 
