@@ -4,6 +4,7 @@
 #include "stage.h"
 #include "sound.h"
 #include "images.h"
+#include "sprites.h"
 
 #define START_LEVEL 1
 #define DEF_PLAYERS 0
@@ -232,6 +233,8 @@ enum MainStates GAM_loop(){
             VDP_fadeOut(0, 63, 20, FALSE);
             VDP_clearPlane(BG_A, TRUE);
             VDP_clearPlane(BG_B, TRUE);
+            if(!(current_level->attributes & BONUS_FLAG))
+                SPR_end();
             gameState = NEXTBOARD;
             return GAMEPLAY;
         case NEXTBOARD:
@@ -433,15 +436,35 @@ void GAM_updateLevel(){
 
 void GAM_normalInter(){
     VDP_setPaletteColors(32, (u16*) palette_black, 32);
-    u16 palette[32];
-    memcpy(&palette[0], brd_end_1_img.palette->data, 16 * 2);
-    memcpy(&palette[16], brd_end_2_img.palette->data, 16 * 2);
+    u16 palette[64];
+
+    memcpy(&palette[0], pal_sys0.data, 16 * 2);
+    memcpy(&palette[16], pal_sys1.data, 16 * 2);
+
+    memcpy(&palette[32], brd_end_1_img.palette->data, 16 * 2);
+    memcpy(&palette[48], brd_end_2_img.palette->data, 16 * 2);
+
     VDP_clearPlane(BG_A, TRUE);
     VDP_clearPlane(BG_B, TRUE);
     VDP_drawImageEx(BG_A, &brd_end_1_img, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX), 0, 0, FALSE, TRUE);
     VDP_drawImageEx(BG_B, &brd_end_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + brd_end_1_img.tileset->numTile )), 0, 0, FALSE, TRUE);
+
+    SPR_init();
+    if(bl_stats.lives >= 0){
+        Sprite * bp = SPR_addSprite(&bp_spr, BP_POSX, PL_POSY,
+            TILE_ATTR_FULL(PAL_SYS0,TRUE, FALSE, FALSE,TILE_USERINDEX));
+        SPR_setAnim(bp, WALK_RIGHT);
+    }
+
+    if(gr_stats.lives >= 0){
+        Sprite * gp = SPR_addSprite(&bp_spr, GP_POSX, PL_POSY,
+            TILE_ATTR_FULL(PAL_SYS1,TRUE, FALSE, FALSE,TILE_USERINDEX));
+        SPR_setAnim(gp, WALK_RIGHT);
+    }
+
     // fade in
-    VDP_fadeIn(32, 63 , palette, 20, FALSE);
+    VDP_fadeIn(0, 63 , palette, 20, FALSE);
+
     JOY_setEventHandler( &GAM_interControls );
 }
 
@@ -495,7 +518,7 @@ void GAM_bonusInter(BonusGather * stack){
 
 
 void GAM_normalInter_loop(){
-
+    SPR_update();
 }
 
 

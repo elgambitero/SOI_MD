@@ -52,6 +52,10 @@ Pickups bl_pick, gr_pick;
 
 #define IMAGE_OFFSET 128
 
+#define BP_POSX     128
+#define PL_POSY     80
+#define GP_POSX     176
+
 #define BNS_XSTART   2
 #define BNS_YSTART   4
 #define BNS_XSLOT    15
