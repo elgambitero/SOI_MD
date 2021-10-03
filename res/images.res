@@ -5,3 +5,5 @@ IMAGE brd_end_2_img  "images/BoardEnding_mid_2.bmp"      AUTO
 IMAGE bns_end_1_img  "images/BonusEnd_mid_1.bmp"         AUTO
 IMAGE bns_end_2_img  "images/BonusEnd_mid_2.bmp"         AUTO
 IMAGE nothing_img    "images/nothing_low.bmp"            AUTO
+IMAGE bns_begin_1_img  "images/BonusBegin_mid_1.bmp"         AUTO
+IMAGE bns_begin_2_img  "images/BonusBegin_mid_2.bmp"         AUTO
