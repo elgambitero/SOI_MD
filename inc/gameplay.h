@@ -64,6 +64,8 @@ Pickups bl_pick, gr_pick;
 #define SINGCOUNT_X  7
 #define SINGCOUNT_Y  13
 
+#define COMPCOUNT_Y  20
+
 //Lettering
 #define SCOREY   4
 #define BONUSY   0
