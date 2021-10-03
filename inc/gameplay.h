@@ -61,16 +61,16 @@ Pickups bl_pick, gr_pick;
 
 enum GameStates{
     GAMEINIT,
+    INITBOARD_IN,
     INITBOARD,
+    INITBOARD_OUT,
     TRYAGAIN,
     GAME,
     ENDBOARD,
     AFTERBOARD_IN,
     AFTERBOARD,
     AFTERBOARD_OUT,
-    NEXTBOARD_IN,
     NEXTBOARD,
-    NEXTBOARD_OUT,
     GAMEOVER,
     GAMEENDING,
     GAMEEXIT

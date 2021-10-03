@@ -111,7 +111,7 @@ void GAM_interControls(u16 joy, u16 changed, u16 state){
 void GAM_beginControls(u16 joy, u16 changed, u16 state){
     if(changed & BUTTON_START){
         if(state & BUTTON_START){
-            gameState = NEXTBOARD_OUT;
+            gameState = INITBOARD_OUT;
         }
     }
 }
@@ -122,15 +122,46 @@ enum MainStates GAM_loop(){
             SYS_disableInts();
             GAM_gameInit();
 
-            gameState = INITBOARD;
+            gameState = INITBOARD_IN;
             SYS_enableInts();
             return GAMEPLAY;
+        case INITBOARD_IN:
+            if(levels[levelInd]->attributes & BONUS_FLAG){
+                gameState = INITBOARD;
+
+
+                VDP_setPaletteColors(32, (u16*) palette_black, 32);
+                VDP_clearPlane(BG_A, TRUE);
+                VDP_clearPlane(BG_B, TRUE);
+                VDP_drawImageEx(BG_A, &bns_begin_1_img, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX + IMAGE_OFFSET), 0, 0, FALSE, TRUE);
+                VDP_drawImageEx(BG_B, &bns_begin_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + IMAGE_OFFSET + bns_begin_1_img.tileset->numTile )), 0, 0, FALSE, TRUE);
+
+                u16 palette[32];
+                memcpy(&palette[0], bns_begin_1_img.palette->data, 16 * 2);
+                memcpy(&palette[16], bns_begin_2_img.palette->data, 16 * 2);
+                VDP_fadeIn(32, 63 , palette, 20, FALSE);
+
+                SFX_playSound(snd_bonus_start_ID);
+
+                JOY_setEventHandler(&GAM_beginControls);
+                return GAMEPLAY;
+            }
+            gameState = INITBOARD_OUT;
+            return GAMEPLAY;
         case INITBOARD:
+            return GAMEPLAY;
+        case INITBOARD_OUT:
+            if(levels[levelInd]->attributes & BONUS_FLAG) //ugly
+                VDP_fadeOut(0, 63, 20, FALSE);
+            VDP_clearPlane(BG_A, TRUE);
+            VDP_clearPlane(BG_B, TRUE);
+
             SYS_disableInts();
             GAM_levelInit();
 
             gameState = GAME;
             SYS_enableInts();
+
             return GAMEPLAY;
         case GAME:
             GAM_updateBonus();
@@ -147,7 +178,7 @@ enum MainStates GAM_loop(){
             }
             return GAMEPLAY;
         case TRYAGAIN:
-            gameState = INITBOARD;
+            gameState = INITBOARD_IN;
             return GAMEPLAY;
         case ENDBOARD:
             PHY_end();
@@ -200,44 +231,16 @@ enum MainStates GAM_loop(){
             VDP_fadeOut(0, 63, 20, FALSE);
             VDP_clearPlane(BG_A, TRUE);
             VDP_clearPlane(BG_B, TRUE);
-            gameState = NEXTBOARD_IN;
+            gameState = NEXTBOARD;
             return GAMEPLAY;
-        case NEXTBOARD_IN:
+        case NEXTBOARD:
             levelInd++;
             if(levelInd == max_levels)
             {
                 gameState = GAMEENDING;
                 return GAMEPLAY;
             }
-            if(levels[levelInd]->attributes & BONUS_FLAG){
-                gameState = NEXTBOARD;
-
-
-                VDP_setPaletteColors(32, (u16*) palette_black, 32);
-                VDP_clearPlane(BG_A, TRUE);
-                VDP_clearPlane(BG_B, TRUE);
-                VDP_drawImageEx(BG_A, &bns_begin_1_img, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX + IMAGE_OFFSET), 0, 0, FALSE, TRUE);
-                VDP_drawImageEx(BG_B, &bns_begin_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + IMAGE_OFFSET + bns_begin_1_img.tileset->numTile )), 0, 0, FALSE, TRUE);
-
-                u16 palette[32];
-                memcpy(&palette[0], bns_begin_1_img.palette->data, 16 * 2);
-                memcpy(&palette[16], bns_begin_2_img.palette->data, 16 * 2);
-                VDP_fadeIn(32, 63 , palette, 20, FALSE);
-
-                SFX_playSound(snd_bonus_start_ID);
-
-                JOY_setEventHandler(&GAM_beginControls);
-                return GAMEPLAY;
-            }
-            gameState = INITBOARD;
-            return GAMEPLAY;
-        case NEXTBOARD:
-            return GAMEPLAY;
-        case NEXTBOARD_OUT:
-            VDP_fadeOut(0, 63, 20, FALSE);
-            VDP_clearPlane(BG_A, TRUE);
-            VDP_clearPlane(BG_B, TRUE);
-            gameState = INITBOARD;
+            gameState = INITBOARD_IN;
             return GAMEPLAY;
         case GAMEOVER:
             VDP_clearPlane(BG_A, TRUE);

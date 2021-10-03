@@ -136,6 +136,7 @@ void MEN_controls(u16 joy, u16 changed, u16 state){
                 if(state & BUTTON_START){
                     u16 seed_in = (seed[1] << 8) | seed[0] ;
                     RNG_seed( seed_in );
+                    XGM_stopPlay();
                     menuState = MENU_OUT;
                 }
             }
