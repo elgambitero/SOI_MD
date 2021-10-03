@@ -26,6 +26,7 @@ typedef struct PlayerStat{
     s8 lives;
     u8 speed;
     u8 effect;
+    u8 noweap;
 }PlayerStat;
 
 typedef struct Pickups{

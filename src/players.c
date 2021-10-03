@@ -89,6 +89,7 @@ u8 weap_ctrl(u8 after){
                 return TRUE;
             }
             pl_stat->balls--;
+            pl_stat->noweap = 0;
             *pl_act = SHOOT;
             return TRUE;
         }else{
@@ -99,6 +100,7 @@ u8 weap_ctrl(u8 after){
                 return TRUE;
             }
             pl_stat->arrows--;
+            pl_stat->noweap = 0;
             *pl_act = SHOOT;
             return TRUE;
         }

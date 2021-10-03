@@ -374,6 +374,9 @@ void GAM_levelInit(){
     bl_stats.bonus = board.bonus;
     gr_stats.bonus = board.bonus;
 
+    bl_stats.noweap = 1;
+    gr_stats.noweap = 1;
+
     VDP_drawText("Score", 0, 0);
     VDP_drawText("Bonus", 15, 0);
     VDP_drawText("L:", 27, 0);
@@ -594,10 +597,10 @@ void GAM_normalInter_loop(){
         case 8:
             SFX_playSound(snd_huoh_ID);
 
-            if(bl_stats.effect & NO_WEAP){
+            if(bl_stats.noweap){
                 bl_stats.score += 5000;
             }
-            if(gr_stats.effect & NO_WEAP){
+            if(gr_stats.noweap){
                 gr_stats.score += 5000;
             }
 
