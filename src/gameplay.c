@@ -120,9 +120,6 @@ void GAM_controls(u16 joy, u16 changed, u16 state){
 void GAM_interControls(u16 joy, u16 changed, u16 state){
     if(changed & BUTTON_START){
         if(state & BUTTON_START){
-            //Do the remaining calculations right away.
-            bl_stats.score += ( ( bl_stats.mult * bl_stats.bonus ) + ( bl_stats.noweap ? 5000 : 0 ) );
-            gr_stats.score += ( ( gr_stats.mult * gr_stats.bonus ) + ( gr_stats.noweap ? 5000 : 0 ) );
             gameState = AFTERBOARD_OUT;
         }
     }
@@ -486,7 +483,7 @@ void GAM_normalInter(){
     VDP_drawText("Bonus", SINGCOUNT_X, SINGCOUNT_Y + BONUSY);
     VDP_drawText("No Weapons Reward", SINGCOUNT_X, SINGCOUNT_Y + WEAPONSY);
     VDP_drawText("Score", SINGCOUNT_X, SINGCOUNT_Y + SCOREY);
-    scoreCount = bl_stats.score + gr_stats.score;
+    scoreCount = (bl_stats.score + gr_stats.score) / 2;
     sprintf(scoreText, "%08lu", scoreCount);
     VDP_drawText(scoreText, SINGCOUNT_X + SCORE_SPACE, SINGCOUNT_Y + SCOREY);
 
