@@ -82,8 +82,9 @@ Pickups bl_pick, gr_pick;
 #define BNS_XSLOT    15
 #define BNS_YSLOT    8
 
+//Timing
 #define COUNT_FRAMES 15
-#define HUAH_FRAMES 60
+#define HUAH_FRAMES 30
 
 enum GameStates{
     GAMEINIT,

@@ -19,6 +19,9 @@ u8 bonusClk;
 u16 bonusCount;
 u32 scoreCount;
 
+u16 interFrames;
+u8  interTurn;
+
 typedef struct BonusGather{
     Pickups * bl_pick;
     Pickups * gr_pick;
@@ -476,9 +479,43 @@ void GAM_normalInter(){
     }
     // fade in
     VDP_fadeIn(0, 63 , palette, 20, FALSE);
-
+    interFrames = HUAH_FRAMES;
+    interTurn = 0;
     JOY_setEventHandler( &GAM_interControls );
 }
+
+
+void GAM_normalInter_loop(){
+    SPR_update();
+
+
+    if(interFrames){
+        interFrames--;
+        return;
+    }
+
+    switch(interTurn){
+        case 0:
+            SFX_playSound(snd_hait_ID);
+            interTurn++;
+            break;
+        case 1:
+            SFX_playSound(snd_huoh_ID);
+            interTurn++;
+            break;
+        case 2:
+            SFX_playSound(snd_hait_ID);
+            interTurn++;
+            break;
+        case 3:
+            SFX_playSound(snd_huoh_ID);
+            interTurn++;
+            break;
+    }
+
+    interFrames = HUAH_FRAMES;
+}
+
 
 void GAM_bonusInter(BonusGather * stack){
     VDP_setPaletteColors(32, (u16*) palette_black, 32);
@@ -528,14 +565,16 @@ void GAM_bonusInter(BonusGather * stack){
     JOY_setEventHandler( &GAM_interControls );
 }
 
-
-void GAM_normalInter_loop(){
-    SPR_update();
-}
-
-
 //This part of this code is horrible, but will work.
-
+void GAM_itemPaint(u8 soundId, u16 block){
+    SFX_playSound(soundId);
+    if(paintSlots < BNS_XSLOT * BNS_YSLOT){
+        BLK_drawBlock(BNS_XSTART + paintSlots % BNS_XSLOT,
+                        BNS_YSTART + paintSlots / BNS_XSLOT,
+                        block);
+        paintSlots++;
+    }
+}
 
 void GAM_silvcPaint(){
     SFX_playSound(snd_silver_coin_ID);
