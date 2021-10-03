@@ -206,6 +206,10 @@ enum MainStates GAM_loop(){
             //FIXME: THIS IS TERRIBLE
             if(bl_stat->effect == KILLED && gr_stat->effect == KILLED){
                 if(GAM_gameType == COOPERATE){
+                    u8 multi = bl_stats.mult > gr_stats.mult ? bl_stats.mult : gr_stats.mult;
+                    bl_stats.mult = multi;
+                    gr_stats.mult = multi;
+
                     if(bl_stats.lives + gr_stats.lives < 0){
                         gameState = GAMEOVER;
                     }else{
@@ -432,7 +436,7 @@ void GAM_setGametype(u8 game_type){
 
 void GAM_updateScore(){
     if(GAM_gameType == COOPERATE){
-        scoreCount = bl_stats.score + gr_stats.score;
+        scoreCount = (bl_stats.score + gr_stats.score) / 2;
         sprintf(scoreText, "%08lu", scoreCount);
         VDP_drawText(scoreText, X_SCORE, 0);
     }
@@ -591,7 +595,10 @@ void GAM_normalInter_loop(){
             SFX_playSound(snd_hait_ID);
             interTurn++;
             interFrames = HUAH_FRAMES;
-            sprintf(bonusText, "%04d", 5000);
+            if(bl_stats.noweap)
+                sprintf(bonusText, "%04d", 5000);
+            else
+                sprintf(bonusText, "%04d", 0000);
             VDP_drawText(bonusText, SINGCOUNT_X + WEAPONS_SPACE, SINGCOUNT_Y + WEAPONSY);
             break;
         case 8:
