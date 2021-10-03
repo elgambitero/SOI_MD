@@ -6,6 +6,9 @@
 #define SPEEDUP  3
 #define KILLED   4
 
+#define STATEMASK 0x0F
+#define NO_WEAP   0x10
+
 enum MainStates{INTRO,
     TITLE_SCREEN_IN,
     TITLE_SCREEN,

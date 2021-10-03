@@ -456,6 +456,7 @@ void GAM_waitFrames(u16 frames){
 }
 
 //TODO: Non diversified for compete mode.
+//Also terribly rushed and repetitive code.
 void GAM_normalInter(){
     VDP_setPaletteColors(32, (u16*) palette_black, 32);
     u16 palette[64];
@@ -500,6 +501,27 @@ void GAM_normalInter(){
     JOY_setEventHandler( &GAM_interControls );
 }
 
+void GAM_advanceBonuscount(){
+
+    bl_stats.score += bl_stats.mult ? bl_stats.bonus : 0;
+    gr_stats.score += gr_stats.mult ? gr_stats.bonus : 0;
+
+    scoreCount = (bl_stats.score + gr_stats.score)/2;
+    sprintf(scoreText, "%08lu", scoreCount);
+    VDP_drawText(scoreText, SINGCOUNT_X + SCORE_SPACE, SINGCOUNT_Y + SCOREY);
+
+    if(bl_stats.mult)
+        bl_stats.mult--;
+
+    if(gr_stats.mult)
+        gr_stats.mult--;
+
+    if( !(bl_stats.mult || gr_stats.mult)){
+        interTurn = 7; //Skip to ending
+    }else{
+        interTurn++;
+    }
+}
 
 void GAM_normalInter_loop(){
     SPR_update();
@@ -509,26 +531,84 @@ void GAM_normalInter_loop(){
         return;
     }
 
+    // This switch is terrible coding.
     switch(interTurn){
         case 0:
+            // Paint bonus points
             SFX_playSound(snd_hait_ID);
             interTurn++;
+            interFrames = HUAH_FRAMES;
+
+            bonusCount = (bl_stats.bonus + gr_stats.bonus) / 2;
+            sprintf(bonusText, "%05d", bonusCount);
+            VDP_drawText(bonusText, SINGCOUNT_X + BONUS_SPACE, SINGCOUNT_Y + BONUSY);
+
             break;
         case 1:
+            //Add bonus points to score and paint them
             SFX_playSound(snd_huoh_ID);
-            interTurn++;
+            interFrames = HUAH_FRAMES;
+
+            GAM_advanceBonuscount();
+
             break;
         case 2:
-            SFX_playSound(snd_hait_ID);
+            SFX_playSound(snd_one_ID);
+            interFrames = MULTI_FRAMES;
             interTurn++;
+
+            //Omit bonus count for the one.
+
             break;
         case 3:
-            SFX_playSound(snd_huoh_ID);
+            SFX_playSound(snd_two_ID);
+            interFrames = MULTI_FRAMES;
+
+            GAM_advanceBonuscount();
+            break;
+        case 4:
+            SFX_playSound(snd_three_ID);
+            interFrames = MULTI_FRAMES;
+
+            GAM_advanceBonuscount();
+            break;
+        case 5:
+            SFX_playSound(snd_four_ID);
+            interFrames = MULTI_FRAMES;
+
+            GAM_advanceBonuscount();
+            break;
+        case 6:
+            SFX_playSound(snd_five_ID);
+            interFrames = MULTI_FRAMES;
+
+            GAM_advanceBonuscount();
+            break;
+        case 7:
+            SFX_playSound(snd_hait_ID);
             interTurn++;
+            interFrames = HUAH_FRAMES;
+            sprintf(bonusText, "%04d", 5000);
+            VDP_drawText(bonusText, SINGCOUNT_X + WEAPONS_SPACE, SINGCOUNT_Y + WEAPONSY);
+            break;
+        case 8:
+            SFX_playSound(snd_huoh_ID);
+
+            if(bl_stats.effect & NO_WEAP){
+                bl_stats.score += 5000;
+            }
+            if(gr_stats.effect & NO_WEAP){
+                gr_stats.score += 5000;
+            }
+
+            scoreCount = (bl_stats.score + gr_stats.score)/2;
+            sprintf(scoreText, "%08lu", scoreCount);
+            VDP_drawText(scoreText, SINGCOUNT_X + SCORE_SPACE, SINGCOUNT_Y + SCOREY);
+
+            interTurn++;
+            interFrames = HUAH_FRAMES;
             break;
     }
-
-    interFrames = HUAH_FRAMES;
 }
 
 

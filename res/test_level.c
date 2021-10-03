@@ -15,18 +15,6 @@
 #define BFR (NORMAL_BLOCK | SOLID | BLK_FLAT  | COL_SLOT2)
 #define BFB (NORMAL_BLOCK | SOLID | BLK_FLAT  | COL_SLOT3)
 #define NET (NORMAL_BLOCK | BLK_NET)
-#define GLC (GOODIE | GDi_GOLDC)
-#define ARR (GOODIE | GDi_ARROW)
-#define C3H (GOODIE | GDi_CLK3h)
-#define M2X (GOODIE | GDi_2x)
-#define RDK (GOODIE | GDi_RDKEY)
-#define RDD (GOODIE | GDi_RDDOOR)
-#define THN (GOODIE | GDi_THNBALL)
-#define BOO (GOODIE | GDi_BOOT)
-#define SHI (GOODIE | GDi_SHLD)
-#define X3  (GOODIE | GDi_3x )
-#define TUR (GOODIE | GDi_TURTL)
-#define UP1 (GOODIE | GDi_1UP)
 
 
 
@@ -145,18 +133,18 @@ static const Actor cannon_l = {&SPW_cannon,
 const Board test_level = {
     {
      BFW, BOW, BDW, CHI, QUE, NET,   0,   0,   0,   0,   0, TRO,   0,   0, TGO, TBO, TNO, TYO, TWO,
-     BFG, BOG, BDG,   0,   0,   0,   0,   0, UP1, BOO,   0, RDD,   0,   0,   0, OST,   0,   0,   0,
+     BFG, BOG, BDG,   0, M3X,   0,   0,   0, UP1, BOO, RDK, RDD,   0,   0,   0, OST,   0,   0,   0,
      BFR, BOR, BDR,   0,   0,   0, BOR, BOR, BOR, BOR, BOR, BOR, BOW, BOR, BOR, BOR,   0,   0,   0,
      BFB, BOB, BDB,   0,   0,   0, BOB, NET, NET, NET, NET,   0,   0,   0,   0,   0, BOR,   0, TUR,
      GRI, GBI, GGI, GNI, GYI, GWI, BOB, NET, NET,   0, BOR,   0,   0,   0,   0,   0,   0, GLC, BDB,
-     RDK,   0,   0, GNI,   0,   0, BOB, NET,   0, BOR, BOR, BOR,   0,   0,   0,   0, BOG, BDR,   0,
+       0,   0,   0, GNI,   0,   0, BOB, NET,   0, BOR, BOR, BOR,   0,   0,   0,   0, BOG, BDR,   0,
       GP, THN,   0,   0,   0,   0, BOB, NET,   0,   0, BOR,   0,   0, BFG, GLC, GLC,   0,   0,   0,
        0,  BP,   0, ARR,   0,   0,   0, NET,   0,   0,   0,   0,   0,   0, BFW, BFW,   0,   0,   0,
        0,   0,  BP,  OB,   0,   0,   0, NET, ANT, HMR, HPO, OST, PIG, SMI, TEH,   0, NET, NET, BFW,
        0,   0,   0,   0,   0, BFW,   0, BFW,   0, BFW, BFW, BFW,   0,   0,   0,   0, QUE, BFW,   0,
      CNR,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, CNL,
      FRI, FBI, FGI, FNI, FYI, FWI,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-       0, SHI,   0, C3H,   0,   0,   0, RDD,   0,   0, TRI, TGI, TBI, TNI, TYI, TWI, C3H,   0,   0,
+       0, SHL,   0, C3H,   0,   0,   0, RDD,   0,   0, TRI, TGI, TBI, TNI, TYI, TWI, C3H,   0,   0,
     },
 
     {

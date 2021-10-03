@@ -936,17 +936,33 @@ void GD_give_1UP(){
 }
 
 void GD_give_2x(){
-    curr->character->role.player.statistics->mult = 2;
+    if(GAM_gameType == COOPERATE){
+        bl_stat->mult = 2;
+        gr_stat->mult = 2;
+    }else
+        curr->character->role.player.statistics->mult = 2;
 }
 
 void GD_give_3x(){
-    curr->character->role.player.statistics->mult = 3;
+    if(GAM_gameType == COOPERATE){
+        bl_stat->mult = 3;
+        gr_stat->mult = 3;
+    }else
+        curr->character->role.player.statistics->mult = 3;
 }
 
 void GD_give_4x(){
-    curr->character->role.player.statistics->mult = 4;
+    if(GAM_gameType == COOPERATE){
+        bl_stat->mult = 4;
+        gr_stat->mult = 4;
+    }else
+        curr->character->role.player.statistics->mult = 4;
 }
 
 void GD_give_5x(){
-    curr->character->role.player.statistics->mult = 5;
+    if(GAM_gameType == COOPERATE){
+        bl_stat->mult = 5;
+        gr_stat->mult = 5;
+    }else
+        curr->character->role.player.statistics->mult = 5;
 }
