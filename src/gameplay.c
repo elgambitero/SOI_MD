@@ -120,6 +120,9 @@ void GAM_controls(u16 joy, u16 changed, u16 state){
 void GAM_interControls(u16 joy, u16 changed, u16 state){
     if(changed & BUTTON_START){
         if(state & BUTTON_START){
+            //Do the remaining calculations right away.
+            bl_stats.score += ( ( bl_stats.mult * bl_stats.bonus ) + ( bl_stats.noweap ? 5000 : 0 ) );
+            gr_stats.score += ( ( gr_stats.mult * gr_stats.bonus ) + ( gr_stats.noweap ? 5000 : 0 ) );
             gameState = AFTERBOARD_OUT;
         }
     }
@@ -320,7 +323,7 @@ void GAM_gameInit(){
         gr_stats.lives = 0;
         gr_stats.balls = 0;
         gr_stats.arrows = 0;
-        gr_stats.mult = 0;
+        gr_stats.mult = 1;
         gr_stats.score = 0;
         gr_stats.speed = 0;
     }
@@ -377,7 +380,8 @@ void GAM_levelInit(){
 
     bl_stats.bonus = board.bonus;
     gr_stats.bonus = board.bonus;
-
+    bl_stats.mult = 1;
+    gr_stats.mult = 1;
     bl_stats.noweap = 1;
     gr_stats.noweap = 1;
 
@@ -564,6 +568,8 @@ void GAM_normalInter_loop(){
             interFrames = MULTI_FRAMES;
             interTurn++;
 
+            VDP_drawText("1x", SINGCOUNT_X + BONUSMULT, SINGCOUNT_Y + BONUSY);
+
             //Omit bonus count for the one.
 
             break;
@@ -572,30 +578,38 @@ void GAM_normalInter_loop(){
             interFrames = MULTI_FRAMES;
 
             GAM_advanceBonuscount();
+            VDP_drawText("2x", SINGCOUNT_X + BONUSMULT, SINGCOUNT_Y + BONUSY);
+
             break;
         case 4:
             SFX_playSound(snd_three_ID);
             interFrames = MULTI_FRAMES;
 
             GAM_advanceBonuscount();
+            VDP_drawText("3x", SINGCOUNT_X + BONUSMULT, SINGCOUNT_Y + BONUSY);
+
             break;
         case 5:
             SFX_playSound(snd_four_ID);
             interFrames = MULTI_FRAMES;
 
             GAM_advanceBonuscount();
+            VDP_drawText("4x", SINGCOUNT_X + BONUSMULT, SINGCOUNT_Y + BONUSY);
+
             break;
         case 6:
             SFX_playSound(snd_five_ID);
             interFrames = MULTI_FRAMES;
 
             GAM_advanceBonuscount();
+            VDP_drawText("5x", SINGCOUNT_X + BONUSMULT, SINGCOUNT_Y + BONUSY);
+
             break;
         case 7:
             SFX_playSound(snd_hait_ID);
             interTurn++;
             interFrames = HUAH_FRAMES;
-            if(bl_stats.noweap)
+            if(bl_stats.noweap || gr_stats.noweap)
                 sprintf(bonusText, "%04d", 5000);
             else
                 sprintf(bonusText, "%04d", 0000);
@@ -605,9 +619,11 @@ void GAM_normalInter_loop(){
             SFX_playSound(snd_huoh_ID);
 
             if(bl_stats.noweap){
+                bl_stats.noweap = 0; //prevent fastforward calculations.
                 bl_stats.score += 5000;
             }
             if(gr_stats.noweap){
+                gr_stats.noweap = 0; //prevent fastforward calculations.
                 gr_stats.score += 5000;
             }
 
