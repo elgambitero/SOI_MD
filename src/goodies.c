@@ -699,7 +699,16 @@ void GD_killSpawned(){
     Actor * nastie = ACT_getFirst(&nasties);
     while(nastie){
         if((nastie->character->attr & ENT_CHECK_BITMSK) == NASTIE){ //Why check this???
-            if(nastie->timer) PHY_kill(nastie, 0, -2*FALLSPEED);
+            if(nastie->timer){
+                PHY_kill(nastie, 0, -2*FALLSPEED);
+                if(GAM_gameType == COOPERATE){
+                    bl_stats.score += nastie->character->role.nastie.points;
+                    gr_stats.score += nastie->character->role.nastie.points;
+                }else{
+                    curr->character->role.player.statistics->score += nastie->character->role.nastie.points;
+                }
+                GAM_updateScore();
+            }
         }
         nastie = nastie->next;
     }

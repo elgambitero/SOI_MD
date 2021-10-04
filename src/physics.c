@@ -92,7 +92,8 @@ void PHY_kill(Actor * act, u8 speed_x, u8 speed_y){
     u16 attrib = act->character->attr;
     if(attrib & INVINCIBLE) return;
     
-    //This works as it is because nastie and player union members have the same byte alignment for death_sound and death_sound_size
+    //This works as it is because nastie and player union members 
+    //have the same byte alignment for death_sound
     //Hopefully...
     SFX_playSound(act->character->role.nastie.death_sound);
 
