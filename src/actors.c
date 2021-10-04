@@ -205,3 +205,13 @@ void ACT_collide_lists(ActorList * winning, ActorList * losing, void (*action)(A
         act1 = act1->next;
     }
 }
+
+u8 ACT_contains(Actor * actor, ActorList * actors){
+    Actor * a = actors->firstActor;
+    while(a){
+        if(a == actor)
+            return 1;
+        a = a->next;
+    }
+    return 0;
+}
