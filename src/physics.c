@@ -156,8 +156,34 @@ u8 PHY_computeStatus(Actor * actor){
     return result;
 }
 
-void PHY_kill_mercilessly(Actor * a, Actor * b){
+void PHY_kill_withPoints(Actor * a, Actor * b){
+    if(b->status == DEAD || b->character->attr & INVINCIBLE)
+        return;
     PHY_kill(b, 0, -2 * WALKSPEED);
+    if(GAM_gameType == COOPERATE){
+        bl_stats.score += b->character->role.nastie.points;
+        gr_stats.score += b->character->role.nastie.points;
+        if(ACT_contains(a, &bp_projectiles)){
+            if(a->character == &PR_arrow)
+                ACT_remove(a, &bp_projectiles);
+        }
+        if(ACT_contains(a, &gp_projectiles)){
+            if(a->character == &PR_arrow)
+                ACT_remove(a, &gp_projectiles);
+        }
+    }else{
+        if(ACT_contains(a, &bp_projectiles)){
+            bl_stats.score += b->character->role.nastie.points;
+            if(a->character == &PR_arrow)
+                ACT_remove(a, &bp_projectiles);
+        }
+        if(ACT_contains(a, &gp_projectiles)){
+            gr_stats.score += b->character->role.nastie.points;
+            if(a->character == &PR_arrow)
+                ACT_remove(a, &gp_projectiles);
+        }
+    }
+    GAM_updateScore();
 }
 
 void PHY_kill_player(Actor * a, Actor * b){
@@ -179,8 +205,8 @@ void PHY_update(){
     //if(collided){
         ACT_collide_lists(&nasties, &players, &PHY_kill_player);
         ACT_collide_lists(&projectiles, &players, &PHY_kill_player);
-        ACT_collide_lists(&bp_projectiles, &nasties, &PHY_kill_mercilessly);
-        ACT_collide_lists(&gp_projectiles, &nasties, &PHY_kill_mercilessly);
+        ACT_collide_lists(&bp_projectiles, &nasties, &PHY_kill_withPoints);
+        ACT_collide_lists(&gp_projectiles, &nasties, &PHY_kill_withPoints);
     //}
     collided = FALSE;
 }
