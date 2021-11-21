@@ -8,6 +8,9 @@
 #define SLO_SPEED    WALKSPEED/2
 #define FAST_SPEED    WALKSPEED * 4
 
+#define HMR_ATTK_IN_FRAMES 12
+#define HMR_ATTK_OUT_FRAMES 4
+
 #define GL_BIRTH_FRAMES 16 * 4
 #define GL_IDLE_FRAMES 16 * 4 * 3 //2 cycles
 #define GL_ATTK_FRAMES 41 * 4
@@ -62,6 +65,7 @@ extern const Entity NST_whfastL;
 extern const Entity NST_beanie;
 extern const Entity NST_ostrich;
 extern const Entity NST_hippo;
+extern const Entity NST_hammer;
 
 extern const Entity BS_gargoyle;
 extern const Entity BS_gargoyle1;

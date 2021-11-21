@@ -304,6 +304,25 @@ const Entity BS_knight = {
     }
 };
 
+void NST_hammer_loop();
+const Entity NST_hammer = {
+    NASTIE,
+    {7, 15},
+    {11, 19},
+    PAL_SYS0,
+    &hammer_spr,
+    NULL,
+    &NST_hammer_loop,
+    NULL,
+    {.nastie =
+        {
+            snd_hammer_ID,
+            500,
+            NASTIE_SPEED,
+        }
+    }
+};
+
 __attribute__((always_inline)) static inline void NST_still_fall(){
     newstatus = FALL_RIGHT;
     status = FALL_RIGHT; //Ugly hack to prevent animation change.
@@ -1349,5 +1368,74 @@ if(curr->frames--) {
             ACT_add(&fx, &fx_buf);
 
             break;
+    }
+}
+
+
+__attribute__((always_inline)) static inline void NST_attack(){
+    newstatus = dir | ATTACK_RIGHT_IN;
+    curr->frames = HMR_ATTK_IN_FRAMES;
+    curr->speed[X] = 0;
+}
+
+void NST_hammer_loop(){
+    PHY_despawn();
+
+    PHY_calc_center_block();
+    PHY_set_presence(center_ind);
+    switch(status & ANIM_MSK){
+        case WALK_RIGHT:
+            PHY_calc_back(dir);
+            PHY_calc_back_floor();
+            if(PHY_fall(back_floor_ind)){
+                NST_fall();
+                return;
+            }
+            PHY_calc_front(dir);
+            PHY_calc_front_block();
+            switch(PHY_crash_into()){
+                case FRAME:
+                    NST_turn_around();
+                    return;
+                case BLOCK:
+                    if(PHY_breakable(front_ind)) NST_attack();
+                    else NST_turn_around();
+                    return;
+                default:
+                    break;
+            }
+            curr->speed[X] = dir ? 
+                -curr->character->role.nastie.speed : curr->character->role.nastie.speed;
+        break;
+        case RIGHT_TURN_LEFT:
+            if(curr->frames--) return;
+            newstatus = WALK_RIGHT | !dir;
+            curr->speed[X] = dir ? 
+                curr->character->role.nastie.speed : -curr->character->role.nastie.speed;
+            curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
+        break;
+        case ATTACK_RIGHT_IN: 
+            if(curr->frames--) return;
+            NST_deletes();
+            newstatus = dir | ATTACK_RIGHT_OUT;
+            curr->frames = HMR_ATTK_OUT_FRAMES;
+            curr->speed[X] = 0;
+        break;
+        case ATTACK_RIGHT_OUT: 
+            if(curr->frames--) return;
+            NST_keep_walking();
+        break;
+        case FALL_RIGHT:
+            PHY_calc_floor();
+            if(PHY_land(floor_ind)) {
+                curr->pos[Y] &= FLOOR_CORR;
+                curr->speed[Y] = 0;
+                NST_keep_walking();
+                break;
+            }
+        break;
+        case DEAD:
+            NST_keep_dying();
+        break;
     }
 }
