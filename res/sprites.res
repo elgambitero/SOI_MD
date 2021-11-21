@@ -10,6 +10,7 @@ SPRITE whslowL_spr "sprites/wheelie/roll_left.bmp" 2 2 FAST 2
 SPRITE beanie_spr "sprites/beanie/beanie.bmp" 2 2 FAST 2
 SPRITE ostrich_spr "sprites/ostrich/ostrich.bmp" 2 2 FAST 2
 SPRITE hippo_spr "sprites/hippo/hippo.bmp" 2 2 FAST 2
+SPRITE hammer_spr "sprites/hammer/hammer.bmp" 3 3 FAST 2
 
 
 
