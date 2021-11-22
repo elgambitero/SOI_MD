@@ -8,8 +8,8 @@
 #define SLO_SPEED    WALKSPEED/2
 #define FAST_SPEED    WALKSPEED * 4
 
-#define HMR_ATTK_IN_FRAMES 12
-#define HMR_ATTK_OUT_FRAMES 4
+#define HMR_ATTK_IN_FRAMES 24
+#define HMR_ATTK_OUT_FRAMES 8
 
 #define GL_BIRTH_FRAMES 16 * 4
 #define GL_IDLE_FRAMES 16 * 4 * 3 //2 cycles
