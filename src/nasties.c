@@ -1372,7 +1372,7 @@ if(curr->frames--) {
 }
 
 
-__attribute__((always_inline)) static inline void NST_attack(){
+__attribute__((always_inline)) static inline void NST_hammer_attack(){
     newstatus = dir | ATTACK_RIGHT_IN;
     curr->frames = HMR_ATTK_IN_FRAMES;
     curr->speed[X] = 0;
@@ -1398,7 +1398,7 @@ void NST_hammer_loop(){
                     NST_turn_around();
                     return;
                 case BLOCK:
-                    if(PHY_breakable(front_ind)) NST_attack();
+                    if(PHY_breakable(front_ind)) NST_hammer_attack();
                     else NST_turn_around();
                     return;
                 default:
