@@ -308,7 +308,7 @@ void NST_hammer_loop();
 const Entity NST_hammer = {
     NASTIE,
     {7, 15},
-    {12, 24},
+    {12, 23},
     PAL_SYS0,
     &hammer_spr,
     NULL,
