@@ -308,7 +308,7 @@ void NST_hammer_loop();
 const Entity NST_hammer = {
     NASTIE,
     {7, 15},
-    {11, 19},
+    {12, 24},
     PAL_SYS0,
     &hammer_spr,
     NULL,
@@ -1416,7 +1416,7 @@ void NST_hammer_loop(){
         break;
         case ATTACK_RIGHT_IN: 
             if(curr->frames--) return;
-            NST_deletes();
+            NST_breaks();
             newstatus = dir | ATTACK_RIGHT_OUT;
             curr->frames = HMR_ATTK_OUT_FRAMES;
             curr->speed[X] = 0;

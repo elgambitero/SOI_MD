@@ -9,5 +9,6 @@ extern const Entity SPW_cannon;
 extern const Entity SPW_ostrich;
 extern const Entity SPW_hippo;
 extern const Entity SPW_piggy;
+extern const Entity SPW_hammer;
 
 #endif

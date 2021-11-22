@@ -76,6 +76,24 @@ const Entity SPW_ostrich = {
     }
 };
 
+void SPW_spawn_hammer();
+const Entity SPW_hammer = {
+    SPAWNER | INVINCIBLE,
+    {8, 15},
+    {7, 15},
+    PAL_SYS0,
+    NULL,
+    NULL,
+    &SPW_update,
+    NULL,
+    {.spawner =
+        {
+            STAY_TIME,
+            &SPW_spawn_hammer
+        }
+    }
+};
+
 void SPW_cannon_loop();
 const Entity SPW_cannon = {
     SPAWNER | INVINCIBLE,
@@ -149,6 +167,10 @@ void SPW_spawn_hippo(){
 
 void SPW_spawn_ostrich(){
     NST_spawn(&NST_ostrich);
+}
+
+void SPW_spawn_hammer(){
+    NST_spawn(&NST_hammer);
 }
 
 void SPW_update(){
