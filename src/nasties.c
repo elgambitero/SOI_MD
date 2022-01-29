@@ -1496,8 +1496,31 @@ void NST_walker_loop(){
             if(PHY_land(floor_ind)) {
                 curr->pos[Y] &= FLOOR_CORR;
                 curr->speed[Y] = 0;
-                NST_keep_walking();
-                break;
+                
+                Actor * player = NULL;
+                if(blue_player && green_player){
+                    //randomly go after one of the players.
+                    if(RNG_get() & 0x01)
+                        player = blue_player;
+                    else
+                        player = green_player;
+                }     
+                player = blue_player ? blue_player : green_player;
+                if(!player){
+                    NST_keep_walking();
+                    return;
+                }
+                if(player->pos[X] > curr->pos[X]){
+                    if(dir)
+                        NST_turn_around();
+                    else
+                        NST_keep_walking();
+                }else{
+                    if(dir)
+                        NST_keep_walking();
+                    else
+                        NST_turn_around();
+                }
             }
         break;
         case DEAD:
