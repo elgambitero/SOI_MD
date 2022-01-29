@@ -11,6 +11,8 @@ SPRITE beanie_spr "sprites/beanie/beanie.bmp" 2 2 FAST 2
 SPRITE ostrich_spr "sprites/ostrich/ostrich.bmp" 2 2 FAST 2
 SPRITE hippo_spr "sprites/hippo/hippo.bmp" 2 2 FAST 2
 SPRITE hammer_spr "sprites/hammer/hammer.bmp" 3 3 FAST 2
+SPRITE walker_spr "sprites/walker/walker.bmp" 3 2 FAST 2
+SPRITE walkp_spr "sprites/walker/walkp.bmp" 2 2 FAST 2
 
 
 
