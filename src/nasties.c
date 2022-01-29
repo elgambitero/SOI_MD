@@ -323,6 +323,25 @@ const Entity NST_hammer = {
     }
 };
 
+void NST_walker_loop();
+const Entity NST_walker = {
+    NASTIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    &walker_spr,
+    NULL,
+    &NST_walker_loop,
+    NULL,
+    {.nastie =
+        {
+            snd_walker_ID,
+            1250,
+            SLO_SPEED,
+        }
+    }
+};
+
 __attribute__((always_inline)) static inline void NST_still_fall(){
     newstatus = FALL_RIGHT;
     status = FALL_RIGHT; //Ugly hack to prevent animation change.
@@ -1424,6 +1443,53 @@ void NST_hammer_loop(){
         case ATTACK_RIGHT_OUT: 
             if(curr->frames--) return;
             NST_keep_walking();
+        break;
+        case FALL_RIGHT:
+            PHY_calc_floor();
+            if(PHY_land(floor_ind)) {
+                curr->pos[Y] &= FLOOR_CORR;
+                curr->speed[Y] = 0;
+                NST_keep_walking();
+                break;
+            }
+        break;
+        case DEAD:
+            NST_keep_dying();
+        break;
+    }
+}
+
+void NST_walker_loop(){
+    PHY_calc_center_block();
+    PHY_set_presence(center_ind);
+    switch(status & ANIM_MSK){
+        case WALK_RIGHT:
+            PHY_calc_back(dir);
+            PHY_calc_back_floor();
+            if(PHY_fall(back_floor_ind)){
+                NST_fall();
+                return;
+            }
+            PHY_calc_front(dir);
+            PHY_calc_front_block();
+            switch(PHY_crash_into()){
+                case BLOCK:
+                case FRAME:
+                    NST_turn_around();
+                    return;
+                default:
+                    NST_keep_walking();
+                    return;
+            }
+            curr->speed[X] = dir ? 
+                -curr->character->role.nastie.speed : curr->character->role.nastie.speed;
+        break;
+        case RIGHT_TURN_LEFT:
+            if(curr->frames--) return;
+            newstatus = WALK_RIGHT | !dir;
+            curr->speed[X] = dir ? 
+                curr->character->role.nastie.speed : -curr->character->role.nastie.speed;
+            curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
         break;
         case FALL_RIGHT:
             PHY_calc_floor();
