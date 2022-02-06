@@ -68,6 +68,7 @@ extern const Entity NST_ostrich;
 extern const Entity NST_hippo;
 extern const Entity NST_hammer;
 extern const Entity NST_walker;
+extern const Entity NST_smiley;
 
 extern const Entity BS_gargoyle;
 extern const Entity BS_gargoyle1;

@@ -359,7 +359,7 @@ const Entity NST_smiley = {
             NASTIE_SPEED,
         }
     }
-}
+};
 
 __attribute__((always_inline)) static inline void NST_still_fall(){
     newstatus = FALL_RIGHT;
