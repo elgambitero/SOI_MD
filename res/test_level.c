@@ -89,11 +89,11 @@ static const Actor piggy = {&NST_piggy,
    &robo
    };
 
-static const Actor ant = {&NST_beanie,
-      WALK_DOWN,
+static const Actor ant = {&NST_walker,
+      WALK_RIGHT,
       0,
-   {216, 80},
-   {  0, NASTIE_SPEED},
+   {200, 32},
+   {  NASTIE_SPEED, 0},
       0,
       0,
    &piggy

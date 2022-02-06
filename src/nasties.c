@@ -327,7 +327,7 @@ void NST_walker_loop();
 const Entity NST_walker = {
     NASTIE,
     {7, 15},
-    {7, 15},
+    {10, 15},
     PAL_SYS0,
     &walker_spr,
     NULL,
@@ -1473,13 +1473,19 @@ void NST_walker_loop(){
             PHY_calc_front(dir);
             PHY_calc_front_block();
             switch(PHY_crash_into()){
-                case BLOCK:
                 case FRAME:
                     NST_turn_around();
                     return;
-                default:
-                    NST_keep_walking();
+                case BLOCK:
+                    NST_turn_around();
                     return;
+                default:
+                    break;
+            }
+            PHY_calc_front_floor();
+            if(PHY_cliff()){
+                NST_turn_around();
+                return;
             }
             curr->speed[X] = dir ? 
                 -curr->character->role.nastie.speed : curr->character->role.nastie.speed;
@@ -1491,36 +1497,22 @@ void NST_walker_loop(){
                 curr->character->role.nastie.speed : -curr->character->role.nastie.speed;
             curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
         break;
+        case ATTACK_RIGHT_IN: 
+            if(curr->frames--) return;
+            NST_breaks();
+            newstatus = dir | ATTACK_RIGHT_OUT;
+            curr->frames = ATTK_FRAMES;
+            curr->speed[X] = 0;
+        break;
+        case ATTACK_RIGHT_OUT: 
+            if(curr->frames--) return;
+            NST_keep_walking();
+        break;
         case FALL_RIGHT:
             PHY_calc_floor();
             if(PHY_land(floor_ind)) {
-                curr->pos[Y] &= FLOOR_CORR;
-                curr->speed[Y] = 0;
-                
-                Actor * player = NULL;
-                if(blue_player && green_player){
-                    //randomly go after one of the players.
-                    if(RNG_get() & 0x01)
-                        player = blue_player;
-                    else
-                        player = green_player;
-                }     
-                player = blue_player ? blue_player : green_player;
-                if(!player){
-                    NST_keep_walking();
-                    return;
-                }
-                if(player->pos[X] > curr->pos[X]){
-                    if(dir)
-                        NST_turn_around();
-                    else
-                        NST_keep_walking();
-                }else{
-                    if(dir)
-                        NST_keep_walking();
-                    else
-                        NST_turn_around();
-                }
+                NST_die();
+                break;
             }
         break;
         case DEAD:
