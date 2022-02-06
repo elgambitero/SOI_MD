@@ -1564,13 +1564,33 @@ void NST_walker_loop(){
 __attribute__((always_inline)) static inline void NST_turn_around_smiley(){
     newstatus = WALK_RIGHT | !dir;
     status = newstatus; //Hijack ACT_update animation change;
-    curr->actorData.frameData.frame =
-     ((SMILEY_FRAMETIME * SMILEY_FRAMES) - curr->actorData.frameData.frame)/SMILEY_FRAMETIME;
+    curr->sprite->timer = SMILEY_FRAMETIME;
     SPR_setAnimAndFrame(
         curr->sprite,
          status,
-         curr->actorData.frameData.frame
+         curr->sprite->frameInd
         );
+}
+
+__attribute__((always_inline)) static inline void NST_keep_walking_smiley(){
+    newstatus = WALK_RIGHT | dir;
+    curr->speed[X] = dir ? 
+        -curr->character->role.nastie.speed : curr->character->role.nastie.speed;
+    status = newstatus; //Hijack ACT_update animation change;
+    curr->sprite->timer = SMILEY_FRAMETIME;
+    SPR_setAnimAndFrame(
+        curr->sprite,
+         status,
+         curr->sprite->frameInd
+        );
+}
+
+__attribute__((always_inline)) static inline void NST_fall_smiley(){
+    newstatus = dir | FALL_RIGHT;
+    curr->speed[Y] = FALLSPEED;
+    curr->speed[X] = 0;
+    status = newstatus; //Hijack ACT_update animation change;
+    curr->sprite->timer = 0; //prevent animation change.
 }
 
 void NST_smiley_loop(){
@@ -1580,22 +1600,10 @@ void NST_smiley_loop(){
     PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
-            //keep count of the sprite frame
-            curr->actorData.frameData.frame++;
-            curr->actorData.frameData.frame = curr->actorData.frameData.frame % (SMILEY_FRAMETIME * SMILEY_FRAMES);
-            
-            ///
-            u8 frameText[4];
-            sprintf(frameText, "%d", curr->actorData.frameData.frame);
-            VDP_drawText(frameText, 0, 0);
-            ///
-
-
             PHY_calc_back(dir);
             PHY_calc_back_floor();
             if(PHY_fall(back_floor_ind)){
-                NST_fall();
-                curr->actorData.frameData.frame = 0;
+                NST_fall_smiley();
                 return;
             }
             PHY_calc_front(dir);
@@ -1637,7 +1645,7 @@ void NST_smiley_loop(){
             if(PHY_land(floor_ind)) {
                 curr->pos[Y] &= FLOOR_CORR;
                 curr->speed[Y] = 0;
-                NST_keep_walking();
+                NST_keep_walking_smiley();
                 break;
             }
         break;
