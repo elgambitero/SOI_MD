@@ -1560,6 +1560,19 @@ void NST_walker_loop(){
     }
 }
 
+
+__attribute__((always_inline)) static inline void NST_turn_around_smiley(){
+    newstatus = WALK_RIGHT | !dir;
+    status = newstatus; //Hijack ACT_update animation change;
+    curr->actorData.frameData.frame =
+     ((SMILEY_FRAMETIME * SMILEY_FRAMES) - curr->actorData.frameData.frame)/SMILEY_FRAMETIME;
+    SPR_setAnimAndFrame(
+        curr->sprite,
+         status,
+         curr->actorData.frameData.frame
+        );
+}
+
 void NST_smiley_loop(){
     PHY_despawn();
 
@@ -1567,21 +1580,33 @@ void NST_smiley_loop(){
     PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
         case WALK_RIGHT:
+            //keep count of the sprite frame
+            curr->actorData.frameData.frame++;
+            curr->actorData.frameData.frame = curr->actorData.frameData.frame % (SMILEY_FRAMETIME * SMILEY_FRAMES);
+            
+            ///
+            u8 frameText[4];
+            sprintf(frameText, "%d", curr->actorData.frameData.frame);
+            VDP_drawText(frameText, 0, 0);
+            ///
+
+
             PHY_calc_back(dir);
             PHY_calc_back_floor();
             if(PHY_fall(back_floor_ind)){
                 NST_fall();
+                curr->actorData.frameData.frame = 0;
                 return;
             }
             PHY_calc_front(dir);
             PHY_calc_front_block();
             switch(PHY_crash_into()){
                 case FRAME:
-                    NST_turn_around_fast();
+                    NST_turn_around_smiley();
                     return;
                 case BLOCK:
                     if(PHY_breakable(front_ind)) NST_deletes();
-                    NST_turn_around_fast();
+                    NST_turn_around_smiley();
                     return;
                 default:
                     break;

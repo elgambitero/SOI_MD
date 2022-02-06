@@ -34,6 +34,10 @@ typedef struct SpwData{
     u8 tick;
 }SpwData;
 
+typedef struct FrameData{
+    u8 frame;
+}FrameData;
+
 typedef struct Actor{
     const Entity * character;
     u8 status;
@@ -47,6 +51,7 @@ typedef struct Actor{
         FXData fxData;
         PackData packData;
         SpwData spwData;
+        FrameData frameData;
     }actorData;
 }Actor;
 

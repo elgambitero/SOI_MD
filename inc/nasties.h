@@ -54,6 +54,9 @@
 #define NASTIE_SPEED WALKSPEED
 #define WALKER_TIME 300
 
+#define SMILEY_FRAMES 48
+#define SMILEY_FRAMETIME 2
+
 extern const Entity NST_spinner;
 extern const Entity NST_robo;
 extern const Entity NST_ant;
