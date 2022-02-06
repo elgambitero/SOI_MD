@@ -94,7 +94,7 @@ static const Actor ant = {&NST_walker,
       0,
    {200, 32},
    {  NASTIE_SPEED, 0},
-      0,
+      MAX_TIMER - WALKER_TIME,
       0,
    &piggy
    };

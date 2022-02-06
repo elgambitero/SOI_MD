@@ -14,6 +14,8 @@
 #define BALL_SPEED     2 * WALKSPEED
 #define BALL_TIME      600
 
+#define WALKP_SPEED    2 * WALKSPEED
+
 extern const Entity PR_arrow;
 extern const Entity PR_cannonball;
 extern const Entity PR_simple;

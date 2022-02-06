@@ -1459,7 +1459,29 @@ void NST_hammer_loop(){
     }
 }
 
+#define WALKER_TIME 300
+
 void NST_walker_loop(){
+    if(curr->timer){
+        curr->timer++;
+        if(curr->timer == MAX_TIMER){
+            fx.status = dir;
+            fx.character = &PR_walkp;
+            fx.speed[Y] = 0;
+            fx.pos[Y] = POS_TO_PX(curr->pos[Y]) - 4;
+            if(dir){
+                fx.pos[X] = POS_TO_PX(curr->pos[X]) - 9;
+                fx.speed[X] = -WALKP_SPEED;
+            }else{
+                fx.pos[X] = POS_TO_PX(curr->pos[X]) + 9;
+                fx.speed[X] = WALKP_SPEED;
+            }
+            ACT_add(&fx, &projectiles);
+            SFX_playSound(snd_gargoyle_fire_ID);
+            curr->timer = MAX_TIMER - WALKER_TIME;
+            return;
+        };
+    }
     PHY_calc_center_block();
     PHY_set_presence(center_ind);
     switch(status & ANIM_MSK){
