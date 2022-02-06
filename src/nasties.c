@@ -1568,7 +1568,7 @@ __attribute__((always_inline)) static inline void NST_turn_around_smiley(){
     SPR_setAnimAndFrame(
         curr->sprite,
          status,
-         curr->sprite->frameInd
+         curr->sprite->animation->numFrame - curr->sprite->frameInd
         );
 }
 
