@@ -115,6 +115,22 @@ const Entity PR_L_ball = {
     }
 };
 
+void PR_walkp_loop();
+const Entity PR_walkp = {
+    PROJECTILE,
+    {3, 7},
+    {3, 7},
+    PAL_SYS0,
+    &walkp_spr,
+    NULL,
+    &PR_walkp_loop,
+    NULL,
+    {.proj = 
+        {
+        }
+    }
+};
+
 void PR_arrow_loop(){
     PHY_calc_front(dir);
     PHY_calc_front_block();
@@ -127,6 +143,21 @@ void PR_arrow_loop(){
 }
 
 void PR_canb_loop(){
+    PHY_calc_front(dir);
+    PHY_calc_front_block();
+    if(PHY_crash_into()){
+        result = ACT_DELETION;
+        if(PHY_breakable(front_ind)){
+            BRD_break_block_ind(env, front_ind);
+            if(dir)
+                PHY_brk_debris(front_ind, -CANBALL_SPEED, 0);
+            else
+                PHY_brk_debris(front_ind,  CANBALL_SPEED, 0);
+        }
+    }
+}
+
+void PR_walkp_loop(){ //Same as cannonball
     PHY_calc_front(dir);
     PHY_calc_front_block();
     if(PHY_crash_into()){
