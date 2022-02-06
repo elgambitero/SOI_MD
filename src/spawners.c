@@ -76,6 +76,24 @@ const Entity SPW_ostrich = {
     }
 };
 
+void SPW_spawn_smiley();
+const Entity SPW_smiley = {
+    SPAWNER | INVINCIBLE,
+    {8, 15},
+    {7, 15},
+    PAL_SYS0,
+    NULL,
+    NULL,
+    &SPW_update,
+    NULL,
+    {.spawner =
+        {
+            STAY_TIME,
+            &SPW_spawn_smiley
+        }
+    }
+};
+
 void SPW_spawn_hammer();
 const Entity SPW_hammer = {
     SPAWNER | INVINCIBLE,
@@ -171,6 +189,10 @@ void SPW_spawn_ostrich(){
 
 void SPW_spawn_hammer(){
     NST_spawn(&NST_hammer);
+}
+
+void SPW_spawn_smiley(){
+    NST_spawn(&NST_smiley);
 }
 
 void SPW_update(){
