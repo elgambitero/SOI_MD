@@ -342,6 +342,25 @@ const Entity NST_walker = {
     }
 };
 
+void NST_smiley_loop();
+const Entity NST_smiley = {
+    NASTIE,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    &smiley_spr,
+    NULL,
+    &NST_smiley_loop,
+    NULL,
+    {.nastie =
+        {
+            snd_smiley_ID,
+            400,
+            NASTIE_SPEED,
+        }
+    }
+}
+
 __attribute__((always_inline)) static inline void NST_still_fall(){
     newstatus = FALL_RIGHT;
     status = FALL_RIGHT; //Ugly hack to prevent animation change.
@@ -1532,6 +1551,68 @@ void NST_walker_loop(){
             PHY_calc_floor();
             if(PHY_land(floor_ind)) {
                 NST_die();
+                break;
+            }
+        break;
+        case DEAD:
+            NST_keep_dying();
+        break;
+    }
+}
+
+void NST_smiley_loop(){
+    PHY_despawn();
+
+    PHY_calc_center_block();
+    PHY_set_presence(center_ind);
+    switch(status & ANIM_MSK){
+        case WALK_RIGHT:
+            PHY_calc_back(dir);
+            PHY_calc_back_floor();
+            if(PHY_fall(back_floor_ind)){
+                NST_fall();
+                return;
+            }
+            PHY_calc_front(dir);
+            PHY_calc_front_block();
+            switch(PHY_crash_into()){
+                case FRAME:
+                    NST_turn_around_fast();
+                    return;
+                case BLOCK:
+                    if(PHY_breakable(front_ind)) NST_deletes();
+                    NST_turn_around_fast();
+                    return;
+                default:
+                    break;
+            }
+            curr->speed[X] = dir ? 
+                -curr->character->role.nastie.speed : curr->character->role.nastie.speed;
+        break;
+        case RIGHT_TURN_LEFT: //unused
+            if(curr->frames--) return;
+            newstatus = WALK_RIGHT | !dir;
+            curr->speed[X] = dir ? 
+                curr->character->role.nastie.speed : -curr->character->role.nastie.speed;
+            curr->pos[X] += dir ? COLL_CORR : -COLL_CORR;
+        break;
+        case ATTACK_RIGHT_IN: //unused
+            if(curr->frames--) return;
+            NST_breaks();
+            newstatus = dir | ATTACK_RIGHT_OUT;
+            curr->frames = HMR_ATTK_OUT_FRAMES;
+            curr->speed[X] = 0;
+        break;
+        case ATTACK_RIGHT_OUT: //unused
+            if(curr->frames--) return;
+            NST_keep_walking();
+        break;
+        case FALL_RIGHT:
+            PHY_calc_floor();
+            if(PHY_land(floor_ind)) {
+                curr->pos[Y] &= FLOOR_CORR;
+                curr->speed[Y] = 0;
+                NST_keep_walking();
                 break;
             }
         break;

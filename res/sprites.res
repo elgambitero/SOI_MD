@@ -13,10 +13,7 @@ SPRITE hippo_spr "sprites/hippo/hippo.bmp" 2 2 FAST 2
 SPRITE hammer_spr "sprites/hammer/hammer.bmp" 3 3 FAST 2
 SPRITE walker_spr "sprites/walker/walker.bmp" 3 2 FAST 2
 SPRITE walkp_spr "sprites/walker/walkp.bmp" 2 2 FAST 1
-
-
-
-SPRITE smiley_spr "sprites/smiley/Smiley_test.png" 2 2 FAST 2
+SPRITE smiley_spr "sprites/smiley/smiley.bmp" 2 2 FAST 2
 
 SPRITE bp_spr "sprites/bp/bp.bmp" 2 2 AUTO 2
 
