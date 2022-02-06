@@ -52,6 +52,7 @@
 #define KN_PROB_GDi_ARROW       8
 
 #define NASTIE_SPEED WALKSPEED
+#define WALKER_TIME 300
 
 extern const Entity NST_spinner;
 extern const Entity NST_robo;

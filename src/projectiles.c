@@ -118,8 +118,8 @@ const Entity PR_L_ball = {
 void PR_walkp_loop();
 const Entity PR_walkp = {
     PROJECTILE,
-    {3, 7},
-    {3, 7},
+    {7, 15},
+    {7, 10},
     PAL_SYS0,
     &walkp_spr,
     NULL,

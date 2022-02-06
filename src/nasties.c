@@ -1459,8 +1459,6 @@ void NST_hammer_loop(){
     }
 }
 
-#define WALKER_TIME 300
-
 void NST_walker_loop(){
     if(curr->timer){
         curr->timer++;
