@@ -27,6 +27,7 @@ void MEN_config_init();
 
 void MEN_seed_update();
 void MEN_canvas_update();
+void MEN_refresh_max_levels();
 
 void MEN_increase_level();
 void MEN_decrease_level();
@@ -55,8 +56,10 @@ u8 pressed;
 
 u8 max_levels;
 
+SOI_level_set_array_t * _rom_levelsets;
+
 const frame_t * MEN_begin(SOI_level_set_array_t * rom_levelsets){
-    max_levels = rom_levelsets->level_sets[0]->max_levels;
+    _rom_levelsets = rom_levelsets;
     return &MEN_in_s;
 }
 
@@ -67,6 +70,8 @@ const frame_t * MEN_init(){
     MEN_canvas_init();
     MEN_seed_init();
     MEN_config_init();
+
+    MEN_refresh_max_levels();
 
     pressed = 0;
     JOY_setEventHandler( &MEN_controls );
@@ -153,9 +158,10 @@ void MEN_canvas_init(){
 }
 
 void MEN_config_init(){
-    config.first_level = 1;
+    config.start_level = 1;
+    config.start_level_set = 0;
+
     config.num_players = 0;
-    config.game_mode = COOPERATE;
     config.seed[0] = 0;
     config.seed[1] = 1;
 }
@@ -166,7 +172,7 @@ void MEN_seed_init(){
 }
 
 void MEN_canvas_update(){
-    sprintf(numText, "%03d", config.first_level);
+    sprintf(numText, "%03d", config.start_level);
 
     VDP_drawText(numText, 30, START_BOARD_Y);
     
@@ -182,15 +188,19 @@ void MEN_seed_update(){
     config.seed[1] -= 5;
 }
 
+void MEN_refresh_max_levels(){
+    max_levels = _rom_levelsets->level_sets[0]->max_levels;
+}
+
 void MEN_increase_level(){
-    if(config.first_level < max_levels - 1){
-        config.first_level++;
+    if(config.start_level < max_levels - 1){
+        config.start_level++;
     }
 }
 
 void MEN_decrease_level(){
-    if(config.first_level > 0 && config.first_level <= max_levels - 1){
-        config.first_level--;
+    if(config.start_level > 0 && config.start_level <= max_levels - 1){
+        config.start_level--;
     }
 }
 
