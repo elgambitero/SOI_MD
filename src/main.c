@@ -1,8 +1,10 @@
 #include <genesis.h>
 
 #include "frame_state.h"
+#include "game_modes.h"
 
 #include "title.h"
+#include "menu.h"
 
 #define PAL
 
@@ -20,7 +22,7 @@ void MAIN_init(){
     SYS_disableInts();
 
     VDP_setScreenWidth320();
-    
+
     frame = &TIT_begin_s;
     
     SYS_enableInts();
@@ -39,6 +41,10 @@ int main()
 	return 0;
 }
 
-const frame_t * TIT_out(){
+const frame_t * TIT_out_cb(){
+    return &TIT_begin_s;
+}
+
+const frame_t * MEN_end_cb(MEN_config_t config){
     return &TIT_begin_s;
 }

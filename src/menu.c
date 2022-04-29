@@ -15,10 +15,25 @@
 #define PLAYERS_Y    20
 #define PRESS_START_Y 24
 
-void MEN_controls(u16 joy, u16 changed, u16 state)
 const frame_t * MEN_init();
 const frame_t * MEN_loop();
 const frame_t * MEN_out();
+
+void MEN_exit_loop();
+
+void MEN_canvas_init();
+void MEN_seed_init();
+void MEN_config_init();
+
+void MEN_seed_update();
+void MEN_canvas_update();
+
+void MEN_increase_level();
+void MEN_decrease_level();
+void MEN_increase_players();
+void MEN_decrease_players();
+
+void MEN_controls(u16 joy, u16 changed, u16 state);
 
 const frame_t MEN_in_s = {
     &MEN_init
@@ -34,7 +49,7 @@ const frame_t * frame;
 
 MEN_config_t config;
 
-u8 numText[6];
+char numText[6];
 
 u8 pressed;
 
@@ -42,11 +57,10 @@ u8 max_levels;
 
 const frame_t * MEN_begin(uint8_t max){
     max_levels = max;
-    return &MEN_in_s
+    return &MEN_in_s;
 }
 
 const frame_t * MEN_init(){
-    JOY_setEventHandler( &MEN_controls );
 
     VDP_setPalette(PAL0, palette_grey);
 
@@ -55,8 +69,9 @@ const frame_t * MEN_init(){
     MEN_config_init();
 
     pressed = 0;
+    JOY_setEventHandler( &MEN_controls );
 
-    frame = MEN_loop_s;
+    frame = &MEN_loop_s;
     return frame;
 }
 
@@ -71,11 +86,7 @@ const frame_t * MEN_loop(){
 const frame_t * MEN_out(){
     VDP_clearPlane(BG_A, TRUE);
     VDP_clearPlane(BG_B, TRUE);
-    gameState = GAMEINIT;
-    GAM_setGametype(COOPERATE);
-    GAM_setPlayers(config.num_players);
-    GAM_setStartingBoard(config.first_level);
-    return MEN_out(config);
+    return MEN_end_cb(config);
 }
 
 void MEN_controls(u16 joy, u16 changed, u16 state){
@@ -83,9 +94,7 @@ void MEN_controls(u16 joy, u16 changed, u16 state){
         if(state & BUTTON_RIGHT){
             if(!pressed){
                 pressed = 1;
-                if(config.first_level >= 0 && config.first_level < max_levels - 1){
-                    config.first_level++;
-                }
+                MEN_increase_level();
             }
         }else{
             pressed = 0;
@@ -95,9 +104,7 @@ void MEN_controls(u16 joy, u16 changed, u16 state){
         if(state & BUTTON_LEFT){
             if(!pressed){
                 pressed = 1;
-                if(config.first_level > 0 && config.first_level <= max_levels - 1){
-                    config.first_level--;
-                }
+                MEN_decrease_level();
             }
         }else{
             pressed = 0;
@@ -108,7 +115,7 @@ void MEN_controls(u16 joy, u16 changed, u16 state){
             if(state & BUTTON_UP){
                 if(!pressed){
                     pressed = 1;
-                    config.num_players = !config.num_players;
+                    MEN_increase_players();
                 }
             }else{
                 pressed = 0;
@@ -118,7 +125,7 @@ void MEN_controls(u16 joy, u16 changed, u16 state){
             if(state & BUTTON_DOWN){
                 if(!pressed){
                     pressed = 1;
-                    config.num_players = !config.num_players;
+                    MEN_decrease_players();
                 }
             }else{
                 pressed = 0;
@@ -127,11 +134,9 @@ void MEN_controls(u16 joy, u16 changed, u16 state){
     }
     if(changed & BUTTON_START){
         if(state & BUTTON_START){
-            XGM_stopPlay();
-            frame = &MEN_out_s;
+            MEN_exit_loop();
         }
     }
-    break;
 }
 
 void MEN_canvas_init(){
@@ -147,6 +152,19 @@ void MEN_canvas_init(){
     VDP_drawText("^ v ", 11, PLAYERS_Y);
 }
 
+void MEN_config_init(){
+    config.first_level = 1;
+    config.num_players = 0;
+    config.game_mode = COOPERATE;
+    config.seed[0] = 0;
+    config.seed[1] = 1;
+}
+
+void MEN_seed_init(){
+    config.seed[0] = 0xFF;
+    config.seed[1] = 0xFF;
+}
+
 void MEN_canvas_update(){
     sprintf(numText, "%03d", config.first_level);
 
@@ -159,20 +177,33 @@ void MEN_canvas_update(){
     }
 }
 
-void MEN_seed_init(){
-    seed[0] = 0xFF;
-    seed[1] = 0xFF;
-}
-
 void MEN_seed_update(){
-    seed[0] -= 3;
-    seed[1] -= 5;
+    config.seed[0] -= 3;
+    config.seed[1] -= 5;
 }
 
-void MEN_config_init(){
-    config.first_level = 1;
-    config.num_players = 0;
-    config.seed[0] = 0;
-    config.seed[1] = 1;
+void MEN_increase_level(){
+    if(config.first_level < max_levels - 1){
+        config.first_level++;
+    }
+}
 
+void MEN_decrease_level(){
+    if(config.first_level > 0 && config.first_level <= max_levels - 1){
+        config.first_level--;
+    }
+}
+
+void MEN_increase_players(){
+    config.num_players = !config.num_players;
+}
+
+void MEN_decrease_players(){
+    config.num_players = !config.num_players;
+}
+
+void MEN_exit_loop(){
+    XGM_stopPlay();
+    JOY_setEventHandler( NULL );
+    frame = &MEN_out_s;
 }

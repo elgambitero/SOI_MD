@@ -5,6 +5,6 @@
 
 const frame_t TIT_begin_s;
 
-const frame_t * TIT_out();
+const frame_t * TIT_out_cb();
 
 #endif

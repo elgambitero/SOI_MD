@@ -54,7 +54,7 @@ const frame_t * TIT_screen(){
 
 const frame_t * TIT_fade_out(){
     VDP_fadeOut(32, 63, 20, FALSE);
-    return TIT_out();
+    return TIT_out_cb();
 }
 
 void TIT_control(u16 joy, u16 changed, u16 state){
