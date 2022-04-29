@@ -3,10 +3,10 @@
 #include "frame_state.h"
 
 #include "game_config.h"
+#include "levels.h"
 
 #include "title.h"
 #include "menu.h"
-#include "levels.h"
 
 #define PAL
 
@@ -45,7 +45,7 @@ void MAIN_init(){
 }
 
 const frame_t * TIT_out_cb(){
-    return MEN_begin(MAX_LEVELS);
+    return MEN_begin(&rom_levels);
 }
 
 const frame_t * MEN_end_cb(game_config_t config){

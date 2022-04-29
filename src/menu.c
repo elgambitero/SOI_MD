@@ -56,7 +56,7 @@ u8 pressed;
 u8 max_levels;
 
 const frame_t * MEN_begin(SOI_level_set_array_t * rom_levelsets){
-    max_levels = rom_levelsets->level_sets[0].max_levels;
+    max_levels = rom_levelsets->level_sets[0]->max_levels;
     return &MEN_in_s;
 }
 

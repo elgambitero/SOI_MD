@@ -1,6 +1,8 @@
 #ifndef LEVEL_SET_H
 #define LEVEL_SET_H
 
+#include <genesis.h>
+
 #include "game_mode.h"
 
 typedef struct{
