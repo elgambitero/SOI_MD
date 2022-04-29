@@ -14,8 +14,6 @@
 
 enum MainStates mainState;
 
-u16 ind;
-
 void MAIN_titleControl(u16 joy, u16 changed, u16 state){
     if(changed & BUTTON_START){
         if(state & BUTTON_START){
@@ -74,7 +72,7 @@ int main()
                 mainState = MEN_loop();
             break;
             case GAMEPLAY:
-                mainState = GAM_loop(ind);
+                mainState = GAM_loop();
             break;
         }
 
