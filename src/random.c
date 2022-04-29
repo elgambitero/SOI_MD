@@ -1,6 +1,6 @@
-#include "SOI.h"
+#include "random.h"
 
-u8 rndtable_from_DooM[256] = {
+uint8_t rndtable_from_DooM[256] = {
     0,   8, 109, 220, 222, 241, 149, 107,  75, 248, 254, 140,  16,  66 ,
     74,  21, 211,  47,  80, 242, 154,  27, 205, 128, 161,  89,  77,  36 ,
     95, 110,  85,  48, 212, 140, 211, 249,  22,  79, 200,  50,  28, 188 ,
@@ -22,16 +22,16 @@ u8 rndtable_from_DooM[256] = {
     120, 163, 236, 249
 };
 
-u8 rng_index = 0;
-u8 rng_interval = 1;
+uint8_t rng_index = 0;
+uint8_t rng_interval = 1;
 
 
-u8 RNG_get(){
+uint8_t RNG_get(){
   rng_index += rng_interval;
   return rndtable_from_DooM[rng_index];
 }
 
-void RNG_seed(u16 seed){
+void RNG_seed(uint16_t seed){
   rng_index = seed & 0x00FF;
   rng_interval = ((seed & 0xFF00 ) >> 8) | 0x01;
 }
