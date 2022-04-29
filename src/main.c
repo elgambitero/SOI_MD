@@ -20,11 +20,9 @@ void MAIN_init(){
     SYS_disableInts();
 
     VDP_setScreenWidth320();
-
-
+    
     frame = &TIT_begin_s;
     
-
     SYS_enableInts();
 }
 
