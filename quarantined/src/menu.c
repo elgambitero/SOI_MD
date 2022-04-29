@@ -1,4 +1,6 @@
-#include "SOI.h"
+#include <genesis.h>
+
+#include "title_interface.h"
 
 #include "images.h"
 #include "music.h"
