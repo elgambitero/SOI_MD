@@ -52,6 +52,6 @@ const frame_t * TIT_out_cb(){
 const frame_t * MEN_end_cb(game_config_t config){
     u16 * seedPtr = (u16*) config.seed;
     RNG_seed( *seedPtr );
-    TST_game_config(config);
+    //TST_game_config(config);
     return TIT_begin();
 }
