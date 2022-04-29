@@ -8,6 +8,4 @@ typedef struct{
     SOI_level_set_t * level_sets;
 }SOI_level_set_array_t;
 
-SOI_level_set_array_t rom_levels;
-
 #endif
