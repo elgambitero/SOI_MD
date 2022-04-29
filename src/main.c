@@ -17,17 +17,6 @@
 
 const frame_t * frame;
 
-void MAIN_init(){
-
-    SYS_disableInts();
-
-    VDP_setScreenWidth320();
-
-    frame = &TIT_begin_s;
-    
-    SYS_enableInts();
-}
-
 int main()
 {
     MAIN_init();
@@ -39,6 +28,17 @@ int main()
 		VDP_waitVSync();
 	}
 	return 0;
+}
+
+void MAIN_init(){
+
+    SYS_disableInts();
+
+    VDP_setScreenWidth320();
+
+    frame = &TIT_begin_s;
+
+    SYS_enableInts();
 }
 
 const frame_t * TIT_out_cb(){
