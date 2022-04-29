@@ -6,7 +6,7 @@ const SOI_level_set_t demo_levels = {
     COMPETE
 };
 
-const SOI_level_set_t level_sets[] = {
+const SOI_level_set_t * level_sets[] = {
     &demo_levels
 };
 
