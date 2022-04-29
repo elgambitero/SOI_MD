@@ -16,6 +16,10 @@ enum MainStates{INTRO,
     MAIN_MENU,
     GAMEPLAY
     };
+
+typedef struct frame_t{
+    struct frame_t (*const calc_frame)();
+}frame_t;
     
 typedef struct PlayerStat{
     u32 score;
