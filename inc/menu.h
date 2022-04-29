@@ -2,6 +2,7 @@
 #define MENU_H
 
 #include "frame_state.h"
+
 #include "game_modes.h"
 
 typedef struct MEN_config_t{

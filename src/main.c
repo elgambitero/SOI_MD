@@ -1,6 +1,7 @@
 #include <genesis.h>
 
 #include "frame_state.h"
+
 #include "game_modes.h"
 
 #include "title.h"
@@ -14,6 +15,8 @@
 #else
     #define FRAMES 50
 #endif
+
+void MAIN_init();
 
 const frame_t * frame;
 
@@ -36,7 +39,7 @@ void MAIN_init(){
 
     VDP_setScreenWidth320();
 
-    frame = &TIT_begin_s;
+    frame = TIT_begin();
 
     SYS_enableInts();
 }
@@ -46,5 +49,5 @@ const frame_t * TIT_out_cb(){
 }
 
 const frame_t * MEN_end_cb(MEN_config_t config){
-    return &TIT_begin_s;
+    return TIT_begin();
 }

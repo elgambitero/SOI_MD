@@ -28,6 +28,10 @@ const frame_t TIT_begin_s = {
 
 const frame_t * frame;
 
+const frame_t * TIT_begin(){
+    return &TIT_fade_in_s;
+}
+
 const frame_t * TIT_fade_in(){
 
     JOY_init();
