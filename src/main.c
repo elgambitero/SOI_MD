@@ -5,6 +5,7 @@
 
 #include "title.h"
 #include "menu.h"
+#include "levels.h"
 
 #define PAL
 
@@ -13,7 +14,6 @@
 #else
     #define FRAMES 50
 #endif
-
 
 const frame_t * frame;
 
@@ -42,7 +42,7 @@ int main()
 }
 
 const frame_t * TIT_out_cb(){
-    return &TIT_begin_s;
+    return MEN_begin(MAX_LEVELS);
 }
 
 const frame_t * MEN_end_cb(MEN_config_t config){
