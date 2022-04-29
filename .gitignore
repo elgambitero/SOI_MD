@@ -2,3 +2,5 @@
 /res/*.h
 /src/boot/*.s
 *.DS_Store
+
+.vscode/*
