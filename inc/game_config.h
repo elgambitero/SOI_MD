@@ -1,8 +1,6 @@
 #ifndef GAME_CONFIG_H
 #define GAME_CONFIG_H
 
-#include "game_mode.h"
-
 typedef struct game_config_t{
     uint8_t first_level;
     uint8_t num_players;

@@ -1,7 +1,6 @@
 #ifndef LEVEL_SET_H
 #define LEVEL_SET_H
 
-#include "game_mode.h"
 
 typedef struct{
     const char * name;
