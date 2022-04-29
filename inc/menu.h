@@ -5,7 +5,7 @@
 
 #include "game_config.h"
 
-const frame_t * MEN_begin(uint8_t max_levels);
+const frame_t * MEN_begin(SOI_level_set_array_t * level_sets);
 
 const frame_t * MEN_end_cb(game_config_t config);
 

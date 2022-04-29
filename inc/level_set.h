@@ -1,12 +1,13 @@
 #ifndef LEVEL_SET_H
 #define LEVEL_SET_H
 
+#include "game_mode.h"
 
 typedef struct{
     const char * name;
     uint8_t max_levels;
     SOI_game_mode_t game_mode;
-    
-}SOI_level_set_t
+
+}SOI_level_set_t;
 
 #endif
