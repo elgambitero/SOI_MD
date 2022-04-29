@@ -2,7 +2,7 @@
 
 #include "frame_state.h"
 
-#include "game_modes.h"
+#include "game_config.h"
 
 #include "title.h"
 #include "menu.h"
@@ -48,6 +48,6 @@ const frame_t * TIT_out_cb(){
     return MEN_begin(MAX_LEVELS);
 }
 
-const frame_t * MEN_end_cb(MEN_config_t config){
+const frame_t * MEN_end_cb(game_config_t config){
     return TIT_begin();
 }

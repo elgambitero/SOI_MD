@@ -47,7 +47,7 @@ const frame_t MEN_out_s = {
 
 const frame_t * frame;
 
-MEN_config_t config;
+game_config_t config;
 
 char numText[6];
 
