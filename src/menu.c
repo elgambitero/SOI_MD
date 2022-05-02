@@ -177,7 +177,7 @@ void MEN_seed_init(){
 }
 
 void MEN_canvas_update(){
-    sprintf(num_level_text, "%03d", config.start_level);
+    sprintf(num_level_text, "%03d", config.start_level + 1);
 
     VDP_drawText(num_level_text, 30, START_BOARD_Y);
     
