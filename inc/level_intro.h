@@ -1,6 +1,9 @@
 #ifndef LEVEL_INTRO_H
 #define LEVEL_INTRO_H
 
+//VRAM offset for images
+#define IMAGE_OFFSET 128
+
 #include "frame_state.h"
 
 typedef struct level_intro_t
@@ -23,6 +26,6 @@ static inline const frame_t * level_intro(
     return self->vtable_->begin(exit_callback);
 }
 
-extern const struct level_intro_vtable_ NORMAL_STAGE_T[]; 
+extern const struct level_intro_vtable_ NORMAL_STAGE_T[], BONUS_STAGE_T[];
 
 #endif
