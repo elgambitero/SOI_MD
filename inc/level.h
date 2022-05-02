@@ -8,10 +8,10 @@
 #define BOARD_BUFFER BOARD_X * BOARD_Y
 
 typedef struct SOI_level_t{
-    u16 front_blocks[BOARD_BUFFER];
-    u16 back_blocks[BOARD_BUFFER];
-    u8 colors[3];
-    u16 bonus;
+    uint16_t front_blocks[BOARD_BUFFER];
+    uint16_t back_blocks[BOARD_BUFFER];
+    uint8_t colors[3];
+    uint16_t bonus;
 
 }SOI_level_t;
 
