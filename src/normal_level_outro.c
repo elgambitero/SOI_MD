@@ -14,34 +14,87 @@
 
 #define SCORE_TEXT_Y   4
 #define BONUS_TEXT_Y   0
-#define WEAP_TEXT_Y 2
+#define WEAP_TEXT_Y    2
+
+#define MULT_X         7
 
 #define SCORE_SPACE   18
+#define BONUS_SPACE   21
+#define WEAPONS_SPACE 22
 
 #define PL_SPR_MIN_X     128
 #define PL_SPR_Y         80
 #define PL_SPR_MAX_X     176
 
+#define STEP_FRAMES 30
+#define MULTI_FRAMES 15
+
+#define NOWEAP_BONUS 5000
+
 
 void NOUT_control(u16 joy, u16 changed, u16 state);
 const frame_t * NOUT_fade_in();
-const frame_t * NOUT_screen();
+const frame_t * NOUT_loop_step_1();
+const frame_t * NOUT_loop_step_2();
+const frame_t * NOUT_loop_step_3();
+const frame_t * NOUT_loop_step_4();
+const frame_t * NOUT_loop_step_5();
+const frame_t * NOUT_loop_step_6();
+const frame_t * NOUT_loop_step_7();
+const frame_t * NOUT_loop_step_8();
+const frame_t * NOUT_loop_final();
 const frame_t * NOUT_fade_out();
+
+const frame_t NOUT_begin_s = {
+    &NOUT_fade_in
+};
 
 const frame_t NOUT_fade_in_s = {
     &NOUT_fade_in
 };
 
+const frame_t NOUT_loop_step_1_s = {
+    &NOUT_loop_step_1
+};
+
+const frame_t NOUT_loop_step_2_s = {
+    &NOUT_loop_step_2
+};
+
+const frame_t NOUT_loop_step_3_s = {
+    &NOUT_loop_step_3
+};
+
+const frame_t NOUT_loop_step_4_s = {
+    &NOUT_loop_step_4
+};
+
+const frame_t NOUT_loop_step_5_s = {
+    &NOUT_loop_step_5
+};
+
+const frame_t NOUT_loop_step_6_s = {
+    &NOUT_loop_step_6
+};
+
+const frame_t NOUT_loop_step_7_s = {
+    &NOUT_loop_step_7
+};
+
+const frame_t NOUT_loop_step_8_s = {
+    &NOUT_loop_step_8
+};
+
+const frame_t NOUT_loop_step_9_s = {
+    &NOUT_loop_step_9
+};
+
+const frame_t NOUT_loop_final_s = {
+    &NOUT_loop_final
+}
+
 const frame_t NOUT_fade_out_s = {
     &NOUT_fade_out
-};
-
-const frame_t NOUT_screen_s = {
-    &NOUT_screen
-};
-
-const frame_t NOUT_begin_s = {
-    &NOUT_fade_in
 };
 
 const frame_t * frame;
@@ -49,6 +102,11 @@ const frame_t * frame;
 cutscene_cb callback;
 
 normal_outro_t * static_self;
+SOI_player_status_t status_static;
+
+uint16_t frame_time;
+
+char text_buffer[15];
 
 normal_outro_t * NOUT_init(
     normal_outro_t * self,
@@ -58,6 +116,7 @@ normal_outro_t * NOUT_init(
 {
     self->super.vtable_ = BONUS_OUTRO_T;
     self->status = status;
+    status_static = *status;
     self->config = config;
     static_self = self;
 }
@@ -73,7 +132,7 @@ const frame_t * NOUT_begin(
 void NOUT_prepare_palettes();
 void NOUT_draw_borders();
 void NOUT_draw_lettering();
-uint32_t NOUT_gather_score_from_self()
+uint32_t NOUT_gather_score_from_static();
 void NOUT_draw_player_sprites();
 
 const frame_t * NOUT_fade_in(){
@@ -86,15 +145,20 @@ const frame_t * NOUT_fade_in(){
 
     NOUT_draw_lettering();
 
-    uint32_t scoreCount = NOUT_gather_score_from_self();
+    uint32_t score_count = NOUT_gather_score_from_static();
 
-    sprintf(scoreText, "%08lu", scoreCount);
+    sprintf(scoreText, "%08lu", score_count);
     VDP_drawText(scoreText, SCORE_COUNT_X + SCORE_SPACE, SCORE_COUNT_Y + SCORE_TEXT_Y);
 
     NOUT_draw_player_sprites();
 
     VDP_fadeIn(0, 63, palette, 20, FALSE);
 
+    JOY_setEventHandler(&NOUT_control);
+
+    frame_time = STEP_FRAMES;
+    frame = &NOUT_loop_1_s;
+    return frame;
 }
 
 void NOUT_load_palettes(uint8_t * palette){
@@ -118,7 +182,7 @@ void NOUT_draw_lettering(){
     VDP_drawText("Score", SCORE_COUNT_X, SCORE_COUNT_Y + SCORE_TEXT_Y);
 }
 
-uint32_t NOUT_gather_score_from_self(){
+uint32_t NOUT_gather_score_from_static(){
     uint32_t score_count = 0;
     for(
         uint8_t i = 0;
@@ -126,7 +190,7 @@ uint32_t NOUT_gather_score_from_self(){
         i++
     )
     {
-        uint32_t pl_score = static_self->status->player_stat[i].score;
+        uint32_t pl_score = static_status.player_stat[i].score;
         score_count += pl_score;
     }
     return score_count;
@@ -145,6 +209,255 @@ void NOUT_draw_player_sprites(){
         );
         SPR_setAnim(pl, PL_WALK_RIGHT);
         palette_ind++;
+    }
+}
+
+uint32_t NOUT_gather_bonus_from_static();
+
+const frame * NOUT_loop_step_1(){
+    SPR_update();
+
+    if(frame_time){
+        frame_time--;
+        return frame;
+    }
+
+    frame_time = STEP_FRAMES;
+
+    SFX_play_sound(snd_hait_ID);
+
+    uint32_t bonus_count = NOUT_gather_bonus_from_static();
+    sprintf(text_buffer, "%05lu", bonus_count);
+    VDP_drawText(text_buffer, SCORE_COUNT_X + BONUS_SPACE, SCORE_COUNT_Y + BONUS_TEXT_Y);
+
+    frame = &NOUT_loop_step_2_s;
+    return frame;
+}
+
+uint32_t NOUT_gather_bonus_from_static(){
+    uint32_t bonus_count = 0;
+    for(
+        uint8_t i = 0;
+        i <= static_self->config->additional_players;
+        i++
+    )
+    {
+        uint32_t pl_bonus = static_status.player_stat[i].score;
+        bonus_count += pl_bonus;
+    }
+    return bonus_count;
+}
+
+uint8_t NOUT_advance_bonus_count(){
+
+    uint8_t players = static_self->config->additional_players + 1;
+    uint32_t score_count = 0;
+    uint8_t finished = FALSE;
+
+    for(uint8_t i = 0; i < players; i++){
+        SOI_player_status_t * player = status_static.player_stat + i;
+        player->score += player->mult ? player->bonus : 0;
+        score_count += player->score;
+        player->mult--;
+        if(!player->mult){
+            finished = TRUE;
+        }
+    }
+
+    sprintf(text_buffer, "%08lu", score_count);
+    VDP_drawText(text_buffer, SCORE_COUNT_X + SCORE_SPACE, SCORE_COUNT_Y + SCORE_TEXT_Y);
+
+    return finished;
+}
+
+const frame * NOUT_loop_step_2(){
+    SPR_update();
+
+    if(frame_time){
+        frame_time--;
+        return frame;
+    }
+
+    SFX_playSound(snd_huoh_ID);
+    frame_time = STEP_FRAMES
+
+    frame = NOUT_advance_bonus_count() ? &NOUT_loop_step_3_s : &NOUT_loop_step_8_s;
+    return frame;
+}
+
+const frame * NOUT_loop_step_3(){
+    SPR_update();
+
+    if(frame_time){
+        frame_time--;
+        return frame;
+    }
+
+    frame_time = MULTI_FRAMES;
+
+    SFX_playSound(snd_one_ID);
+
+    VDP_drawText("1x", SCORE_COUNT_X + MULT_X, SCORE_COUNT_Y + BONUS_TEXT_Y);
+
+    frame = &NOUT_loop_step_4_s;
+    return frame;
+}
+
+const frame * NOUT_loop_step_4(){
+    SPR_update();
+
+    if(frame_time){
+        frame_time--;
+        return frame;
+    }
+
+    frame_time = MULTI_FRAMES;
+
+    SFX_playSound(snd_two_ID);
+
+    VDP_drawText("2x", SCORE_COUNT_X + MULT_X, SCORE_COUNT_Y, BONUS_TEXT_Y);
+
+    frame = NOUT_advance_bonus_count() ? &NOUT_loop_step_5_s : &NOUT_loop_step_8_s;
+    return frame;
+}
+
+const frame * NOUT_loop_step_5(){
+    SPR_update();
+
+    if(frame_time){
+        frame_time--;
+        return frame;
+    }
+
+    frame_time = MULTI_FRAMES;
+
+    SFX_playSound(snd_three_ID);
+
+    VDP_drawText("3x", SCORE_COUNT_X + MULT_X, SCORE_COUNT_Y, BONUS_TEXT_Y);
+
+    frame = NOUT_advance_bonus_count() ? &NOUT_loop_step_6_s : &NOUT_loop_step_8_s;
+    return frame;
+}
+
+const frame * NOUT_loop_step_6(){
+    SPR_update();
+
+    if(frame_time){
+        frame_time--;
+        return frame;
+    }
+
+    frame_time = MULTI_FRAMES;
+
+    SFX_playSound(snd_four_ID);
+
+    VDP_drawText("5x", SCORE_COUNT_X + MULT_X, SCORE_COUNT_Y, BONUS_TEXT_Y);
+
+    frame = NOUT_advance_bonus_count() ? &NOUT_loop_step_7_s : &NOUT_loop_step_8_s;
+    return frame;
+}
+
+const frame * NOUT_loop_step_7(){
+    SPR_update();
+
+    if(frame_time){
+        frame_time--;
+        return frame;
+    }
+
+    frame_time = MULTI_FRAMES;
+
+    SFX_playSound(snd_five_ID);
+
+    VDP_drawText("5x", SCORE_COUNT_X + MULT_X, SCORE_COUNT_Y, BONUS_TEXT_Y);
+
+    frame = NOUT_advance_bonus_count() ? &NOUT_loop_step_8_s : &NOUT_loop_step_8_s;
+    return frame;
+}
+
+uint8_t NOUT_check_noweap_from_static();
+
+const frame * NOUT_loop_step_8(){
+    SPR_update();
+
+    if(frame_time){
+        frame_time--;
+        return frame;
+    }
+
+    frame_time = STEP_FRAMES;
+    SFX_playSound(snd_hait_ID);
+
+    sprintf(
+        text_buffer,
+        "%04u",
+        NOUT_check_noweap_from_static() ? NOWEAP_BONUS : 0000
+    );
+
+    VDP_drawText(text_buffer, SCORE_COUNT_X + WEAPONS_SPACE, SCORE_COUNT_Y + WEAP_TEXT_Y);
+
+    frame = &NOUT_loop_step_9_s;
+    return frame;
+}
+
+uint8_t NOUT_check_noweap_from_static(){
+    uint8_t players = static_self->config->additional_players + 1;
+    uint8_t noweap = FALSE;
+    for(uint8_t i = 0; i < players; i++){
+        SOI_player_status_t * player = status_static.player_stat + i;
+        if(player->noweap)
+            return TRUE;
+    }
+}
+
+uint32_t NOUT_add_noweap_bonus_to_score();
+
+const frame * NOUT_loop_step_9(){
+    SPR_update();
+
+    if(frame_time){
+        frame_time--;
+        return frame;
+    }
+
+    frame_time = STEP_FRAMES;
+
+    SFX_playSound(snd_huoh_ID);
+
+    if(NOUT_check_noweap_from_static()){
+        uint32_t score_count = NOUT_add_noweap_bonus_to_score();
+
+        sprintf(text_buffer, "%08lu", score_count);
+        VDP_drawText(text_buffer, SCORE_COUNT_X + SCORE_SPACE, SCORE_COUNT_Y + SCORE_TEXT_Y);
+    }
+
+    frame = &NOUT_loop_final_s;
+    return frame;
+}
+
+uint32_t NOUT_add_noweap_bonus_to_score(){
+    uint32_t score_count = NOUT_gather_score_from_static();
+    uint8_t players = static_self->config->additional_players + 1;
+    score_count += players * NOWEAP_BONUS;
+    return score_count;
+}
+
+const frame * NOUT_loop_final(){
+    SPR_update();
+    return frame;
+}
+
+const frame_t * NOUT_fade_out(){
+    VDP_fadeOut(0, 63, 20, FALSE);
+    SPR_end();
+    return (*callback)();
+}
+
+void NOUT_control(u16 joy, u16 changed, u16 state){
+    if(changed & BUTTON_START){
+        if(state & BUTTON_START){
+            frame = &NOUT_fade_out_s;
+        }
     }
 }
 
