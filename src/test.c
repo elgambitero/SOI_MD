@@ -73,7 +73,6 @@ void TST_print_player_game_status(
     uint8_t player_index
 )
 {
-
     VDP_drawText("score: " , 0, 4 + player_index * 6);
     VDP_drawText("bonus: " , 0, 5 + player_index * 6);
     VDP_drawText("mult: " , 0, 6 + player_index * 6);
@@ -113,3 +112,34 @@ void TST_lock(){
 		VDP_waitVSync();
     }
 }
+
+const game_config_t passing_config = {
+    12,
+    1,
+    1,
+    {42, 42},
+    NULL
+};
+
+const SOI_game_status_t passing_status = {
+    12,
+    1,
+    {
+        {
+            0,
+            1500,
+            1,
+            3,
+            3,
+            3
+        },
+        {
+            0,
+            1500,
+            1,
+            3,
+            3,
+            3
+        }
+    }
+};
