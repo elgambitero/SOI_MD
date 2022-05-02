@@ -5,10 +5,12 @@ SOI_MD is a recreation of the 90s MacOS game [Step On It!](https://en.wikipedia.
 It was made a reality thanks to the [SGDK](https://github.com/Stephane-D/SGDK) framework by [Stephane-D](https://github.com/Stephane-D) .
 
 Original:
-![original | 200](./docs/step-on-it_2.png)
+
+<img src="./docs/step-on-it_2.png" alt="drawing" width="300"/>
 
 SOI_MD:
-![SOI_MD | 200](./docs/SOI_MD.png)
+
+<img src="./docs/SOI_MD.png" alt="drawing" width="300"/>
 
 This repo crams the original game into the color and display capabilities of the [Sega MegaDrive](https://en.wikipedia.org/wiki/Sega_Genesis), and implements the same gameplay to be performed on the MegaDrive controller, from scratch.
 
