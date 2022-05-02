@@ -9,6 +9,7 @@
 #include "title.h"
 #include "menu.h"
 #include "starter.h"
+#include "level_intro.h"
 
 #include "test.h"
 
@@ -59,6 +60,14 @@ const frame_t * MEN_end_cb(game_config_t config){
     SOI_game_status_t status = STR_create_game_status(
         &config
     );
-    TST_game_status(&status);
-    return TIT_begin();
+    //TST_game_status(&status);
+    SOI_level_t * first_level = LVL_get_level_from_indices(
+        config.start_level_set,
+        config.start_level
+    );
+
+    return level_intro(
+        &(first_level->intro),
+        &TIT_begin
+    );
 }
