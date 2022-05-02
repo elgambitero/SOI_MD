@@ -3,7 +3,7 @@
 
 #include <genesis.h>
 
-#include "level_intro.h"
+#include "cutscene.h"
 
 #define BOARD_X 19
 #define BOARD_Y 13

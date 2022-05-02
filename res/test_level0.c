@@ -1,6 +1,6 @@
 #include "test_levels.h"
 
-#include "level_intro.h"
+#include "cutscene.h"
 #include "blocks.h"
 
 #define BDG (NORMAL_BLOCK | SOLID | BLK_DONUT | COL_SLOT1)

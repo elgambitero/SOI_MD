@@ -1,4 +1,4 @@
-#include "level_intro.h"
+#include "cutscene.h"
 
 static const frame_t * begin(
     level_intro_cb exit_callback
