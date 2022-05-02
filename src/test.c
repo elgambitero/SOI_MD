@@ -19,7 +19,7 @@ void TST_game_config(game_config_t * config){
 
     VDP_drawText("start_level: ", 0, 1);
     VDP_drawText("start_level_set: ", 0, 2);
-    VDP_drawText("num_players: ", 0, 3);
+    VDP_drawText("additional_players: ", 0, 3);
     VDP_drawText("seed: ", 0, 4);
 
     u16 * seedPtr = (u16*) config->seed;
@@ -30,7 +30,7 @@ void TST_game_config(game_config_t * config){
     sprintf(text_buffer, "%05u", config->start_level_set);
     VDP_drawText(text_buffer, GMCFG_INDENT, 2);
 
-    sprintf(text_buffer, "%05u", config->num_players);
+    sprintf(text_buffer, "%05u", config->additional_players);
     VDP_drawText(text_buffer, GMCFG_INDENT, 3);
 
     sprintf(text_buffer, "%05u", *seedPtr);

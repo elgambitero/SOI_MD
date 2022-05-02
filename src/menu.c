@@ -163,7 +163,7 @@ void MEN_config_init(){
     config.start_level = 0;
     config.start_level_set = 0;
 
-    config.num_players = 0;
+    config.additional_players = 0;
     
     config.seed[0] = 0;
     config.seed[1] = 1;
@@ -181,7 +181,7 @@ void MEN_canvas_update(){
 
     VDP_drawText(num_level_text, 30, START_BOARD_Y);
     
-    if(config.num_players){
+    if(config.additional_players){
         VDP_drawText("Two Players", 15,PLAYERS_Y);
     }else{
         VDP_drawText("One Player ", 15,PLAYERS_Y);
@@ -210,11 +210,11 @@ void MEN_decrease_level(){
 }
 
 void MEN_increase_players(){
-    config.num_players = !config.num_players;
+    config.additional_players = !config.additional_players;
 }
 
 void MEN_decrease_players(){
-    config.num_players = !config.num_players;
+    config.additional_players = !config.additional_players;
 }
 
 void MEN_exit(){
