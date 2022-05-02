@@ -1,5 +1,6 @@
 #include "test_levels.h"
 
+#include "level_intro.h"
 #include "blocks.h"
 
 #define BDG (NORMAL_BLOCK | SOLID | BLK_DONUT | COL_SLOT1)
@@ -51,5 +52,6 @@ const SOI_level_t test_level0 = {
         0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
     },
     {PAL_PI, PAL_YL, PAL_BK},
-    1500
+    1500,
+    { NORMAL_STAGE_T }
 };
