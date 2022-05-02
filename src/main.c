@@ -48,7 +48,7 @@ const frame_t * MAIN_init(){
 
     SYS_enableInts();
 
-    return cutscene(
+    return CTS_play(
         &title,
         &TIT_out_cb
     );
@@ -72,7 +72,7 @@ const frame_t * MEN_end_cb(game_config_t config){
         config.start_level
     );
 
-    return cutscene(
+    return CTS_play(
         &(first_level->intro),
         &MAIN_init
     );

@@ -18,7 +18,7 @@ struct cutscene_vtable_
     const frame_t * (*begin)( cutscene_cb );
 };
 
-static inline const frame_t * cutscene(
+static inline const frame_t * CTS_play(
     cutscene_t * self,
     cutscene_cb exit_callback
 )
