@@ -55,7 +55,7 @@ const frame_t * MEN_end_cb(game_config_t config){
     RNG_seed( *seedPtr );
     //TST_game_config(config);
     SOI_game_status_t status = STR_create_game_status(
-        config
+        &config
     );
     TST_game_status(&status);
     return TIT_begin();

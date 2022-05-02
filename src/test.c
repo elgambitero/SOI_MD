@@ -57,7 +57,7 @@ void TST_game_status(SOI_game_status_t * status){
     VDP_drawText(text_buffer, GMSTS_INDENT, 2);
 
     TST_print_player_game_status(status, 0);
-    TST_print_player_game_status(status, 0);
+    TST_print_player_game_status(status, 1);
 
     TST_lock();
 }
