@@ -4,7 +4,6 @@
 #include "rom_levels.h"
 
 SOI_game_status_t status;
-SOI_player_status_t player[MAX_PLAYERS];
 
 SOI_game_status_t STR_create_game_from_config(game_config_t * config);
 void STR_initialize_player_stats(
