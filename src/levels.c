@@ -1,4 +1,4 @@
-#include "levels.h"
+#include "rom_levels.h"
 
 const SOI_level_set_t demo_levels = {
     "Original Demo",

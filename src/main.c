@@ -4,7 +4,7 @@
 #include "random.h"
 
 #include "game_config.h"
-#include "levels.h"
+#include "rom_levels.h"
 
 #include "title.h"
 #include "menu.h"

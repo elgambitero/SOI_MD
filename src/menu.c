@@ -14,12 +14,11 @@
 #define START_BOARD_Y 18
 #define PLAYERS_Y    20
 #define PRESS_START_Y 24
+#define PASSWORD_L 24
 
 const frame_t * MEN_init();
 const frame_t * MEN_loop();
 const frame_t * MEN_out();
-
-void MEN_exit_loop();
 
 void MEN_canvas_init();
 void MEN_seed_init();
@@ -33,6 +32,8 @@ void MEN_increase_level();
 void MEN_decrease_level();
 void MEN_increase_players();
 void MEN_decrease_players();
+
+void MEN_exit();
 
 void MEN_controls(u16 joy, u16 changed, u16 state);
 
@@ -50,7 +51,8 @@ const frame_t * frame;
 
 game_config_t config;
 
-char numText[6];
+char num_level_text[6];
+char password_text[PASSWORD_L];
 
 u8 pressed;
 
@@ -139,7 +141,7 @@ void MEN_controls(u16 joy, u16 changed, u16 state){
     }
     if(changed & BUTTON_START){
         if(state & BUTTON_START){
-            MEN_exit_loop();
+            MEN_exit();
         }
     }
 }
@@ -162,8 +164,11 @@ void MEN_config_init(){
     config.start_level_set = 0;
 
     config.num_players = 0;
+    
     config.seed[0] = 0;
     config.seed[1] = 1;
+    
+    config.password = NULL;
 }
 
 void MEN_seed_init(){
@@ -172,9 +177,9 @@ void MEN_seed_init(){
 }
 
 void MEN_canvas_update(){
-    sprintf(numText, "%03d", config.start_level);
+    sprintf(num_level_text, "%03d", config.start_level);
 
-    VDP_drawText(numText, 30, START_BOARD_Y);
+    VDP_drawText(num_level_text, 30, START_BOARD_Y);
     
     if(config.num_players){
         VDP_drawText("Two Players", 15,PLAYERS_Y);
@@ -212,7 +217,7 @@ void MEN_decrease_players(){
     config.num_players = !config.num_players;
 }
 
-void MEN_exit_loop(){
+void MEN_exit(){
     XGM_stopPlay();
     JOY_setEventHandler( NULL );
     frame = &MEN_out_s;
