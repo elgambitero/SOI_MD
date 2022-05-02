@@ -2,6 +2,8 @@
 
 #include <genesis.h>
 
+#include "sfx.h"
+
 #include "images.h"
 
 const frame_t * frame;
@@ -53,7 +55,7 @@ const frame_t * BNS_fade_in(){
     memcpy(&palette[16], bns_begin_2_img.palette->data, 16 * 2);
     VDP_fadeIn(32, 63 , palette, 20, FALSE);
 
-    //SFX_playSound(snd_bonus_start_ID);
+    SFX_playSound(snd_bonus_start_ID);
 
     JOY_setEventHandler(&BNS_control);
 

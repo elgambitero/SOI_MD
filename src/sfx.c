@@ -1,5 +1,6 @@
+#include "sfx.h"
 
-#include "SOI.h"
+#include <genesis.h>
 
 #include "sound.h"
 
@@ -10,7 +11,7 @@ u16 pcm_channel[3] = {
     SOUND_PCM_CH4
 };
 
-void SFX_playSound(u8 id){
+void SFX_playSound(SFX_ind_t id){
     switch(id){
         case snd_1up_ID:
             XGM_setPCM(SFX_IND + channel, snd_1up, sizeof(snd_1up));
