@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "level_set.h": "c",
-        "game_config.h": "c",
-        "levels.h": "c"
-    }
-}
