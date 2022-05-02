@@ -53,5 +53,5 @@ const SOI_level_t test_level0 = {
     },
     {PAL_PI, PAL_YL, PAL_BK},
     1500,
-    { NORMAL_STAGE_T }
+    { BONUS_STAGE_T }
 };

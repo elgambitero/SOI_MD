@@ -61,7 +61,7 @@ const frame_t * MEN_end_cb(game_config_t config){
         &config
     );
     //TST_game_status(&status);
-    SOI_level_t * first_level = LVL_get_level_from_indices(
+    const SOI_level_t * first_level = LVL_get_level_from_indices(
         config.start_level_set,
         config.start_level
     );

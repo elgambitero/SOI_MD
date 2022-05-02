@@ -34,6 +34,8 @@ static const frame_t * begin(
 }
 
 const frame_t * BNS_fade_in(){
+    XGM_stopPlay();
+
     VDP_setPaletteColors(32, (u16*) palette_black, 32);
     VDP_clearPlane(BG_A, TRUE);
     VDP_clearPlane(BG_B, TRUE);
