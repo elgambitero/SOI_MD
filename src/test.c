@@ -131,7 +131,8 @@ const SOI_game_status_t passing_status = {
             1,
             3,
             3,
-            3
+            3,
+            TRUE
         },
         {
             0,
@@ -139,7 +140,8 @@ const SOI_game_status_t passing_status = {
             1,
             3,
             3,
-            3
+            3,
+            TRUE
         }
     }
 };

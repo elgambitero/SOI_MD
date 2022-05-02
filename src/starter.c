@@ -53,4 +53,5 @@ void STR_initialize_player_stats(
     status->player_stat[player_index].arrows    = START_ARROWS;
     status->player_stat[player_index].balls     = START_BALLS;
     status->player_stat[player_index].lives     = START_LIVES;
+    status->player_stat[player_index].lives     = START_NOWEAP;
 }

@@ -14,6 +14,7 @@ typedef struct SOI_player_status_t{
     uint8_t arrows;
     uint8_t balls;
     int8_t lives;
+    uint8_t noweap;
 }SOI_player_status_t;
 
 #endif
