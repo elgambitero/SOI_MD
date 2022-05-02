@@ -7,5 +7,7 @@ const SOI_level_set_t test_levels = {
     "Test Levels",
     1,
     COOPERATE,
-    NULL
+    {
+        &test_level0
+    }
 };
