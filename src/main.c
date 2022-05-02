@@ -8,6 +8,7 @@
 
 #include "title.h"
 #include "menu.h"
+#include "starter.h"
 
 #define PAL
 
@@ -53,5 +54,9 @@ const frame_t * MEN_end_cb(game_config_t config){
     u16 * seedPtr = (u16*) config.seed;
     RNG_seed( *seedPtr );
     //TST_game_config(config);
+    SOI_game_status_t status = STR_create_game_status(
+        config
+    );
+    TST_game_status(&status);
     return TIT_begin();
 }

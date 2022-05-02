@@ -10,12 +10,12 @@ void STR_initialize_player_stats(
     uint8_t player_index
 );
 
-SOI_game_status_t STR_create_game_status(game_config_t config){
-    if(config.password){
-        return PWD_create_game_from_password(config.password);
-    }else{
-        return STR_create_game_from_config(&config);
-    }
+SOI_game_status_t STR_create_game_status(game_config_t * config){
+    //if(config->password){
+    //    return PWD_create_game_from_password(config->password);
+    //}else{
+        return STR_create_game_from_config(config);
+    //}
 }
 
 SOI_game_status_t STR_create_game_from_config(game_config_t * config){
