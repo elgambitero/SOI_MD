@@ -10,4 +10,9 @@ typedef struct{
 
 SOI_level_set_array_t rom_levels;
 
+const SOI_level_t * LVL_get_level_from_indices(
+    uint8_t level_set_index,
+    uint8_t level_index
+);
+
 #endif
