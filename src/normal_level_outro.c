@@ -42,6 +42,7 @@ const frame_t * NOUT_loop_step_5();
 const frame_t * NOUT_loop_step_6();
 const frame_t * NOUT_loop_step_7();
 const frame_t * NOUT_loop_step_8();
+const frame_t * NOUT_loop_step_9();
 const frame_t * NOUT_loop_final();
 const frame_t * NOUT_fade_out();
 
@@ -91,7 +92,7 @@ const frame_t NOUT_loop_step_9_s = {
 
 const frame_t NOUT_loop_final_s = {
     &NOUT_loop_final
-}
+};
 
 const frame_t NOUT_fade_out_s = {
     &NOUT_fade_out
@@ -101,12 +102,12 @@ const frame_t * frame;
 
 cutscene_cb callback;
 
-normal_outro_t * static_self;
-SOI_player_status_t status_static;
+normal_outro_t * NOUT_self;
+SOI_game_status_t NOUT_game_status;
 
 uint16_t frame_time;
 
-char text_buffer[15];
+char NOUT_text_buffer[15];
 
 normal_outro_t * NOUT_init(
     normal_outro_t * self,
@@ -116,9 +117,10 @@ normal_outro_t * NOUT_init(
 {
     self->super.vtable_ = BONUS_OUTRO_T;
     self->status = status;
-    status_static = *status;
+    NOUT_game_status = *status;
     self->config = config;
-    static_self = self;
+    NOUT_self = self;
+    return self;
 }
 
 const frame_t * NOUT_begin(
@@ -129,7 +131,7 @@ const frame_t * NOUT_begin(
     return &NOUT_fade_in_s;
 }
 
-void NOUT_prepare_palettes();
+void NOUT_load_palettes(uint16_t * palette);
 void NOUT_draw_borders();
 void NOUT_draw_lettering();
 uint32_t NOUT_gather_score_from_static();
@@ -147,8 +149,8 @@ const frame_t * NOUT_fade_in(){
 
     uint32_t score_count = NOUT_gather_score_from_static();
 
-    sprintf(scoreText, "%08lu", score_count);
-    VDP_drawText(scoreText, SCORE_COUNT_X + SCORE_SPACE, SCORE_COUNT_Y + SCORE_TEXT_Y);
+    sprintf(NOUT_text_buffer, "%08lu", score_count);
+    VDP_drawText(NOUT_text_buffer, SCORE_COUNT_X + SCORE_SPACE, SCORE_COUNT_Y + SCORE_TEXT_Y);
 
     NOUT_draw_player_sprites();
 
@@ -157,11 +159,11 @@ const frame_t * NOUT_fade_in(){
     JOY_setEventHandler(&NOUT_control);
 
     frame_time = STEP_FRAMES;
-    frame = &NOUT_loop_1_s;
+    frame = &NOUT_loop_step_1_s;
     return frame;
 }
 
-void NOUT_load_palettes(uint8_t * palette){
+void NOUT_load_palettes(uint16_t * palette){
     memcpy(&palette[0], pal_sys0.data, 16 * 2);
     memcpy(&palette[16], pal_sys1.data, 16 * 2);
 
@@ -186,18 +188,18 @@ uint32_t NOUT_gather_score_from_static(){
     uint32_t score_count = 0;
     for(
         uint8_t i = 0;
-        i <= static_self->config->additional_players;
+        i <= NOUT_self->config->additional_players;
         i++
     )
     {
-        uint32_t pl_score = static_status.player_stat[i].score;
+        uint32_t pl_score = NOUT_game_status.player_stat[i].score;
         score_count += pl_score;
     }
     return score_count;
 }
 
 void NOUT_draw_player_sprites(){
-    uint8_t players = static_self->config->additional_players + 1;
+    uint8_t players = NOUT_self->config->additional_players + 1;
     uint8_t palette_ind = 0;
     SPR_init();
 
@@ -205,7 +207,7 @@ void NOUT_draw_player_sprites(){
         uint16_t x_pos = PL_SPR_MIN_X + i * ( PL_SPR_MAX_X - PL_SPR_MIN_X ) / players;
         Sprite * pl = SPR_addSprite(
             &bp_spr, x_pos, PL_SPR_Y,
-            TITE_ATTR_FULL(palette_ind, TRUE, FALSE, FALSE, TILE_USERINDEX)
+            TILE_ATTR_FULL(palette_ind, TRUE, FALSE, FALSE, TILE_USERINDEX)
         );
         SPR_setAnim(pl, PL_WALK_RIGHT);
         palette_ind++;
@@ -214,7 +216,7 @@ void NOUT_draw_player_sprites(){
 
 uint32_t NOUT_gather_bonus_from_static();
 
-const frame * NOUT_loop_step_1(){
+const frame_t * NOUT_loop_step_1(){
     SPR_update();
 
     if(frame_time){
@@ -224,11 +226,11 @@ const frame * NOUT_loop_step_1(){
 
     frame_time = STEP_FRAMES;
 
-    SFX_play_sound(snd_hait_ID);
+    SFX_playSound(snd_hait_ID);
 
     uint32_t bonus_count = NOUT_gather_bonus_from_static();
-    sprintf(text_buffer, "%05lu", bonus_count);
-    VDP_drawText(text_buffer, SCORE_COUNT_X + BONUS_SPACE, SCORE_COUNT_Y + BONUS_TEXT_Y);
+    sprintf(NOUT_text_buffer, "%05lu", bonus_count);
+    VDP_drawText(NOUT_text_buffer, SCORE_COUNT_X + BONUS_SPACE, SCORE_COUNT_Y + BONUS_TEXT_Y);
 
     frame = &NOUT_loop_step_2_s;
     return frame;
@@ -238,11 +240,11 @@ uint32_t NOUT_gather_bonus_from_static(){
     uint32_t bonus_count = 0;
     for(
         uint8_t i = 0;
-        i <= static_self->config->additional_players;
+        i <= NOUT_self->config->additional_players;
         i++
     )
     {
-        uint32_t pl_bonus = static_status.player_stat[i].score;
+        uint32_t pl_bonus = NOUT_game_status.player_stat[i].score;
         bonus_count += pl_bonus;
     }
     return bonus_count;
@@ -250,12 +252,12 @@ uint32_t NOUT_gather_bonus_from_static(){
 
 uint8_t NOUT_advance_bonus_count(){
 
-    uint8_t players = static_self->config->additional_players + 1;
+    uint8_t players = NOUT_self->config->additional_players + 1;
     uint32_t score_count = 0;
     uint8_t finished = FALSE;
 
     for(uint8_t i = 0; i < players; i++){
-        SOI_player_status_t * player = status_static.player_stat + i;
+        SOI_player_status_t * player = NOUT_game_status.player_stat + i;
         player->score += player->mult ? player->bonus : 0;
         score_count += player->score;
         player->mult--;
@@ -264,13 +266,13 @@ uint8_t NOUT_advance_bonus_count(){
         }
     }
 
-    sprintf(text_buffer, "%08lu", score_count);
-    VDP_drawText(text_buffer, SCORE_COUNT_X + SCORE_SPACE, SCORE_COUNT_Y + SCORE_TEXT_Y);
+    sprintf(NOUT_text_buffer, "%08lu", score_count);
+    VDP_drawText(NOUT_text_buffer, SCORE_COUNT_X + SCORE_SPACE, SCORE_COUNT_Y + SCORE_TEXT_Y);
 
     return finished;
 }
 
-const frame * NOUT_loop_step_2(){
+const frame_t * NOUT_loop_step_2(){
     SPR_update();
 
     if(frame_time){
@@ -279,13 +281,13 @@ const frame * NOUT_loop_step_2(){
     }
 
     SFX_playSound(snd_huoh_ID);
-    frame_time = STEP_FRAMES
+    frame_time = STEP_FRAMES;
 
     frame = NOUT_advance_bonus_count() ? &NOUT_loop_step_3_s : &NOUT_loop_step_8_s;
     return frame;
 }
 
-const frame * NOUT_loop_step_3(){
+const frame_t * NOUT_loop_step_3(){
     SPR_update();
 
     if(frame_time){
@@ -303,7 +305,7 @@ const frame * NOUT_loop_step_3(){
     return frame;
 }
 
-const frame * NOUT_loop_step_4(){
+const frame_t * NOUT_loop_step_4(){
     SPR_update();
 
     if(frame_time){
@@ -315,13 +317,13 @@ const frame * NOUT_loop_step_4(){
 
     SFX_playSound(snd_two_ID);
 
-    VDP_drawText("2x", SCORE_COUNT_X + MULT_X, SCORE_COUNT_Y, BONUS_TEXT_Y);
+    VDP_drawText("2x", SCORE_COUNT_X + MULT_X, SCORE_COUNT_Y + BONUS_TEXT_Y);
 
     frame = NOUT_advance_bonus_count() ? &NOUT_loop_step_5_s : &NOUT_loop_step_8_s;
     return frame;
 }
 
-const frame * NOUT_loop_step_5(){
+const frame_t * NOUT_loop_step_5(){
     SPR_update();
 
     if(frame_time){
@@ -333,13 +335,13 @@ const frame * NOUT_loop_step_5(){
 
     SFX_playSound(snd_three_ID);
 
-    VDP_drawText("3x", SCORE_COUNT_X + MULT_X, SCORE_COUNT_Y, BONUS_TEXT_Y);
+    VDP_drawText("3x", SCORE_COUNT_X + MULT_X, SCORE_COUNT_Y + BONUS_TEXT_Y);
 
     frame = NOUT_advance_bonus_count() ? &NOUT_loop_step_6_s : &NOUT_loop_step_8_s;
     return frame;
 }
 
-const frame * NOUT_loop_step_6(){
+const frame_t * NOUT_loop_step_6(){
     SPR_update();
 
     if(frame_time){
@@ -351,13 +353,13 @@ const frame * NOUT_loop_step_6(){
 
     SFX_playSound(snd_four_ID);
 
-    VDP_drawText("5x", SCORE_COUNT_X + MULT_X, SCORE_COUNT_Y, BONUS_TEXT_Y);
+    VDP_drawText("4x", SCORE_COUNT_X + MULT_X, SCORE_COUNT_Y + BONUS_TEXT_Y);
 
     frame = NOUT_advance_bonus_count() ? &NOUT_loop_step_7_s : &NOUT_loop_step_8_s;
     return frame;
 }
 
-const frame * NOUT_loop_step_7(){
+const frame_t * NOUT_loop_step_7(){
     SPR_update();
 
     if(frame_time){
@@ -369,7 +371,7 @@ const frame * NOUT_loop_step_7(){
 
     SFX_playSound(snd_five_ID);
 
-    VDP_drawText("5x", SCORE_COUNT_X + MULT_X, SCORE_COUNT_Y, BONUS_TEXT_Y);
+    VDP_drawText("5x", SCORE_COUNT_X + MULT_X, SCORE_COUNT_Y + BONUS_TEXT_Y);
 
     frame = NOUT_advance_bonus_count() ? &NOUT_loop_step_8_s : &NOUT_loop_step_8_s;
     return frame;
@@ -377,7 +379,7 @@ const frame * NOUT_loop_step_7(){
 
 uint8_t NOUT_check_noweap_from_static();
 
-const frame * NOUT_loop_step_8(){
+const frame_t * NOUT_loop_step_8(){
     SPR_update();
 
     if(frame_time){
@@ -389,30 +391,30 @@ const frame * NOUT_loop_step_8(){
     SFX_playSound(snd_hait_ID);
 
     sprintf(
-        text_buffer,
+        NOUT_text_buffer,
         "%04u",
         NOUT_check_noweap_from_static() ? NOWEAP_BONUS : 0000
     );
 
-    VDP_drawText(text_buffer, SCORE_COUNT_X + WEAPONS_SPACE, SCORE_COUNT_Y + WEAP_TEXT_Y);
+    VDP_drawText(NOUT_text_buffer, SCORE_COUNT_X + WEAPONS_SPACE, SCORE_COUNT_Y + WEAP_TEXT_Y);
 
     frame = &NOUT_loop_step_9_s;
     return frame;
 }
 
 uint8_t NOUT_check_noweap_from_static(){
-    uint8_t players = static_self->config->additional_players + 1;
-    uint8_t noweap = FALSE;
+    uint8_t players = NOUT_self->config->additional_players + 1;
     for(uint8_t i = 0; i < players; i++){
-        SOI_player_status_t * player = status_static.player_stat + i;
+        SOI_player_status_t * player = NOUT_game_status.player_stat + i;
         if(player->noweap)
             return TRUE;
     }
+    return FALSE;
 }
 
 uint32_t NOUT_add_noweap_bonus_to_score();
 
-const frame * NOUT_loop_step_9(){
+const frame_t * NOUT_loop_step_9(){
     SPR_update();
 
     if(frame_time){
@@ -427,8 +429,8 @@ const frame * NOUT_loop_step_9(){
     if(NOUT_check_noweap_from_static()){
         uint32_t score_count = NOUT_add_noweap_bonus_to_score();
 
-        sprintf(text_buffer, "%08lu", score_count);
-        VDP_drawText(text_buffer, SCORE_COUNT_X + SCORE_SPACE, SCORE_COUNT_Y + SCORE_TEXT_Y);
+        sprintf(NOUT_text_buffer, "%08lu", score_count);
+        VDP_drawText(NOUT_text_buffer, SCORE_COUNT_X + SCORE_SPACE, SCORE_COUNT_Y + SCORE_TEXT_Y);
     }
 
     frame = &NOUT_loop_final_s;
@@ -437,12 +439,12 @@ const frame * NOUT_loop_step_9(){
 
 uint32_t NOUT_add_noweap_bonus_to_score(){
     uint32_t score_count = NOUT_gather_score_from_static();
-    uint8_t players = static_self->config->additional_players + 1;
+    uint8_t players = NOUT_self->config->additional_players + 1;
     score_count += players * NOWEAP_BONUS;
     return score_count;
 }
 
-const frame * NOUT_loop_final(){
+const frame_t * NOUT_loop_final(){
     SPR_update();
     return frame;
 }

@@ -10,7 +10,7 @@ typedef struct normal_outro_t{
     cutscene_t super;
     SOI_game_status_t * status;
     game_config_t * config;
-}normal_outro_t
+}normal_outro_t;
 
 normal_outro_t * NOUT_init(
     normal_outro_t * self,
