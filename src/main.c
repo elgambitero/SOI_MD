@@ -10,6 +10,8 @@
 #include "menu.h"
 #include "starter.h"
 
+#include "test.h"
+
 #define PAL
 
 #ifdef NTSC
@@ -57,6 +59,6 @@ const frame_t * MEN_end_cb(game_config_t config){
     SOI_game_status_t status = STR_create_game_status(
         &config
     );
-    TST_game_status(&status);
+    TST_game_status(&passing_status);
     return TIT_begin();
 }
