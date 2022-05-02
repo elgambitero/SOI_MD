@@ -5,6 +5,7 @@
 #define START_BALLS  3
 #define START_ARROWS 3
 #define START_NOWEAP 1
+#define START_MULT 1
 
 typedef struct SOI_player_status_t{
     uint32_t score;
@@ -13,9 +14,6 @@ typedef struct SOI_player_status_t{
     uint8_t arrows;
     uint8_t balls;
     int8_t lives;
-    uint8_t speed;
-    uint8_t effect;
-    uint8_t noweap;
 }SOI_player_status_t;
 
 #endif
