@@ -160,7 +160,7 @@ void MEN_canvas_init(){
 }
 
 void MEN_config_init(){
-    config.start_level = 1;
+    config.start_level = 0;
     config.start_level_set = 0;
 
     config.num_players = 0;
@@ -204,7 +204,7 @@ void MEN_increase_level(){
 }
 
 void MEN_decrease_level(){
-    if(config.start_level > 0 && config.start_level <= max_levels - 1){
+    if(config.start_level > 0){
         config.start_level--;
     }
 }
