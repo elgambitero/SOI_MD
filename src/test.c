@@ -9,7 +9,7 @@
 void TST_lock();
 void TST_erase_screen();
 
-const char text_buffer[FIELD_SIZE];
+char text_buffer[FIELD_SIZE];
 
 #define GMCFG_INDENT 20
 #define GMSTS_INDENT 15
@@ -80,10 +80,10 @@ void TST_print_player_game_status(
     VDP_drawText("balls: " , 0, 8 + player_index * 6);
     VDP_drawText("lives: " , 0, 9 + player_index * 6);
 
-    sprintf(text_buffer, "%08u" , status->player_stat[player_index].score);
+    sprintf(text_buffer, "%08lu" , status->player_stat[player_index].score);
     VDP_drawText(text_buffer, GMSTS_INDENT, 4 + player_index * 6);
 
-    sprintf(text_buffer, "%05u" , status->player_stat[player_index].bonus);
+    sprintf(text_buffer, "%05lu" , status->player_stat[player_index].bonus);
     VDP_drawText(text_buffer, GMSTS_INDENT, 5 + player_index * 6);
 
     sprintf(text_buffer, "%05u" , status->player_stat[player_index].mult);
