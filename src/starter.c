@@ -4,6 +4,7 @@
 #include "rom_levels.h"
 
 SOI_game_status_t status;
+SOI_player_status_t player[MAX_PLAYERS];
 
 SOI_game_status_t STR_create_game_from_config(game_config_t * config);
 void STR_initialize_player_stats(
@@ -24,15 +25,13 @@ SOI_game_status_t STR_create_game_from_config(game_config_t * config){
     status.current_level = config->start_level;
     status.level_set_ind = config->start_level_set;
 
-    SOI_level_t first_level =
-        rom_levels
-            .level_sets[status.level_set_ind]->
-                levels[status.current_level];
+    SOI_level_set_t * level_set_ptr = rom_levels.level_sets[status.level_set_ind];
+    SOI_level_t * first_level_ptr = level_set_ptr->levels + status.current_level;
 
     for(uint8_t i = 0; i < config->num_players; i++){
         STR_initialize_player_stats(
             &status,
-            &first_level,
+            first_level_ptr,
             i
         );
     }
