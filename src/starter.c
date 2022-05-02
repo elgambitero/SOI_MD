@@ -3,6 +3,8 @@
 #include "password.h"
 #include "rom_levels.h"
 
+SOI_game_status_t status;
+
 SOI_game_status_t STR_create_game_from_config(game_config_t * config);
 void STR_initialize_player_stats(
     SOI_game_status_t * status,
@@ -19,7 +21,6 @@ SOI_game_status_t STR_create_game_status(game_config_t * config){
 }
 
 SOI_game_status_t STR_create_game_from_config(game_config_t * config){
-    SOI_game_status_t status;
     status.current_level = config->start_level;
     status.level_set_ind = config->start_level_set;
 

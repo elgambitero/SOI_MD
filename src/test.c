@@ -14,7 +14,7 @@ const char text_buffer[FIELD_SIZE];
 #define GMCFG_INDENT 20
 #define GMSTS_INDENT 15
 
-void TST_game_config(game_config_t config){
+void TST_game_config(game_config_t * config){
     TST_erase_screen();
 
     VDP_drawText("start_level: ", 0, 1);
@@ -22,15 +22,15 @@ void TST_game_config(game_config_t config){
     VDP_drawText("num_players: ", 0, 3);
     VDP_drawText("seed: ", 0, 4);
 
-    u16 * seedPtr = (u16*) config.seed;
+    u16 * seedPtr = (u16*) config->seed;
 
-    sprintf(text_buffer, "%05u", config.start_level);
+    sprintf(text_buffer, "%05u", config->start_level);
     VDP_drawText(text_buffer, GMCFG_INDENT, 1);
 
-    sprintf(text_buffer, "%05u", config.start_level_set);
+    sprintf(text_buffer, "%05u", config->start_level_set);
     VDP_drawText(text_buffer, GMCFG_INDENT, 2);
 
-    sprintf(text_buffer, "%05u", config.num_players);
+    sprintf(text_buffer, "%05u", config->num_players);
     VDP_drawText(text_buffer, GMCFG_INDENT, 3);
 
     sprintf(text_buffer, "%05u", *seedPtr);
