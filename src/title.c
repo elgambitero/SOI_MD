@@ -1,4 +1,4 @@
-#include "title.h"
+#include "cutscene.h"
 
 #include <genesis.h>
 
@@ -28,7 +28,13 @@ const frame_t TIT_begin_s = {
 
 const frame_t * frame;
 
-const frame_t * TIT_begin(){
+cutscene_cb callback;
+
+const frame_t * TIT_begin(
+    cutscene_cb exit_callback
+)
+{
+    callback = exit_callback;
     return &TIT_fade_in_s;
 }
 
@@ -58,7 +64,7 @@ const frame_t * TIT_screen(){
 
 const frame_t * TIT_fade_out(){
     VDP_fadeOut(32, 63, 20, FALSE);
-    return TIT_out_cb();
+    return (*callback)();
 }
 
 void TIT_control(u16 joy, u16 changed, u16 state){
@@ -68,3 +74,5 @@ void TIT_control(u16 joy, u16 changed, u16 state){
         }
     }
 }
+
+const struct cutscene_vtable_ TITLE_SCREEN_T[] = { { &TIT_begin } };

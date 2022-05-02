@@ -6,7 +6,6 @@
 #include "game_config.h"
 #include "rom_levels.h"
 
-#include "title.h"
 #include "menu.h"
 #include "starter.h"
 #include "cutscene.h"
@@ -21,13 +20,14 @@
     #define FRAMES 50
 #endif
 
-void MAIN_init();
+const frame_t * MAIN_init();
+const frame_t * TIT_out_cb();
 
 const frame_t * frame;
 
 int main()
 {
-    MAIN_init();
+    frame = MAIN_init();
 
     while(1)
 	{
@@ -38,15 +38,21 @@ int main()
 	return 0;
 }
 
-void MAIN_init(){
+const frame_t * MAIN_init(){
 
     SYS_disableInts();
 
     VDP_setScreenWidth320();
-
-    frame = TIT_begin();
+    
+    cutscene_t title = { TITLE_SCREEN_T };
 
     SYS_enableInts();
+
+    return cutscene(
+        &title,
+        &TIT_out_cb
+    );
+
 }
 
 const frame_t * TIT_out_cb(){
@@ -68,6 +74,6 @@ const frame_t * MEN_end_cb(game_config_t config){
 
     return cutscene(
         &(first_level->intro),
-        &TIT_begin
+        &MAIN_init
     );
 }

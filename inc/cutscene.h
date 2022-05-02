@@ -26,6 +26,6 @@ static inline const frame_t * cutscene(
     return self->vtable_->begin(exit_callback);
 }
 
-extern const struct cutscene_vtable_ NORMAL_STAGE_T[], BONUS_STAGE_T[];
+extern const struct cutscene_vtable_ NORMAL_STAGE_T[], BONUS_STAGE_T[], TITLE_SCREEN_T[];
 
 #endif
