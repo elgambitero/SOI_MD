@@ -1,13 +1,15 @@
 #include "rom_levels.h"
 
-const SOI_level_set_t demo_levels = {
-    "Original Demo",
-    13,
-    COMPETE
+
+const SOI_level_set_t test_levels = {
+    "Test Levels",
+    1,
+    COOPERATE,
+    NULL
 };
 
 const SOI_level_set_t * level_sets[] = {
-    &demo_levels
+    &test_levels
 };
 
 SOI_level_set_array_t rom_levels = {
