@@ -14,7 +14,7 @@ typedef struct SOI_level_t{
     uint16_t back_blocks[BOARD_BUFFER];
     uint8_t colors[3];
     uint16_t bonus;
-    level_intro_t intro;
+    cutscene_t intro;
 }SOI_level_t;
 
 #endif

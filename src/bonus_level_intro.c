@@ -6,7 +6,7 @@
 
 const frame_t * frame;
 
-level_intro_cb callback;
+cutscene_cb callback;
 
 void BNS_control(uint16_t joy, uint16_t changed, uint16_t state);
 const frame_t * BNS_fade_in();
@@ -26,7 +26,7 @@ const frame_t BNS_screen_s = {
 };
 
 static const frame_t * begin(
-    level_intro_cb exit_callback
+    cutscene_cb exit_callback
 )
 {
     callback = exit_callback;
@@ -78,4 +78,4 @@ void BNS_control(uint16_t joy, uint16_t changed, uint16_t state){
     }
 }
 
-const struct level_intro_vtable_ BONUS_STAGE_T[] = { &begin };
+const struct cutscene_vtable_ BONUS_STAGE_T[] = { { &begin } };

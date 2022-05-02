@@ -6,26 +6,26 @@
 
 #include "frame_state.h"
 
-typedef struct level_intro_t
+typedef struct cutscene_t
 {
-    const struct level_intro_vtable_ *vtable_;
-}level_intro_t;
+    const struct cutscene_vtable_ *vtable_;
+}cutscene_t;
 
-typedef const frame_t * (*level_intro_cb)();
+typedef const frame_t * (*cutscene_cb)();
 
-struct level_intro_vtable_
+struct cutscene_vtable_
 {
-    const frame_t * (*begin)( level_intro_cb );
+    const frame_t * (*begin)( cutscene_cb );
 };
 
-static inline const frame_t * level_intro(
-    level_intro_t * self,
-    level_intro_cb exit_callback
+static inline const frame_t * cutscene(
+    cutscene_t * self,
+    cutscene_cb exit_callback
 )
 {
     return self->vtable_->begin(exit_callback);
 }
 
-extern const struct level_intro_vtable_ NORMAL_STAGE_T[], BONUS_STAGE_T[];
+extern const struct cutscene_vtable_ NORMAL_STAGE_T[], BONUS_STAGE_T[];
 
 #endif

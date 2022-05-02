@@ -66,7 +66,7 @@ const frame_t * MEN_end_cb(game_config_t config){
         config.start_level
     );
 
-    return level_intro(
+    return cutscene(
         &(first_level->intro),
         &TIT_begin
     );
