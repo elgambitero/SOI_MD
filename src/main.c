@@ -9,6 +9,7 @@
 #include "menu.h"
 #include "starter.h"
 #include "cutscene.h"
+#include "normal_level_outro.h"
 
 #include "test.h"
 
@@ -22,6 +23,7 @@
 
 const frame_t * MAIN_init();
 const frame_t * TIT_out_cb();
+const frame_t * CTS_out_cb();
 
 const frame_t * frame;
 
@@ -74,6 +76,15 @@ const frame_t * MEN_end_cb(game_config_t config){
 
     return CTS_play(
         &(first_level->intro),
+        &CTS_out_cb
+    );
+}
+
+const frame_t * CTS_out_cb(){
+    normal_outro_t outro;
+    NOUT_init(&outro, &passing_status, &passing_config);
+    return CTS_play(
+        &outro,
         &MAIN_init
     );
 }
