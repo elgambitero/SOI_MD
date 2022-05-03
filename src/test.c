@@ -2,6 +2,8 @@
 
 #include "test.h"
 
+#include "normal_level_outro.h"
+
 #define HEADER "SOI_MD test unit"
 
 #define FIELD_SIZE 10
@@ -98,6 +100,15 @@ void TST_print_player_game_status(
     sprintf(text_buffer, "%05u" , status->player_stat[player_index].lives);
     VDP_drawText(text_buffer, GMSTS_INDENT, 9 + player_index * 6);
 
+}
+
+const frame_t * TST_normal_outro(){
+    normal_outro_t outro;
+    NOUT_init(&outro, &passing_status, &passing_config);
+    return CTS_play(
+        &outro,
+        &TST_lock
+    );
 }
 
 void TST_erase_screen(){
