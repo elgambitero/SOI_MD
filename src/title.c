@@ -52,7 +52,7 @@ const frame_t * TIT_fade_in(){
     VDP_clearPlane(BG_B, TRUE);
     VDP_drawImageEx(BG_A, &title_1_img, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX), 0, 0, FALSE, TRUE);
     VDP_drawImageEx(BG_B, &title_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + title_1_img.tileset->numTile )), 0, 0, FALSE, TRUE);
-    // fade in
+    
     VDP_fadeIn(32, 63 , palette, 20, FALSE);
     frame = &TIT_screen_s;
     return frame;
