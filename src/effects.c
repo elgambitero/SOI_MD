@@ -201,6 +201,22 @@ const Entity FX_beanie_atk = {
     }
 };
 
+void FX_moving_loop();
+const Entity FX_moving_blk = {
+    FX,
+    {7, 15},
+    {7, 15},
+    PAL_SYS0,
+    &fx_hidden, // provisional.
+    NULL,
+    &FX_moving_loop,
+    NULL,
+    {.effect =
+        {
+        }
+    }
+};
+
 __attribute__((always_inline)) static inline void FX_despawn(){
     if(curr->timer){
         curr->timer++;
@@ -315,5 +331,63 @@ void FX_antibounce_loop(){
     if(index != curr->actorData.fxData.info){
         env->front_blocks[curr->actorData.fxData.info] |= FLOP_ACT_ON;
         result = ACT_DELETION;
+    }
+}
+
+void FX_moving_loop() {
+    if(curr->timer) {
+        curr->timer++;
+        if(curr->timer == MAX_TIMER) {
+            if(curr->status & WALK_DOWN) {
+                if (dir) {
+                    BLK_eraseBlock(
+                        PX_TO_BLOCK(POS_TO_PX(curr->pos[X])),
+                        PX_TO_BLOCK(POS_TO_PX(curr->pos[Y])) - 1
+                    );
+                    curr->pos[Y] -= PX_TO_POS(BLOCK_TO_PX(1));
+                    BLK_drawBlock(
+                        PX_TO_BLOCK(POS_TO_PX(curr->pos[X])),
+                        PX_TO_BLOCK(POS_TO_PX(curr->pos[Y])) - 1,
+                        MOV
+                    );
+                } else {
+                    BLK_eraseBlock(
+                        PX_TO_BLOCK(POS_TO_PX(curr->pos[X])),
+                        PX_TO_BLOCK(POS_TO_PX(curr->pos[Y])) - 1
+                    );
+                    curr->pos[Y] += PX_TO_POS(BLOCK_TO_PX(1));
+                    BLK_drawBlock(
+                        PX_TO_BLOCK(POS_TO_PX(curr->pos[X])),
+                        PX_TO_BLOCK(POS_TO_PX(curr->pos[Y])) - 1,
+                        MOV
+                    );
+                }
+            } else {
+                if (dir) {
+                    BLK_eraseBlock(
+                        PX_TO_BLOCK(POS_TO_PX(curr->pos[X])),
+                        PX_TO_BLOCK(POS_TO_PX(curr->pos[Y])) - 1
+                    );
+                    curr->pos[X] -= PX_TO_POS(BLOCK_TO_PX(1));
+                    BLK_drawBlock(
+                        PX_TO_BLOCK(POS_TO_PX(curr->pos[X])),
+                        PX_TO_BLOCK(POS_TO_PX(curr->pos[Y])) - 1,
+                        MOV
+                    );
+                } else {
+                    BLK_eraseBlock(
+                        PX_TO_BLOCK(POS_TO_PX(curr->pos[X])),
+                        PX_TO_BLOCK(POS_TO_PX(curr->pos[Y])) - 1
+                    );
+                    curr->pos[X] += PX_TO_POS(BLOCK_TO_PX(1));
+                    BLK_drawBlock(
+                        PX_TO_BLOCK(POS_TO_PX(curr->pos[X])),
+                        PX_TO_BLOCK(POS_TO_PX(curr->pos[Y])) - 1,
+                        MOV
+                    );
+                }
+            }
+            curr->timer = MAX_TIMER - MOVING_TIME;
+        }
     }
 }

@@ -2,6 +2,7 @@
 #define EFFECTS_H
 
 #define CANNON_TIME 300
+#define MOVING_TIME 300
 
 extern const Entity FX_deletor;
 extern const Entity FX_blk_debris0;
@@ -15,5 +16,6 @@ extern const Entity FX_turtle;
 extern const Entity FX_transporter;
 extern const Entity FX_antibounce;
 extern const Entity FX_beanie_atk;
+extern const Entity FX_moving_blk;
 
 #endif
