@@ -22,6 +22,7 @@ SPRITE blk_debris1_spr "sprites/fx/blk_debris1.bmp" 1 1 AUTO 2
 SPRITE blk_debris2_spr "sprites/fx/blk_debris2.bmp" 1 1 AUTO 2
 SPRITE blk_debris3_spr "sprites/fx/blk_debris3.bmp" 1 1 AUTO 2
 SPRITE deletor_spr "sprites/fx/deletor.bmp" 2 2 AUTO 2
+SPRITE mblock_spr "sprites/fx/mblock.bmp" 2 2 AUTO 2
 SPRITE fx_hidden   "sprites/fx/fx_hidden.bmp" 2 2 AUTO 2
 SPRITE boot_ind_spr    "sprites/fx/boot_ind.bmp" 1 1 AUTO 2
 SPRITE shield_ind_spr  "sprites/fx/shield_ind.bmp" 1 1 AUTO 2

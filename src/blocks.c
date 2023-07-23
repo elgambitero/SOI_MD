@@ -34,6 +34,7 @@ u16 gate_sl1_ind = TILE_USERINDEX;
 u16 gate_sl2_ind = TILE_USERINDEX;
 u16 kn_good_ind = TILE_USERINDEX;
 u16 spawners_ind = TILE_USERINDEX;
+u16 moving_ind = TILE_USERINDEX;
 
 void BLK_drawBlock(u8 x, u8 y, u16 block){
     u8 map_ind = 0;
@@ -259,6 +260,11 @@ void BLK_drawBlock(u8 x, u8 y, u16 block){
                     tile_index[BG] = spawners_ind;
                     map_ind = ((block & NASTIE_MSK) >> NASTIE_SHFT) * 2;
                     break;
+                case SP_MOVING:
+                    palette[BG] = PAL_SYS0;
+                    bg_blk_map = moving_blk.tilemap;
+                    tile_index[BG] = moving_ind;
+                    map_ind = 0;
             }
             break;
         case GOODIE:
@@ -385,4 +391,7 @@ void BLK_load_tiles(u16 ind){
     VDP_loadTileSet(spawners_blk.tileset, ind, DMA);
     spawners_ind = ind;
     ind += spawners_blk.tileset->numTile;
+    VDP_loadTileSet(moving_blk.tileset, ind, DMA);
+    moving_ind = ind;
+    ind += moving_blk.tileset->numTile;
 }

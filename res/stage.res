@@ -31,4 +31,6 @@ IMAGE gate_sl2    "blocks/gate_sl2.bmp"            NONE
 
 IMAGE kn_good     "blocks/kn_good.bmp"             NONE
 
-IMAGE spawners_blk    "blocks/spawners.bmp"            NONE
+IMAGE spawners_blk    "blocks/spawners.bmp"        NONE
+
+IMAGE moving_blk   "blocks/mblock.bmp"             NONE

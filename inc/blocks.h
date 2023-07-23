@@ -59,6 +59,7 @@
 #define SP_CANNON              (4 << SP_TYP_SHFT)
 #define SP_GATE                (5 << SP_TYP_SHFT)
 #define SP_SPAWNER             (6 << SP_TYP_SHFT)
+#define SP_MOVING              (7 << SP_TYP_SHFT)
 
 #define TRANS_DIR_SHFT          11
 
@@ -201,6 +202,8 @@
 #define GNO ( SPECIAL_BLOCK | SP_GATE | GATE_CLOSED | SOLID | SP_COL_PI )
 #define GYO ( SPECIAL_BLOCK | SP_GATE | GATE_CLOSED | SOLID | SP_COL_YL )
 #define GWO ( SPECIAL_BLOCK | SP_GATE | GATE_CLOSED | SOLID | SP_COL_WT )
+
+#define MOV ( SPECIAL_BLOCK | SP_MOVING | SOLID )
 
 #define CNR ( SPECIAL_BLOCK | SP_CANNON | CANNON_R | SOLID )
 #define CNL ( SPECIAL_BLOCK | SP_CANNON | CANNON_L | SOLID )
