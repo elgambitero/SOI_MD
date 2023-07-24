@@ -78,7 +78,7 @@ static const Actor spinner0 = {
     &knight,
 };
 
-const Board level10 = {
+const Board level20 = {
     {
        0,   0,   0, CHI,   0,   0,   0,   0,   0, RDK,   0,   0,   0,   0,   0, CHI,   0,   0,   0,
        0,   0,   0, CHI,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, CHI,   0,   0,   0,
@@ -114,6 +114,6 @@ const Board level10 = {
     MUS_BONUSHEAVY,
     BONUS_FLAG,
     3000,
-    &knight,
+    &spinner0,
     &glp
 };

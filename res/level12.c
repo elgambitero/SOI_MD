@@ -46,7 +46,7 @@ static const Actor wheelr = {
     {SLO_SPEED, 0},
     0,
     0,
-    &whell,
+    &wheell,
 };
 
 
@@ -59,7 +59,7 @@ static const Actor robo = {
     {-SLO_SPEED, 0},
     0,
     0,
-    &whelr,
+    &wheelr,
 };
 
 

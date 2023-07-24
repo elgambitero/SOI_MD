@@ -63,12 +63,12 @@ static const Actor spinner1 = {
     {0, 0},
     0,
     0,
-    &spinner,
+    &spinner0,
 };
 
 
 
-const Board level3 = {
+const Board level19 = {
     {
      RDD,   0,   0,   0,   0,   0,   0,   0,   0, HMR,   0,   0,   0,   0,   0,   0,   0,   0, RDK,
        0,   0,   0,   0,   0,   0,   0,   0, BDB, BDB, BDB,   0,   0,   0,   0,   0,   0,   0,   0,

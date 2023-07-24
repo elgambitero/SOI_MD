@@ -57,7 +57,7 @@ static const Actor wheelr1 = {
     {FAST_SPEED, 0},
     0,
     0,
-    &whell0,
+    &wheell0,
 };
 
 
