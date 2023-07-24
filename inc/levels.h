@@ -18,9 +18,6 @@ const Board level7;
 const Board level8;
 const Board level9;
 const Board level10;
-const Board level11;
-const Board level12;
-const Board level13;
 
 extern const Board * levels[];
 extern const u8 max_levels;
