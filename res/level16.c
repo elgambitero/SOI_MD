@@ -64,7 +64,7 @@ static const Actor robo1 = {
 };
 
 
-const Board level14 = {
+const Board level16 = {
     {
      BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW,
      BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW, BFW,

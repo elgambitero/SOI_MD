@@ -49,7 +49,7 @@ static const Actor cannonL = {
 };
 
 
-const Board level14 = {
+const Board level15 = {
     {
      RDD,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, GLS,
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, CNL,
