@@ -2,6 +2,13 @@
     "files.associations": {
         "level_set.h": "c",
         "game_config.h": "c",
-        "levels.h": "c"
+        "levels.h": "c",
+        "__config": "c",
+        "cstdio": "c",
+        "cwchar": "c",
+        "type_traits": "c",
+        "unordered_map": "c",
+        "vector": "c",
+        "algorithm": "c"
     }
 }
