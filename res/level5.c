@@ -58,7 +58,7 @@ const Board level5 = {
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
     },
     {PAL_GR, PAL_R, PAL_BL},
-    MUS_HEAVY1,
+    MUS_HEAVY2,
     0,
     6000,
     0,
