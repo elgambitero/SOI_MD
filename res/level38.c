@@ -77,7 +77,7 @@ static const Actor spawn = {&SPW_hippo,
 
 
 
-const Board level13 = {
+const Board level38 = {
     {
        0,   0,   0,   0,   0,   0,   0,   0,   0, HPO,   0,   0,   0,   0,   0,   0,   0,   0,   0,
      BDW,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, BDW,

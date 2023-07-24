@@ -63,7 +63,7 @@ static const Actor knight = {&BS_knight,
 };
 
 
-const Board level12 = {
+const Board level40 = {
     {
      RDD,   0,   0,   0,   0,   0,   0, CHI,   0,   0,   0, CHI,   0,   0,   0,   0,   0,   0, RDK,
        0,   0,   0,   0,   0,   0,   0, CHI,   0,   0,   0, CHI,   0,   0,   0,   0,   0,   0,   0,

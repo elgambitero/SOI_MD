@@ -158,7 +158,7 @@ static const Actor spinner11 = {&NST_spinner,
    &spinner10,
 };
 
-const Board level11 = {
+const Board level53 = {
     {
      SLC,   0,   0,   0,   0,   0,   0,   0,   0, SLC,   0,   0,   0,   0,   0,   0,   0,   0, SLC,
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,

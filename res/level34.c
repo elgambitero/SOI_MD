@@ -58,7 +58,7 @@ static const Actor cannonL = {&SPW_cannon,
    &cannonR,
    };
 
-const Board level9 = {
+const Board level34 = {
     {
        0,   0,   0,   0,   0,   0,   0,   0,   0, RDD,   0,   0,   0,   0,   0,   0,   0,   0,   0,
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
