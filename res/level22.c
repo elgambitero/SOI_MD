@@ -12,7 +12,7 @@
 static const Actor blp = {&PL_blue,
        0,
        0,
-    {BLOCK_TO_PX(0) - 8, BLOCK_TO_PX(7)},
+    {BLOCK_TO_PX(1) - 8, BLOCK_TO_PX(7)},
     {   0,    0},
       0,
       0,

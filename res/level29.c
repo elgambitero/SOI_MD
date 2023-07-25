@@ -1,11 +1,11 @@
 #include "SOI.h"
 
-#define BFW (NORMAL_BLOCK | BREAKABLE| SOLID | BLK_FLAT  | COL_WHITE)
+#define BFW (NORMAL_BLOCK | SOLID | BLK_FLAT  | COL_WHITE)
 
 static const Actor blp = {&PL_blue,
        0,
        0,
-    {8, 16},
+    {BLOCK_TO_PX(1) - 8, BLOCK_TO_PX(13)},
     {   0,    0},
       0,
       0,
@@ -15,7 +15,7 @@ static const Actor blp = {&PL_blue,
    static const Actor glp = {&PL_green,
       0,
       0,
-   {24, 16},
+    {BLOCK_TO_PX(19) - 8, BLOCK_TO_PX(13)},
    {   0,    0},
       0,
       0,
@@ -26,7 +26,7 @@ static const Actor spawn0 = {
     &SPW_piggy,
     WALK_RIGHT,
     0,
-    {296, 16},
+    {BLOCK_TO_PX(1) - 8, BLOCK_TO_PX(1)},
     {0, 0},
     MAX_TIMER - 120,
     0,
@@ -45,7 +45,7 @@ static const Actor spawn1 = {
     &SPW_piggy,
     WALK_LEFT,
     0,
-    {296, 16},
+    {BLOCK_TO_PX(19) - 8, BLOCK_TO_PX(1)},
     {0, 0},
     MAX_TIMER - 120,
     0,

@@ -222,7 +222,7 @@ static inline void PL_teleport(u8 from_ind, u16 block){
             exit_ind = BRD_seek_block(env, TWO);
             break;
     }
-    if(exit_ind == 0) SYS_die("No teleport output");
+    if(exit_ind == BOARD_NOTFOUND) SYS_die("No teleport output");
     s16 delta[2];
     delta[X] = PX_TO_POS( BLOCK_TO_PX( ( IND_TO_X(exit_ind) ) ) + 8 ) - curr->pos[X];
     delta[Y] = PX_TO_POS( BLOCK_TO_PX( ( IND_TO_Y(exit_ind) ) ) + 15 ) - curr->pos[Y];

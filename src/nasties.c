@@ -809,6 +809,8 @@ void NST_whR_loop(){
                    return;
             }
             break;
+        case DEAD:
+            NST_keep_dying();
     }
 }
 
@@ -921,6 +923,8 @@ void NST_whL_loop(){
                    return;
             }
             break;
+        case DEAD:
+            NST_keep_dying();
     }
 }
 

@@ -27,7 +27,7 @@ static const Actor glp = {
 };
 
 static const Actor gargoyle = {
-    &BS_gargoyle,
+    &BS_gargoyle1, //DEPRECATED: Use BS_gargoyle with proper actorData
     BS_BIRTH,
     GL_BIRTH_FRAMES,
     {BLOCK_TO_PX(2) - 8, BLOCK_TO_PX(3)},
@@ -84,7 +84,7 @@ static const Actor spinner1 = {
     &spinner0,
 };
 
-const Board level20 = {
+const Board level30 = {
     {
        0,   0,   0, CHI,   0,   0,   0,   0,   0, RDK,   0,   0,   0,   0,   0, CHI,   0,   0,   0,
        0,   0,   0, CHI,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, CHI,   0,   0,   0,
@@ -120,6 +120,6 @@ const Board level20 = {
     MUS_BONUSHEAVY,
     BONUS_FLAG,
     6000,
-    &spinner0,
+    &spinner1,
     &glp
 };

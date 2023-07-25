@@ -1,7 +1,7 @@
 #include "SOI.h"
 
 #define BOB (NORMAL_BLOCK | SOLID | BLK_DOT   | COL_SLOT1)
-#define BFB (NORMAL_BLOCK | SOLID | BLK_FLAT  | COL_SLOT1)
+#define BFB (NORMAL_BLOCK | SOLID | BREAKABLE | BLK_FLAT  | COL_SLOT1)
 #define NET (NORMAL_BLOCK | BLK_NET)
 
 static const Actor blp = {&PL_blue,
