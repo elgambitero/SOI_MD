@@ -21,7 +21,7 @@ const Board level9;
 const Board level10;
 const Board level11;
 const Board level12;
-const Board level13; // FIXME: NO MOVING BLOCKS
+const Board level13_broken; // FIXME: NO MOVING BLOCKS
 const Board level14;
 const Board level15;
 const Board level16;
@@ -30,6 +30,26 @@ const Board level18;
 const Board level19;
 const Board level20;
 const Board level21;
+const Board level22;
+const Board level23;
+const Board level24;
+const Board level25_broken; // FIXME: NO MOVING BLOCKS
+const Board level26;
+const Board level27;
+const Board level28;
+const Board level29;
+const Board level30;
+
+const Board level34;
+
+const Board level38;
+
+const Board level40;
+
+const Board level43;
+
+const Board level53;
+
 
 extern const Board * levels[];
 extern const u8 max_levels;
