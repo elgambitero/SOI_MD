@@ -8,6 +8,7 @@
 #define MUS_BONUSHEAVY 3
 
 const Board test_level;
+
 const Board level1;
 const Board level2;
 const Board level3;

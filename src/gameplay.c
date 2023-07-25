@@ -453,7 +453,7 @@ void GAM_setGametype(u8 game_type){
 void GAM_updateScore(){
     if(GAM_gameType == COOPERATE){
         scoreCount = (bl_stats.score + gr_stats.score) / 2;
-        sprintf(scoreText, "%08lu", scoreCount);
+        sprintf(scoreText, "%08u", scoreCount);
         VDP_drawText(scoreText, X_SCORE, 0);
     }
 }
@@ -499,7 +499,7 @@ void GAM_normalInter(){
     VDP_drawText("No Weapons Reward", SINGCOUNT_X, SINGCOUNT_Y + WEAPONSY);
     VDP_drawText("Score", SINGCOUNT_X, SINGCOUNT_Y + SCOREY);
     scoreCount = (blscore + grscore) / 2;
-    sprintf(scoreText, "%08lu", scoreCount);
+    sprintf(scoreText, "%08u", scoreCount);
     VDP_drawText(scoreText, SINGCOUNT_X + SCORE_SPACE, SINGCOUNT_Y + SCOREY);
 
 
@@ -530,7 +530,7 @@ void GAM_advanceBonuscount(){
     grscore += gr_stats.mult ? gr_stats.bonus : 0;
 
     scoreCount = (blscore + grscore)/2;
-    sprintf(scoreText, "%08lu", scoreCount);
+    sprintf(scoreText, "%08u", scoreCount);
     VDP_drawText(scoreText, SINGCOUNT_X + SCORE_SPACE, SINGCOUNT_Y + SCOREY);
 
     if(bl_stats.mult)
@@ -640,7 +640,7 @@ void GAM_normalInter_loop(){
             }
 
             scoreCount = (bl_stats.score + gr_stats.score)/2;
-            sprintf(scoreText, "%08lu", scoreCount);
+            sprintf(scoreText, "%08u", scoreCount);
             VDP_drawText(scoreText, SINGCOUNT_X + SCORE_SPACE, SINGCOUNT_Y + SCOREY);
 
             interTurn++;
