@@ -52,7 +52,7 @@ static const Actor robo1 = {
 };
 
 // FIXME: Missing Moving blocks
-const Board level13 = {
+const Board level13_broken = {
     {
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,

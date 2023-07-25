@@ -136,7 +136,7 @@ const Board level23 = {
        0,   0,   0,   0,   0,   0, ARR,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
     },
     {PAL_GR, PAL_R, PAL_BL},
-    MUS_HEAVY1,
+    MUS_HEAVY3,
     0,
     4000,
     &beanie6,
