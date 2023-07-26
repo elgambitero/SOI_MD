@@ -6,7 +6,7 @@
 
 #define MAX_NASTIES 20
 #define MAX_FX 10
-#define MAX_PROJ 4
+#define MAX_PROJ 6
 
 #define PX_TO_TILE(px) (px >> 3)
 #define PX_TO_BLOCK(px) (px >> 4)

@@ -70,7 +70,7 @@ static const Actor wheel3 = {
     &wheel2,
 };
 
-
+// FIXME: Wheels cause ADDRESS ERROR
 const Board level37 = {
     {
      TBO,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, TGO,
@@ -79,7 +79,7 @@ const Board level37 = {
        0, BOK, BOK, BOK, BOK, BOK, BOK,   0, BOW,   0, BOW,   0, BOK, BOK, BOK, BOK, BOK, BOK,   0,
        0,   0,   0,   0,   0,   0,   0,   0, BOW,   0, BOW,   0,   0,   0,   0,   0,   0,   0,   0,
      BOW, BOW, BOW, BOW, BOW, BOW, BOW, BOW, BOW,   0, BOW, BOW, BOW, BOW, BOW, BOW, BOW, BOW, BOW,
-       0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
+     RDD,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, RDK,
      BOW, BOW, BOW, BOW, BOW, BOW, BOW, BOW, BOW, BOW, BOW, BOW, BOW, BOW, BOW, BOW, BOW, BOW, BOW,
      TBI,   0,   0,   0,   0,   0,   0,   0, BOW, BOW, BOW,   0,   0,   0,   0,   0,   0,   0, TGI,
        0,   0,   0,   0,   0,   0,   0,   0, BOW, BOW, BOW,   0,   0,   0,   0,   0,   0,   0,   0,
@@ -107,6 +107,6 @@ const Board level37 = {
     MUS_HEAVY1,
     0,
     8000,
-    &wheel3,
+    0,
     &glp
 };

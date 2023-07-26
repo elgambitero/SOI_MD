@@ -9,6 +9,8 @@
         "type_traits": "c",
         "unordered_map": "c",
         "vector": "c",
-        "algorithm": "c"
+        "algorithm": "c",
+        "__assert": "c",
+        "ctime": "c"
     }
 }

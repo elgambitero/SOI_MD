@@ -39,11 +39,15 @@ const Board level27;
 const Board level28;
 const Board level29;
 const Board level30;
-
+const Board level31;
+const Board level32;
+const Board level33;
 const Board level34;
-
+const Board level35;
+const Board level36;
+const Board level37;
 const Board level38;
-
+const Board level39;
 const Board level40;
 
 const Board level43;

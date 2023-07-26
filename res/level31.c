@@ -43,7 +43,7 @@ static const Actor can0 = {&SPW_cannon,
    0,
    {BLOCK_TO_PX(19) - 8, BLOCK_TO_PX(3)},
    {0, 0},
-      MAX_TIMER - CANNON_TIME,
+   MAX_TIMER - CANNON_TIME,
    0,
    &robo,
    };
@@ -124,6 +124,6 @@ const Board level31 = {
     MUS_HEAVY1, //music
     0,
     4000, //bonus
-    &can2, //nasties
+    &can4, //nasties
     &glp //players
 };
