@@ -110,7 +110,7 @@ const Board level38 = {
        0,   0,   0,   0,   0,   0,   0,   0,   0, GLS,   0,   0,   0,   0,   0,   0,   0,   0,   0,
     },
     {PAL_BK, PAL_GR, PAL_BL},
-    MUS_HEAVY1, //music
+    MUS_HEAVY2, //music
     0,
     6000, //bonus
     &spawn, //nasties
