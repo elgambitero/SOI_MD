@@ -39,7 +39,7 @@ static const Actor robo = {&NST_robo,
    };
 
 static const Actor can0 = {&SPW_cannon,
-   WALK_RIGHT,
+   WALK_LEFT,
    0,
    {BLOCK_TO_PX(19) - 8, BLOCK_TO_PX(3)},
    {0, 0},
@@ -49,7 +49,7 @@ static const Actor can0 = {&SPW_cannon,
    };
 
 static const Actor can1 = {&SPW_cannon,
-   WALK_LEFT,
+   WALK_RIGHT,
    0,
    {BLOCK_TO_PX(1) - 8, BLOCK_TO_PX(5)},
    {0, 0},
@@ -69,7 +69,7 @@ static const Actor can2 = {&SPW_cannon,
    };
 
 static const Actor can3 = {&SPW_cannon,
-   WALK_LEFT,
+   WALK_RIGHT,
    0,
    {BLOCK_TO_PX(1) - 8, BLOCK_TO_PX(9)},
    {0, 0},
