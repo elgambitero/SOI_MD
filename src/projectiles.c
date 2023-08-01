@@ -66,6 +66,21 @@ const Entity PR_ultrabuster = {
     }
 };
 
+const Entity PR_spawner = {
+    PROJECTILE,
+    {5, 10},
+    {7, 15},
+    PAL_SYS0,
+    &spawner_spr,
+    NULL,
+    &PR_simp_loop,
+    NULL,
+    {.proj = 
+        {
+        }
+    }
+};
+
 void PR_packet_loop();
 void PR_packet_land();
 const Entity PR_packet = {

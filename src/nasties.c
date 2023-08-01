@@ -1250,7 +1250,7 @@ void BS_gargoyle_loop(){
                     fx.character = &PR_ultrabuster;
                     break;
                 case SPAWNER_PROJ:
-                    fx.character = &PR_simple;
+                    fx.character = &PR_spawner;
                     break;
                 default:
                     fx.character = &PR_simple;
