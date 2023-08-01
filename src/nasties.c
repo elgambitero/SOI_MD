@@ -1251,6 +1251,7 @@ void BS_gargoyle_loop(){
                     break;
                 case SPAWNER_PROJ:
                     fx.character = &PR_spawner;
+                    fx.actorData.garData = curr->actorData.garData;
                     break;
                 default:
                     fx.character = &PR_simple;

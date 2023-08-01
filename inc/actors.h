@@ -38,6 +38,7 @@ typedef struct GarData{ // spawn_chance must be lower than turbobuster chance
     u16 interval;
     u8 turbobuster_chance;
     u8 spawn_chance;
+    Entity * bad_guy;
 }GarData;
 
 typedef struct Actor{

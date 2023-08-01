@@ -66,6 +66,7 @@ const Entity PR_ultrabuster = {
     }
 };
 
+void PR_spw_loop();
 const Entity PR_spawner = {
     PROJECTILE,
     {5, 10},
@@ -73,7 +74,7 @@ const Entity PR_spawner = {
     PAL_SYS0,
     &spawner_spr,
     NULL,
-    &PR_simp_loop,
+    &PR_spw_loop,
     NULL,
     {.proj = 
         {
@@ -351,6 +352,102 @@ void PR_ub_loop(){
                         result = ACT_DELETION;
                         return;
                     }
+                }
+                break;
+        }
+    }
+}
+
+__attribute__((always_inline)) static inline void PR_spawn(Entity * character) {
+    fx.status = curr->status;
+    u8 dir = fx.status & 0x01;
+    fx.pos[X] = POS_TO_PX(curr->pos[X]);
+    fx.pos[Y] = POS_TO_PX(curr->pos[Y]);
+    fx.frames = 0;
+    fx.character = character;
+    fx.speed[X] = dir ? 
+        -fx.character->role.nastie.speed : fx.character->role.nastie.speed;
+    fx.speed[Y] = 0;
+    curr->timer = MAX_TIMER - SPAWN_TIME;
+    fx.timer = MAX_TIMER - STAY_TIME;
+    ACT_add(&fx, &nasties);
+}
+
+void PR_spw_loop(){
+    PHY_calc_front(dir);
+    PHY_calc_back(dir);
+    PHY_calc_front_floor();
+    switch(crashing(front_floor_ind)){
+        case FRAME:
+            result = ACT_DELETION;
+            if(curr->actorData.garData.bad_guy){
+                PR_spawn(curr->actorData.garData.bad_guy);
+            }
+            return;
+        case BLOCK:
+            if(env->front_blocks[front_floor_ind] != CHI){
+                result = ACT_DELETION;
+                if(curr->actorData.garData.bad_guy){
+                    PR_spawn(curr->actorData.garData.bad_guy);
+                }
+                return;
+            }
+            break;
+    }
+    calc_PR_top();
+    u8 front_top_ind = calc_front_block_top();
+    switch(crashing(front_top_ind)){
+        case FRAME:
+            result = ACT_DELETION;
+            if(curr->actorData.garData.bad_guy){
+                PR_spawn(curr->actorData.garData.bad_guy);
+            }
+            return;
+        case BLOCK:
+            if(env->front_blocks[front_top_ind] != CHI){
+                result = ACT_DELETION;
+                if(curr->actorData.garData.bad_guy){
+                    PR_spawn(curr->actorData.garData.bad_guy);
+                }
+                return;
+            }
+            break;
+    }
+    if(curr->speed[Y] > 0){
+        PHY_calc_back_floor();
+        switch(crashing(back_floor_ind)){
+            case FRAME:
+                result = ACT_DELETION;
+                if(curr->actorData.garData.bad_guy){
+                    PR_spawn(curr->actorData.garData.bad_guy);
+                }
+                return;
+            case BLOCK:
+                if(env->front_blocks[back_floor_ind] != CHI){
+                    result = ACT_DELETION;
+                    if(curr->actorData.garData.bad_guy){
+                        PR_spawn(curr->actorData.garData.bad_guy);
+                    }
+                    return;
+                }
+                break;
+        }
+    }else{
+        u8 back_top_ind = calc_back_block_top();
+        switch(crashing(back_top_ind)){
+            case FRAME:
+                result = ACT_DELETION;
+                if(curr->actorData.garData.bad_guy){
+                    PR_spawn(curr->actorData.garData.bad_guy);
+                }
+                return;
+            case BLOCK:
+                if(env->front_blocks[back_top_ind] != CHI){
+                    result = ACT_DELETION;
+                    if(curr->actorData.garData.bad_guy){
+                        PR_spawn(curr->actorData.garData.bad_guy);
+                    }
+                    return;
                 }
                 break;
         }

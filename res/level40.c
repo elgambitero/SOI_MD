@@ -40,7 +40,8 @@ static const Actor gargoyle = {&BS_gargoyle,
       {
          300,
          64,
-         15
+         15,
+         &NST_ostrich
       }
    }
 };
