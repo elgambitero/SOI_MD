@@ -27,7 +27,7 @@ static const Actor glp = {
 };
 
 static const Actor gargoyle = {
-    &BS_gargoyle1, //DEPRECATED: Use BS_gargoyle with proper actorData
+    &BS_gargoyle, //DEPRECATED: Use BS_gargoyle with proper actorData
     BS_BIRTH,
     GL_BIRTH_FRAMES,
     {BLOCK_TO_PX(2) - 8, BLOCK_TO_PX(3)},
@@ -35,10 +35,10 @@ static const Actor gargoyle = {
     0,
     0,
     NULL,
-    {.spwData =
+    {.garData =
       {
         400,
-        0,
+        128,
         0
       }
    }

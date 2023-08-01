@@ -40,7 +40,7 @@ static const Actor gargoyle = {
     0,
     0,
     NULL,
-    {.spwData =
+    {.garData =
       {
         400,
         0,

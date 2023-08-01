@@ -249,42 +249,6 @@ const Entity BS_gargoyle = {
     }
 };
 
-const Entity BS_gargoyle1 = {
-    NASTIE,
-    {24, 48},
-    {24, 48},
-    PAL_SYS0,
-    &gargoyle_spr,
-    NULL,
-    &BS_gargoyle_loop,
-    NULL,
-    {.nastie =
-        {
-            NULL,
-            NULL,
-            1,
-        }
-    }
-};
-
-const Entity BS_gargoyle2 = {
-    NASTIE,
-    {24, 48},
-    {24, 48},
-    PAL_SYS0,
-    &gargoyle_spr,
-    NULL,
-    &BS_gargoyle_loop,
-    NULL,
-    {.nastie =
-        {
-            NULL,
-            NULL,
-            2,
-        }
-    }
-};
-
 void BS_knight_loop();
 const Entity BS_knight = {
     NASTIE,
@@ -1235,7 +1199,9 @@ void NST_hippo_loop(){
 
 
 
-
+#define NOMRAL_PROJ 0
+#define TURBOBUSTER 1
+#define SPAWNER_PROJ 2
 void BS_gargoyle_loop(){
     if(curr->frames--) {
         return;
@@ -1250,8 +1216,8 @@ void BS_gargoyle_loop(){
             newstatus = BS_ATTK;
             break;
         case BS_ATTK:
-            if(curr->actorData.spwData.interval){
-                curr->frames = curr->actorData.spwData.interval;
+            if(curr->actorData.garData.interval){
+                curr->frames = curr->actorData.garData.interval;
             }else
                 curr->frames = GL_IDLE_FRAMES;
             newstatus = BS_IDLE;
@@ -1271,18 +1237,19 @@ void BS_gargoyle_loop(){
             fx.speed[X] = (delta[X] * GL_PROJ_SPEED) / norm;
             fx.speed[Y] = (delta[Y] * GL_PROJ_SPEED) / norm;
             fx.status = 0;
-            switch(curr->character->role.nastie.speed){ //Incredibly inappropriate use of bytes
-                case 0:
-                    fx.character = &PR_simple;
+            u8 proj_poll = RNG_get();
+            u8 proj_sel = NOMRAL_PROJ;
+            if(proj_poll < curr->actorData.garData.turbobuster_chance) {
+                proj_sel = TURBOBUSTER;
+            }
+            if(proj_poll < curr->actorData.garData.spawn_chance) {
+                proj_sel = SPAWNER_PROJ;
+            }
+            switch(proj_sel){
+                case TURBOBUSTER:
+                    fx.character = &PR_ultrabuster;
                     break;
-                case 1:
-                    if(RNG_get() > 128 ){
-                        fx.character = &PR_ultrabuster;
-                    }else{
-                        fx.character = &PR_simple;
-                    }
-                    break;
-                case 2:
+                case SPAWNER_PROJ:
                     fx.character = &PR_simple;
                     break;
                 default:

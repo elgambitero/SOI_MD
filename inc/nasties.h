@@ -74,8 +74,6 @@ extern const Entity NST_walker;
 extern const Entity NST_smiley;
 
 extern const Entity BS_gargoyle;
-extern const Entity BS_gargoyle1;
-extern const Entity BS_gargoyle2;
 extern const Entity BS_knight;
 
 #endif

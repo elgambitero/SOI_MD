@@ -34,6 +34,12 @@ typedef struct SpwData{
     u8 tick;
 }SpwData;
 
+typedef struct GarData{ // spawn_chance must be lower than turbobuster chance
+    u16 interval;
+    u8 turbobuster_chance;
+    u8 spawn_chance;
+}GarData;
+
 typedef struct Actor{
     const Entity * character;
     u8 status;
@@ -47,6 +53,7 @@ typedef struct Actor{
         FXData fxData;
         PackData packData;
         SpwData spwData;
+        GarData garData;
     }actorData;
 }Actor;
 

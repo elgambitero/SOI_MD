@@ -28,7 +28,7 @@ static const Actor blp = {&PL_blue,
    };
 
 
-static const Actor gargoyle = {&BS_gargoyle1,
+static const Actor gargoyle = {&BS_gargoyle,
    BS_BIRTH,
    GL_BIRTH_FRAMES,
    {BLOCK_TO_PX(10) - 8, BLOCK_TO_PX(3)},
@@ -36,10 +36,10 @@ static const Actor gargoyle = {&BS_gargoyle1,
    0,
    0,
    NULL,
-   {.spwData =
+   {.garData =
       {
          300,
-         0,
+         64,
          0
       }
    }
