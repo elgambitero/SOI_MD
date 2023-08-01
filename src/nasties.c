@@ -1221,22 +1221,6 @@ void BS_gargoyle_loop(){
             }else
                 curr->frames = GL_IDLE_FRAMES;
             newstatus = BS_IDLE;
-            //Decide which player to shoot
-            Actor * target = NULL;
-            if(green_player && blue_player){
-                target = (RNG_get() & 0x01) ? blue_player : green_player;
-            }else{
-                target = blue_player ? blue_player : green_player;
-            }
-            if(!target) return; //Return if for whatever reason there is no eligible target.
-            s16 delta[2];
-            delta[X] = target->pos[X] - curr->pos[X];
-            delta[Y] = target->pos[Y] - (curr->pos[Y] - PX_TO_POS(GL_FIRE_HEIGHT) );
-            //Approximating with norm 1:
-            u16 norm = (ABS(delta[X]) + ABS(delta[Y]))/2;
-            fx.speed[X] = (delta[X] * GL_PROJ_SPEED) / norm;
-            fx.speed[Y] = (delta[Y] * GL_PROJ_SPEED) / norm;
-            fx.status = 0;
             u8 proj_poll = RNG_get();
             u8 proj_sel = NOMRAL_PROJ;
             if(proj_poll < curr->actorData.garData.turbobuster_chance) {
@@ -1257,6 +1241,52 @@ void BS_gargoyle_loop(){
                     fx.character = &PR_simple;
                     break;
             }
+
+            if(proj_sel != SPAWNER_PROJ) {
+                //Decide which player to shoot
+                Actor * target = NULL;
+                if(green_player && blue_player){
+                    target = (RNG_get() & 0x01) ? blue_player : green_player;
+                }else{
+                    target = blue_player ? blue_player : green_player;
+                }
+                if(!target) return; //Return if for whatever reason there is no eligible target.
+                s16 delta[2];
+                delta[X] = target->pos[X] - curr->pos[X];
+                delta[Y] = target->pos[Y] - (curr->pos[Y] - PX_TO_POS(GL_FIRE_HEIGHT) );
+                //Approximating with norm 1:
+                u16 norm = (ABS(delta[X]) + ABS(delta[Y]))/2;
+                fx.speed[X] = (delta[X] * GL_PROJ_SPEED) / norm;
+                fx.speed[Y] = (delta[Y] * GL_PROJ_SPEED) / norm;
+                fx.status = 0;
+            } else {
+                u8 target_ind;
+                u8 count = 6;
+                //Choose block
+                do{
+                    target_ind = RNG_get();
+                    count--;
+                }while(count && ( (env->back_blocks[target_ind] == CHI) ||
+                                    (target_ind >= BOARD_BUFFER) ||
+                                    ((env->front_blocks[target_ind] & BLK_TYPE) == GOODIE) || 
+                                    ((env->front_blocks[target_ind] & SOLID))));
+                if(!count) return;
+
+                //Fire target
+                fx.status = 0;
+                fx.actorData.packData.block = target_ind;
+
+                s16 delta[2];
+                delta[X] = (BLOCK_TO_PX( IND_TO_X(target_ind) ) + 8 ) - POS_TO_PX(curr->pos[X]);
+                delta[Y] = (BLOCK_TO_PX( IND_TO_Y(target_ind) ) + 8 + 5) - (POS_TO_PX(curr->pos[Y]) - GL_FIRE_HEIGHT );
+                //Approximating with norm 1:
+                u16 norm = (ABS(delta[X]) + ABS(delta[Y]))/2;
+                fx.speed[X] = (delta[X] * GL_PROJ_SPEED) / norm;
+                fx.speed[Y] = (delta[Y] * GL_PROJ_SPEED) / norm;
+                u16 sp_norm = (ABS(fx.speed[X]) + ABS(fx.speed[Y]))/2;
+                fx.timer = PX_TO_POS(norm) / sp_norm;
+            }
+
             fx.pos[X] = POS_TO_PX(curr->pos[X]);
             fx.pos[Y] = POS_TO_PX(curr->pos[Y]) - GL_FIRE_HEIGHT;
             ACT_add(&fx, &projectiles);

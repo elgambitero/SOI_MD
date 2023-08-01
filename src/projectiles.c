@@ -365,7 +365,7 @@ __attribute__((always_inline)) static inline void PR_spawn(Entity * character) {
     fx.pos[Y] = POS_TO_PX(curr->pos[Y]);
     fx.frames = 0;
     fx.character = character;
-    fx.speed[X] = dir ? 
+    fx.speed[X] = dir ?
         -fx.character->role.nastie.speed : fx.character->role.nastie.speed;
     fx.speed[Y] = 0;
     curr->timer = MAX_TIMER - SPAWN_TIME;
@@ -374,82 +374,10 @@ __attribute__((always_inline)) static inline void PR_spawn(Entity * character) {
 }
 
 void PR_spw_loop(){
-    PHY_calc_front(dir);
-    PHY_calc_back(dir);
-    PHY_calc_front_floor();
-    switch(crashing(front_floor_ind)){
-        case FRAME:
-            result = ACT_DELETION;
-            if(curr->actorData.garData.bad_guy){
-                PR_spawn(curr->actorData.garData.bad_guy);
-            }
-            return;
-        case BLOCK:
-            if(env->front_blocks[front_floor_ind] != CHI){
-                result = ACT_DELETION;
-                if(curr->actorData.garData.bad_guy){
-                    PR_spawn(curr->actorData.garData.bad_guy);
-                }
-                return;
-            }
-            break;
-    }
-    calc_PR_top();
-    u8 front_top_ind = calc_front_block_top();
-    switch(crashing(front_top_ind)){
-        case FRAME:
-            result = ACT_DELETION;
-            if(curr->actorData.garData.bad_guy){
-                PR_spawn(curr->actorData.garData.bad_guy);
-            }
-            return;
-        case BLOCK:
-            if(env->front_blocks[front_top_ind] != CHI){
-                result = ACT_DELETION;
-                if(curr->actorData.garData.bad_guy){
-                    PR_spawn(curr->actorData.garData.bad_guy);
-                }
-                return;
-            }
-            break;
-    }
-    if(curr->speed[Y] > 0){
-        PHY_calc_back_floor();
-        switch(crashing(back_floor_ind)){
-            case FRAME:
-                result = ACT_DELETION;
-                if(curr->actorData.garData.bad_guy){
-                    PR_spawn(curr->actorData.garData.bad_guy);
-                }
-                return;
-            case BLOCK:
-                if(env->front_blocks[back_floor_ind] != CHI){
-                    result = ACT_DELETION;
-                    if(curr->actorData.garData.bad_guy){
-                        PR_spawn(curr->actorData.garData.bad_guy);
-                    }
-                    return;
-                }
-                break;
-        }
-    }else{
-        u8 back_top_ind = calc_back_block_top();
-        switch(crashing(back_top_ind)){
-            case FRAME:
-                result = ACT_DELETION;
-                if(curr->actorData.garData.bad_guy){
-                    PR_spawn(curr->actorData.garData.bad_guy);
-                }
-                return;
-            case BLOCK:
-                if(env->front_blocks[back_top_ind] != CHI){
-                    result = ACT_DELETION;
-                    if(curr->actorData.garData.bad_guy){
-                        PR_spawn(curr->actorData.garData.bad_guy);
-                    }
-                    return;
-                }
-                break;
+    if(!curr->timer--){
+        result = ACT_DELETION;
+        if(curr->actorData.garData.bad_guy){
+            PR_spawn(curr->actorData.garData.bad_guy);
         }
     }
 }
