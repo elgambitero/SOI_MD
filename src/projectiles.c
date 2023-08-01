@@ -265,20 +265,22 @@ void PR_simp_loop(){
 }
 
 void PR_ub_loop(){
-    u8 crashed = 0;
     PHY_calc_front(dir);
     PHY_calc_back(dir);
     PHY_calc_front_floor();
     switch(crashing(front_floor_ind)){
         case FRAME:
-            crashed = 1;
-            break;
+            result = ACT_DELETION;
+            return;
         case BLOCK:
             if(env->front_blocks[front_floor_ind] != CHI){
                 //Checking for chisels everywhere is pathetic.
                 if(PHY_breakable(front_floor_ind)){
                     BRD_break_block_ind(env, front_floor_ind);
                     PHY_brk_debris(front_floor_ind, curr->speed[X], curr->speed[Y]);
+                } else {
+                    result = ACT_DELETION;
+                    return;
                 }
             }
             break;
@@ -287,13 +289,16 @@ void PR_ub_loop(){
     u8 front_top_ind = calc_front_block_top();
     switch(crashing(front_top_ind)){
         case FRAME:
-            crashed = 1;
-            break;
+            result = ACT_DELETION;
+            return;
         case BLOCK:
             if(env->front_blocks[front_top_ind] != CHI){
                 if(PHY_breakable(front_top_ind)){
                     BRD_break_block_ind(env, front_top_ind);
                     PHY_brk_debris(front_top_ind, curr->speed[X], curr->speed[Y]);
+                } else {
+                    result = ACT_DELETION;
+                    return;
                 }
             }
             break;
@@ -302,13 +307,16 @@ void PR_ub_loop(){
         PHY_calc_back_floor();
         switch(crashing(back_floor_ind)){
             case FRAME:
-                crashed = 1;
-                break;
+                result = ACT_DELETION;
+                return;
             case BLOCK:
                 if(env->front_blocks[back_floor_ind] != CHI){
                     if(PHY_breakable(back_floor_ind)){
                         BRD_break_block_ind(env, back_floor_ind);
                         PHY_brk_debris(back_floor_ind, curr->speed[X], curr->speed[Y]);
+                    } else {
+                        result = ACT_DELETION;
+                        return;
                     }
                 }
                 break;
@@ -317,19 +325,21 @@ void PR_ub_loop(){
         u8 back_top_ind = calc_back_block_top();
         switch(crashing(back_top_ind)){
             case FRAME:
-                crashed = 1;
-                break;
+                result = ACT_DELETION;
+                return;
             case BLOCK:
                 if(env->front_blocks[back_top_ind] != CHI){
                     if(PHY_breakable(back_top_ind)){
                         BRD_break_block_ind(env, back_top_ind);
                         PHY_brk_debris(back_top_ind, curr->speed[X], curr->speed[Y]);
+                    } else {
+                        result = ACT_DELETION;
+                        return;
                     }
                 }
                 break;
         }
     }
-    if(crashed) result = ACT_DELETION;
 }
 
 void PR_packet_loop(){
