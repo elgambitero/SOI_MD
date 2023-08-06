@@ -291,14 +291,19 @@ enum MainStates GAM_loop(){
             return GAMEPLAY;
         case GAMEENDING:
             //VDP_resetScreen();
-            VDP_clearPlane(BG_A, TRUE);
-            VDP_clearPlane(BG_B, TRUE);
             XGM_stopPlay();
                 if(bonusCount < 1000){
                     XGM_setMusicTempo(3 * XGM_getMusicTempo() / 4);
                 }
+            VDP_setPaletteColors(32, (u16*) palette_black, 32);
+            u16 palette[32];
+            memcpy(&palette[0], ending_1_img.palette->data, 16 * 2);
+            memcpy(&palette[16], ending_2_img.palette->data, 16 * 2);
             PAL_setColor(15, 0x0FFF);
-            VDP_drawTextBG(BG_A,"Thank you for playing", 5, 10);
+            VDP_clearPlane(BG_A, TRUE);
+            VDP_clearPlane(BG_B, TRUE);
+            VDP_drawImageEx(BG_A, &ending_1_img, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX), 0, 0, FALSE, TRUE);
+            VDP_drawImageEx(BG_B, &ending_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + ending_1_img.tileset->numTile )), 0, 0, FALSE, TRUE);
             gameState = GAMEEXIT;
             return GAMEPLAY;
         case GAMEEXIT:

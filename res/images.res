@@ -7,3 +7,5 @@ IMAGE bns_end_2_img  "images/BonusEnd_mid_2.bmp"         AUTO
 IMAGE nothing_img    "images/nothing_low.bmp"            AUTO
 IMAGE bns_begin_1_img  "images/BonusBegin_mid_1.bmp"         AUTO
 IMAGE bns_begin_2_img  "images/BonusBegin_mid_2.bmp"         AUTO
+IMAGE ending_1_img    "images/Ending_mid_1.bmp"          AUTO
+IMAGE ending_2_img    "images/Ending_mid_2.bmp"          AUTO
