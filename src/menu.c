@@ -50,8 +50,8 @@ enum MainStates MEN_loop(){
             VDP_drawText("A -> Weapon, B -> Block, C -> Jump", 3, CONTROLS_Y_BUTTONS);
             VDP_drawText("Left/Right -> Move", 10, CONTROLS_Y_ARROWS);
             VDP_drawText("Down -> Alt. action", 10, CONTROLS_Y_DOWN);
-            VDP_drawText("40 levels version", 11, SUBTITLE_Y);
-            VDP_drawText("< > Set starting board: ", 6, START_BOARD_Y);
+            VDP_drawText("50 levels version", 11, SUBTITLE_Y);
+            VDP_drawText("< > B C Set starting board: ", 4, START_BOARD_Y);
             VDP_drawText("Press start button", 11, PRESS_START_Y);
             VDP_drawText("^ v ", 11, PLAYERS_Y);
             seed[0] = 0xFF;
@@ -60,7 +60,7 @@ enum MainStates MEN_loop(){
         break;
         case MENU_LOOP:
             sprintf(numText, "%03d", firstLevel);
-            VDP_drawText(numText, 30, START_BOARD_Y);
+            VDP_drawText(numText, 32, START_BOARD_Y);
             seed[0] -= 3;
             seed[1] -= 5;
             if(numPlayers){
