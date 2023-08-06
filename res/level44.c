@@ -108,7 +108,7 @@ const Board level44 = {
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
     },
     {PAL_BK, PAL_GR, PAL_BL},
-    MUS_HEAVY2, //music
+    MUS_HEAVY1, //music
     0,
     6000, //bonus
     &spinner2, //nasties

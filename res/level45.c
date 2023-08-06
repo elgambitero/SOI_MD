@@ -204,7 +204,7 @@ const Board level45 = {
     {PAL_R, PAL_GR, PAL_BL},
     MUS_HEAVY2,
     0,
-    6000,
+    7000,
     &wheel11,
     &glp
 };

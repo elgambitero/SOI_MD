@@ -112,6 +112,24 @@ const Entity SPW_hammer = {
     }
 };
 
+void SPW_spawn_teeth();
+const Entity SPW_teeth = {
+    SPAWNER | INVINCIBLE,
+    {8, 15},
+    {7, 15},
+    PAL_SYS0,
+    NULL,
+    NULL,
+    &SPW_update,
+    NULL,
+    {.spawner =
+        {
+            STAY_TIME,
+            &SPW_spawn_teeth
+        }
+    }
+};
+
 void SPW_cannon_loop();
 const Entity SPW_cannon = {
     SPAWNER | INVINCIBLE,
@@ -193,6 +211,10 @@ void SPW_spawn_hammer(){
 
 void SPW_spawn_smiley(){
     NST_spawn(&NST_smiley);
+}
+
+void SPW_spawn_teeth() {
+    NST_spawn(&NST_teeth);
 }
 
 void SPW_update(){
