@@ -14,7 +14,7 @@ const Board * levels[] = {
     &level10,
     &level11,
     &level12,
-    &level43, // TO BE REPLACED BY 13
+    &test_level, // TO BE REPLACED BY 13
     &level14,
     &level15,
     &level16,
@@ -26,7 +26,7 @@ const Board * levels[] = {
     &level22,
     &level23,
     &level24,
-    &level53, // TO BE REPLACED BY 25
+    &test_level, // TO BE REPLACED BY 25
     &level26,
     &level27,
     &level28,
@@ -41,7 +41,17 @@ const Board * levels[] = {
     &level37,
     &level38,
     &level39,
-    &level40
+    &level40,
+    &level41,
+    &level42,
+    &level43,
+    &level44,
+    &level45,
+    &level46,
+    &test_level, // TO BE REPLACED BY 47
+    &level48,
+    &level49,
+    &level50
 };
 
-const u8 max_levels = 41; //Not dynamic. Should be calculated upon compiling.
+const u8 max_levels = 51; //Not dynamic. Should be calculated upon compiling.

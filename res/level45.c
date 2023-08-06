@@ -166,7 +166,7 @@ static const Actor wheel11 = {
     {-SLO_SPEED, 0},
     0,
     0,
-    0&wheel10,
+    &wheel10,
 };
 
 

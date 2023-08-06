@@ -11,5 +11,6 @@ extern const Entity SPW_hippo;
 extern const Entity SPW_piggy;
 extern const Entity SPW_hammer;
 extern const Entity SPW_smiley;
+extern const Entity SPW_teeth;
 
 #endif

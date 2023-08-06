@@ -27,11 +27,11 @@ static const Actor blp = {&PL_blue,
    };
 
 static const Actor spawn = {&SPW_piggy,
-   WALK_LEFT,
+   WALK_RIGHT,
    0,
    {BLOCK_TO_PX(10) - 8, BLOCK_TO_PX(1)},
-   {-NASTIE_SPEED, 0},
-      0,
+   {0, 0},
+   MAX_TIMER - SPAWN_TIME,
    0,
    0,
    {

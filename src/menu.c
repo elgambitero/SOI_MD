@@ -98,12 +98,36 @@ void MEN_controls(u16 joy, u16 changed, u16 state){
                     pressed = 0;
                 }
             }
+            if(changed & BUTTON_C){
+                if(state & BUTTON_C){
+                    if(!pressed){
+                        pressed = 1;
+                        if(firstLevel >= 0 && firstLevel < max_levels - 10){
+                            firstLevel += 10;
+                        }
+                    }
+                }else{
+                    pressed = 0;
+                }
+            }
             if(changed & BUTTON_LEFT){
                 if(state & BUTTON_LEFT){
                     if(!pressed){
                         pressed = 1;
                         if(firstLevel > 0 && firstLevel <= max_levels - 1){
                             firstLevel--;
+                        }
+                    }
+                }else{
+                    pressed = 0;
+                }
+            }
+            if(changed & BUTTON_B){
+                if(state & BUTTON_B){
+                    if(!pressed){
+                        pressed = 1;
+                        if(firstLevel > 10 && firstLevel <= max_levels - 1){
+                            firstLevel -= 10;
                         }
                     }
                 }else{
