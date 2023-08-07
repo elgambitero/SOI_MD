@@ -304,10 +304,12 @@ enum MainStates GAM_loop(){
             VDP_clearPlane(BG_B, TRUE);
             VDP_drawImageEx(BG_A, &ending_1_img, TILE_ATTR_FULL(PAL2, FALSE, FALSE, FALSE, TILE_USERINDEX), 0, 0, FALSE, TRUE);
             VDP_drawImageEx(BG_B, &ending_2_img, TILE_ATTR_FULL(PAL3, FALSE, FALSE, FALSE, (TILE_USERINDEX + ending_1_img.tileset->numTile )), 0, 0, FALSE, TRUE);
+            // fade in
+            VDP_fadeIn(32, 63 , palette, 20, FALSE);
             gameState = GAMEEXIT;
             return GAMEPLAY;
         case GAMEEXIT:
-            return GAMEPLAY;
+            return INTRO;
     }
     return GAMEPLAY;
 }
