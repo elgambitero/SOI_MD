@@ -139,9 +139,9 @@ const Board level26 = {
        0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
     },
     {PAL_BL, PAL_R, PAL_GR},
-    MUS_HEAVY3,
+    MUS_HEAVY2,
     0,
-    6000,
+    8000,
     &wheel3,
     &glp
 };
