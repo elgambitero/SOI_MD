@@ -1,7 +1,5 @@
 #include "SOI.h"
 
-#define BOG (NORMAL_BLOCK | SOLID | BLK_DOT   | COL_SLOT2)
-#define BOW (NORMAL_BLOCK | SOLID | BLK_DOT   | COL_WHITE)
 #define BFW (NORMAL_BLOCK | SOLID | BREAKABLE | BLK_FLAT  | COL_WHITE)
 
 
