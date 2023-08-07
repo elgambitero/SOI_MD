@@ -29,7 +29,7 @@ static const Actor beanie0 = {
     &NST_beanie,
     WALK_DOWN,
     0,
-    {BLOCK_TO_PX(10) - 8, BLOCK_TO_PX(0)},
+    {BLOCK_TO_PX(10) - 8, BLOCK_TO_PX(1)},
     {0, NASTIE_SPEED},
     0,
     0,
