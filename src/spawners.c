@@ -244,7 +244,7 @@ void SPW_cannon_loop(){
             }
             ACT_add(&fx, &projectiles);
             SFX_playSound(snd_cannon_fire_ID);
-            curr->timer = MAX_TIMER - CANNON_TIME;
+            curr->timer = MAX_TIMER - curr->actorData.spwData.interval;
             return;
         };
     }

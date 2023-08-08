@@ -33,8 +33,15 @@ static const Actor cannonR = {
     {BLOCK_TO_PX(1) - 8, BLOCK_TO_PX(8)},
     {0, 0},
     MAX_TIMER - CANNON_TIME,
-     0,
-     0,
+    0,
+    0,
+    {
+      .spwData = {
+          CANNON_TIME,
+          0,
+          0,
+      }
+    }
 };
 
 static const Actor cannonL = {
@@ -46,6 +53,13 @@ static const Actor cannonL = {
        MAX_TIMER - (CANNON_TIME),
      0,
      &cannonR,
+    {
+      .spwData = {
+          CANNON_TIME,
+          0,
+          0,
+      }
+    }
 };
 
 

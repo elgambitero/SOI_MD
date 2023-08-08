@@ -36,6 +36,13 @@ static const Actor can0 = {
     MAX_TIMER - CANNON_TIME,
      0,
      0,
+    {
+      .spwData = {
+          CANNON_TIME,
+          0,
+          0,
+      }
+    }
 };
 
 static const Actor can1 = {
@@ -47,6 +54,13 @@ static const Actor can1 = {
        MAX_TIMER - (CANNON_TIME),
      0,
      &can0,
+    {
+      .spwData = {
+          CANNON_TIME,
+          0,
+          0,
+      }
+    }
 };
 
 

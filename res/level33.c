@@ -141,6 +141,13 @@ static const Actor can0 = {
     MAX_TIMER - CANNON_TIME,
     0,
     &spinner10,
+    {
+      .spwData = {
+          CANNON_TIME,
+          0,
+          0,
+      }
+    }
 };
 
 static const Actor can1 = {
@@ -149,9 +156,16 @@ static const Actor can1 = {
     0,
     {BLOCK_TO_PX(19) - 8, BLOCK_TO_PX(6)},
     {0, 0},
-    MAX_TIMER - 600,
+    MAX_TIMER - 2625,
     0,
     &can0,
+    {
+      .spwData = {
+          CANNON_TIME,
+          0,
+          0,
+      }
+    }
 };
 
 const Board level33 = {

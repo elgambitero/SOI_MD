@@ -34,7 +34,7 @@ static const Actor walker0 = {
 };
 
 static const Actor spawn0 = {
-    &NST_walker,
+    &SPW_teeth,
     WALK_LEFT,
     0,
     {BLOCK_TO_PX(14) - 8, BLOCK_TO_PX(1)},
@@ -52,7 +52,7 @@ static const Actor spawn0 = {
 };
 
 static const Actor spawn1 = {
-    &NST_walker,
+    &SPW_teeth,
     WALK_RIGHT,
     0,
     {BLOCK_TO_PX(6) - 8, BLOCK_TO_PX(1)},

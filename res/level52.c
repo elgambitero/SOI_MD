@@ -33,7 +33,7 @@ static const Actor spawn = {
     0,
     {BLOCK_TO_PX(19) - 8, BLOCK_TO_PX(4)},
     {0, 0},
-    0,
+    MAX_TIMER - 250,
     0,
     0,
 };
@@ -106,7 +106,7 @@ static const Actor wheel3 = {
 
 
 
-const Board level26 = {
+const Board level52 = {
     {
      TRO,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, RDD,
      BOW, BFW, BFW, BFW, BOW, SLC, BOW, BFW, BOW, RDK, BOW, BFW, BOW, GLC, BOW, BFW, BFW, BFW, BOW,

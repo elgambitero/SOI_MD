@@ -60,6 +60,13 @@ static const Actor can0 = {&SPW_cannon,
    MAX_TIMER - CANNON_TIME,
    0,
    &beanie2,
+    {
+      .spwData = {
+          CANNON_TIME,
+          0,
+          0,
+      }
+    }
    };
 
 static const Actor can1 = {&SPW_cannon,
@@ -70,6 +77,13 @@ static const Actor can1 = {&SPW_cannon,
       MAX_TIMER - CANNON_TIME,
    0,
    &can0,
+    {
+      .spwData = {
+          CANNON_TIME,
+          0,
+          0,
+      }
+    }
    };
 
 static const Actor can2 = {&SPW_cannon,
@@ -80,6 +94,13 @@ static const Actor can2 = {&SPW_cannon,
       MAX_TIMER - CANNON_TIME,
    0,
    &can1,
+    {
+      .spwData = {
+          CANNON_TIME,
+          0,
+          0,
+      }
+    }
    };
 
 const Board level48 = {

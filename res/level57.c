@@ -34,6 +34,13 @@ static const Actor can0 = {
     MAX_TIMER - CANNON_TIME,
     0,
     0,
+    {
+      .spwData = {
+         2625,
+         0,
+         0,
+      }
+    }
 };
 
 const Board level57 = {
@@ -47,10 +54,10 @@ const Board level57 = {
      BOW, BOW, NET, BOW, BOW, NET, NET, NET, NET, NET, SLC, NET, NET, NET, NET, NET, NET, NET, NET,
      BOW, BOW, NET, BOW, NET, BOW, NET, BOW, BOW, NET, NET, NET, BOW, BOW, BOW, NET, NET, NET, NET,
      BOW, BOW, NET, BOW, NET, NET, BOW, NET, SLC, BOW, NET, BOW, NET, SLC,   0, NET, BOW,   0, NET,
-       0, BOW, NET, BOW, NET, NET, NET, NET, NET, NET, NET, NET, NET, NET, NET, NET, NET, NET, BOW,
+     RDK, BOW, NET, BOW, NET, NET, NET, NET, NET, NET, NET, NET, NET, NET, NET, NET, NET, NET, BOW,
        0, NET, NET, BOW, NET, NET, NET, BOW, NET, NET, NET, NET, BOW, NET, BOW, NET, NET, BOW, GLC,
        0, BOW, NET, BOW, NET, NET, BOW, NET, NET, BOW, NET, BOW, NET, NET, NET, NET, BOW, NET, NET,
-       0, BOW,   0, NET, NET,   0, NET, NET, NET, NET, NET, NET, NET, NET, NET, NET, NET, NET, CNL,
+     RDD, BOW,   0, NET, NET,   0, NET, NET, NET, NET, NET, NET, NET, NET, NET, NET, NET, NET, CNL,
     },
 
     {

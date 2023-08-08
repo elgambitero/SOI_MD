@@ -127,7 +127,7 @@ const Board level54 = {
        0,   0, BOG,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0, BOG,   0,   0,
        0,   0, BOG, BOG, BOG, BOG, BOG, BOG, BOG, BOG, BOG, BOG, BOG, BOG, BOG, BOG, BOG,   0,   0,
        0,   0,   0,   0,   0,   0,   0,   0,   0, BOG,   0,   0,   0,   0,   0,   0,   0,   0,   0,
-     SLC,   0,   0,   0,   0,   0,   0,   0, TRI, BOG, TBI,   0,   0,   0,   0,   0,   0,   0, SLC,
+     SLC,   0,   0,   0,   0,   0,   0,   0, FRI, BOG, FBI,   0,   0,   0,   0,   0,   0,   0, SLC,
     },
 
     {
