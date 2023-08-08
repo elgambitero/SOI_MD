@@ -281,6 +281,6 @@ const Board level55 = {
     MUS_HEAVY2,
     0,
     6000,
-    &wheel11,
+    &wheel11, // wheels have been cut down from 18 to 12 due to performance issues
     &glp
 };

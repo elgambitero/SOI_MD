@@ -61,7 +61,7 @@ static const Actor wheel0 = {
 
 static const Actor wheel1 = {
     &NST_whfastL,
-    NST_L_RIGHT,
+    NST_L_LEFT,
     0,
     {BLOCK_TO_PX(19) - 8, BLOCK_TO_PX(13)},
     {-FAST_SPEED, 0},
