@@ -176,7 +176,7 @@ const Entity NST_whfastL = {
 void NST_beanie_loop();
 const Entity NST_beanie = {
     NASTIE,
-    {7, 15},
+    {5, 7},
     {7, 15},
     PAL_SYS0,
     &beanie_spr,
